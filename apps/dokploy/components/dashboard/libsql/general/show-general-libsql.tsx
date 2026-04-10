@@ -69,13 +69,13 @@ export const ShowGeneralLibsql = ({ libsqlId }: Props) => {
 			<div className="flex w-full flex-col gap-5 ">
 				<Card className="bg-background">
 					<CardHeader>
-						<CardTitle className="text-xl">Deploy Settings</CardTitle>
+						<CardTitle className="text-xl">Dağıtım Ayarları</CardTitle>
 					</CardHeader>
 					<CardContent className="flex flex-row gap-4 flex-wrap">
 						<TooltipProvider delayDuration={0}>
 							<DialogAction
-								title="Deploy Libsql"
-								description="Are you sure you want to deploy this Libsql?"
+								title="Libsql Dağıt"
+								description="Bu Libsql'i dağıtmak istediğinizden emin misiniz?"
 								type="default"
 								onClick={async () => {
 									setIsDeploying(true);
@@ -92,12 +92,12 @@ export const ShowGeneralLibsql = ({ libsqlId }: Props) => {
 										<TooltipTrigger asChild>
 											<div className="flex items-center">
 												<Rocket className="size-4 mr-1" />
-												Deploy
+												Dağıt
 											</div>
 										</TooltipTrigger>
 										<TooltipPrimitive.Portal>
 											<TooltipContent sideOffset={5} className="z-[60]">
-												<p>Downloads and sets up the Libsql database</p>
+												<p>Libsql veritabanını indirir ve kurar</p>
 											</TooltipContent>
 										</TooltipPrimitive.Portal>
 									</Tooltip>
@@ -106,8 +106,8 @@ export const ShowGeneralLibsql = ({ libsqlId }: Props) => {
 						</TooltipProvider>
 						<TooltipProvider delayDuration={0}>
 							<DialogAction
-								title="Reload Libsql"
-								description="Are you sure you want to reload this libsql?"
+								title="Libsql Yeniden Yükle"
+								description="Bu Libsql'i yeniden yüklemek istediğinizden emin misiniz?"
 								type="default"
 								onClick={async () => {
 									await reload({
@@ -115,11 +115,11 @@ export const ShowGeneralLibsql = ({ libsqlId }: Props) => {
 										appName: data?.appName || "",
 									})
 										.then(() => {
-											toast.success("Libsql reloaded successfully");
+											toast.success("Libsql başarıyla yeniden yüklendi");
 											refetch();
 										})
 										.catch(() => {
-											toast.error("Error reloading Libsql");
+											toast.error("Libsql yeniden yüklenirken hata oluştu");
 										});
 								}}
 							>
@@ -132,12 +132,12 @@ export const ShowGeneralLibsql = ({ libsqlId }: Props) => {
 										<TooltipTrigger asChild>
 											<div className="flex items-center">
 												<RefreshCcw className="size-4 mr-1" />
-												Reload
+												Yeniden Yükle
 											</div>
 										</TooltipTrigger>
 										<TooltipPrimitive.Portal>
 											<TooltipContent sideOffset={5} className="z-[60]">
-												<p>Restart the Libsql service without rebuilding</p>
+												<p>Libsql servisini yeniden oluşturmadan yeniden başlatır</p>
 											</TooltipContent>
 										</TooltipPrimitive.Portal>
 									</Tooltip>
@@ -147,19 +147,19 @@ export const ShowGeneralLibsql = ({ libsqlId }: Props) => {
 						{data?.applicationStatus === "idle" ? (
 							<TooltipProvider delayDuration={0}>
 								<DialogAction
-									title="Start Libsql"
-									description="Are you sure you want to start this Libsql?"
+									title="Libsql Başlat"
+									description="Bu Libsql'i başlatmak istediğinizden emin misiniz?"
 									type="default"
 									onClick={async () => {
 										await start({
 											libsqlId: libsqlId,
 										})
 											.then(() => {
-												toast.success("Libsql started successfully");
+												toast.success("Libsql başarıyla başlatıldı");
 												refetch();
 											})
 											.catch(() => {
-												toast.error("Error starting Libsql");
+												toast.error("Libsql başlatılırken hata oluştu");
 											});
 									}}
 								>
@@ -172,14 +172,14 @@ export const ShowGeneralLibsql = ({ libsqlId }: Props) => {
 											<TooltipTrigger asChild>
 												<div className="flex items-center">
 													<CheckCircle2 className="size-4 mr-1" />
-													Start
+													Başlat
 												</div>
 											</TooltipTrigger>
 											<TooltipPrimitive.Portal>
 												<TooltipContent sideOffset={5} className="z-[60]">
 													<p>
-														Start the Libsql database (requires a previous
-														successful setup)
+														Libsql veritabanını başlatır (önceden başarılı bir
+														kurulum gerektirir)
 													</p>
 												</TooltipContent>
 											</TooltipPrimitive.Portal>
@@ -190,18 +190,18 @@ export const ShowGeneralLibsql = ({ libsqlId }: Props) => {
 						) : (
 							<TooltipProvider delayDuration={0}>
 								<DialogAction
-									title="Stop Libsql"
-									description="Are you sure you want to stop this Libsql?"
+									title="Libsql Durdur"
+									description="Bu Libsql'i durdurmak istediğinizden emin misiniz?"
 									onClick={async () => {
 										await stop({
 											libsqlId: libsqlId,
 										})
 											.then(() => {
-												toast.success("Libsql stopped successfully");
+												toast.success("Libsql başarıyla durduruldu");
 												refetch();
 											})
 											.catch(() => {
-												toast.error("Error stopping Libsql");
+												toast.error("Libsql durdurulurken hata oluştu");
 											});
 									}}
 								>
@@ -214,12 +214,12 @@ export const ShowGeneralLibsql = ({ libsqlId }: Props) => {
 											<TooltipTrigger asChild>
 												<div className="flex items-center">
 													<Ban className="size-4 mr-1" />
-													Stop
+													Durdur
 												</div>
 											</TooltipTrigger>
 											<TooltipPrimitive.Portal>
 												<TooltipContent sideOffset={5} className="z-[60]">
-													<p>Stop the currently running Libsql database</p>
+													<p>Şu anda çalışan Libsql veritabanını durdurur</p>
 												</TooltipContent>
 											</TooltipPrimitive.Portal>
 										</Tooltip>
@@ -239,12 +239,12 @@ export const ShowGeneralLibsql = ({ libsqlId }: Props) => {
 									<TooltipTrigger asChild>
 										<div className="flex items-center">
 											<Terminal className="size-4 mr-1" />
-											Open Terminal
+											Terminal Aç
 										</div>
 									</TooltipTrigger>
 									<TooltipPrimitive.Portal>
 										<TooltipContent sideOffset={5} className="z-[60]">
-											<p>Open a terminal to the Libsql container</p>
+											<p>Libsql konteynerine terminal aç</p>
 										</TooltipContent>
 									</TooltipPrimitive.Portal>
 								</Tooltip>

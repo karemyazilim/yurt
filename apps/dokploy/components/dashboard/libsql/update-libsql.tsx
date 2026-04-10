@@ -29,7 +29,7 @@ import { api } from "@/utils/api";
 
 const updateLibsqlSchema = z.object({
 	name: z.string().min(1, {
-		message: "Name is required",
+		message: "Ad gereklidir",
 	}),
 	description: z.string().optional(),
 });
@@ -75,13 +75,13 @@ export const UpdateLibsql = ({ libsqlId }: Props) => {
 			description: formData.description || "",
 		})
 			.then(() => {
-				toast.success("Libsql updated successfully");
+				toast.success("Libsql başarıyla güncellendi");
 				utils.libsql.one.invalidate({
 					libsqlId: libsqlId,
 				});
 			})
 			.catch(() => {
-				toast.error("Error updating the Libsql");
+				toast.error("Libsql güncellenirken hata oluştu");
 			})
 			.finally(() => {});
 	};
@@ -99,8 +99,8 @@ export const UpdateLibsql = ({ libsqlId }: Props) => {
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-lg">
 				<DialogHeader>
-					<DialogTitle>Modify Libsql</DialogTitle>
-					<DialogDescription>Update the Libsql data</DialogDescription>
+					<DialogTitle>Libsql Düzenle</DialogTitle>
+					<DialogDescription>Libsql verilerini güncelle</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
 
@@ -117,7 +117,7 @@ export const UpdateLibsql = ({ libsqlId }: Props) => {
 									name="name"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Name</FormLabel>
+											<FormLabel>Ad</FormLabel>
 											<FormControl>
 												<Input placeholder="Vandelay Industries" {...field} />
 											</FormControl>
@@ -131,10 +131,10 @@ export const UpdateLibsql = ({ libsqlId }: Props) => {
 									name="description"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Description</FormLabel>
+											<FormLabel>Açıklama</FormLabel>
 											<FormControl>
 												<Textarea
-													placeholder="Description about your project..."
+													placeholder="Projeniz hakkında açıklama..."
 													className="resize-none"
 													{...field}
 												/>
@@ -150,7 +150,7 @@ export const UpdateLibsql = ({ libsqlId }: Props) => {
 										form="hook-form-update-libsql"
 										type="submit"
 									>
-										Update
+										Güncelle
 									</Button>
 								</DialogFooter>
 							</form>

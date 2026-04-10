@@ -29,7 +29,7 @@ import { api } from "@/utils/api";
 
 const updateMongoSchema = z.object({
 	name: z.string().min(1, {
-		message: "Name is required",
+		message: "Ad gereklidir",
 	}),
 	description: z.string().optional(),
 });
@@ -76,14 +76,14 @@ export const UpdateMongo = ({ mongoId }: Props) => {
 			description: formData.description || "",
 		})
 			.then(() => {
-				toast.success("Mongo updated successfully");
+				toast.success("Mongo başarıyla güncellendi");
 				utils.mongo.one.invalidate({
 					mongoId: mongoId,
 				});
 				setIsOpen(false);
 			})
 			.catch(() => {
-				toast.error("Error updating mongo database");
+				toast.error("Mongo veritabanı güncellenirken hata oluştu");
 			})
 			.finally(() => {});
 	};
@@ -101,8 +101,8 @@ export const UpdateMongo = ({ mongoId }: Props) => {
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-lg">
 				<DialogHeader>
-					<DialogTitle>Modify MongoDB</DialogTitle>
-					<DialogDescription>Update the MongoDB data</DialogDescription>
+					<DialogTitle>MongoDB Düzenle</DialogTitle>
+					<DialogDescription>MongoDB verilerini güncelle</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
 
@@ -119,7 +119,7 @@ export const UpdateMongo = ({ mongoId }: Props) => {
 									name="name"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Name</FormLabel>
+											<FormLabel>Ad</FormLabel>
 											<FormControl>
 												<Input placeholder="Vandelay Industries" {...field} />
 											</FormControl>
@@ -133,10 +133,10 @@ export const UpdateMongo = ({ mongoId }: Props) => {
 									name="description"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Description</FormLabel>
+											<FormLabel>Açıklama</FormLabel>
 											<FormControl>
 												<Textarea
-													placeholder="Description about your project..."
+													placeholder="Projeniz hakkında açıklama..."
 													className="resize-none"
 													{...field}
 												/>
@@ -152,7 +152,7 @@ export const UpdateMongo = ({ mongoId }: Props) => {
 										form="hook-form-update-mongo"
 										type="submit"
 									>
-										Update
+										Güncelle
 									</Button>
 								</DialogFooter>
 							</form>

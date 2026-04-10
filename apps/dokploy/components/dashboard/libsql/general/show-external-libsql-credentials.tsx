@@ -33,8 +33,8 @@ const DockerProviderSchema = z.object({
 		return Number.isNaN(parsed) ? null : parsed;
 	}, z
 		.number()
-		.gte(0, "Range must be 0 - 65535")
-		.lte(65535, "Range must be 0 - 65535")
+		.gte(0, "Aralık 0 - 65535 olmalıdır")
+		.lte(65535, "Aralık 0 - 65535 olmalıdır")
 		.nullable()),
 	externalGRPCPort: z.preprocess((a) => {
 		if (a === null || a === undefined || a === "") return null;
@@ -42,8 +42,8 @@ const DockerProviderSchema = z.object({
 		return Number.isNaN(parsed) ? null : parsed;
 	}, z
 		.number()
-		.gte(0, "Range must be 0 - 65535")
-		.lte(65535, "Range must be 0 - 65535")
+		.gte(0, "Aralık 0 - 65535 olmalıdır")
+		.lte(65535, "Aralık 0 - 65535 olmalıdır")
 		.nullable()),
 	externalAdminPort: z.preprocess((a) => {
 		if (a === null || a === undefined || a === "") return null;
@@ -51,8 +51,8 @@ const DockerProviderSchema = z.object({
 		return Number.isNaN(parsed) ? null : parsed;
 	}, z
 		.number()
-		.gte(0, "Range must be 0 - 65535")
-		.lte(65535, "Range must be 0 - 65535")
+		.gte(0, "Aralık 0 - 65535 olmalıdır")
+		.lte(65535, "Aralık 0 - 65535 olmalıdır")
 		.nullable()),
 });
 
@@ -92,11 +92,11 @@ export const ShowExternalLibsqlCredentials = ({ libsqlId }: Props) => {
 			libsqlId,
 		})
 			.then(async () => {
-				toast.success("External port/ports updated");
+				toast.success("Harici port/portlar güncellendi");
 				await refetch();
 			})
 			.catch((error: Error) => {
-				toast.error(error?.message || "Error saving the external port/ports");
+				toast.error(error?.message || "Harici port/portlar kaydedilirken hata oluştu");
 			});
 	};
 
@@ -124,23 +124,23 @@ export const ShowExternalLibsqlCredentials = ({ libsqlId }: Props) => {
 		<div className="flex w-full flex-col gap-5">
 			<Card className="bg-background">
 				<CardHeader>
-					<CardTitle className="text-xl">External Credentials</CardTitle>
+					<CardTitle className="text-xl">Harici Kimlik Bilgileri</CardTitle>
 					<CardDescription>
-						In order to make the database reachable through the internet, you
-						must set a port and ensure that the port is not being used by
-						another application or database
+						Veritabanını internet üzerinden erişilebilir hale getirmek için
+						bir port belirlemeniz ve bu portun başka bir uygulama veya
+						veritabanı tarafından kullanılmadığından emin olmanız gerekir
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="flex w-full flex-col gap-4">
 					{!getIp && (
 						<AlertBlock type="warning">
-							You need to set an IP address in your{" "}
+							Veritabanı bağlantı URL'sini düzeltmek için{" "}
 							<Link href="/dashboard/settings/server" className="text-primary">
 								{data?.serverId
-									? "Remote Servers -> Server -> Edit Server -> Update IP Address"
-									: "Web Server -> Server -> Update Server IP"}
+									? "Uzak Sunucular -> Sunucu -> Sunucuyu Düzenle -> IP Adresini Güncelle"
+									: "Web Sunucusu -> Sunucu -> Sunucu IP'sini Güncelle"}
 							</Link>{" "}
-							to fix the database url connection.
+							bölümünden bir IP adresi belirlemeniz gerekiyor.
 						</AlertBlock>
 					)}
 					<Form {...form}>
@@ -155,7 +155,7 @@ export const ShowExternalLibsqlCredentials = ({ libsqlId }: Props) => {
 										name="externalPort"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>External Port (Internet)</FormLabel>
+												<FormLabel>Harici Port (İnternet)</FormLabel>
 												<FormControl>
 													<Input
 														placeholder="8080"
@@ -172,7 +172,7 @@ export const ShowExternalLibsqlCredentials = ({ libsqlId }: Props) => {
 							{!!data?.externalPort && (
 								<div className="grid w-full gap-8">
 									<div className="flex flex-col gap-3">
-										<Label>External Host</Label>
+										<Label>Harici Sunucu</Label>
 										<ToggleVisibilityInput value={connectionUrl} disabled />
 									</div>
 								</div>
@@ -185,7 +185,7 @@ export const ShowExternalLibsqlCredentials = ({ libsqlId }: Props) => {
 										name="externalAdminPort"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>External Admin Port (Internet)</FormLabel>
+												<FormLabel>Harici Yönetici Portu (İnternet)</FormLabel>
 												<FormControl>
 													<Input
 														placeholder="5000"
@@ -209,7 +209,7 @@ export const ShowExternalLibsqlCredentials = ({ libsqlId }: Props) => {
 												name="externalGRPCPort"
 												render={({ field }) => (
 													<FormItem>
-														<FormLabel>External GRPC Port (Internet)</FormLabel>
+														<FormLabel>Harici GRPC Portu (İnternet)</FormLabel>
 														<FormControl>
 															<Input
 																placeholder="5001"
@@ -226,7 +226,7 @@ export const ShowExternalLibsqlCredentials = ({ libsqlId }: Props) => {
 									{!!data?.externalGRPCPort && (
 										<div className="grid w-full gap-8">
 											<div className="flex flex-col gap-3">
-												<Label>External GRPC Host</Label>
+												<Label>Harici GRPC Sunucusu</Label>
 												<ToggleVisibilityInput
 													value={connectionGRPCUrl}
 													disabled
@@ -239,7 +239,7 @@ export const ShowExternalLibsqlCredentials = ({ libsqlId }: Props) => {
 
 							<div className="flex justify-end">
 								<Button type="submit" isLoading={isPending}>
-									Save
+									Kaydet
 								</Button>
 							</div>
 						</form>
