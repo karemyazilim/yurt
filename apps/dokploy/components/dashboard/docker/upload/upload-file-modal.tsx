@@ -42,12 +42,12 @@ export const UploadFileModal = ({ children, containerId, serverId }: Props) => {
 	const { mutateAsync: uploadFile, isPending: isLoading } =
 		api.docker.uploadFileToContainer.useMutation({
 			onSuccess: () => {
-				toast.success("File uploaded successfully");
+				toast.success("Dosya başarıyla yüklendi");
 				setOpen(false);
 				form.reset();
 			},
 			onError: (error) => {
-				toast.error(error.message || "Failed to upload file to container");
+				toast.error(error.message || "Dosya konteynere yüklenemedi");
 			},
 		});
 
@@ -64,7 +64,7 @@ export const UploadFileModal = ({ children, containerId, serverId }: Props) => {
 
 	const onSubmit = async (values: UploadFileToContainer) => {
 		if (!values.file) {
-			toast.error("Please select a file to upload");
+			toast.error("Lütfen yüklenecek bir dosya seçin");
 			return;
 		}
 
@@ -93,10 +93,10 @@ export const UploadFileModal = ({ children, containerId, serverId }: Props) => {
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">
 						<Upload className="h-5 w-5" />
-						Upload File to Container
+						Konteynere Dosya Yükle
 					</DialogTitle>
 					<DialogDescription>
-						Upload a file directly into the container's filesystem
+						Dosyayı doğrudan konteynerin dosya sistemine yükleyin
 					</DialogDescription>
 				</DialogHeader>
 
@@ -107,7 +107,7 @@ export const UploadFileModal = ({ children, containerId, serverId }: Props) => {
 							name="destinationPath"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Destination Path</FormLabel>
+									<FormLabel>Hedef Yol</FormLabel>
 									<FormControl>
 										<Input
 											{...field}
@@ -117,8 +117,8 @@ export const UploadFileModal = ({ children, containerId, serverId }: Props) => {
 									</FormControl>
 									<FormMessage />
 									<p className="text-xs text-muted-foreground">
-										Enter the full path where the file should be uploaded in the
-										container (e.g., /app/config.json)
+										Dosyanın konteynerde yükleneceği tam yolu girin
+										(örn., /app/config.json)
 									</p>
 								</FormItem>
 							)}
@@ -129,11 +129,11 @@ export const UploadFileModal = ({ children, containerId, serverId }: Props) => {
 							name="file"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>File</FormLabel>
+									<FormLabel>Dosya</FormLabel>
 									<FormControl>
 										<Dropzone
 											{...field}
-											dropMessage="Drop file here or click to browse"
+											dropMessage="Dosyayı buraya bırakın veya göz atmak için tıklayın"
 											onChange={(files) => {
 												if (files && files.length > 0) {
 													field.onChange(files[0]);
@@ -155,7 +155,7 @@ export const UploadFileModal = ({ children, containerId, serverId }: Props) => {
 												size="sm"
 												onClick={() => field.onChange(null)}
 											>
-												Remove
+												Kaldır
 											</Button>
 										</div>
 									)}
@@ -169,14 +169,14 @@ export const UploadFileModal = ({ children, containerId, serverId }: Props) => {
 								variant="outline"
 								onClick={() => setOpen(false)}
 							>
-								Cancel
+								İptal
 							</Button>
 							<Button
 								type="submit"
 								isLoading={isLoading}
 								disabled={!file || isLoading}
 							>
-								Upload File
+								Dosya Yükle
 							</Button>
 						</DialogFooter>
 					</form>

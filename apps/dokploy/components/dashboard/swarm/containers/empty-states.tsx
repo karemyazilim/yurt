@@ -13,7 +13,7 @@ import type { ContainerInfo } from "./types";
 export const DocLinks = () => (
 	<div className="flex flex-col gap-1 pt-2 border-t mt-2">
 		<p className="text-xs font-medium text-muted-foreground">
-			Helpful resources:
+			Faydalı kaynaklar:
 		</p>
 		<div className="flex flex-wrap gap-x-4 gap-y-1">
 			<a
@@ -22,7 +22,7 @@ export const DocLinks = () => (
 				rel="noopener noreferrer"
 				className="text-xs text-primary underline underline-offset-4 inline-flex items-center gap-1"
 			>
-				Dokploy Documentation
+				Dokploy Dokümantasyonu
 				<ExternalLink className="h-3 w-3" />
 			</a>
 			<a
@@ -31,14 +31,14 @@ export const DocLinks = () => (
 				rel="noopener noreferrer"
 				className="text-xs text-primary underline underline-offset-4 inline-flex items-center gap-1"
 			>
-				Docker Swarm Guide
+				Docker Swarm Kılavuzu
 				<ExternalLink className="h-3 w-3" />
 			</a>
 			<Link
 				href="/dashboard/settings/cluster"
 				className="text-xs text-primary underline underline-offset-4 inline-flex items-center gap-1"
 			>
-				Cluster Settings
+				Küme Ayarları
 			</Link>
 		</div>
 	</div>
@@ -56,9 +56,9 @@ export const SwarmNotAvailable = ({
 	<div className="flex flex-col gap-4 py-6 max-w-2xl mx-auto">
 		<Alert variant="destructive">
 			<AlertTriangle className="h-4 w-4" />
-			<AlertTitle>Swarm Not Available</AlertTitle>
+			<AlertTitle>Swarm Kullanılamıyor</AlertTitle>
 			<AlertDescription>
-				Could not reach Docker Swarm.{" "}
+				Docker Swarm'a ulaşılamadı.{" "}
 				{errorMessage && (
 					<span className="block mt-1 text-xs opacity-80">{errorMessage}</span>
 				)}
@@ -66,38 +66,37 @@ export const SwarmNotAvailable = ({
 		</Alert>
 		<div className="space-y-3 text-sm text-muted-foreground">
 			<p>
-				This feature requires Docker Swarm to be initialized and active. To get
-				started:
+				Bu özellik Docker Swarm'ın başlatılmış ve aktif olmasını gerektirir. Başlamak için:
 			</p>
 			<ol className="list-decimal list-inside space-y-2 ml-1">
 				<li>
-					Initialize Swarm on your server:{" "}
+					Sunucunuzda Swarm'ı başlatın:{" "}
 					<code className="bg-muted px-1.5 py-0.5 rounded text-xs">
 						docker swarm init
 					</code>
 				</li>
 				<li>
-					Verify it&apos;s active:{" "}
+					Aktif olduğunu doğrulayın:{" "}
 					<code className="bg-muted px-1.5 py-0.5 rounded text-xs">
 						docker info | grep Swarm
 					</code>
 				</li>
 				<li>
-					Check the{" "}
+					Swarm düğümlerinizi yönetmek için{" "}
 					<Link
 						href="/dashboard/settings/cluster"
 						className="text-primary underline underline-offset-4"
 					>
-						Cluster Settings
+						Küme Ayarları
 					</Link>{" "}
-					page to manage your swarm nodes
+					sayfasını kontrol edin
 				</li>
 			</ol>
 			<DocLinks />
 		</div>
 		<Button variant="outline" size="sm" className="w-fit" onClick={onRetry}>
 			<RefreshCw className="h-4 w-4 mr-2" />
-			Retry
+			Tekrar Dene
 		</Button>
 	</div>
 );
@@ -114,33 +113,34 @@ export const ServicesError = ({
 	<div className="flex flex-col gap-4 py-6 max-w-2xl mx-auto">
 		<Alert variant="destructive">
 			<AlertTriangle className="h-4 w-4" />
-			<AlertTitle>Failed to Load Services</AlertTitle>
+			<AlertTitle>Servisler Yüklenemedi</AlertTitle>
 			<AlertDescription>
-				Swarm is reachable but service listing failed.{" "}
+				Swarm erişilebilir ancak servis listeleme başarısız oldu.{" "}
 				{errorMessage && (
 					<span className="block mt-1 text-xs opacity-80">{errorMessage}</span>
 				)}
 			</AlertDescription>
 		</Alert>
 		<div className="space-y-3 text-sm text-muted-foreground">
-			<p>This could be caused by:</p>
+			<p>Bunun nedeni şunlar olabilir:</p>
 			<ul className="list-disc list-inside space-y-1 ml-1">
-				<li>Permission issues running Docker commands on the server</li>
-				<li>Docker daemon not responding</li>
+				<li>Sunucuda Docker komutlarını çalıştırma izin sorunları</li>
+				<li>Docker daemon yanıt vermiyor</li>
 				<li>
-					Network connectivity issues to a remote server &mdash; check{" "}
+					Uzak sunucuya ağ bağlantı sorunları &mdash;{" "}
 					<Link
 						href="/dashboard/settings/cluster"
 						className="text-primary underline underline-offset-4"
 					>
-						Cluster Settings
+						Küme Ayarları
 					</Link>
+					{" "}sayfasını kontrol edin
 				</li>
 			</ul>
 		</div>
 		<Button variant="outline" size="sm" className="w-fit" onClick={onRetry}>
 			<RefreshCw className="h-4 w-4 mr-2" />
-			Retry
+			Tekrar Dene
 		</Button>
 	</div>
 );
@@ -154,52 +154,48 @@ export const NoServices = ({ nodeCount, onRefresh }: NoServicesProps) => (
 	<div className="flex flex-col gap-4 py-6 max-w-2xl mx-auto">
 		<Alert>
 			<Info className="h-4 w-4" />
-			<AlertTitle>No Swarm Services Found</AlertTitle>
+			<AlertTitle>Swarm Servisi Bulunamadı</AlertTitle>
 			<AlertDescription>
-				Docker Swarm is active with <strong>{nodeCount} node(s)</strong>, but
-				there are no application services running in the swarm.
+				Docker Swarm <strong>{nodeCount} düğüm</strong> ile aktif, ancak
+				swarm'da çalışan uygulama servisi bulunmuyor.
 			</AlertDescription>
 		</Alert>
 		<div className="space-y-3 text-sm text-muted-foreground">
 			<p>
-				This view shows containers deployed as <strong>Swarm services</strong>.
-				Standalone or Docker Compose containers won&apos;t appear here.
+				Bu görünüm <strong>Swarm servisleri</strong> olarak dağıtılan konteynerleri gösterir.
+				Bağımsız veya Docker Compose konteynerleri burada görünmez.
 			</p>
-			<p>To see containers in this view, make sure your applications are:</p>
+			<p>Bu görünümde konteynerleri görmek için uygulamalarınızın şu şekilde olduğundan emin olun:</p>
 			<ol className="list-decimal list-inside space-y-2 ml-1">
 				<li>
-					<strong>Deployed as Swarm services</strong> &mdash; Applications in
-					Dokploy deploy to Swarm by default. Docker Compose projects need to
-					use{" "}
+					<strong>Swarm servisleri olarak dağıtılmış</strong> &mdash; Dokploy'daki uygulamalar varsayılan olarak Swarm'a dağıtılır. Docker Compose projelerinin Swarm servisleri olarak çalışması için{" "}
 					<code className="bg-muted px-1.5 py-0.5 rounded text-xs">Stack</code>{" "}
-					type (not{" "}
+					türünü kullanması gerekir ({" "}
 					<code className="bg-muted px-1.5 py-0.5 rounded text-xs">
 						Docker Compose
 					</code>
-					) to run as Swarm services.
+					{" "}değil).
 				</li>
 				<li>
-					<strong>Using a registry</strong> (for multi-node setups) &mdash;
-					Worker nodes need to pull images from a shared registry. Configure one
-					in{" "}
+					<strong>Bir registry kullanıyor</strong> (çoklu düğüm kurulumları için) &mdash;
+					Worker düğümlerinin paylaşılan bir registry'den imaj çekmesi gerekir.{" "}
 					<Link
 						href="/dashboard/settings/cluster"
 						className="text-primary underline underline-offset-4"
 					>
-						Cluster Settings
+						Küme Ayarları
 					</Link>
-					.
+					'ndan bir tane yapılandırın.
 				</li>
 				<li>
-					<strong>Successfully built and deployed</strong> &mdash; Check your
-					project&apos;s deployment logs for errors.
+					<strong>Başarıyla derlenmiş ve dağıtılmış</strong> &mdash; Hatalar için projenizin dağıtım günlüklerini kontrol edin.
 				</li>
 			</ol>
 			<DocLinks />
 		</div>
 		<Button variant="outline" size="sm" className="w-fit" onClick={onRefresh}>
 			<RefreshCw className="h-4 w-4 mr-2" />
-			Refresh
+			Yenile
 		</Button>
 	</div>
 );
@@ -220,16 +216,16 @@ export const NoRunningContainers = ({
 		<div className="flex flex-col gap-4 py-6 max-w-2xl mx-auto">
 			<Alert>
 				<AlertTriangle className="h-4 w-4" />
-				<AlertTitle>No Running Containers</AlertTitle>
+				<AlertTitle>Çalışan Konteyner Yok</AlertTitle>
 				<AlertDescription>
-					Found <strong>{serviceCount} service(s)</strong> in the swarm, but
-					none have running containers.
+					Swarm'da <strong>{serviceCount} servis</strong> bulundu, ancak
+					hiçbirinde çalışan konteyner yok.
 				</AlertDescription>
 			</Alert>
 			{hasErrors && (
 				<Alert variant="destructive">
 					<AlertCircle className="h-4 w-4" />
-					<AlertTitle>Container Errors Detected</AlertTitle>
+					<AlertTitle>Konteyner Hataları Tespit Edildi</AlertTitle>
 					<AlertDescription>
 						<ul className="list-disc list-inside space-y-1 mt-1">
 							{containers
@@ -245,25 +241,24 @@ export const NoRunningContainers = ({
 				</Alert>
 			)}
 			<div className="space-y-3 text-sm text-muted-foreground">
-				<p>This can happen when:</p>
+				<p>Bu durum şu hallerde oluşabilir:</p>
 				<ul className="list-disc list-inside space-y-2 ml-1">
-					<li>Services are scaled to 0 replicas</li>
+					<li>Servisler 0 replikaya ölçeklendirilmiş</li>
 					<li>
-						Containers are failing to start &mdash; check deployment logs for
-						errors
+						Konteynerler başlatılamıyor &mdash; hatalar için dağıtım günlüklerini kontrol edin
 					</li>
 					<li>
-						Images can&apos;t be pulled on worker nodes &mdash; verify your{" "}
+						Worker düğümlerinde imajlar çekilemiyor &mdash;{" "}
 						<Link
 							href="/dashboard/settings/cluster"
 							className="text-primary underline underline-offset-4"
 						>
-							registry configuration
+							registry yapılandırmanızı
 						</Link>
+						{" "}doğrulayın
 					</li>
 					<li>
-						Node constraints prevent scheduling &mdash; check placement rules in
-						your app&apos;s Cluster settings
+						Düğüm kısıtlamaları zamanlamayı engelliyor &mdash; uygulamanızın Küme ayarlarındaki yerleşim kurallarını kontrol edin
 					</li>
 				</ul>
 				<DocLinks />

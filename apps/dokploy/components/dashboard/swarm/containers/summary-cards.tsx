@@ -19,7 +19,7 @@ export const SummaryCards = ({
 	<div className="grid gap-4 md:grid-cols-3">
 		<Card className="bg-background">
 			<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-				<CardTitle className="text-sm font-medium">Swarm Nodes</CardTitle>
+				<CardTitle className="text-sm font-medium">Swarm Düğümleri</CardTitle>
 				<div className="p-2 bg-emerald-600/20 text-emerald-600 rounded-md">
 					<Server className="h-4 w-4 text-muted-foreground dark:text-emerald-600" />
 				</div>
@@ -28,7 +28,7 @@ export const SummaryCards = ({
 				<div className="text-2xl font-bold">{nodeCount}</div>
 				{downNodeCount > 0 && (
 					<p className="text-xs text-destructive mt-1">
-						{downNodeCount} node(s) down or drained
+						{downNodeCount} düğüm kapalı veya boşaltılmış
 					</p>
 				)}
 			</CardContent>
@@ -36,7 +36,7 @@ export const SummaryCards = ({
 
 		<Card className="bg-background">
 			<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-				<CardTitle className="text-sm font-medium">Services</CardTitle>
+				<CardTitle className="text-sm font-medium">Servisler</CardTitle>
 				<div className="p-2 bg-emerald-600/20 text-emerald-600 rounded-md">
 					<Cpu className="h-4 w-4 text-muted-foreground dark:text-emerald-600" />
 				</div>
@@ -45,7 +45,7 @@ export const SummaryCards = ({
 				<div className="text-2xl font-bold">{serviceCount}</div>
 				{unscheduledCount > 0 && (
 					<p className="text-xs text-muted-foreground mt-1">
-						{unscheduledCount} with no running tasks
+						{unscheduledCount} çalışan görevi yok
 					</p>
 				)}
 			</CardContent>
@@ -54,7 +54,7 @@ export const SummaryCards = ({
 		<Card className="bg-background">
 			<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 				<CardTitle className="text-sm font-medium">
-					Running Containers
+					Çalışan Konteynerler
 				</CardTitle>
 				<div className="p-2 bg-emerald-600/20 text-emerald-600 rounded-md">
 					<Container className="h-4 w-4 text-muted-foreground dark:text-emerald-600" />

@@ -26,14 +26,14 @@ export const ShowNodeConfig = ({ nodeId, serverId }: Props) => {
 			<DialogTrigger asChild>
 				<Button variant="outline" size="sm" className="w-full">
 					<Settings className="h-4 w-4 mr-2" />
-					Config
+					Yapılandırma
 				</Button>
 			</DialogTrigger>
 			<DialogContent className={"sm:max-w-5xl"}>
 				<DialogHeader>
-					<DialogTitle>Node Config</DialogTitle>
+					<DialogTitle>Düğüm Yapılandırması</DialogTitle>
 					<DialogDescription>
-						See in detail the metadata of this node
+						Bu düğümün meta verilerini detaylı olarak görüntüleyin
 					</DialogDescription>
 				</DialogHeader>
 				<div className="text-wrap rounded-lg border p-4 text-sm sm:max-w-[59rem] bg-card max-h-[70vh] overflow-auto ">

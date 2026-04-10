@@ -29,27 +29,26 @@ export const RemoveContainerDialog = ({ containerId, serverId }: Props) => {
 					className="w-full cursor-pointer text-red-500 hover:!text-red-600"
 					onSelect={(e) => e.preventDefault()}
 				>
-					Remove Container
+					Konteyneri Kaldır
 				</DropdownMenuItem>
 			</AlertDialogTrigger>
 			<AlertDialogContent>
 				<AlertDialogHeader>
-					<AlertDialogTitle>Are you sure?</AlertDialogTitle>
+					<AlertDialogTitle>Emin misiniz?</AlertDialogTitle>
 					<AlertDialogDescription>
-						This will permanently remove the container{" "}
-						<span className="font-semibold">{containerId}</span>. If the
-						container is running, it will be forcefully stopped and removed.
-						This action cannot be undone.
+						Bu işlem{" "}
+						<span className="font-semibold">{containerId}</span> konteynerini kalıcı olarak kaldıracaktır. Konteyner çalışıyorsa, zorla durdurulup kaldırılacaktır.
+						Bu işlem geri alınamaz.
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter>
-					<AlertDialogCancel>Cancel</AlertDialogCancel>
+					<AlertDialogCancel>İptal</AlertDialogCancel>
 					<AlertDialogAction
 						disabled={isPending}
 						onClick={async () => {
 							await mutateAsync({ containerId, serverId })
 								.then(async () => {
-									toast.success("Container removed successfully");
+									toast.success("Konteyner başarıyla kaldırıldı");
 									await utils.docker.getContainers.invalidate();
 								})
 								.catch((err) => {
@@ -57,7 +56,7 @@ export const RemoveContainerDialog = ({ containerId, serverId }: Props) => {
 								});
 						}}
 					>
-						Confirm
+						Onayla
 					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>

@@ -32,7 +32,7 @@ export function TerminalLine({ log, noTimestamp, searchTerm }: LogLineProps) {
 				year: "2-digit",
 				second: "2-digit",
 			})
-		: "--- No time found ---";
+		: "--- Zaman bulunamadı ---";
 
 	const highlightMessage = (text: string, term: string) => {
 		if (!term) {

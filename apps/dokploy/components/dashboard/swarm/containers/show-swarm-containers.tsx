@@ -201,7 +201,7 @@ export const ShowSwarmContainers = ({ serverId }: Props) => {
 	if (isLoading) {
 		return (
 			<div className="flex flex-row gap-2 items-center justify-center text-sm text-muted-foreground min-h-[40vh]">
-				<span>Loading containers...</span>
+				<span>Konteynerler yükleniyor...</span>
 				<Loader2 className="animate-spin size-4" />
 			</div>
 		);
@@ -219,7 +219,7 @@ export const ShowSwarmContainers = ({ serverId }: Props) => {
 	if (!nodesError && nodes === undefined) {
 		return (
 			<SwarmNotAvailable
-				errorMessage="Docker Swarm may not be initialized — docker node ls returned no data."
+				errorMessage="Docker Swarm başlatılmamış olabilir — docker node ls veri döndürmedi."
 				onRetry={() => refetchNodes()}
 			/>
 		);
@@ -261,16 +261,16 @@ export const ShowSwarmContainers = ({ serverId }: Props) => {
 				<div className="space-y-1">
 					<CardTitle className="text-xl flex flex-row gap-2">
 						<Container className="size-6 text-muted-foreground self-center" />
-						Container Breakdown by Node
+						Düğüme Göre Konteyner Dağılımı
 					</CardTitle>
 					<p className="text-sm text-muted-foreground">
-						Showing containers across {nodes?.length ?? 0} swarm node(s)
-						{statsLoading ? "" : " (metrics refresh every 5s)"}
+						{nodes?.length ?? 0} swarm düğümü genelinde konteynerler gösteriliyor
+						{statsLoading ? "" : " (metrikler her 5 saniyede yenilenir)"}
 					</p>
 				</div>
 				<Button variant="outline" size="sm" onClick={handleRefresh}>
 					<RefreshCw className="h-4 w-4 mr-2" />
-					Refresh
+					Yenile
 				</Button>
 			</header>
 
@@ -285,29 +285,30 @@ export const ShowSwarmContainers = ({ serverId }: Props) => {
 			{downNodes.length > 0 && (
 				<Alert variant="destructive">
 					<AlertTriangle className="h-4 w-4" />
-					<AlertTitle>{downNodes.length} Node(s) Unavailable</AlertTitle>
+					<AlertTitle>{downNodes.length} Düğüm Kullanılamıyor</AlertTitle>
 					<AlertDescription>
 						<p className="mb-2">
-							The following nodes are not ready or have been drained. Containers
-							scheduled on these nodes may not be running.
+							Aşağıdaki düğümler hazır değil veya boşaltılmış. Bu düğümlerde
+							zamanlanan konteynerler çalışmıyor olabilir.
 						</p>
 						<ul className="list-disc list-inside space-y-1 text-xs">
 							{downNodes.map((node: SwarmNode) => (
 								<li key={node.ID}>
-									<strong>{node.Hostname}</strong> &mdash; Status: {node.Status}
-									, Availability: {node.Availability}
+									<strong>{node.Hostname}</strong> &mdash; Durum: {node.Status}
+									, Erişilebilirlik: {node.Availability}
 									{node.ManagerStatus && ` (${node.ManagerStatus})`}
 								</li>
 							))}
 						</ul>
 						<p className="mt-2 text-xs">
-							Manage nodes in{" "}
+							Düğümleri{" "}
 							<Link
 								href="/dashboard/settings/cluster"
 								className="underline underline-offset-4"
 							>
-								Cluster Settings
+								Küme Ayarları
 							</Link>
+							'ndan yönetin
 						</p>
 					</AlertDescription>
 				</Alert>
@@ -316,14 +317,13 @@ export const ShowSwarmContainers = ({ serverId }: Props) => {
 			{isMultiNode && (
 				<Alert>
 					<Info className="h-4 w-4" />
-					<AlertTitle>Multi-Node Metrics Note</AlertTitle>
+					<AlertTitle>Çoklu Düğüm Metrik Notu</AlertTitle>
 					<AlertDescription>
-						CPU, memory, and I/O metrics are collected from the manager node via{" "}
+						CPU, bellek ve G/Ç metrikleri yönetici düğümünden{" "}
 						<code className="bg-muted px-1 py-0.5 rounded text-xs">
 							docker stats
 						</code>
-						. Containers running on worker nodes will show &ldquo;--&rdquo; for
-						metrics.
+						{" "}aracılığıyla toplanır. Worker düğümlerinde çalışan konteynerler metrikler için &ldquo;--&rdquo; gösterecektir.
 					</AlertDescription>
 				</Alert>
 			)}
@@ -344,12 +344,12 @@ export const ShowSwarmContainers = ({ serverId }: Props) => {
 				<Alert>
 					<Info className="h-4 w-4" />
 					<AlertTitle>
-						{unscheduledServices.length} Service(s) With No Running Tasks
+						{unscheduledServices.length} Servis Çalışan Görevi Yok
 					</AlertTitle>
 					<AlertDescription>
 						<p className="mb-2">
-							These services exist in the swarm but have no running containers.
-							They may be scaled to 0 replicas or failing to start.
+							Bu servisler swarm'da mevcut ancak çalışan konteynerleri yok.
+							0 replikaya ölçeklendirilmiş veya başlatılamıyor olabilirler.
 						</p>
 						<ul className="list-disc list-inside space-y-1 text-xs">
 							{unscheduledServices.map((svc) => (

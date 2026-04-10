@@ -34,7 +34,7 @@ export default function SwarmMonitorCard({ serverId }: Props) {
 					{/* <div className="flex items-center justify-center h-full text-muted-foreground"> */}
 
 					<div className="flex flex-row gap-2 items-center justify-center text-sm text-muted-foreground min-h-[55vh]">
-						<span>Loading...</span>
+						<span>Yükleniyor...</span>
 						<Loader2 className="animate-spin size-4" />
 					</div>
 					{/* </div> */}
@@ -48,7 +48,7 @@ export default function SwarmMonitorCard({ serverId }: Props) {
 			<div className="w-full max-w-7xl mx-auto">
 				<div className="mb-6 border min-h-[55vh] flex justify-center items-center rounded-lg h-full">
 					<div className="flex items-center justify-center h-full  text-destructive">
-						<span>Failed to load data</span>
+						<span>Veri yüklenemedi</span>
 					</div>
 				</div>
 			</div>
@@ -76,10 +76,10 @@ export default function SwarmMonitorCard({ serverId }: Props) {
 					<div className="space-y-1">
 						<CardTitle className="text-xl flex flex-row gap-2">
 							<WorkflowIcon className="size-6 text-muted-foreground self-center" />
-							Docker Swarm Overview
+							Docker Swarm Genel Bakış
 						</CardTitle>
 						<p className="text-sm text-muted-foreground">
-							Monitor and manage your Docker Swarm cluster
+							Docker Swarm kümenizi izleyin ve yönetin
 						</p>
 					</div>
 					{!serverId && (
@@ -89,7 +89,7 @@ export default function SwarmMonitorCard({ serverId }: Props) {
 							}
 						>
 							<Settings className="mr-2 h-4 w-4" />
-							Manage Cluster
+							Kümeyi Yönet
 						</Button>
 					)}
 				</header>
@@ -97,7 +97,7 @@ export default function SwarmMonitorCard({ serverId }: Props) {
 				<div className="grid gap-6 lg:grid-cols-3">
 					<Card className="bg-background">
 						<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-							<CardTitle className="text-sm font-medium">Total Nodes</CardTitle>
+							<CardTitle className="text-sm font-medium">Toplam Düğümler</CardTitle>
 							<div className="p-2 bg-emerald-600/20 text-emerald-600 rounded-md">
 								<Server className="h-4 w-4 text-muted-foreground dark:text-emerald-600" />
 							</div>
@@ -111,9 +111,9 @@ export default function SwarmMonitorCard({ serverId }: Props) {
 						<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 							<div className="flex items-center gap-2">
 								<CardTitle className="text-sm font-medium">
-									Active Nodes
+									Aktif Düğümler
 								</CardTitle>
-								<Badge variant="green">Online</Badge>
+								<Badge variant="green">Çevrimiçi</Badge>
 							</div>
 							<div className="p-2 bg-emerald-600/20 text-emerald-600 rounded-md">
 								<Activity className="h-4 w-4 text-muted-foreground dark:text-emerald-600" />
@@ -145,9 +145,9 @@ export default function SwarmMonitorCard({ serverId }: Props) {
 						<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 							<div className="flex items-center gap-2">
 								<CardTitle className="text-sm font-medium">
-									Manager Nodes
+									Yönetici Düğümler
 								</CardTitle>
-								<Badge variant="green">Online</Badge>
+								<Badge variant="green">Çevrimiçi</Badge>
 							</div>
 							<div className="p-2 bg-emerald-600/20 text-emerald-600 rounded-md">
 								<Monitor className="h-4 w-4 text-muted-foreground dark:text-emerald-600" />

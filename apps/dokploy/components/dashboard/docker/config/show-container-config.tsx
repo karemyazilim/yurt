@@ -32,14 +32,14 @@ export const ShowContainerConfig = ({ containerId, serverId }: Props) => {
 					className="w-full cursor-pointer"
 					onSelect={(e) => e.preventDefault()}
 				>
-					View Config
+					Yapılandırmayı Görüntüle
 				</DropdownMenuItem>
 			</DialogTrigger>
 			<DialogContent className={"w-full md:w-[70vw] min-w-[70vw]"}>
 				<DialogHeader>
-					<DialogTitle>Container Config</DialogTitle>
+					<DialogTitle>Konteyner Yapılandırması</DialogTitle>
 					<DialogDescription>
-						See in detail the config of this container
+						Bu konteynerin yapılandırmasını detaylı olarak görüntüleyin
 					</DialogDescription>
 				</DialogHeader>
 				<div className="text-wrap rounded-lg border p-4 overflow-y-auto text-sm bg-card max-h-[80vh]">

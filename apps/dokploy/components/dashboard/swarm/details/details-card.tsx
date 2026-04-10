@@ -48,7 +48,7 @@ export function NodeCard({ node, serverId }: Props) {
 	return (
 		<Card className="w-full bg-background">
 			<CardHeader>
-				<CardTitle className="text-lg">Node Status</CardTitle>
+				<CardTitle className="text-lg">Düğüm Durumu</CardTitle>
 			</CardHeader>
 			<CardContent>
 				<div className="space-y-6">
@@ -61,8 +61,8 @@ export function NodeCard({ node, serverId }: Props) {
 							<Badge variant="green">{node.ManagerStatus || "Worker"}</Badge>
 						</div>
 						<div className="flex flex-wrap items-center gap-4">
-							<Badge variant="green">TLS Status: {node.TLSStatus}</Badge>
-							<Badge variant="blue">Availability: {node.Availability}</Badge>
+							<Badge variant="green">TLS Durumu: {node.TLSStatus}</Badge>
+							<Badge variant="blue">Erişilebilirlik: {node.Availability}</Badge>
 						</div>
 					</div>
 
@@ -72,7 +72,7 @@ export function NodeCard({ node, serverId }: Props) {
 						<div className="space-y-2 flex flex-col items-center text-center">
 							<div className="flex items-center text-sm text-muted-foreground">
 								<HardDrive className="mr-2 h-4 w-4" />
-								Engine Version
+								Motor Sürümü
 							</div>
 							<div>{node.EngineVersion}</div>
 						</div>
@@ -84,13 +84,13 @@ export function NodeCard({ node, serverId }: Props) {
 							<div>
 								{data &&
 									(data.Description?.Resources?.NanoCPUs / 1e9).toFixed(2)}{" "}
-								Core(s)
+								Çekirdek
 							</div>
 						</div>
 						<div className="space-y-2 flex flex-col items-center text-center">
 							<div className="flex items-center text-sm text-muted-foreground">
 								<Database className="mr-2 h-4 w-4" />
-								Memory
+								Bellek
 							</div>
 							<div>
 								{data &&
@@ -104,7 +104,7 @@ export function NodeCard({ node, serverId }: Props) {
 						<div className="space-y-2 flex flex-col items-center text-center">
 							<div className="flex items-center text-sm text-muted-foreground">
 								<Box className="mr-2 h-4 w-4" />
-								IP Address
+								IP Adresi
 							</div>
 							<div>{data?.Status?.Addr}</div>
 						</div>

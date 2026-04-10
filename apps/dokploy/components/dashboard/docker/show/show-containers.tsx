@@ -83,10 +83,10 @@ export const ShowContainers = ({ serverId }: Props) => {
 					<CardHeader className="">
 						<CardTitle className="text-xl flex flex-row gap-2">
 							<Container className="size-6 text-muted-foreground self-center" />
-							Docker Containers
+							Docker Konteynerler
 						</CardTitle>
 						<CardDescription>
-							See all the containers of your dokploy server
+							Dokploy sunucunuzdaki tüm konteynerleri görüntüleyin
 						</CardDescription>
 					</CardHeader>
 					<CardContent className="space-y-2 py-8 border-t">
@@ -94,7 +94,7 @@ export const ShowContainers = ({ serverId }: Props) => {
 							<div className="flex flex-col gap-4  w-full overflow-auto">
 								<div className="flex items-center gap-2 max-sm:flex-wrap">
 									<Input
-										placeholder="Filter by name..."
+										placeholder="Ada göre filtrele..."
 										value={
 											(table.getColumn("name")?.getFilterValue() as string) ??
 											""
@@ -112,7 +112,7 @@ export const ShowContainers = ({ serverId }: Props) => {
 												variant="outline"
 												className="sm:ml-auto max-sm:w-full"
 											>
-												Columns <ChevronDown className="ml-2 h-4 w-4" />
+												Sütunlar <ChevronDown className="ml-2 h-4 w-4" />
 											</Button>
 										</DropdownMenuTrigger>
 										<DropdownMenuContent align="end">
@@ -140,13 +140,13 @@ export const ShowContainers = ({ serverId }: Props) => {
 									{isPending ? (
 										<div className="w-full flex-col gap-2 flex items-center justify-center h-[55vh]">
 											<span className="text-muted-foreground text-lg font-medium">
-												Loading...
+												Yükleniyor...
 											</span>
 										</div>
 									) : data?.length === 0 ? (
 										<div className="flex-col gap-2 flex items-center justify-center h-[55vh]">
 											<span className="text-muted-foreground text-lg font-medium">
-												No results.
+												Sonuç bulunamadı.
 											</span>
 										</div>
 									) : (
@@ -195,11 +195,11 @@ export const ShowContainers = ({ serverId }: Props) => {
 															{isPending ? (
 																<div className="w-full flex-col gap-2 flex items-center justify-center h-[55vh]">
 																	<span className="text-muted-foreground text-lg font-medium">
-																		Loading...
+																		Yükleniyor...
 																	</span>
 																</div>
 															) : (
-																<>No results.</>
+																<>Sonuç bulunamadı.</>
 															)}
 														</TableCell>
 													</TableRow>
@@ -217,7 +217,7 @@ export const ShowContainers = ({ serverId }: Props) => {
 												onClick={() => table.previousPage()}
 												disabled={!table.getCanPreviousPage()}
 											>
-												Previous
+												Önceki
 											</Button>
 											<Button
 												variant="outline"
@@ -225,7 +225,7 @@ export const ShowContainers = ({ serverId }: Props) => {
 												onClick={() => table.nextPage()}
 												disabled={!table.getCanNextPage()}
 											>
-												Next
+												Sonraki
 											</Button>
 										</div>
 									</div>

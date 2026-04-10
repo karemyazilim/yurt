@@ -98,22 +98,22 @@ export const ShowRequests = () => {
 						<CardHeader className="">
 							<CardTitle className="text-xl flex flex-row gap-2">
 								<ArrowDownUp className="size-6 text-muted-foreground self-center" />
-								Requests
+								İstekler
 							</CardTitle>
 							<CardDescription>
-								See all the incoming requests that pass trough Traefik
+								Traefik üzerinden geçen tüm gelen istekleri görüntüleyin
 							</CardDescription>
 
 							{shouldShowWarning && (
 								<AlertBlock type="warning">
-									When you activate, you need to reload traefik to apply the
-									changes, you can reload traefik in{" "}
+									Etkinleştirdiğinizde, değişiklikleri uygulamak için Traefik'i yeniden yüklemeniz gerekir.{" "}
 									<Link
 										href="/dashboard/settings/server"
 										className="text-primary"
 									>
-										Settings
+										Ayarlar
 									</Link>
+									{" "}sayfasından Traefik'i yeniden yükleyebilirsiniz
 								</AlertBlock>
 							)}
 						</CardHeader>
@@ -122,7 +122,7 @@ export const ShowRequests = () => {
 								<div className="flex-1 flex items-center gap-4">
 									<div className="flex items-center gap-2">
 										<Label htmlFor="cron" className="min-w-32">
-											Log Cleanup Schedule
+											Günlük Temizleme Zamanlaması
 										</Label>
 										<TooltipProvider>
 											<Tooltip>
@@ -131,10 +131,10 @@ export const ShowRequests = () => {
 												</TooltipTrigger>
 												<TooltipContent>
 													<p className="max-w-80">
-														At the scheduled time, the cleanup job will keep
-														only the last 1000 entries in the access log file
-														and signal Traefik to reopen its log files. The
-														default schedule is daily at midnight (0 0 * * *).
+														Zamanlanan saatte, temizleme işi erişim günlüğü dosyasındaki
+														yalnızca son 1000 kaydı tutacak ve Traefik'e günlük dosyalarını
+														yeniden açması için sinyal gönderecektir. Varsayılan zamanlama
+														her gün gece yarısıdır (0 0 * * *).
 													</p>
 												</TooltipContent>
 											</Tooltip>
@@ -153,35 +153,35 @@ export const ShowRequests = () => {
 											variant="outline"
 											onClick={async () => {
 												if (!cronExpression?.trim()) {
-													toast.error("Please enter a valid cron expression");
+													toast.error("Lütfen geçerli bir cron ifadesi girin");
 													return;
 												}
 												try {
 													await updateLogCleanup({
 														cronExpression: cronExpression,
 													});
-													toast.success("Log cleanup schedule updated");
+													toast.success("Günlük temizleme zamanlaması güncellendi");
 												} catch (error) {
 													toast.error(
-														`Failed to update log cleanup schedule: ${error instanceof Error ? error.message : "Unknown error"}`,
+														`Günlük temizleme zamanlaması güncellenemedi: ${error instanceof Error ? error.message : "Bilinmeyen hata"}`,
 													);
 												}
 											}}
 										>
-											Update Schedule
+											Zamanlamayı Güncelle
 										</Button>
 									</div>
 								</div>
 								<DialogAction
-									title={isActive ? "Deactivate Requests" : "Activate Requests"}
-									description="You will also need to restart Traefik to apply the changes"
+									title={isActive ? "İstekleri Devre Dışı Bırak" : "İstekleri Etkinleştir"}
+									description="Değişiklikleri uygulamak için Traefik'i de yeniden başlatmanız gerekecek"
 									type={isActive ? "destructive" : "default"}
 									onClick={async () => {
 										await toggleRequests({ enable: !isActive })
 											.then(() => {
 												refetch();
 												toast.success(
-													`Requests ${isActive ? "deactivated" : "activated"}`,
+													`İstekler ${isActive ? "devre dışı bırakıldı" : "etkinleştirildi"}`,
 												);
 											})
 											.catch((err) => {
@@ -189,7 +189,7 @@ export const ShowRequests = () => {
 											});
 									}}
 								>
-									<Button>{isActive ? "Deactivate" : "Activate"}</Button>
+									<Button>{isActive ? "Devre Dışı Bırak" : "Etkinleştir"}</Button>
 								</DialogAction>
 							</div>
 
@@ -201,7 +201,7 @@ export const ShowRequests = () => {
 											onClick={() => setDateRange(getDefaultDateRange())}
 											className="px-3"
 										>
-											Reset to Last 3 Days
+											Son 3 Güne Sıfırla
 										</Button>
 										<Popover>
 											<PopoverTrigger asChild>
@@ -220,7 +220,7 @@ export const ShowRequests = () => {
 															format(dateRange.from, "LLL dd, y")
 														)
 													) : (
-														<span>Pick a date range</span>
+														<span>Tarih aralığı seçin</span>
 													)}
 												</Button>
 											</PopoverTrigger>
@@ -252,12 +252,10 @@ export const ShowRequests = () => {
 									<AlertCircle className="size-12 text-muted-foreground/50" />
 									<div className="text-center space-y-2">
 										<h3 className="text-lg font-medium">
-											Requests are not activated
+											İstekler etkinleştirilmemiş
 										</h3>
 										<p className="text-sm max-w-md">
-											Activate requests to see incoming traffic statistics and
-											monitor your application's usage. After activation, you'll
-											need to reload Traefik for the changes to take effect.
+											Gelen trafik istatistiklerini görmek ve uygulamanızın kullanımını izlemek için istekleri etkinleştirin. Etkinleştirdikten sonra değişikliklerin geçerli olması için Traefik'i yeniden yüklemeniz gerekecek.
 										</p>
 									</div>
 								</div>

@@ -75,8 +75,7 @@ export const NodeSection = ({
 									</Badge>
 								)}
 								<Badge variant="secondary">
-									{group.containers.length} container
-									{group.containers.length !== 1 ? "s" : ""}
+									{group.containers.length} konteyner
 								</Badge>
 								{nodeDown ? (
 									<Badge variant="destructive">
@@ -84,10 +83,10 @@ export const NodeSection = ({
 										{group.nodeStatus?.Availability}
 									</Badge>
 								) : runningCount === group.containers.length ? (
-									<Badge variant="default">All Running</Badge>
+									<Badge variant="default">Tümü Çalışıyor</Badge>
 								) : (
 									<Badge variant="orange">
-										{runningCount}/{group.containers.length} Running
+										{runningCount}/{group.containers.length} Çalışıyor
 									</Badge>
 								)}
 							</div>
@@ -99,12 +98,12 @@ export const NodeSection = ({
 						<Table>
 							<TableHeader>
 								<TableRow>
-									<TableHead className="w-[250px]">Container</TableHead>
-									<TableHead>State</TableHead>
+									<TableHead className="w-[250px]">Konteyner</TableHead>
+									<TableHead>Durum</TableHead>
 									<TableHead className="text-right">CPU</TableHead>
-									<TableHead className="text-right">Memory</TableHead>
-									<TableHead className="text-right">Block I/O</TableHead>
-									<TableHead className="text-right">Network I/O</TableHead>
+									<TableHead className="text-right">Bellek</TableHead>
+									<TableHead className="text-right">Blok G/Ç</TableHead>
+									<TableHead className="text-right">Ağ G/Ç</TableHead>
 								</TableRow>
 							</TableHeader>
 							<TableBody>

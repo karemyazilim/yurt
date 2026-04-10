@@ -24,7 +24,7 @@ export const columns: ColumnDef<Container>[] = [
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Name
+					Ad
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			);
@@ -41,7 +41,7 @@ export const columns: ColumnDef<Container>[] = [
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					State
+					Durum
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			);
@@ -73,7 +73,7 @@ export const columns: ColumnDef<Container>[] = [
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Status
+					Durum Bilgisi
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			);
@@ -90,7 +90,7 @@ export const columns: ColumnDef<Container>[] = [
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Image
+					İmaj
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			);
@@ -107,17 +107,17 @@ export const columns: ColumnDef<Container>[] = [
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<Button variant="ghost" className="h-8 w-8 p-0">
-							<span className="sr-only">Open menu</span>
+							<span className="sr-only">Menüyü aç</span>
 							<MoreHorizontal className="h-4 w-4" />
 						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="end">
-						<DropdownMenuLabel>Actions</DropdownMenuLabel>
+						<DropdownMenuLabel>İşlemler</DropdownMenuLabel>
 						<ShowDockerModalLogs
 							containerId={container.containerId}
 							serverId={container.serverId}
 						>
-							View Logs
+							Günlükleri Görüntüle
 						</ShowDockerModalLogs>
 						<ShowContainerConfig
 							containerId={container.containerId}
@@ -129,11 +129,12 @@ export const columns: ColumnDef<Container>[] = [
 						>
 							Terminal
 						</DockerTerminalModal>
+
 						<UploadFileModal
 							containerId={container.containerId}
 							serverId={container.serverId || undefined}
 						>
-							Upload File
+							Dosya Yükle
 						</UploadFileModal>
 						<RemoveContainerDialog
 							containerId={container.containerId}

@@ -74,7 +74,7 @@ export const ShowTraefikFile = ({ path, serverId }: Props) => {
 			if (!valid) {
 				form.setError("traefikConfig", {
 					type: "manual",
-					message: error || "Invalid YAML",
+					message: error || "Geçersiz YAML",
 				});
 				return;
 			}
@@ -86,11 +86,11 @@ export const ShowTraefikFile = ({ path, serverId }: Props) => {
 			serverId,
 		})
 			.then(async () => {
-				toast.success("Traefik config Updated");
+				toast.success("Traefik yapılandırması güncellendi");
 				refetch();
 			})
 			.catch(() => {
-				toast.error("Error updating the Traefik config");
+				toast.error("Traefik yapılandırması güncellenirken hata oluştu");
 			});
 	};
 
@@ -106,7 +106,7 @@ export const ShowTraefikFile = ({ path, serverId }: Props) => {
 						{isLoadingFile ? (
 							<div className="w-full flex-col gap-2 flex items-center justify-center h-[55vh]">
 								<span className="text-muted-foreground text-lg font-medium">
-									Loading...
+									Yükleniyor...
 								</span>
 								<Loader2 className="animate-spin size-8 text-muted-foreground" />
 							</div>
@@ -116,7 +116,7 @@ export const ShowTraefikFile = ({ path, serverId }: Props) => {
 								name="traefikConfig"
 								render={({ field }) => (
 									<FormItem className="relative">
-										<FormLabel>Traefik config</FormLabel>
+										<FormLabel>Traefik yapılandırması</FormLabel>
 										<FormDescription className="break-all">
 											{path}
 										</FormDescription>
@@ -150,7 +150,7 @@ routers:
 													setCanEdit(!canEdit);
 												}}
 											>
-												{canEdit ? "Unlock" : "Lock"}
+												{canEdit ? "Kilidi Aç" : "Kilitle"}
 											</Button>
 										</div>
 									</FormItem>
@@ -171,14 +171,12 @@ routers:
 								htmlFor="skip-yaml-validation"
 								className="text-sm font-normal cursor-pointer"
 							>
-								Skip YAML validation (for Go templating)
+								YAML doğrulamayı atla (Go şablonlama için)
 							</Label>
 						</div>
 						<p className="text-sm text-muted-foreground -mt-2">
-							Traefik supports Go templating in dynamic configs (e.g.{" "}
-							<code className="text-xs">{"{{range}}"}</code>). Configs using
-							templates will fail standard YAML validation. Check this to save
-							without validation.
+							Traefik, dinamik yapılandırmalarda Go şablonlamayı destekler (örn.{" "}
+							<code className="text-xs">{"{{range}}"}</code>). Şablon kullanan yapılandırmalar standart YAML doğrulamasında başarısız olur. Doğrulama olmadan kaydetmek için bunu işaretleyin.
 						</p>
 						<div className="flex justify-end">
 							<Button
@@ -186,7 +184,7 @@ routers:
 								disabled={canEdit || isLoadingFile}
 								type="submit"
 							>
-								Update
+								Güncelle
 							</Button>
 						</div>
 					</div>

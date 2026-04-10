@@ -26,23 +26,23 @@ interface Props {
 
 export const priorities = [
 	{
-		label: "Info",
+		label: "Bilgi",
 		value: "info",
 	},
 	{
-		label: "Success",
+		label: "Başarılı",
 		value: "success",
 	},
 	{
-		label: "Warning",
+		label: "Uyarı",
 		value: "warning",
 	},
 	{
-		label: "Debug",
+		label: "Hata Ayıklama",
 		value: "debug",
 	},
 	{
-		label: "Error",
+		label: "Hata",
 		value: "error",
 	},
 ];
@@ -227,7 +227,7 @@ export const DockerLogsId: React.FC<Props> = ({
 		const logContent = filteredLogs
 			.map(
 				({ timestamp, message }: { timestamp: Date | null; message: string }) =>
-					`${timestamp?.toISOString() || "No timestamp"} ${message}`,
+					`${timestamp?.toISOString() || "Zaman damgası yok"} ${message}`,
 			)
 			.join("\n");
 
@@ -257,7 +257,7 @@ export const DockerLogsId: React.FC<Props> = ({
 					message: string;
 				}) =>
 					showTimestamp
-						? `${timestamp?.toISOString() || "No timestamp"} ${message}`
+						? `${timestamp?.toISOString() || "Zaman damgası yok"} ${message}`
 						: message,
 			)
 			.join("\n");
@@ -324,13 +324,13 @@ export const DockerLogsId: React.FC<Props> = ({
 							<StatusLogsFilter
 								value={typeFilter}
 								setValue={setTypeFilter}
-								title="Log type"
+								title="Günlük türü"
 								options={priorities}
 							/>
 
 							<Input
 								type="search"
-								placeholder="Search logs..."
+								placeholder="Günlüklerde ara..."
 								value={search}
 								onChange={handleSearch}
 								className="inline-flex h-9 text-sm placeholder-gray-400 w-full sm:w-auto"
@@ -343,14 +343,14 @@ export const DockerLogsId: React.FC<Props> = ({
 								size="sm"
 								className="h-9"
 								onClick={handlePauseResume}
-								title={isPaused ? "Resume logs" : "Pause logs"}
+								title={isPaused ? "Günlükleri devam ettir" : "Günlükleri duraklat"}
 							>
 								{isPaused ? (
 									<Play className="mr-2 h-4 w-4" />
 								) : (
 									<Pause className="mr-2 h-4 w-4" />
 								)}
-								{isPaused ? "Resume" : "Pause"}
+								{isPaused ? "Devam Et" : "Duraklat"}
 							</Button>
 							<Button
 								variant="outline"
@@ -358,14 +358,14 @@ export const DockerLogsId: React.FC<Props> = ({
 								className="h-9"
 								onClick={handleCopy}
 								disabled={filteredLogs.length === 0}
-								title="Copy logs to clipboard"
+								title="Günlükleri panoya kopyala"
 							>
 								{copied ? (
 									<Check className="mr-2 h-4 w-4" />
 								) : (
 									<Copy className="mr-2 h-4 w-4" />
 								)}
-								Copy
+								Kopyala
 							</Button>
 							<Button
 								variant="outline"
@@ -375,7 +375,7 @@ export const DockerLogsId: React.FC<Props> = ({
 								disabled={filteredLogs.length === 0 || !data?.Name}
 							>
 								<DownloadIcon className="mr-2 h-4 w-4" />
-								Download logs
+								Günlükleri İndir
 							</Button>
 						</div>
 					</div>
@@ -384,10 +384,10 @@ export const DockerLogsId: React.FC<Props> = ({
 							<div className="flex items-center gap-2">
 								<Pause className="h-4 w-4" />
 								<span>
-									Logs paused
+									Günlükler duraklatıldı
 									{messageBuffer.length > 0 && (
 										<span className="ml-1 font-medium">
-											({messageBuffer.length} messages buffered)
+											({messageBuffer.length} mesaj tamponlandı)
 										</span>
 									)}
 								</span>
@@ -414,7 +414,7 @@ export const DockerLogsId: React.FC<Props> = ({
 							</div>
 						) : (
 							<div className="flex justify-center items-center h-full text-muted-foreground">
-								No logs found
+								Günlük bulunamadı
 							</div>
 						)}
 					</div>

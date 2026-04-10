@@ -52,7 +52,7 @@ export const columns: ColumnDef<ApplicationList>[] = [
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Name
+					Ad
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			);
@@ -70,7 +70,7 @@ export const columns: ColumnDef<ApplicationList>[] = [
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Image
+					İmaj
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			);
@@ -88,7 +88,7 @@ export const columns: ColumnDef<ApplicationList>[] = [
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Mode
+					Mod
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			);
@@ -106,7 +106,7 @@ export const columns: ColumnDef<ApplicationList>[] = [
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Current State
+					Mevcut Durum
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			);
@@ -144,7 +144,7 @@ export const columns: ColumnDef<ApplicationList>[] = [
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Desired State
+					İstenen Durum
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			);
@@ -163,7 +163,7 @@ export const columns: ColumnDef<ApplicationList>[] = [
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Replicas
+					Replikalar
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			);
@@ -182,7 +182,7 @@ export const columns: ColumnDef<ApplicationList>[] = [
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Ports
+					Portlar
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			);
@@ -200,7 +200,7 @@ export const columns: ColumnDef<ApplicationList>[] = [
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Errors
+					Hatalar
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			);
@@ -213,7 +213,7 @@ export const columns: ColumnDef<ApplicationList>[] = [
 		accessorKey: "Logs",
 		accessorFn: (row) => row.Error,
 		header: () => {
-			return <span>Logs</span>;
+			return <span>Günlükler</span>;
 		},
 		cell: ({ row }) => {
 			return (
@@ -221,17 +221,17 @@ export const columns: ColumnDef<ApplicationList>[] = [
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
 							<Button variant="ghost" className="h-8 w-8 p-0">
-								<span className="sr-only">Open menu</span>
+								<span className="sr-only">Menüyü aç</span>
 								<MoreHorizontal className="h-4 w-4" />
 							</Button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent align="end">
-							<DropdownMenuLabel>Actions</DropdownMenuLabel>
+							<DropdownMenuLabel>İşlemler</DropdownMenuLabel>
 							<ShowDockerModalStackLogs
 								containerId={row.original.ID}
 								serverId={row.original.serverId}
 							>
-								View Logs
+								Günlükleri Görüntüle
 							</ShowDockerModalStackLogs>
 						</DropdownMenuContent>
 					</DropdownMenu>

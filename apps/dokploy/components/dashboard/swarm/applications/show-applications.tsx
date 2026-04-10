@@ -44,7 +44,7 @@ export const ShowNodeApplications = ({ serverId }: Props) => {
 	if (!NodeApps || !NodeAppDetails) {
 		return (
 			<span className="text-sm w-full flex text-center justify-center items-center">
-				No data found
+				Veri bulunamadı
 			</span>
 		);
 	}
@@ -84,14 +84,14 @@ export const ShowNodeApplications = ({ serverId }: Props) => {
 			<DialogTrigger asChild>
 				<Button variant="outline" size="sm" className="w-full">
 					<Layers className="h-4 w-4 mr-2" />
-					Services
+					Servisler
 				</Button>
 			</DialogTrigger>
 			<DialogContent className={"sm:max-w-10xl"}>
 				<DialogHeader>
-					<DialogTitle>Node Applications</DialogTitle>
+					<DialogTitle>Düğüm Uygulamaları</DialogTitle>
 					<DialogDescription>
-						See in detail the applications running on this node
+						Bu düğümde çalışan uygulamaları detaylı olarak görüntüleyin
 					</DialogDescription>
 				</DialogHeader>
 				<div className="max-h-[80vh]">

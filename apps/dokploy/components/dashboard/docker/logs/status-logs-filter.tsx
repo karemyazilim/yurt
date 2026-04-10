@@ -40,7 +40,7 @@ export function StatusLogsFilter({
 		if (allSelected) {
 			return (
 				<Badge variant="blank" className="rounded-sm px-1 font-normal">
-					All
+					Tümü
 				</Badge>
 			);
 		}

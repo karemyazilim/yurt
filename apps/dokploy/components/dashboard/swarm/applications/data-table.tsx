@@ -76,7 +76,7 @@ export function DataTable<TData, TValue>({
 			<div className="flex flex-col gap-4  </div>w-full overflow-auto">
 				<div className="flex items-center gap-2 max-sm:flex-wrap">
 					<Input
-						placeholder="Filter by name..."
+						placeholder="Ada göre filtrele..."
 						value={(table.getColumn("Name")?.getFilterValue() as string) ?? ""}
 						onChange={(event) =>
 							table.getColumn("Name")?.setFilterValue(event.target.value)
@@ -86,7 +86,7 @@ export function DataTable<TData, TValue>({
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
 							<Button variant="outline" className="sm:ml-auto max-sm:w-full">
-								Columns <ChevronDown className="ml-2 h-4 w-4" />
+								Sütunlar <ChevronDown className="ml-2 h-4 w-4" />
 							</Button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent align="end">
@@ -152,7 +152,7 @@ export function DataTable<TData, TValue>({
 									colSpan={columns.length}
 									className="h-24 text-center"
 								>
-									No results.
+									Sonuç bulunamadı.
 									{/* {isPending ? (
                     <div className="w-full flex-col gap-2 flex items-center justify-center h-[55vh]">
                       <span className="text-muted-foreground text-lg font-medium">
@@ -177,7 +177,7 @@ export function DataTable<TData, TValue>({
 								onClick={() => table.previousPage()}
 								disabled={!table.getCanPreviousPage()}
 							>
-								Previous
+								Önceki
 							</Button>
 							<Button
 								variant="outline"
@@ -185,7 +185,7 @@ export function DataTable<TData, TValue>({
 								onClick={() => table.nextPage()}
 								disabled={!table.getCanNextPage()}
 							>
-								Next
+								Sonraki
 							</Button>
 						</div>
 					</div>

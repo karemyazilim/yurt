@@ -20,27 +20,27 @@ export type TimeFilter = "all" | "1h" | "6h" | "24h" | "168h" | "720h";
 
 const timeRanges: Array<{ label: string; value: TimeFilter }> = [
 	{
-		label: "All time",
+		label: "Tüm zamanlar",
 		value: "all",
 	},
 	{
-		label: "Last hour",
+		label: "Son 1 saat",
 		value: "1h",
 	},
 	{
-		label: "Last 6 hours",
+		label: "Son 6 saat",
 		value: "6h",
 	},
 	{
-		label: "Last 24 hours",
+		label: "Son 24 saat",
 		value: "24h",
 	},
 	{
-		label: "Last 7 days",
+		label: "Son 7 gün",
 		value: "168h",
 	},
 	{
-		label: "Last 30 days",
+		label: "Son 30 gün",
 		value: "720h",
 	},
 ] as const;
@@ -58,11 +58,11 @@ export function SinceLogsFilter({
 	onValueChange,
 	showTimestamp,
 	onTimestampChange,
-	title = "Time range",
+	title = "Zaman aralığı",
 }: SinceLogsFilterProps) {
 	const selectedLabel =
 		timeRanges.find((range) => range.value === value)?.label ??
-		"Select time range";
+		"Zaman aralığı seçin";
 
 	return (
 		<Popover>
@@ -115,7 +115,7 @@ export function SinceLogsFilter({
 				</Command>
 				<Separator className="my-2" />
 				<div className="p-2 flex items-center justify-between">
-					<span className="text-sm">Show timestamps</span>
+					<span className="text-sm">Zaman damgalarını göster</span>
 					<Switch checked={showTimestamp} onCheckedChange={onTimestampChange} />
 				</div>
 			</PopoverContent>

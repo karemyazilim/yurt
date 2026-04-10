@@ -48,7 +48,7 @@ export const ContainerRow = ({ container, stat }: ContainerRowProps) => {
 								</span>
 							</TooltipTrigger>
 							<TooltipContent side="top" className="max-w-xs">
-								<p className="text-xs font-medium">Error:</p>
+								<p className="text-xs font-medium">Hata:</p>
 								<p className="text-xs">{container.Error}</p>
 							</TooltipContent>
 						</Tooltip>

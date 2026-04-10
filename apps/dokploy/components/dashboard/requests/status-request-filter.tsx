@@ -58,7 +58,7 @@ export function DataTableFacetedFilter({
 										variant="secondary"
 										className="rounded-sm px-1 font-normal"
 									>
-										{selectedValues.size} selected
+										{selectedValues.size} seçildi
 									</Badge>
 								) : (
 									options
@@ -82,7 +82,7 @@ export function DataTableFacetedFilter({
 				<Command>
 					<CommandInput placeholder={title} />
 					<CommandList>
-						<CommandEmpty>No results found.</CommandEmpty>
+						<CommandEmpty>Sonuç bulunamadı.</CommandEmpty>
 						<CommandGroup>
 							{options.map((option) => {
 								const isSelected = selectedValues.has(option.value);
@@ -125,7 +125,7 @@ export function DataTableFacetedFilter({
 										onSelect={() => setValue?.([])}
 										className="justify-center text-center"
 									>
-										Clear filters
+										Filtreleri temizle
 									</CommandItem>
 								</CommandGroup>
 							</>

@@ -39,16 +39,15 @@ export const ShowTraefikSystem = ({ serverId }: Props) => {
 					<CardHeader className="">
 						<CardTitle className="text-xl flex flex-row gap-2">
 							<FileIcon className="size-6 text-muted-foreground self-center" />
-							Traefik File System
+							Traefik Dosya Sistemi
 						</CardTitle>
 						<CardDescription>
-							Manage all the files and directories in {"'/etc/dokploy/traefik'"}
+							{"'/etc/dokploy/traefik'"} içindeki tüm dosya ve dizinleri yönetin
 							.
 						</CardDescription>
 
 						<AlertBlock type="warning">
-							Adding invalid configuration to existing files, can break your
-							Traefik instance, preventing access to your applications.
+							Mevcut dosyalara geçersiz yapılandırma eklemek, Traefik örneğinizi bozabilir ve uygulamalarınıza erişimi engelleyebilir.
 						</AlertBlock>
 					</CardHeader>
 					<CardContent className="space-y-2 py-8 border-t">
@@ -62,7 +61,7 @@ export const ShowTraefikSystem = ({ serverId }: Props) => {
 								{isLoading && (
 									<div className="w-full flex-col gap-2 flex items-center justify-center h-[55vh]">
 										<span className="text-muted-foreground text-lg font-medium">
-											Loading...
+											Yükleniyor...
 										</span>
 										<Loader2 className="animate-spin size-8 text-muted-foreground" />
 									</div>
@@ -70,8 +69,7 @@ export const ShowTraefikSystem = ({ serverId }: Props) => {
 								{directories?.length === 0 && (
 									<div className="w-full flex-col gap-2 flex items-center justify-center h-[55vh]">
 										<span className="text-muted-foreground text-lg font-medium">
-											No directories or files detected in{" "}
-											{"'/etc/dokploy/traefik'"}
+											{"'/etc/dokploy/traefik'"} içinde dizin veya dosya algılanmadı
 										</span>
 										<Folder className="size-8 text-muted-foreground" />
 									</div>
@@ -91,7 +89,7 @@ export const ShowTraefikSystem = ({ serverId }: Props) => {
 											) : (
 												<div className="h-full w-full flex-col gap-2 flex items-center justify-center">
 													<span className="text-muted-foreground text-lg font-medium">
-														No file selected
+														Dosya seçilmedi
 													</span>
 													<FileIcon className="size-8 text-muted-foreground" />
 												</div>

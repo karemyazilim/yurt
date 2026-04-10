@@ -66,7 +66,7 @@ export const DockerTerminalModal = ({
 				<DialogHeader>
 					<DialogTitle>Docker Terminal</DialogTitle>
 					<DialogDescription>
-						Easy way to access to docker container
+						Docker konteynerine kolay erişim yolu
 					</DialogDescription>
 				</DialogHeader>
 
@@ -79,17 +79,17 @@ export const DockerTerminalModal = ({
 					<DialogContent onEscapeKeyDown={(event) => event.preventDefault()}>
 						<DialogHeader>
 							<DialogTitle>
-								Are you sure you want to close the terminal?
+								Terminali kapatmak istediğinize emin misiniz?
 							</DialogTitle>
 							<DialogDescription>
-								By clicking the confirm button, the terminal will be closed.
+								Onayla butonuna tıkladığınızda terminal kapatılacaktır.
 							</DialogDescription>
 						</DialogHeader>
 						<DialogFooter>
 							<Button variant="outline" onClick={handleCancel}>
-								Cancel
+								İptal
 							</Button>
-							<Button onClick={handleConfirm}>Confirm</Button>
+							<Button onClick={handleConfirm}>Onayla</Button>
 						</DialogFooter>
 					</DialogContent>
 				</Dialog>

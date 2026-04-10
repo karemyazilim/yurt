@@ -46,7 +46,7 @@ export const columns: ColumnDef<LogEntry>[] = [
 	{
 		accessorKey: "level",
 		header: () => {
-			return <Button variant="ghost">Level</Button>;
+			return <Button variant="ghost">Seviye</Button>;
 		},
 		cell: ({ row }) => {
 			return <div>{row.original.level}</div>;
@@ -60,7 +60,7 @@ export const columns: ColumnDef<LogEntry>[] = [
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Message
+					Mesaj
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			);
@@ -80,10 +80,10 @@ export const columns: ColumnDef<LogEntry>[] = [
 					</div>
 					<div className="flex flex-row gap-3 w-full">
 						<Badge variant={getStatusColor(log.OriginStatus)}>
-							Status: {formatStatusLabel(log.OriginStatus)}
+							Durum: {formatStatusLabel(log.OriginStatus)}
 						</Badge>
 						<Badge variant={"secondary"}>
-							Exec Time: {formatDuration(log.Duration)}
+							Yürütme Süresi: {formatDuration(log.Duration)}
 						</Badge>
 						<Badge variant={"secondary"}>IP: {log.ClientAddr}</Badge>
 					</div>
@@ -99,7 +99,7 @@ export const columns: ColumnDef<LogEntry>[] = [
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Time
+					Zaman
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			);

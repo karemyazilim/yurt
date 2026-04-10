@@ -42,8 +42,8 @@ export const ShowDockerModalLogs = ({
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-7xl">
 				<DialogHeader>
-					<DialogTitle>View Logs</DialogTitle>
-					<DialogDescription>View the logs for {containerId}</DialogDescription>
+					<DialogTitle>Günlükleri Görüntüle</DialogTitle>
+					<DialogDescription>{containerId} için günlükleri görüntüleyin</DialogDescription>
 				</DialogHeader>
 				<div className="flex flex-col gap-4 pt-2.5">
 					<DockerLogsId

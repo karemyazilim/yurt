@@ -16,8 +16,8 @@ const Dashboard = () => {
 		<div className="space-y-4">
 			<Tabs defaultValue="overview">
 				<TabsList>
-					<TabsTrigger value="overview">Overview</TabsTrigger>
-					<TabsTrigger value="containers">Containers</TabsTrigger>
+					<TabsTrigger value="overview">Genel Bakış</TabsTrigger>
+					<TabsTrigger value="containers">Konteynerler</TabsTrigger>
 				</TabsList>
 				<TabsContent value="overview">
 					<SwarmMonitorCard />

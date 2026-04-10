@@ -23,10 +23,10 @@ export interface RequestDistributionChartProps {
 
 const chartConfig = {
 	views: {
-		label: "Page Views",
+		label: "Sayfa Görüntülemeleri",
 	},
 	count: {
-		label: "Count",
+		label: "Sayı",
 		color: "hsl(var(--chart-1))",
 	},
 } satisfies ChartConfig;

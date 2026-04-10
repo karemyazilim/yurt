@@ -185,7 +185,7 @@ export const RequestsTable = ({ dateRange }: RequestsTableProps) => {
 					<div className="flex flex-col gap-4  w-full overflow-auto">
 						<div className="flex items-center gap-2 max-sm:flex-wrap">
 							<Input
-								placeholder="Filter by name..."
+								placeholder="Ada göre filtrele..."
 								value={search}
 								onChange={(event) => setSearch(event.target.value)}
 								className="md:max-w-sm"
@@ -193,7 +193,7 @@ export const RequestsTable = ({ dateRange }: RequestsTableProps) => {
 							<DataTableFacetedFilter
 								value={statusFilter}
 								setValue={setStatusFilter}
-								title="Status"
+								title="Durum"
 								options={priorities}
 							/>
 							<DropdownMenu>
@@ -202,7 +202,7 @@ export const RequestsTable = ({ dateRange }: RequestsTableProps) => {
 										variant="outline"
 										className="sm:ml-auto max-sm:w-full"
 									>
-										Columns <ChevronDown className="ml-2 h-4 w-4" />
+										Sütunlar <ChevronDown className="ml-2 h-4 w-4" />
 									</Button>
 								</DropdownMenuTrigger>
 								<DropdownMenuContent align="end">
@@ -276,7 +276,7 @@ export const RequestsTable = ({ dateRange }: RequestsTableProps) => {
 												{statsLogs?.data.length === 0 && (
 													<div className="w-full flex-col gap-2 flex items-center justify-center h-[55vh]">
 														<span className="text-muted-foreground text-lg font-medium">
-															No results.
+															Sonuç bulunamadı.
 														</span>
 													</div>
 												)}
@@ -289,17 +289,17 @@ export const RequestsTable = ({ dateRange }: RequestsTableProps) => {
 						<div className="flex items-center justify-end space-x-2 py-4">
 							{statsLogs?.totalCount && (
 								<span className="text-muted-foreground text-sm">
-									Showing{" "}
+									Gösterilen{" "}
 									{Math.min(
 										pagination.pageIndex * pagination.pageSize + 1,
 										statsLogs.totalCount,
 									)}{" "}
-									to{" "}
+									ile{" "}
 									{Math.min(
 										(pagination.pageIndex + 1) * pagination.pageSize,
 										statsLogs.totalCount,
 									)}{" "}
-									of {statsLogs.totalCount} entries
+									/ {statsLogs.totalCount} kayıt
 								</span>
 							)}
 							<div className="space-x-2 flex flex-wrap">
@@ -309,7 +309,7 @@ export const RequestsTable = ({ dateRange }: RequestsTableProps) => {
 									onClick={() => table.previousPage()}
 									disabled={!table.getCanPreviousPage()}
 								>
-									Previous
+									Önceki
 								</Button>
 								<Button
 									variant="outline"
@@ -317,7 +317,7 @@ export const RequestsTable = ({ dateRange }: RequestsTableProps) => {
 									onClick={() => table.nextPage()}
 									disabled={!table.getCanNextPage()}
 								>
-									Next
+									Sonraki
 								</Button>
 							</div>
 						</div>
@@ -330,9 +330,9 @@ export const RequestsTable = ({ dateRange }: RequestsTableProps) => {
 			>
 				<SheetContent className="sm:max-w-[740px]  flex flex-col">
 					<SheetHeader>
-						<SheetTitle>Request log</SheetTitle>
+						<SheetTitle>İstek günlüğü</SheetTitle>
 						<SheetDescription>
-							Details of the request log entry.
+							İstek günlüğü kaydının detayları.
 						</SheetDescription>
 					</SheetHeader>
 					<ScrollArea className="flex-grow mt-4 pr-4">
@@ -349,7 +349,7 @@ export const RequestsTable = ({ dateRange }: RequestsTableProps) => {
 														<Copy
 															onClick={() => {
 																copy(value);
-																toast.success("Copied to clipboard");
+																toast.success("Panoya kopyalandı");
 															}}
 															className="h-4 w-4 text-muted-foreground cursor-pointer"
 														/>
@@ -386,7 +386,7 @@ export const RequestsTable = ({ dateRange }: RequestsTableProps) => {
 							}}
 						>
 							<Download className="h-4 w-4" />
-							Download as JSON
+							JSON olarak indir
 						</Button>
 					</div>
 				</SheetContent>
