@@ -47,17 +47,17 @@ function DeploymentsPage() {
 							<div>
 								<CardTitle className="text-xl font-bold flex items-center gap-2">
 									<Rocket className="size-5" />
-									Deployments
+									Dağıtımlar
 								</CardTitle>
 								<CardDescription>
-									All application and compose deployments in one place.
+									Tüm uygulama ve compose dağıtımları tek bir yerde.
 								</CardDescription>
 							</div>
 						</div>
 						<Tabs value={tab} onValueChange={setTab} className="w-full">
 							<TabsList className="mt-2">
-								<TabsTrigger value="deployments">Deployments</TabsTrigger>
-								<TabsTrigger value="queue">Queue</TabsTrigger>
+								<TabsTrigger value="deployments">Dağıtımlar</TabsTrigger>
+								<TabsTrigger value="queue">Kuyruk</TabsTrigger>
 							</TabsList>
 							<TabsContent value="deployments" className="mt-0 pt-4">
 								<ShowDeploymentsTable />

@@ -58,10 +58,10 @@ function getJobLabel(row: QueueRow): string {
 	const type = d.applicationType ?? "job";
 	const title = d.titleLog ?? "";
 	if (title) return title;
-	if (d.applicationId) return `Application ${d.applicationId.slice(0, 8)}…`;
+	if (d.applicationId) return `Uygulama ${d.applicationId.slice(0, 8)}…`;
 	if (d.composeId) return `Compose ${d.composeId.slice(0, 8)}…`;
 	if (d.previewDeploymentId)
-		return `Preview ${d.previewDeploymentId.slice(0, 8)}…`;
+		return `Önizleme ${d.previewDeploymentId.slice(0, 8)}…`;
 	return `${type} ${String(row.id)}`;
 }
 
@@ -92,22 +92,22 @@ export function ShowQueueTable(props: { embedded?: boolean }) {
 			{isLoading ? (
 				<div className="flex gap-4 w-full items-center justify-center min-h-[30vh] text-muted-foreground">
 					<Loader2 className="size-4 animate-spin" />
-					<span>Loading queue...</span>
+					<span>Kuyruk yükleniyor...</span>
 				</div>
 			) : (
 				<div className="rounded-md border overflow-x-auto">
 					<Table>
 						<TableHeader>
 							<TableRow>
-								<TableHead>Job ID</TableHead>
-								<TableHead>Label</TableHead>
-								<TableHead>Type</TableHead>
-								<TableHead>State</TableHead>
-								<TableHead>Added</TableHead>
-								<TableHead>Processed</TableHead>
-								<TableHead>Finished</TableHead>
-								<TableHead>Error</TableHead>
-								<TableHead className="w-[100px]">Actions</TableHead>
+								<TableHead>İş ID</TableHead>
+								<TableHead>Etiket</TableHead>
+								<TableHead>Tür</TableHead>
+								<TableHead>Durum</TableHead>
+								<TableHead>Eklenme</TableHead>
+								<TableHead>İşlenme</TableHead>
+								<TableHead>Bitiş</TableHead>
+								<TableHead>Hata</TableHead>
+								<TableHead className="w-[100px]">İşlemler</TableHead>
 							</TableRow>
 						</TableHeader>
 						<TableBody>
@@ -128,7 +128,16 @@ export function ShowQueueTable(props: { embedded?: boolean }) {
 											<TableCell>{appType ?? row.name ?? "—"}</TableCell>
 											<TableCell>
 												<Badge variant={stateVariants[row.state] ?? "outline"}>
-													{row.state}
+													{({
+														pending: "Beklemede",
+														waiting: "Bekliyor",
+														active: "Aktif",
+														delayed: "Ertelendi",
+														completed: "Tamamlandı",
+														failed: "Başarısız",
+														cancelled: "İptal Edildi",
+														paused: "Duraklatıldı",
+													} as Record<string, string>)[row.state] ?? row.state}
 												</Badge>
 											</TableCell>
 											<TableCell className="text-muted-foreground text-xs">
@@ -149,7 +158,7 @@ export function ShowQueueTable(props: { embedded?: boolean }) {
 														<Button variant="ghost" size="sm" asChild>
 															<Link href={pathInfo!.href!}>
 																<ArrowRight className="size-4 mr-1" />
-																Service
+																Servis
 															</Link>
 														</Button>
 													) : (
@@ -187,7 +196,7 @@ export function ShowQueueTable(props: { embedded?: boolean }) {
 																}}
 															>
 																<XCircle className="size-4 mr-1" />
-																Cancel
+																İptal
 															</Button>
 														)}
 												</div>
@@ -200,9 +209,9 @@ export function ShowQueueTable(props: { embedded?: boolean }) {
 									<TableCell colSpan={9} className="text-center py-12">
 										<div className="flex flex-col items-center justify-center gap-2 text-muted-foreground min-h-[30vh]">
 											<ListTodo className="size-8" />
-											<p className="font-medium">Queue is empty</p>
+											<p className="font-medium">Kuyruk boş</p>
 											<p className="text-sm">
-												Deployment jobs will appear here when they are queued.
+												Dağıtım işleri kuyruğa alındığında burada görüntülenecektir.
 											</p>
 										</div>
 									</TableCell>

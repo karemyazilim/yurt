@@ -166,7 +166,7 @@ export function ShowDeploymentsTable() {
 						className="-ml-3 h-8"
 						onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 					>
-						Service
+						Servis
 						<ArrowUpDown className="ml-2 size-4" />
 					</Button>
 				),
@@ -183,7 +183,7 @@ export function ShowDeploymentsTable() {
 							<div className="flex flex-col min-w-0">
 								<span className="font-medium truncate">{info.name}</span>
 								<Badge variant="outline" className="w-fit text-[10px]">
-									{info.type}
+									{info.type === "Application" ? "Uygulama" : "Compose"}
 								</Badge>
 							</div>
 						</div>
@@ -207,7 +207,7 @@ export function ShowDeploymentsTable() {
 						className="-ml-3 h-8"
 						onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 					>
-						Project
+						Proje
 						<ArrowUpDown className="ml-2 size-4" />
 					</Button>
 				),
@@ -237,7 +237,7 @@ export function ShowDeploymentsTable() {
 						className="-ml-3 h-8"
 						onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 					>
-						Environment
+						Ortam
 						<ArrowUpDown className="ml-2 size-4" />
 					</Button>
 				),
@@ -270,7 +270,7 @@ export function ShowDeploymentsTable() {
 						className="-ml-3 h-8"
 						onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 					>
-						Server
+						Sunucu
 						<ArrowUpDown className="ml-2 size-4" />
 					</Button>
 				),
@@ -315,7 +315,7 @@ export function ShowDeploymentsTable() {
 							)}
 							{showBuild && buildServerName && (
 								<div className="flex items-center gap-1.5 text-muted-foreground flex-wrap">
-									<span className="text-[10px]">Build:</span>
+									<span className="text-[10px]">Derleme:</span>
 									<span className="truncate text-xs">{buildServerName}</span>
 									{buildServerType && (
 										<Badge
@@ -346,7 +346,7 @@ export function ShowDeploymentsTable() {
 						className="-ml-3 h-8"
 						onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 					>
-						Title
+						Başlık
 						<ArrowUpDown className="ml-2 size-4" />
 					</Button>
 				),
@@ -371,15 +371,21 @@ export function ShowDeploymentsTable() {
 						className="-ml-3 h-8"
 						onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 					>
-						Status
+						Durum
 						<ArrowUpDown className="ml-2 size-4" />
 					</Button>
 				),
 				cell: ({ row }: { row: { original: DeploymentRow } }) => {
 					const status = row.original.status ?? "running";
+					const statusLabels: Record<string, string> = {
+						running: "Çalışıyor",
+						done: "Tamamlandı",
+						error: "Hata",
+						cancelled: "İptal Edildi",
+					};
 					return (
 						<Badge variant={statusVariants[status] ?? "secondary"}>
-							{status}
+							{statusLabels[status] ?? status}
 						</Badge>
 					);
 				},
@@ -399,7 +405,7 @@ export function ShowDeploymentsTable() {
 						className="-ml-3 h-8"
 						onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 					>
-						Created
+						Oluşturulma
 						<ArrowUpDown className="ml-2 size-4" />
 					</Button>
 				),
@@ -422,7 +428,7 @@ export function ShowDeploymentsTable() {
 						<Button variant="ghost" size="sm" asChild>
 							<Link href={info.href} className="gap-1">
 								<ExternalLink className="size-4" />
-								Open
+								Aç
 							</Link>
 						</Button>
 					);
@@ -455,30 +461,30 @@ export function ShowDeploymentsTable() {
 		<div className="space-y-2">
 			<div className="flex flex-wrap items-center gap-2">
 				<Input
-					placeholder="Search by name, project, environment, server..."
+					placeholder="Ad, proje, ortam, sunucu ile ara..."
 					value={globalFilter}
 					onChange={(e) => setGlobalFilter(e.target.value)}
 					className="max-w-xs"
 				/>
 				<Select value={statusFilter} onValueChange={setStatusFilter}>
 					<SelectTrigger className="w-[140px]">
-						<SelectValue placeholder="Status" />
+						<SelectValue placeholder="Durum" />
 					</SelectTrigger>
 					<SelectContent>
-						<SelectItem value="all">All statuses</SelectItem>
-						<SelectItem value="running">Running</SelectItem>
-						<SelectItem value="done">Done</SelectItem>
-						<SelectItem value="error">Error</SelectItem>
-						<SelectItem value="cancelled">Cancelled</SelectItem>
+						<SelectItem value="all">Tüm durumlar</SelectItem>
+						<SelectItem value="running">Çalışıyor</SelectItem>
+						<SelectItem value="done">Tamamlandı</SelectItem>
+						<SelectItem value="error">Hata</SelectItem>
+						<SelectItem value="cancelled">İptal Edildi</SelectItem>
 					</SelectContent>
 				</Select>
 				<Select value={typeFilter} onValueChange={setTypeFilter}>
 					<SelectTrigger className="w-[140px]">
-						<SelectValue placeholder="Type" />
+						<SelectValue placeholder="Tür" />
 					</SelectTrigger>
 					<SelectContent>
-						<SelectItem value="all">All types</SelectItem>
-						<SelectItem value="application">Application</SelectItem>
+						<SelectItem value="all">Tüm türler</SelectItem>
+						<SelectItem value="application">Uygulama</SelectItem>
 						<SelectItem value="compose">Compose</SelectItem>
 					</SelectContent>
 				</Select>
@@ -487,7 +493,7 @@ export function ShowDeploymentsTable() {
 				{isLoading ? (
 					<div className="flex gap-4 w-full items-center justify-center min-h-[45vh] text-muted-foreground">
 						<Loader2 className="size-4 animate-spin" />
-						<span>Loading deployments...</span>
+						<span>Dağıtımlar yükleniyor...</span>
 					</div>
 				) : (
 					<>
@@ -531,10 +537,10 @@ export function ShowDeploymentsTable() {
 											>
 												<div className="flex flex-col min-h-[45vh] items-center justify-center gap-2 text-muted-foreground">
 													<Rocket className="size-8" />
-													<p className="font-medium">No deployments found</p>
+													<p className="font-medium">Dağıtım bulunamadı</p>
 													<p className="text-sm">
-														Deployments from applications and compose will
-														appear here.
+														Uygulama ve compose dağıtımları burada
+														görüntülenecektir.
 													</p>
 												</div>
 											</TableCell>
@@ -546,7 +552,7 @@ export function ShowDeploymentsTable() {
 						<div className="flex flex-col gap-4 px-4 py-4 border-t sm:flex-row sm:items-center sm:justify-between">
 							<div className="flex items-center gap-2 flex-wrap">
 								<span className="text-sm text-muted-foreground whitespace-nowrap">
-									Rows per page
+									Sayfa başına satır
 								</span>
 								<Select
 									value={String(pagination.pageSize)}
@@ -570,16 +576,15 @@ export function ShowDeploymentsTable() {
 									</SelectContent>
 								</Select>
 								<span className="text-sm text-muted-foreground whitespace-nowrap">
-									Showing{" "}
 									{filteredData.length === 0
 										? 0
-										: pagination.pageIndex * pagination.pageSize + 1}{" "}
-									to{" "}
+										: pagination.pageIndex * pagination.pageSize + 1}
+									{" - "}
 									{Math.min(
 										(pagination.pageIndex + 1) * pagination.pageSize,
 										filteredData.length,
 									)}{" "}
-									of {filteredData.length} entries
+									/ {filteredData.length} kayıt gösteriliyor
 								</span>
 							</div>
 							<div className="flex items-center gap-2">
@@ -591,7 +596,7 @@ export function ShowDeploymentsTable() {
 									disabled={!table.getCanPreviousPage()}
 								>
 									<ChevronLeft className="size-4" />
-									Previous
+									Önceki
 								</Button>
 								<Button
 									variant="outline"
@@ -600,7 +605,7 @@ export function ShowDeploymentsTable() {
 									onClick={() => table.nextPage()}
 									disabled={!table.getCanNextPage()}
 								>
-									Next
+									Sonraki
 									<ChevronRight className="size-4" />
 								</Button>
 							</div>
