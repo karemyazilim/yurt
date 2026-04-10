@@ -28,10 +28,10 @@ const loginSchema = z.object({
 	email: z
 		.string()
 		.min(1, {
-			message: "Email is required",
+			message: "E-posta gereklidir",
 		})
 		.email({
-			message: "Email must be a valid email",
+			message: "Geçerli bir e-posta adresi girin",
 		}),
 });
 
@@ -70,10 +70,10 @@ export default function Home() {
 			redirectTo: "/reset-password",
 		});
 		if (error) {
-			setError(error.message || "An error occurred");
+			setError(error.message || "Bir hata oluştu");
 			setIsLoading(false);
 		} else {
-			toast.success("Email sent", {
+			toast.success("E-posta gönderildi", {
 				duration: 2000,
 			});
 		}
@@ -92,9 +92,9 @@ export default function Home() {
 						{whitelabeling?.appName || "Yurt"}
 					</span>
 				</Link>
-				<CardTitle className="text-2xl font-bold">Reset Password</CardTitle>
+				<CardTitle className="text-2xl font-bold">Şifre Sıfırlama</CardTitle>
 				<CardDescription>
-					Enter your email to reset your password
+					Şifrenizi sıfırlamak için e-posta adresinizi girin
 				</CardDescription>
 
 				<div className="mx-auto w-full max-w-lg bg-transparent ">
@@ -116,9 +116,9 @@ export default function Home() {
 											name="email"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>Email</FormLabel>
+													<FormLabel>E-posta</FormLabel>
 													<FormControl>
-														<Input placeholder="Email" {...field} />
+														<Input placeholder="E-posta adresiniz" {...field} />
 													</FormControl>
 													<FormMessage />
 												</FormItem>
@@ -130,7 +130,7 @@ export default function Home() {
 											isLoading={isLoading}
 											className="w-full"
 										>
-											Send Reset Link
+											Sıfırlama Bağlantısı Gönder
 										</Button>
 									</div>
 								</form>
@@ -143,7 +143,7 @@ export default function Home() {
 									className="hover:underline text-muted-foreground"
 									href="/"
 								>
-									Login
+									Giriş Yap
 								</Link>
 							</div>
 						</div>

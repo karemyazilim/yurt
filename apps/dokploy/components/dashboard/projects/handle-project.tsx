@@ -123,12 +123,12 @@ export const HandleProject = ({ projectId }: Props) => {
 							tagIds: selectedTagIds,
 						});
 					} catch (error) {
-						toast.error("Failed to assign tags to project");
+						toast.error("Etiketler projeye atanamadı");
 					}
 				}
 
 				await utils.project.all.invalidate();
-				toast.success(projectId ? "Project Updated" : "Project Created");
+				toast.success(projectId ? "Proje güncellendi" : "Proje oluşturuldu");
 				setIsOpen(false);
 				if (!projectId) {
 					const environmentIdToUse =
@@ -147,7 +147,7 @@ export const HandleProject = ({ projectId }: Props) => {
 			})
 			.catch(() => {
 				toast.error(
-					projectId ? "Error updating a project" : "Error creating a project",
+					projectId ? "Proje güncellenirken hata oluştu" : "Proje oluşturulurken hata oluştu",
 				);
 			});
 	};
@@ -172,8 +172,8 @@ export const HandleProject = ({ projectId }: Props) => {
 			</DialogTrigger>
 			<DialogContent className="sm:m:max-w-lg ">
 				<DialogHeader>
-					<DialogTitle>{projectId ? "Update" : "Add a"} project</DialogTitle>
-					<DialogDescription>The home of something big!</DialogDescription>
+					<DialogTitle>{projectId ? "Projeyi Güncelle" : "Proje Ekle"}</DialogTitle>
+					<DialogDescription>Büyük bir şeyin başlangıcı!</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
 				<Form {...form}>
@@ -188,9 +188,9 @@ export const HandleProject = ({ projectId }: Props) => {
 								name="name"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Name</FormLabel>
+										<FormLabel>Ad</FormLabel>
 										<FormControl>
-											<Input placeholder="Vandelay Industries" {...field} />
+											<Input placeholder="Proje adı" {...field} />
 										</FormControl>
 
 										<FormMessage />
@@ -204,10 +204,10 @@ export const HandleProject = ({ projectId }: Props) => {
 							name="description"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Description</FormLabel>
+									<FormLabel>Açıklama</FormLabel>
 									<FormControl>
 										<Textarea
-											placeholder="Description about your project..."
+											placeholder="Projeniz hakkında açıklama..."
 											className="resize-none"
 											{...field}
 										/>
@@ -219,7 +219,7 @@ export const HandleProject = ({ projectId }: Props) => {
 						/>
 
 						<div className="space-y-2">
-							<FormLabel>Tags</FormLabel>
+							<FormLabel>Etiketler</FormLabel>
 							<TagSelector
 								tags={availableTags.map((tag) => ({
 									id: tag.tagId,
@@ -228,7 +228,7 @@ export const HandleProject = ({ projectId }: Props) => {
 								}))}
 								selectedTags={selectedTagIds}
 								onTagsChange={setSelectedTagIds}
-								placeholder="Select tags..."
+								placeholder="Etiket seçin..."
 							/>
 						</div>
 					</form>
@@ -239,7 +239,7 @@ export const HandleProject = ({ projectId }: Props) => {
 							form="hook-form-add-project"
 							type="submit"
 						>
-							{projectId ? "Update" : "Create"}
+							{projectId ? "Güncelle" : "Oluştur"}
 						</Button>
 					</DialogFooter>
 				</Form>

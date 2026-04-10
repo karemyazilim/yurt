@@ -29,22 +29,22 @@ const loginSchema = z
 		password: z
 			.string()
 			.min(1, {
-				message: "Password is required",
+				message: "Şifre gereklidir",
 			})
 			.min(8, {
-				message: "Password must be at least 8 characters",
+				message: "Şifre en az 8 karakter olmalıdır",
 			}),
 		confirmPassword: z
 			.string()
 			.min(1, {
-				message: "Password is required",
+				message: "Şifre gereklidir",
 			})
 			.min(8, {
-				message: "Password must be at least 8 characters",
+				message: "Şifre en az 8 karakter olmalıdır",
 			}),
 	})
 	.refine((data) => data.password === data.confirmPassword, {
-		message: "Passwords do not match",
+		message: "Şifreler eşleşmiyor",
 		path: ["confirmPassword"],
 	});
 
@@ -87,9 +87,9 @@ export default function Home({ tokenResetPassword }: Props) {
 		});
 
 		if (error) {
-			setError(error.message || "An error occurred");
+			setError(error.message || "Bir hata oluştu");
 		} else {
-			toast.success("Password reset successfully");
+			toast.success("Şifre başarıyla sıfırlandı");
 			router.push("/");
 		}
 		setIsLoading(false);
@@ -108,10 +108,10 @@ export default function Home({ tokenResetPassword }: Props) {
 							}
 						/>
 					</Link>
-					Reset Password
+					Şifre Sıfırlama
 				</CardTitle>
 				<CardDescription>
-					Enter your email to reset your password
+					Yeni şifrenizi belirleyin
 				</CardDescription>
 
 				<div className="w-full">
@@ -132,11 +132,11 @@ export default function Home({ tokenResetPassword }: Props) {
 										name="password"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Password</FormLabel>
+												<FormLabel>Yeni Şifre</FormLabel>
 												<FormControl>
 													<Input
 														type="password"
-														placeholder="Password"
+														placeholder="Yeni şifrenizi girin"
 														{...field}
 													/>
 												</FormControl>
@@ -149,11 +149,11 @@ export default function Home({ tokenResetPassword }: Props) {
 										name="confirmPassword"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Confirm Password</FormLabel>
+												<FormLabel>Şifre Tekrar</FormLabel>
 												<FormControl>
 													<Input
 														type="password"
-														placeholder="Password"
+														placeholder="Şifrenizi tekrar girin"
 														{...field}
 													/>
 												</FormControl>
@@ -167,12 +167,12 @@ export default function Home({ tokenResetPassword }: Props) {
 										isLoading={isLoading}
 										className="w-full"
 									>
-										Confirm
+										Onayla
 									</Button>
 								</div>
 
 								<div className="text-center text-sm flex gap-2 text-muted-foreground">
-									<Link href="/">Sign in</Link>
+									<Link href="/">Giriş Yap</Link>
 								</div>
 							</form>
 						</Form>

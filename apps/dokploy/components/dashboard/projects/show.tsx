@@ -199,7 +199,7 @@ export const ShowProjects = () => {
 	return (
 		<>
 			<BreadcrumbSidebar
-				list={[{ name: "Projects", href: "/dashboard/projects" }]}
+				list={[{ name: "Projeler", href: "/dashboard/projects" }]}
 			/>
 			<div className="w-full">
 				<Card className="h-full bg-sidebar p-2.5 rounded-xl  ">
@@ -208,10 +208,10 @@ export const ShowProjects = () => {
 							<CardHeader className="p-0">
 								<CardTitle className="text-xl flex flex-row gap-2">
 									<FolderInput className="size-6 text-muted-foreground self-center" />
-									Projects
+									Projeler
 								</CardTitle>
 								<CardDescription>
-									Create and manage your projects
+									Projelerinizi oluşturun ve yönetin
 								</CardDescription>
 							</CardHeader>
 							{permissions?.project.create && (
@@ -224,7 +224,7 @@ export const ShowProjects = () => {
 						<CardContent className="space-y-2 py-8 border-t gap-4 flex flex-col min-h-[60vh]">
 							{isPending ? (
 								<div className="flex flex-row gap-2 items-center justify-center text-sm text-muted-foreground min-h-[60vh]">
-									<span>Loading...</span>
+									<span>Yükleniyor...</span>
 									<Loader2 className="animate-spin size-4" />
 								</div>
 							) : (
@@ -232,7 +232,7 @@ export const ShowProjects = () => {
 									<div className="flex max-sm:flex-col gap-4 items-center w-full">
 										<div className="flex-1 relative max-sm:w-full">
 											<FocusShortcutInput
-												placeholder="Filter projects..."
+												placeholder="Projeleri filtrele..."
 												value={searchQuery}
 												onChange={(e) => setSearchQuery(e.target.value)}
 												className="pr-10"
@@ -256,24 +256,24 @@ export const ShowProjects = () => {
 												<ArrowUpDown className="size-4 text-muted-foreground" />
 												<Select value={sortBy} onValueChange={setSortBy}>
 													<SelectTrigger className="w-full">
-														<SelectValue placeholder="Sort by..." />
+														<SelectValue placeholder="Sıralama..." />
 													</SelectTrigger>
 													<SelectContent>
-														<SelectItem value="name-asc">Name (A-Z)</SelectItem>
+														<SelectItem value="name-asc">Ad (A-Z)</SelectItem>
 														<SelectItem value="name-desc">
-															Name (Z-A)
+															Ad (Z-A)
 														</SelectItem>
 														<SelectItem value="createdAt-desc">
-															Newest first
+															En yeni
 														</SelectItem>
 														<SelectItem value="createdAt-asc">
-															Oldest first
+															En eski
 														</SelectItem>
 														<SelectItem value="services-desc">
-															Most services
+															En çok servis
 														</SelectItem>
 														<SelectItem value="services-asc">
-															Least services
+															En az servis
 														</SelectItem>
 													</SelectContent>
 												</Select>
@@ -284,7 +284,7 @@ export const ShowProjects = () => {
 										<div className="mt-6 flex h-[50vh] w-full flex-col items-center justify-center space-y-4">
 											<FolderInput className="size-8 self-center text-muted-foreground" />
 											<span className="text-center font-medium text-muted-foreground">
-												No projects found
+												Proje bulunamadı
 											</span>
 										</div>
 									)}
@@ -374,8 +374,8 @@ export const ShowProjects = () => {
 																			<div className="flex flex-row gap-2 items-center rounded-lg bg-yellow-50 p-2 mt-2 dark:bg-yellow-950">
 																				<AlertTriangle className="size-4 text-yellow-600 dark:text-yellow-400 shrink-0" />
 																				<span className="text-xs text-yellow-600 dark:text-yellow-400">
-																					You have access to this project but no
-																					environments are available
+																					Bu projeye erişiminiz var ancak kullanılabilir
+																					ortam bulunmuyor
 																				</span>
 																			</div>
 																		)}
@@ -396,7 +396,7 @@ export const ShowProjects = () => {
 																				onClick={(e) => e.stopPropagation()}
 																			>
 																				<DropdownMenuLabel className="font-normal">
-																					Actions
+																					İşlemler
 																				</DropdownMenuLabel>
 																				<div
 																					onClick={(e) => e.stopPropagation()}
@@ -426,34 +426,33 @@ export const ShowProjects = () => {
 																									}
 																								>
 																									<TrashIcon className="size-4" />
-																									<span>Delete</span>
+																									<span>Sil</span>
 																								</DropdownMenuItem>
 																							</AlertDialogTrigger>
 																							<AlertDialogContent>
 																								<AlertDialogHeader>
 																									<AlertDialogTitle>
-																										Are you sure to delete this
-																										project?
+																										Bu projeyi silmek istediğinizden
+																										emin misiniz?
 																									</AlertDialogTitle>
 																									{!emptyServices ? (
 																										<div className="flex flex-row gap-4 rounded-lg bg-yellow-50 p-2 dark:bg-yellow-950">
 																											<AlertTriangle className="text-yellow-600 dark:text-yellow-400" />
 																											<span className="text-sm text-yellow-600 dark:text-yellow-400">
-																												You have active
-																												services, please delete
-																												them first
+																												Aktif servisleriniz var,
+																												lütfen önce onları
+																												silin
 																											</span>
 																										</div>
 																									) : (
 																										<AlertDialogDescription>
-																											This action cannot be
-																											undone
+																											Bu işlem geri alınamaz
 																										</AlertDialogDescription>
 																									)}
 																								</AlertDialogHeader>
 																								<AlertDialogFooter>
 																									<AlertDialogCancel>
-																										Cancel
+																										İptal
 																									</AlertDialogCancel>
 																									<AlertDialogAction
 																										disabled={!emptyServices}
@@ -464,12 +463,12 @@ export const ShowProjects = () => {
 																											})
 																												.then(() => {
 																													toast.success(
-																														"Project deleted successfully",
+																														"Proje başarıyla silindi",
 																													);
 																												})
 																												.catch(() => {
 																													toast.error(
-																														"Error deleting this project",
+																														"Proje silinirken hata oluştu",
 																													);
 																												})
 																												.finally(() => {
@@ -477,7 +476,7 @@ export const ShowProjects = () => {
 																												});
 																										}}
 																									>
-																										Delete
+																										Sil
 																									</AlertDialogAction>
 																								</AlertDialogFooter>
 																							</AlertDialogContent>
@@ -492,13 +491,13 @@ export const ShowProjects = () => {
 															<CardFooter className="pt-4">
 																<div className="space-y-1 text-xs flex flex-row justify-between max-sm:flex-wrap w-full gap-2 sm:gap-4">
 																	<DateTooltip date={project.createdAt}>
-																		Created
+																		Oluşturulma
 																	</DateTooltip>
 																	<span>
 																		{totalServices}{" "}
 																		{totalServices === 1
-																			? "service"
-																			: "services"}
+																			? "servis"
+																			: "servis"}
 																	</span>
 																</div>
 															</CardFooter>
