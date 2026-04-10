@@ -98,11 +98,11 @@ export const SaveGitProviderCompose = ({ composeId }: Props) => {
 			enableSubmodules: values.enableSubmodules,
 		})
 			.then(async () => {
-				toast.success("Git Provider Saved");
+				toast.success("Git sağlayıcısı kaydedildi");
 				await refetch();
 			})
 			.catch(() => {
-				toast.error("Error saving the Git provider");
+				toast.error("Git sağlayıcısı kaydedilirken hata oluştu");
 			});
 	};
 
@@ -121,7 +121,7 @@ export const SaveGitProviderCompose = ({ composeId }: Props) => {
 								render={({ field }) => (
 									<FormItem>
 										<div className="flex items-center justify-between">
-											<FormLabel>Repository URL</FormLabel>
+											<FormLabel>Depo URL'si</FormLabel>
 											{field.value?.startsWith("https://") && (
 												<Link
 													href={field.value}
@@ -130,12 +130,12 @@ export const SaveGitProviderCompose = ({ composeId }: Props) => {
 													className="flex items-center gap-1 text-sm text-muted-foreground hover:text-primary"
 												>
 													<GitIcon className="h-4 w-4" />
-													<span>View Repository</span>
+													<span>Depoyu Görüntüle</span>
 												</Link>
 											)}
 										</div>
 										<FormControl>
-											<Input placeholder="Repository URL" {...field} />
+											<Input placeholder="Depo URL'si" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -149,7 +149,7 @@ export const SaveGitProviderCompose = ({ composeId }: Props) => {
 								render={({ field }) => (
 									<FormItem className="basis-40">
 										<FormLabel className="w-full inline-flex justify-between">
-											SSH Key
+											SSH Anahtarı
 											<LockIcon className="size-4 text-muted-foreground" />
 										</FormLabel>
 										<FormControl>
@@ -160,7 +160,7 @@ export const SaveGitProviderCompose = ({ composeId }: Props) => {
 												value={field.value}
 											>
 												<SelectTrigger>
-													<SelectValue placeholder="Select a key" />
+													<SelectValue placeholder="Bir anahtar seçin" />
 												</SelectTrigger>
 												<SelectContent>
 													<SelectGroup>
@@ -172,8 +172,8 @@ export const SaveGitProviderCompose = ({ composeId }: Props) => {
 																{sshKey.name}
 															</SelectItem>
 														))}
-														<SelectItem value="none">None</SelectItem>
-														<SelectLabel>Keys ({sshKeys?.length})</SelectLabel>
+														<SelectItem value="none">Yok</SelectItem>
+														<SelectLabel>Anahtarlar ({sshKeys?.length})</SelectLabel>
 													</SelectGroup>
 												</SelectContent>
 											</Select>

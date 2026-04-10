@@ -79,10 +79,10 @@ export const RandomizeCompose = ({ composeId }: Props) => {
 			.then(async (_data) => {
 				await randomizeCompose();
 				await refetch();
-				toast.success("Compose updated");
+				toast.success("Compose güncellendi");
 			})
 			.catch(() => {
-				toast.error("Error randomizing the compose");
+				toast.error("Compose rastgeleleştirilirken hata oluştu");
 			});
 	};
 
@@ -99,27 +99,27 @@ export const RandomizeCompose = ({ composeId }: Props) => {
 	return (
 		<div className="w-full">
 			<DialogHeader>
-				<DialogTitle>Randomize Compose (Experimental)</DialogTitle>
+				<DialogTitle>Compose Rastgeleleştir (Deneysel)</DialogTitle>
 				<DialogDescription>
-					Use this in case you want to deploy the same compose file and you have
-					conflicts with some property like volumes, networks, etc.
+					Aynı compose dosyasını dağıtmak istediğinizde ve birimler, ağlar vb.
+					özelliklerde çakışmalar yaşadığınızda bunu kullanın.
 				</DialogDescription>
 			</DialogHeader>
 			<div className="text-sm text-muted-foreground flex flex-col gap-2">
 				<span>
-					This will randomize the compose file and will add a suffix to the
-					property to avoid conflicts
+					Bu, compose dosyasını rastgeleleştirecek ve çakışmaları önlemek için
+					özelliklere bir sonek ekleyecektir
 				</span>
 				<ul className="list-disc list-inside">
-					<li>volumes</li>
-					<li>networks</li>
-					<li>services</li>
-					<li>configs</li>
-					<li>secrets</li>
+					<li>birimler (volumes)</li>
+					<li>ağlar (networks)</li>
+					<li>servisler (services)</li>
+					<li>yapılandırmalar (configs)</li>
+					<li>gizli anahtarlar (secrets)</li>
 				</ul>
 				<AlertBlock type="info">
-					When you activate this option, we will include a env `COMPOSE_PREFIX`
-					variable to the compose file so you can use it in your compose file.
+					Bu seçeneği etkinleştirdiğinizde, compose dosyanızda kullanabilmeniz için
+					compose dosyasına `COMPOSE_PREFIX` ortam değişkeni eklenecektir.
 				</AlertBlock>
 			</div>
 			{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
@@ -145,10 +145,10 @@ export const RandomizeCompose = ({ composeId }: Props) => {
 								name="suffix"
 								render={({ field }) => (
 									<FormItem className="flex flex-col justify-center max-sm:items-center w-full mt-4">
-										<FormLabel>Suffix</FormLabel>
+										<FormLabel>Sonek</FormLabel>
 										<FormControl>
 											<Input
-												placeholder="Enter a suffix (Optional, example: prod)"
+												placeholder="Bir sonek girin (İsteğe bağlı, örnek: prod)"
 												{...field}
 											/>
 										</FormControl>
@@ -162,9 +162,9 @@ export const RandomizeCompose = ({ composeId }: Props) => {
 								render={({ field }) => (
 									<FormItem className="mt-4 flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
 										<div className="space-y-0.5">
-											<FormLabel>Apply Randomize</FormLabel>
+											<FormLabel>Rastgeleleştirmeyi Uygula</FormLabel>
 											<FormDescription>
-												Apply randomize to the compose file.
+												Compose dosyasına rastgeleleştirme uygula.
 											</FormDescription>
 										</div>
 										<FormControl>
@@ -184,7 +184,7 @@ export const RandomizeCompose = ({ composeId }: Props) => {
 								type="submit"
 								className="lg:w-fit"
 							>
-								Save
+								Kaydet
 							</Button>
 							<Button
 								type="button"
@@ -194,7 +194,7 @@ export const RandomizeCompose = ({ composeId }: Props) => {
 								}}
 								className="lg:w-fit"
 							>
-								Random
+								Rastgele
 							</Button>
 						</div>
 					</div>

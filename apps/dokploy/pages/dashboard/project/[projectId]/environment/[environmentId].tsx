@@ -407,7 +407,7 @@ const EnvironmentPage = (
 
 	const [searchQuery, setSearchQuery] = useState("");
 	const serviceTypes = [
-		{ value: "application", label: "Application", icon: GlobeIcon },
+		{ value: "application", label: "Uygulama", icon: GlobeIcon },
 		{ value: "postgres", label: "PostgreSQL", icon: PostgresqlIcon },
 		{ value: "mariadb", label: "MariaDB", icon: MariadbIcon },
 		{ value: "mongo", label: "MongoDB", icon: MongodbIcon },
@@ -443,7 +443,7 @@ const EnvironmentPage = (
 		);
 	};
 
-	const composeActions = {
+	const composeİşlemler = {
 		start: api.compose.start.useMutation(),
 		stop: api.compose.stop.useMutation(),
 		move: api.compose.move.useMutation(),
@@ -451,7 +451,7 @@ const EnvironmentPage = (
 		deploy: api.compose.deploy.useMutation(),
 	};
 
-	const applicationActions = {
+	const applicationİşlemler = {
 		start: api.application.start.useMutation(),
 		stop: api.application.stop.useMutation(),
 		move: api.application.move.useMutation(),
@@ -459,7 +459,7 @@ const EnvironmentPage = (
 		deploy: api.application.deploy.useMutation(),
 	};
 
-	const postgresActions = {
+	const postgresİşlemler = {
 		start: api.postgres.start.useMutation(),
 		stop: api.postgres.stop.useMutation(),
 		move: api.postgres.move.useMutation(),
@@ -467,7 +467,7 @@ const EnvironmentPage = (
 		deploy: api.postgres.deploy.useMutation(),
 	};
 
-	const mysqlActions = {
+	const mysqlİşlemler = {
 		start: api.mysql.start.useMutation(),
 		stop: api.mysql.stop.useMutation(),
 		move: api.mysql.move.useMutation(),
@@ -475,7 +475,7 @@ const EnvironmentPage = (
 		deploy: api.mysql.deploy.useMutation(),
 	};
 
-	const mariadbActions = {
+	const mariadbİşlemler = {
 		start: api.mariadb.start.useMutation(),
 		stop: api.mariadb.stop.useMutation(),
 		move: api.mariadb.move.useMutation(),
@@ -483,7 +483,7 @@ const EnvironmentPage = (
 		deploy: api.mariadb.deploy.useMutation(),
 	};
 
-	const redisActions = {
+	const redisİşlemler = {
 		start: api.redis.start.useMutation(),
 		stop: api.redis.stop.useMutation(),
 		move: api.redis.move.useMutation(),
@@ -491,7 +491,7 @@ const EnvironmentPage = (
 		deploy: api.redis.deploy.useMutation(),
 	};
 
-	const mongoActions = {
+	const mongoİşlemler = {
 		start: api.mongo.start.useMutation(),
 		stop: api.mongo.stop.useMutation(),
 		move: api.mongo.move.useMutation(),
@@ -509,36 +509,36 @@ const EnvironmentPage = (
 
 				switch (service.type) {
 					case "application":
-						await applicationActions.start.mutateAsync({
+						await applicationİşlemler.start.mutateAsync({
 							applicationId: serviceId,
 						});
 						break;
 					case "compose":
-						await composeActions.start.mutateAsync({ composeId: serviceId });
+						await composeİşlemler.start.mutateAsync({ composeId: serviceId });
 						break;
 					case "postgres":
-						await postgresActions.start.mutateAsync({ postgresId: serviceId });
+						await postgresİşlemler.start.mutateAsync({ postgresId: serviceId });
 						break;
 					case "mysql":
-						await mysqlActions.start.mutateAsync({ mysqlId: serviceId });
+						await mysqlİşlemler.start.mutateAsync({ mysqlId: serviceId });
 						break;
 					case "mariadb":
-						await mariadbActions.start.mutateAsync({ mariadbId: serviceId });
+						await mariadbİşlemler.start.mutateAsync({ mariadbId: serviceId });
 						break;
 					case "redis":
-						await redisActions.start.mutateAsync({ redisId: serviceId });
+						await redisİşlemler.start.mutateAsync({ redisId: serviceId });
 						break;
 					case "mongo":
-						await mongoActions.start.mutateAsync({ mongoId: serviceId });
+						await mongoİşlemler.start.mutateAsync({ mongoId: serviceId });
 						break;
 				}
 				success++;
 			} catch {
-				toast.error(`Error starting service ${serviceId}`);
+				toast.error(`Servis başlatılırken hata oluştu: ${serviceId}`);
 			}
 		}
 		if (success > 0) {
-			toast.success(`${success} services started successfully`);
+			toast.success(`${success} servis başarıyla başlatıldı`);
 			refetch();
 		}
 		setIsBulkActionLoading(false);
@@ -556,36 +556,36 @@ const EnvironmentPage = (
 
 				switch (service.type) {
 					case "application":
-						await applicationActions.stop.mutateAsync({
+						await applicationİşlemler.stop.mutateAsync({
 							applicationId: serviceId,
 						});
 						break;
 					case "compose":
-						await composeActions.stop.mutateAsync({ composeId: serviceId });
+						await composeİşlemler.stop.mutateAsync({ composeId: serviceId });
 						break;
 					case "postgres":
-						await postgresActions.stop.mutateAsync({ postgresId: serviceId });
+						await postgresİşlemler.stop.mutateAsync({ postgresId: serviceId });
 						break;
 					case "mysql":
-						await mysqlActions.stop.mutateAsync({ mysqlId: serviceId });
+						await mysqlİşlemler.stop.mutateAsync({ mysqlId: serviceId });
 						break;
 					case "mariadb":
-						await mariadbActions.stop.mutateAsync({ mariadbId: serviceId });
+						await mariadbİşlemler.stop.mutateAsync({ mariadbId: serviceId });
 						break;
 					case "redis":
-						await redisActions.stop.mutateAsync({ redisId: serviceId });
+						await redisİşlemler.stop.mutateAsync({ redisId: serviceId });
 						break;
 					case "mongo":
-						await mongoActions.stop.mutateAsync({ mongoId: serviceId });
+						await mongoİşlemler.stop.mutateAsync({ mongoId: serviceId });
 						break;
 				}
 				success++;
 			} catch {
-				toast.error(`Error stopping service ${serviceId}`);
+				toast.error(`Servis durdurulurken hata oluştu: ${serviceId}`);
 			}
 		}
 		if (success > 0) {
-			toast.success(`${success} services stopped successfully`);
+			toast.success(`${success} servis başarıyla durduruldu`);
 			refetch();
 		}
 		setSelectedServices([]);
@@ -595,11 +595,11 @@ const EnvironmentPage = (
 
 	const handleBulkMove = async () => {
 		if (!selectedTargetProject) {
-			toast.error("Please select a target project");
+			toast.error("Lütfen hedef proje seçin");
 			return;
 		}
 		if (!selectedTargetEnvironment) {
-			toast.error("Please select a target environment");
+			toast.error("Lütfen hedef ortam seçin");
 			return;
 		}
 
@@ -613,43 +613,43 @@ const EnvironmentPage = (
 				// TODO: Update move APIs to use targetEnvironmentId instead of targetProjectId
 				switch (service.type) {
 					case "application":
-						await applicationActions.move.mutateAsync({
+						await applicationİşlemler.move.mutateAsync({
 							applicationId: serviceId,
 							targetEnvironmentId: selectedTargetEnvironment,
 						});
 						break;
 					case "compose":
-						await composeActions.move.mutateAsync({
+						await composeİşlemler.move.mutateAsync({
 							composeId: serviceId,
 							targetEnvironmentId: selectedTargetEnvironment,
 						});
 						break;
 					case "postgres":
-						await postgresActions.move.mutateAsync({
+						await postgresİşlemler.move.mutateAsync({
 							postgresId: serviceId,
 							targetEnvironmentId: selectedTargetEnvironment,
 						});
 						break;
 					case "mysql":
-						await mysqlActions.move.mutateAsync({
+						await mysqlİşlemler.move.mutateAsync({
 							mysqlId: serviceId,
 							targetEnvironmentId: selectedTargetEnvironment,
 						});
 						break;
 					case "mariadb":
-						await mariadbActions.move.mutateAsync({
+						await mariadbİşlemler.move.mutateAsync({
 							mariadbId: serviceId,
 							targetEnvironmentId: selectedTargetEnvironment,
 						});
 						break;
 					case "redis":
-						await redisActions.move.mutateAsync({
+						await redisİşlemler.move.mutateAsync({
 							redisId: serviceId,
 							targetEnvironmentId: selectedTargetEnvironment,
 						});
 						break;
 					case "mongo":
-						await mongoActions.move.mutateAsync({
+						await mongoİşlemler.move.mutateAsync({
 							mongoId: serviceId,
 							targetEnvironmentId: selectedTargetEnvironment,
 						});
@@ -666,7 +666,7 @@ const EnvironmentPage = (
 			}
 		}
 		if (success > 0) {
-			toast.success(`${success} services moved successfully`);
+			toast.success(`${success} servis başarıyla taşındı`);
 			refetch();
 		}
 		setSelectedServices([]);
@@ -688,38 +688,38 @@ const EnvironmentPage = (
 
 				switch (service.type) {
 					case "application":
-						await applicationActions.delete.mutateAsync({
+						await applicationİşlemler.delete.mutateAsync({
 							applicationId: serviceId,
 						});
 						break;
 					case "compose":
-						await composeActions.delete.mutateAsync({
+						await composeİşlemler.delete.mutateAsync({
 							composeId: serviceId,
 							deleteVolumes,
 						});
 						break;
 					case "postgres":
-						await postgresActions.delete.mutateAsync({
+						await postgresİşlemler.delete.mutateAsync({
 							postgresId: serviceId,
 						});
 						break;
 					case "mysql":
-						await mysqlActions.delete.mutateAsync({
+						await mysqlİşlemler.delete.mutateAsync({
 							mysqlId: serviceId,
 						});
 						break;
 					case "mariadb":
-						await mariadbActions.delete.mutateAsync({
+						await mariadbİşlemler.delete.mutateAsync({
 							mariadbId: serviceId,
 						});
 						break;
 					case "redis":
-						await redisActions.delete.mutateAsync({
+						await redisİşlemler.delete.mutateAsync({
 							redisId: serviceId,
 						});
 						break;
 					case "mongo":
-						await mongoActions.delete.mutateAsync({
+						await mongoİşlemler.delete.mutateAsync({
 							mongoId: serviceId,
 						});
 						break;
@@ -735,7 +735,7 @@ const EnvironmentPage = (
 			}
 		}
 		if (success > 0) {
-			toast.success(`${success} services deleted successfully`);
+			toast.success(`${success} servis başarıyla silindi`);
 			refetch();
 		}
 		setSelectedServices([]);
@@ -755,37 +755,37 @@ const EnvironmentPage = (
 
 				switch (service.type) {
 					case "application":
-						await applicationActions.deploy.mutateAsync({
+						await applicationİşlemler.deploy.mutateAsync({
 							applicationId: serviceId,
 						});
 						break;
 					case "compose":
-						await composeActions.deploy.mutateAsync({
+						await composeİşlemler.deploy.mutateAsync({
 							composeId: serviceId,
 						});
 						break;
 					case "postgres":
-						await postgresActions.deploy.mutateAsync({
+						await postgresİşlemler.deploy.mutateAsync({
 							postgresId: serviceId,
 						});
 						break;
 					case "mysql":
-						await mysqlActions.deploy.mutateAsync({
+						await mysqlİşlemler.deploy.mutateAsync({
 							mysqlId: serviceId,
 						});
 						break;
 					case "mariadb":
-						await mariadbActions.deploy.mutateAsync({
+						await mariadbİşlemler.deploy.mutateAsync({
 							mariadbId: serviceId,
 						});
 						break;
 					case "redis":
-						await redisActions.deploy.mutateAsync({
+						await redisİşlemler.deploy.mutateAsync({
 							redisId: serviceId,
 						});
 						break;
 					case "mongo":
-						await mongoActions.deploy.mutateAsync({
+						await mongoİşlemler.deploy.mutateAsync({
 							mongoId: serviceId,
 						});
 						break;
@@ -829,7 +829,7 @@ const EnvironmentPage = (
 		return Array.from(servers.values());
 	}, [applications]);
 
-	// Check if there are services without a server (Dokploy server)
+	// Check if there are services without a server (Yurt sunucusu)
 	const hasServicesWithoutServer = useMemo(() => {
 		if (!applications) return false;
 		return applications.some((service) => !service.serverId);
@@ -862,7 +862,7 @@ const EnvironmentPage = (
 	if (isLoading) {
 		return (
 			<div className="flex flex-row gap-2 items-center justify-center text-sm text-muted-foreground min-h-[60vh]">
-				<span>Loading...</span>
+				<span>Yükleniyor...</span>
 				<Loader2 className="animate-spin size-4" />
 			</div>
 		);
@@ -872,7 +872,7 @@ const EnvironmentPage = (
 		return (
 			<div className="flex flex-col items-center justify-center min-h-[60vh]">
 				<span className="text-lg font-medium text-muted-foreground">
-					Environment not found
+					Ortam bulunamadı
 				</span>
 			</div>
 		);
@@ -906,20 +906,20 @@ const EnvironmentPage = (
 									</EnvironmentVariables>
 								</CardTitle>
 								<CardDescription>
-									{currentEnvironment.description || "No description provided"}
+									{currentEnvironment.description || "Açıklama belirtilmedi"}
 								</CardDescription>
 							</CardHeader>
 							<div className="flex flex-row gap-4 flex-wrap justify-between items-center">
 								<div className="flex flex-row gap-4 flex-wrap">
 									<ProjectEnvironment projectId={projectId}>
-										<Button variant="outline">Project Environment</Button>
+										<Button variant="outline">Proje Ortamı</Button>
 									</ProjectEnvironment>
 									{permissions?.service.create && (
 										<DropdownMenu>
 											<DropdownMenuTrigger asChild>
 												<Button>
 													<PlusIcon className="h-4 w-4" />
-													Create Service
+													Servis Oluştur
 												</Button>
 											</DropdownMenuTrigger>
 											<DropdownMenuContent
@@ -927,7 +927,7 @@ const EnvironmentPage = (
 												align="end"
 											>
 												<DropdownMenuLabel className="text-sm font-normal">
-													Actions
+													İşlemler
 												</DropdownMenuLabel>
 												<DropdownMenuSeparator />
 												<AddApplication
@@ -969,7 +969,7 @@ const EnvironmentPage = (
 												onCheckedChange={handleSelectAll}
 											/>
 											<span className="text-sm">
-												Select All{" "}
+												Tümünü Seç{" "}
 												{selectedServices.length > 0 &&
 													`(${selectedServices.length}/${filteredServices.length})`}
 											</span>
@@ -985,15 +985,15 @@ const EnvironmentPage = (
 													disabled={selectedServices.length === 0}
 													isLoading={isBulkActionLoading}
 												>
-													Bulk Actions
+													Toplu İşlemler
 												</Button>
 											</DropdownMenuTrigger>
 											<DropdownMenuContent align="end">
-												<DropdownMenuLabel>Actions</DropdownMenuLabel>
+												<DropdownMenuLabel>İşlemler</DropdownMenuLabel>
 												<DropdownMenuSeparator />
 												<DialogAction
-													title="Start Services"
-													description={`Are you sure you want to start ${selectedServices.length} services?`}
+													title="Servisleri Başlat"
+													description={`${selectedServices.length} servisi başlatmak istediğinizden emin misiniz?`}
 													type="default"
 													onClick={handleBulkStart}
 												>
@@ -1002,12 +1002,12 @@ const EnvironmentPage = (
 														className="w-full justify-start"
 													>
 														<CheckCircle2 className="mr-2 h-4 w-4" />
-														Start
+														Başlat
 													</Button>
 												</DialogAction>
 												<DialogAction
-													title="Deploy Services"
-													description={`Are you sure you want to deploy ${selectedServices.length} service${selectedServices.length !== 1 ? "s" : ""}? This will redeploy/restart the selected services.`}
+													title="Servisleri Dağıt"
+													description={`${selectedServices.length} servisi dağıtmak istediğinizden emin misiniz? Bu, seçili servisleri yeniden dağıtacak/yeniden başlatacaktır.`}
 													onClick={handleBulkDeploy}
 													type="default"
 													disabled={
@@ -1019,12 +1019,12 @@ const EnvironmentPage = (
 														className="w-full justify-start"
 													>
 														<Play className="mr-2 h-4 w-4" />
-														Deploy
+														Dağıt
 													</Button>
 												</DialogAction>
 												<DialogAction
-													title="Stop Services"
-													description={`Are you sure you want to stop ${selectedServices.length} services?`}
+													title="Servisleri Durdur"
+													description={`${selectedServices.length} servisi durdurmak istediğinizden emin misiniz?`}
 													type="destructive"
 													onClick={handleBulkStop}
 												>
@@ -1033,17 +1033,17 @@ const EnvironmentPage = (
 														className="w-full justify-start text-destructive"
 													>
 														<Ban className="mr-2 h-4 w-4" />
-														Stop
+														Durdur
 													</Button>
 												</DialogAction>
 												{permissions?.service.delete && (
 													<>
 														<DialogAction
-															title="Delete Services"
+															title="Servisleri Sil"
 															description={
 																<div className="space-y-3">
 																	<p>
-																		Are you sure you want to delete{" "}
+																		Şu servisleri silmek istediğinizden emin misiniz:{" "}
 																		{selectedServices.length} services? This
 																		action cannot be undone.
 																	</p>
@@ -1099,7 +1099,7 @@ const EnvironmentPage = (
 													</DialogTrigger>
 													<DialogContent>
 														<DialogHeader>
-															<DialogTitle>Move Services</DialogTitle>
+															<DialogTitle>Servisleri Taşı</DialogTitle>
 															<DialogDescription>
 																Select the target project and environment to
 																move {selectedServices.length} services
@@ -1122,7 +1122,7 @@ const EnvironmentPage = (
 																			htmlFor="target-project"
 																			className="text-sm font-medium"
 																		>
-																			Target Project
+																			Hedef Proje
 																		</label>
 																		<Select
 																			value={selectedTargetProject}
@@ -1132,7 +1132,7 @@ const EnvironmentPage = (
 																			}}
 																		>
 																			<SelectTrigger>
-																				<SelectValue placeholder="Select target project" />
+																				<SelectValue placeholder="Hedef proje seçin" />
 																			</SelectTrigger>
 																			<SelectContent>
 																				{allProjects?.map((project) => (
@@ -1154,7 +1154,7 @@ const EnvironmentPage = (
 																				htmlFor="target-environment"
 																				className="text-sm font-medium"
 																			>
-																				Target Environment
+																				Hedef Ortam
 																			</label>
 																			<Select
 																				value={selectedTargetEnvironment}
@@ -1163,7 +1163,7 @@ const EnvironmentPage = (
 																				}
 																			>
 																				<SelectTrigger>
-																					<SelectValue placeholder="Select target environment" />
+																					<SelectValue placeholder="Hedef ortam seçin" />
 																				</SelectTrigger>
 																				<SelectContent>
 																					{selectedProjectEnvironments
@@ -1196,7 +1196,7 @@ const EnvironmentPage = (
 																	setSelectedTargetEnvironment("");
 																}}
 															>
-																Cancel
+																İptal
 															</Button>
 															<Button
 																onClick={handleBulkMove}
@@ -1207,7 +1207,7 @@ const EnvironmentPage = (
 																	!selectedTargetEnvironment
 																}
 															>
-																Move Services
+																Servisleri Taşı
 															</Button>
 														</DialogFooter>
 													</DialogContent>
@@ -1220,9 +1220,9 @@ const EnvironmentPage = (
 												>
 													<DialogContent>
 														<DialogHeader>
-															<DialogTitle>Delete Services</DialogTitle>
+															<DialogTitle>Servisleri Sil</DialogTitle>
 															<DialogDescription>
-																Are you sure you want to delete{" "}
+																Şu servisleri silmek istediğinizden emin misiniz:{" "}
 																{selectedServices.length} service
 																{selectedServices.length !== 1 ? "s" : ""}? This
 																action cannot be undone.
@@ -1278,11 +1278,11 @@ const EnvironmentPage = (
 																				htmlFor="deleteVolumes"
 																				className="text-sm font-medium"
 																			>
-																				Delete volumes associated with services
+																				Servislerle ilişkili birimleri sil
 																			</label>
 																		</div>
 																		<p className="text-xs text-muted-foreground">
-																			Volume deletion is available for:{" "}
+																			Birim silme şu servisler için kullanılabilir:{" "}
 																			{servicesWithVolumeSupport.length} compose
 																			service
 																			{servicesWithVolumeSupport.length !== 1
@@ -1302,7 +1302,7 @@ const EnvironmentPage = (
 																	setDeleteVolumes(false); // Reset checkbox
 																}}
 															>
-																Cancel
+																İptal
 															</Button>
 															<Button
 																variant="destructive"
@@ -1313,7 +1313,7 @@ const EnvironmentPage = (
 																}}
 																disabled={isBulkActionLoading}
 															>
-																Delete Services
+																Servisleri Sil
 															</Button>
 														</DialogFooter>
 													</DialogContent>
@@ -1325,7 +1325,7 @@ const EnvironmentPage = (
 									<div className="flex flex-col gap-2 lg:flex-row lg:gap-4 lg:items-center">
 										<div className="w-full relative">
 											<FocusShortcutInput
-												placeholder="Filter services..."
+												placeholder="Servisleri filtrele..."
 												value={searchQuery}
 												onChange={(e) => setSearchQuery(e.target.value)}
 												className="pr-10"
@@ -1334,22 +1334,22 @@ const EnvironmentPage = (
 										</div>
 										<Select value={sortBy} onValueChange={setSortBy}>
 											<SelectTrigger className="lg:w-[280px]">
-												<SelectValue placeholder="Sort by..." />
+												<SelectValue placeholder="Sırala..." />
 											</SelectTrigger>
 											<SelectContent>
 												<SelectItem value="lastDeploy-desc">
-													Recently deployed
+													Son dağıtılan
 												</SelectItem>
 												<SelectItem value="createdAt-desc">
-													Newest first
+													En yeni
 												</SelectItem>
 												<SelectItem value="createdAt-asc">
-													Oldest first
+													En eski
 												</SelectItem>
-												<SelectItem value="name-asc">Name (A-Z)</SelectItem>
-												<SelectItem value="name-desc">Name (Z-A)</SelectItem>
-												<SelectItem value="type-asc">Type (A-Z)</SelectItem>
-												<SelectItem value="type-desc">Type (Z-A)</SelectItem>
+												<SelectItem value="name-asc">Ad (A-Z)</SelectItem>
+												<SelectItem value="name-desc">Ad (Z-A)</SelectItem>
+												<SelectItem value="type-asc">Tür (A-Z)</SelectItem>
+												<SelectItem value="type-desc">Tür (Z-A)</SelectItem>
 											</SelectContent>
 										</Select>
 										<Popover open={openCombobox} onOpenChange={setOpenCombobox}>
@@ -1360,15 +1360,15 @@ const EnvironmentPage = (
 													className="min-w-[200px] justify-between"
 												>
 													{selectedTypes.length === 0
-														? "Select types..."
-														: `${selectedTypes.length} selected`}
+														? "Tür seçin..."
+														: `${selectedTypes.length} seçili`}
 													<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 												</Button>
 											</PopoverTrigger>
 											<PopoverContent className="w-[200px] p-0">
 												<Command>
-													<CommandInput placeholder="Search type..." />
-													<CommandEmpty>No type found.</CommandEmpty>
+													<CommandInput placeholder="Tür ara..." />
+													<CommandEmpty>Tür bulunamadı.</CommandEmpty>
 													<CommandGroup>
 														{serviceTypes.map((type) => (
 															<CommandItem
@@ -1407,7 +1407,7 @@ const EnvironmentPage = (
 														>
 															<div className="flex flex-row items-center">
 																<X className="mr-2 h-4 w-4" />
-																Clear filters
+																Filtreleri temizle
 															</div>
 														</CommandItem>
 													</CommandGroup>
@@ -1421,15 +1421,15 @@ const EnvironmentPage = (
 												onValueChange={setSelectedServerId}
 											>
 												<SelectTrigger className="lg:w-[200px]">
-													<SelectValue placeholder="Filter by server..." />
+													<SelectValue placeholder="Sunucuya göre filtrele..." />
 												</SelectTrigger>
 												<SelectContent>
-													<SelectItem value="all">All servers</SelectItem>
+													<SelectItem value="all">Tüm sunucular</SelectItem>
 													{hasServicesWithoutServer && (
 														<SelectItem value="dokploy-server">
 															<div className="flex items-center gap-2">
 																<ServerIcon className="size-4" />
-																<span>Dokploy server</span>
+																<span>Yurt sunucusu</span>
 															</div>
 														</SelectItem>
 													)}
@@ -1455,17 +1455,17 @@ const EnvironmentPage = (
 										<div className="flex h-[70vh] w-full flex-col items-center justify-center">
 											<FolderInput className="size-8 self-center text-muted-foreground" />
 											<span className="text-center font-medium text-muted-foreground">
-												No services added yet. Click on Create Service.
+												Henüz servis eklenmedi. Servis Oluştur'a tıklayın.
 											</span>
 										</div>
 									) : filteredServices.length === 0 ? (
 										<div className="flex h-[70vh] w-full flex-col items-center justify-center">
 											<Search className="size-8 self-center text-muted-foreground" />
 											<span className="text-center font-medium text-muted-foreground">
-												No services found with the current filters
+												Mevcut filtrelerle servis bulunamadı
 											</span>
 											<span className="text-sm text-muted-foreground">
-												Try adjusting your search or filters
+												Aramanızı veya filtrelerinizi ayarlamayı deneyin
 											</span>
 										</div>
 									) : (
@@ -1570,7 +1570,7 @@ const EnvironmentPage = (
 																		</div>
 																	)}
 																	<DateTooltip date={service.createdAt}>
-																		Created
+																		Oluşturulma
 																	</DateTooltip>
 																</div>
 															</CardFooter>

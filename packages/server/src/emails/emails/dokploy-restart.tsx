@@ -44,18 +44,18 @@ export const DokployRestartEmail = ({
 								}
 								width="100"
 								height="50"
-								alt="Dokploy"
+								alt="Yurt"
 								className="my-0 mx-auto"
 							/>
 						</Section>
 						<Heading className="text-black text-[24px] font-normal text-center p-0 my-[30px] mx-0">
-							Dokploy Server Restart
+							Yurt Sunucusu Yeniden Başlatma
 						</Heading>
 						<Text className="text-black text-[14px] leading-[24px]">
 							Hello,
 						</Text>
 						<Text className="text-black text-[14px] leading-[24px]">
-							Your dokploy server was restarted ✅
+							Yurt sunucunuz yeniden başlatıldı ✅
 						</Text>
 
 						<Section className="flex text-black text-[14px]  leading-[24px] bg-[#F4F4F5] rounded-lg p-2">

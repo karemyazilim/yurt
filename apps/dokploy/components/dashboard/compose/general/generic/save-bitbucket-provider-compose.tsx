@@ -159,11 +159,11 @@ export const SaveBitbucketProviderCompose = ({ composeId }: Props) => {
 			enableSubmodules: data.enableSubmodules,
 		})
 			.then(async () => {
-				toast.success("Service Provider Saved");
+				toast.success("Servis sağlayıcısı kaydedildi");
 				await refetch();
 			})
 			.catch(() => {
-				toast.error("Error saving the Bitbucket provider");
+				toast.error("Bitbucket sağlayıcısı kaydedilirken hata oluştu");
 			});
 	};
 
@@ -183,7 +183,7 @@ export const SaveBitbucketProviderCompose = ({ composeId }: Props) => {
 							name="bitbucketId"
 							render={({ field }) => (
 								<FormItem className="md:col-span-2 flex flex-col">
-									<FormLabel>Bitbucket Account</FormLabel>
+									<FormLabel>Bitbucket Hesabı</FormLabel>
 									<Select
 										onValueChange={(value) => {
 											field.onChange(value);
@@ -199,7 +199,7 @@ export const SaveBitbucketProviderCompose = ({ composeId }: Props) => {
 									>
 										<FormControl>
 											<SelectTrigger>
-												<SelectValue placeholder="Select a Bitbucket Account" />
+												<SelectValue placeholder="Bir Bitbucket hesabı seçin" />
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
@@ -224,7 +224,7 @@ export const SaveBitbucketProviderCompose = ({ composeId }: Props) => {
 							render={({ field }) => (
 								<FormItem className="md:col-span-2 flex flex-col">
 									<div className="flex items-center justify-between">
-										<FormLabel>Repository</FormLabel>
+										<FormLabel>Depo</FormLabel>
 										{field.value.owner && field.value.repo && (
 											<Link
 												href={`https://bitbucket.org/${field.value.owner}/${field.value.slug || field.value.repo}`}
@@ -233,7 +233,7 @@ export const SaveBitbucketProviderCompose = ({ composeId }: Props) => {
 												className="flex items-center gap-1 text-sm text-muted-foreground hover:text-primary"
 											>
 												<BitbucketIcon className="h-4 w-4" />
-												<span>View Repository</span>
+												<span>Depoyu Görüntüle</span>
 											</Link>
 										)}
 									</div>
@@ -248,12 +248,12 @@ export const SaveBitbucketProviderCompose = ({ composeId }: Props) => {
 													)}
 												>
 													{!field.value.owner
-														? "Select repository"
+														? "Depo seçin"
 														: isLoadingRepositories
-															? "Loading...."
+															? "Yükleniyor...."
 															: (repositories?.find(
 																	(repo) => repo.name === field.value.repo,
-																)?.name ?? "Select repository")}
+																)?.name ?? "Depo seçin")}
 
 													<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 												</Button>
@@ -262,19 +262,19 @@ export const SaveBitbucketProviderCompose = ({ composeId }: Props) => {
 										<PopoverContent className="p-0" align="start">
 											<Command>
 												<CommandInput
-													placeholder="Search repository..."
+													placeholder="Depo ara..."
 													className="h-9"
 												/>
 												{!bitbucketId ? (
 													<span className="py-6 text-center text-sm text-muted-foreground">
-														Select a Bitbucket account first
+														Önce bir Bitbucket hesabı seçin
 													</span>
 												) : isLoadingRepositories ? (
 													<span className="py-6 text-center text-sm">
-														Loading Repositories....
+														Depolar yükleniyor....
 													</span>
 												) : null}
-												<CommandEmpty>No repositories found.</CommandEmpty>
+												<CommandEmpty>Depo bulunamadı.</CommandEmpty>
 												<ScrollArea className="h-96">
 													<CommandGroup>
 														{repositories?.map((repo) => (
@@ -313,7 +313,7 @@ export const SaveBitbucketProviderCompose = ({ composeId }: Props) => {
 									</Popover>
 									{form.formState.errors.repository && (
 										<p className={cn("text-sm font-medium text-destructive")}>
-											Repository is required
+											Depo gereklidir
 										</p>
 									)}
 								</FormItem>
@@ -324,7 +324,7 @@ export const SaveBitbucketProviderCompose = ({ composeId }: Props) => {
 							name="branch"
 							render={({ field }) => (
 								<FormItem className="block w-full">
-									<FormLabel>Branch</FormLabel>
+									<FormLabel>Dal</FormLabel>
 									<Popover>
 										<PopoverTrigger asChild>
 											<FormControl>
@@ -336,12 +336,12 @@ export const SaveBitbucketProviderCompose = ({ composeId }: Props) => {
 													)}
 												>
 													{status === "pending" && fetchStatus === "fetching"
-														? "Loading...."
+														? "Yükleniyor...."
 														: field.value
 															? branches?.find(
 																	(branch) => branch.name === field.value,
 																)?.name
-															: "Select branch"}
+															: "Dal seçin"}
 													<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 												</Button>
 											</FormControl>
@@ -349,21 +349,21 @@ export const SaveBitbucketProviderCompose = ({ composeId }: Props) => {
 										<PopoverContent className="p-0" align="start">
 											<Command>
 												<CommandInput
-													placeholder="Search branch..."
+													placeholder="Dal ara..."
 													className="h-9"
 												/>
 												{status === "pending" && fetchStatus === "fetching" && (
 													<span className="py-6 text-center text-sm text-muted-foreground">
-														Loading Branches....
+														Dallar yükleniyor....
 													</span>
 												)}
 												{!repository?.owner && (
 													<span className="py-6 text-center text-sm text-muted-foreground">
-														Select a repository
+														Bir depo seçin
 													</span>
 												)}
 												<ScrollArea className="h-96">
-													<CommandEmpty>No branch found.</CommandEmpty>
+													<CommandEmpty>Dal bulunamadı.</CommandEmpty>
 
 													<CommandGroup>
 														{branches?.map((branch) => (
@@ -400,7 +400,7 @@ export const SaveBitbucketProviderCompose = ({ composeId }: Props) => {
 							name="composePath"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Compose Path</FormLabel>
+									<FormLabel>Compose Yolu</FormLabel>
 									<FormControl>
 										<Input placeholder="docker-compose.yml" {...field} />
 									</FormControl>
@@ -415,7 +415,7 @@ export const SaveBitbucketProviderCompose = ({ composeId }: Props) => {
 							render={({ field }) => (
 								<FormItem className="md:col-span-2">
 									<div className="flex items-center gap-2">
-										<FormLabel>Watch Paths</FormLabel>
+										<FormLabel>İzleme Yolları</FormLabel>
 										<TooltipProvider>
 											<Tooltip>
 												<TooltipTrigger>
@@ -425,8 +425,8 @@ export const SaveBitbucketProviderCompose = ({ composeId }: Props) => {
 												</TooltipTrigger>
 												<TooltipContent>
 													<p>
-														Add paths to watch for changes. When files in these
-														paths change, a new deployment will be triggered.
+														Değişiklikleri izlemek için yollar ekleyin. Bu yollardaki
+														dosyalar değiştiğinde yeni bir dağıtım tetiklenecektir.
 													</p>
 												</TooltipContent>
 											</Tooltip>
@@ -450,7 +450,7 @@ export const SaveBitbucketProviderCompose = ({ composeId }: Props) => {
 									<FormControl>
 										<div className="flex gap-2">
 											<Input
-												placeholder="Enter a path to watch (e.g., src/**, dist/*.js)"
+												placeholder="İzlenecek bir yol girin (ör., src/**, dist/*.js)"
 												onKeyDown={(e) => {
 													if (e.key === "Enter") {
 														e.preventDefault();
@@ -469,7 +469,7 @@ export const SaveBitbucketProviderCompose = ({ composeId }: Props) => {
 												variant="secondary"
 												onClick={() => {
 													const input = document.querySelector(
-														'input[placeholder="Enter a path to watch (e.g., src/**, dist/*.js)"]',
+														'input[placeholder="İzlenecek bir yol girin (ör., src/**, dist/*.js)"]',
 													) as HTMLInputElement;
 													const value = input.value.trim();
 													if (value) {
@@ -479,7 +479,7 @@ export const SaveBitbucketProviderCompose = ({ composeId }: Props) => {
 													}
 												}}
 											>
-												Add
+												Ekle
 											</Button>
 										</div>
 									</FormControl>
@@ -498,7 +498,7 @@ export const SaveBitbucketProviderCompose = ({ composeId }: Props) => {
 											onCheckedChange={field.onChange}
 										/>
 									</FormControl>
-									<FormLabel className="!mt-0">Enable Submodules</FormLabel>
+									<FormLabel className="!mt-0">Alt Modülleri Etkinleştir</FormLabel>
 								</FormItem>
 							)}
 						/>
@@ -509,7 +509,7 @@ export const SaveBitbucketProviderCompose = ({ composeId }: Props) => {
 							type="submit"
 							className="w-fit"
 						>
-							Save
+							Kaydet
 						</Button>
 					</div>
 				</form>

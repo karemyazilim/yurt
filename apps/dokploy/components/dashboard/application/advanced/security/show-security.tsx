@@ -35,13 +35,13 @@ export const ShowSecurity = ({ applicationId }: Props) => {
 		<Card className="bg-background">
 			<CardHeader className="flex flex-row justify-between flex-wrap gap-4">
 				<div>
-					<CardTitle className="text-xl">Security</CardTitle>
-					<CardDescription>Add basic auth to your application</CardDescription>
+					<CardTitle className="text-xl">Güvenlik</CardTitle>
+					<CardDescription>Uygulamanıza temel kimlik doğrulama ekleyin</CardDescription>
 				</div>
 
 				{data && data?.security.length > 0 && (
 					<HandleSecurity applicationId={applicationId}>
-						Add Security
+						Güvenlik Ekle
 					</HandleSecurity>
 				)}
 			</CardHeader>
@@ -50,10 +50,10 @@ export const ShowSecurity = ({ applicationId }: Props) => {
 					<div className="flex w-full flex-col items-center justify-center gap-3 pt-10">
 						<LockKeyhole className="size-8 text-muted-foreground" />
 						<span className="text-base text-muted-foreground">
-							No security configured
+							Güvenlik yapılandırılmadı
 						</span>
 						<HandleSecurity applicationId={applicationId}>
-							Add Security
+							Güvenlik Ekle
 						</HandleSecurity>
 					</div>
 				) : (
@@ -64,11 +64,11 @@ export const ShowSecurity = ({ applicationId }: Props) => {
 									<div className="flex w-full flex-col md:flex-row justify-between md:items-center gap-4 md:gap-10 border rounded-lg p-4">
 										<div className="grid grid-cols-1 md:grid-cols-2 flex-col gap-4 md:gap-8">
 											<div className="flex flex-col gap-2">
-												<Label>Username</Label>
+												<Label>Kullanıcı Adı</Label>
 												<Input disabled value={security.username} />
 											</div>
 											<div className="flex flex-col gap-2">
-												<Label>Password</Label>
+												<Label>Şifre</Label>
 												<ToggleVisibilityInput
 													value={security.password}
 													disabled
@@ -81,8 +81,8 @@ export const ShowSecurity = ({ applicationId }: Props) => {
 												applicationId={applicationId}
 											/>
 											<DialogAction
-												title="Delete Security"
-												description="Are you sure you want to delete this security?"
+												title="Güvenliği Sil"
+												description="Bu güvenlik ayarını silmek istediğinizden emin misiniz?"
 												type="destructive"
 												onClick={async () => {
 													await deleteSecurity({
@@ -93,10 +93,10 @@ export const ShowSecurity = ({ applicationId }: Props) => {
 															utils.application.readTraefikConfig.invalidate({
 																applicationId,
 															});
-															toast.success("Security deleted successfully");
+															toast.success("Güvenlik başarıyla silindi");
 														})
 														.catch(() => {
-															toast.error("Error deleting security");
+															toast.error("Güvenlik silinirken hata oluştu");
 														});
 												}}
 											>

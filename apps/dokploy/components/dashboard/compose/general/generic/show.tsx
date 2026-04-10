@@ -48,12 +48,12 @@ export const ShowProviderFormCompose = ({ composeId }: Props) => {
 	const handleDisconnect = async () => {
 		try {
 			await disconnectGitProvider({ composeId });
-			toast.success("Repository disconnected successfully");
+			toast.success("Depo bağlantısı başarıyla kesildi");
 			await refetch();
 		} catch (error) {
 			toast.error(
-				`Failed to disconnect repository: ${
-					error instanceof Error ? error.message : "Unknown error"
+				`Depo bağlantısı kesilirken hata oluştu: ${
+					error instanceof Error ? error.message : "Bilinmeyen hata"
 				}`,
 			);
 		}
@@ -65,9 +65,9 @@ export const ShowProviderFormCompose = ({ composeId }: Props) => {
 				<CardHeader>
 					<CardTitle className="flex items-start justify-between">
 						<div className="flex flex-col gap-2">
-							<span className="flex flex-col space-y-0.5">Provider</span>
+							<span className="flex flex-col space-y-0.5">Sağlayıcı</span>
 							<p className="flex items-center text-sm font-normal text-muted-foreground">
-								Select the source of your code
+								Kodunuzun kaynağını seçin
 							</p>
 						</div>
 						<div className="hidden space-y-1 text-sm font-normal md:block">
@@ -79,7 +79,7 @@ export const ShowProviderFormCompose = ({ composeId }: Props) => {
 					<div className="flex min-h-[25vh] items-center justify-center">
 						<div className="flex items-center gap-2 text-muted-foreground">
 							<Loader2 className="size-4 animate-spin" />
-							<span>Loading providers...</span>
+							<span>Sağlayıcılar yükleniyor...</span>
 						</div>
 					</div>
 				</CardContent>
@@ -98,9 +98,9 @@ export const ShowProviderFormCompose = ({ composeId }: Props) => {
 				<CardHeader>
 					<CardTitle className="flex items-start justify-between">
 						<div className="flex flex-col gap-2">
-							<span className="flex flex-col space-y-0.5">Provider</span>
+							<span className="flex flex-col space-y-0.5">Sağlayıcı</span>
 							<p className="flex items-center text-sm font-normal text-muted-foreground">
-								Repository connection through unauthorized provider
+								Yetkisiz sağlayıcı üzerinden depo bağlantısı
 							</p>
 						</div>
 						<div className="hidden space-y-1 text-sm font-normal md:block">
@@ -123,9 +123,9 @@ export const ShowProviderFormCompose = ({ composeId }: Props) => {
 			<CardHeader>
 				<CardTitle className="flex items-start justify-between">
 					<div className="flex flex-col gap-2">
-						<span className="flex flex-col space-y-0.5">Provider</span>
+						<span className="flex flex-col space-y-0.5">Sağlayıcı</span>
 						<p className="flex items-center text-sm font-normal text-muted-foreground">
-							Select the source of your code
+							Kodunuzun kaynağını seçin
 						</p>
 					</div>
 					<div className="hidden space-y-1 text-sm font-normal md:flex flex-row items-center gap-2">
@@ -195,15 +195,15 @@ export const ShowProviderFormCompose = ({ composeId }: Props) => {
 							<div className="flex flex-col items-center gap-3 min-h-[25vh] justify-center">
 								<GithubIcon className="size-8 text-muted-foreground" />
 								<span className="text-base text-muted-foreground">
-									To deploy using GitHub, you need to configure your account
-									first. Please, go to{" "}
+									GitHub kullanarak dağıtım yapmak için önce hesabınızı
+									yapılandırmanız gerekiyor. Lütfen bunu yapmak için{" "}
 									<Link
 										href="/dashboard/settings/git-providers"
 										className="text-foreground"
 									>
-										Settings
+										Ayarlar
 									</Link>{" "}
-									to do so.
+									sayfasına gidin.
 								</span>
 							</div>
 						)}
@@ -215,15 +215,15 @@ export const ShowProviderFormCompose = ({ composeId }: Props) => {
 							<div className="flex flex-col items-center gap-3 min-h-[25vh] justify-center">
 								<GitlabIcon className="size-8 text-muted-foreground" />
 								<span className="text-base text-muted-foreground">
-									To deploy using GitLab, you need to configure your account
-									first. Please, go to{" "}
+									GitLab kullanarak dağıtım yapmak için önce hesabınızı
+									yapılandırmanız gerekiyor. Lütfen bunu yapmak için{" "}
 									<Link
 										href="/dashboard/settings/git-providers"
 										className="text-foreground"
 									>
-										Settings
+										Ayarlar
 									</Link>{" "}
-									to do so.
+									sayfasına gidin.
 								</span>
 							</div>
 						)}
@@ -235,15 +235,15 @@ export const ShowProviderFormCompose = ({ composeId }: Props) => {
 							<div className="flex flex-col items-center gap-3 min-h-[25vh] justify-center">
 								<BitbucketIcon className="size-8 text-muted-foreground" />
 								<span className="text-base text-muted-foreground">
-									To deploy using Bitbucket, you need to configure your account
-									first. Please, go to{" "}
+									Bitbucket kullanarak dağıtım yapmak için önce hesabınızı
+									yapılandırmanız gerekiyor. Lütfen bunu yapmak için{" "}
 									<Link
 										href="/dashboard/settings/git-providers"
 										className="text-foreground"
 									>
-										Settings
+										Ayarlar
 									</Link>{" "}
-									to do so.
+									sayfasına gidin.
 								</span>
 							</div>
 						)}
@@ -255,15 +255,15 @@ export const ShowProviderFormCompose = ({ composeId }: Props) => {
 							<div className="flex flex-col items-center gap-3 min-h-[25vh] justify-center">
 								<GiteaIcon className="size-8 text-muted-foreground" />
 								<span className="text-base text-muted-foreground">
-									To deploy using Gitea, you need to configure your account
-									first. Please, go to{" "}
+									Gitea kullanarak dağıtım yapmak için önce hesabınızı
+									yapılandırmanız gerekiyor. Lütfen bunu yapmak için{" "}
 									<Link
 										href="/dashboard/settings/git-providers"
 										className="text-foreground"
 									>
-										Settings
+										Ayarlar
 									</Link>{" "}
-									to do so.
+									sayfasına gidin.
 								</span>
 							</div>
 						)}

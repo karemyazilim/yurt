@@ -77,11 +77,11 @@ const databasesUserDefaultPlaceholder: Record<
 };
 
 const baseDatabaseSchema = z.object({
-	name: z.string().min(1, "Name required"),
+	name: z.string().min(1, "Ad gereklidir"),
 	appName: z
 		.string()
 		.min(1, {
-			message: "App name is required",
+			message: "Uygulama adı gereklidir",
 		})
 		.regex(APP_NAME_REGEX, {
 			message: APP_NAME_MESSAGE,
@@ -90,7 +90,7 @@ const baseDatabaseSchema = z.object({
 		.string()
 		.regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/, {
 			message:
-				"Password contains invalid characters. Please avoid: $ ! ' \" \\ / and space characters for database compatibility",
+				"Şifre geçersiz karakterler içeriyor. Veritabanı uyumluluğu için lütfen şu karakterlerden kaçının: $ ! ' \" \\ / ve boşluk",
 		}),
 	dockerImage: z.string(),
 	description: z.string().nullable(),
@@ -119,7 +119,7 @@ const mySchema = z
 					.string()
 					.regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/, {
 						message:
-							"Password contains invalid characters. Please avoid: $ ! ' \" \\ / and space characters for database compatibility",
+							"Şifre geçersiz karakterler içeriyor. Veritabanı uyumluluğu için lütfen şu karakterlerden kaçının: $ ! ' \" \\ / ve boşluk",
 					})
 					.optional(),
 				databaseUser: z.string().default("mariadb"),
@@ -140,7 +140,7 @@ const mySchema = z
 					.string()
 					.regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/, {
 						message:
-							"Password contains invalid characters. Please avoid: $ ! ' \" \\ / and space characters for database compatibility",
+							"Şifre geçersiz karakterler içeriyor. Veritabanı uyumluluğu için lütfen şu karakterlerden kaçının: $ ! ' \" \\ / ve boşluk",
 					})
 					.optional(),
 				databaseUser: z.string().default("mysql"),
@@ -335,7 +335,7 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 		if (promise) {
 			await promise
 				.then(async () => {
-					toast.success("Database Created");
+					toast.success("Veritabanı oluşturuldu");
 					form.reset({
 						type: "postgres",
 						dockerImage: "",
@@ -353,7 +353,7 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 					});
 				})
 				.catch(() => {
-					toast.error("Error creating a database");
+					toast.error("Veritabanı oluşturulurken hata oluştu");
 				});
 		}
 	};
@@ -366,12 +366,12 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 					onSelect={(e) => e.preventDefault()}
 				>
 					<Database className="size-4 text-muted-foreground" />
-					<span>Database</span>
+					<span>Veritabanı</span>
 				</DropdownMenuItem>
 			</DialogTrigger>
 			<DialogContent className="md:max-h-[90vh]  sm:max-w-2xl">
 				<DialogHeader>
-					<DialogTitle>Databases</DialogTitle>
+					<DialogTitle>Veritabanları</DialogTitle>
 				</DialogHeader>
 
 				<Form {...form}>
@@ -387,7 +387,7 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 							render={({ field }) => (
 								<FormItem className="space-y-3">
 									<FormLabel className="text-muted-foreground">
-										Select a database
+										Veritabanı seçin
 									</FormLabel>
 									<FormControl>
 										<RadioGroup
@@ -434,7 +434,7 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 						/>
 						<div className="flex flex-col gap-4">
 							<FormLabel className="text-lg font-semibold leading-none tracking-tight">
-								Fill the next fields.
+								Aşağıdaki alanları doldurun.
 							</FormLabel>
 							<div className="flex flex-col gap-2">
 								<FormField
@@ -442,10 +442,10 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 									name="name"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Name</FormLabel>
+											<FormLabel>Ad</FormLabel>
 											<FormControl>
 												<Input
-													placeholder="Name"
+													placeholder="Ad"
 													{...field}
 													onChange={(e) => {
 														const val = e.target.value || "";
@@ -466,7 +466,7 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 										name="serverId"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Select a Server</FormLabel>
+												<FormLabel>Sunucu Seçin</FormLabel>
 												<Select
 													onValueChange={field.onChange}
 													defaultValue={
@@ -487,7 +487,7 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 																	<span className="flex items-center gap-2 justify-between w-full">
 																		<span>Dokploy</span>
 																		<span className="text-muted-foreground text-xs self-center">
-																			Default
+																			Varsayılan
 																		</span>
 																	</span>
 																</SelectItem>
@@ -501,7 +501,7 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 																</SelectItem>
 															))}
 															<SelectLabel>
-																Servers ({servers?.length + (!isCloud ? 1 : 0)})
+																Sunucular ({servers?.length + (!isCloud ? 1 : 0)})
 															</SelectLabel>
 														</SelectGroup>
 													</SelectContent>
@@ -517,7 +517,7 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel className="flex items-center gap-2">
-												App Name
+												Uygulama Adı
 												<TooltipProvider delayDuration={0}>
 													<Tooltip>
 														<TooltipTrigger asChild>
@@ -525,8 +525,8 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 														</TooltipTrigger>
 														<TooltipContent side="right">
 															<p>
-																This will be the name of the Docker Swarm
-																service
+																Bu, Docker Swarm servisinin adı
+																olacaktır
 															</p>
 														</TooltipContent>
 													</Tooltip>
@@ -545,11 +545,11 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 									name="description"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Description</FormLabel>
+											<FormLabel>Açıklama</FormLabel>
 											<FormControl>
 												<Textarea
 													className="h-24"
-													placeholder="Description"
+													placeholder="Açıklama"
 													{...field}
 													value={field.value || ""}
 												/>
@@ -567,9 +567,9 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 										name="databaseName"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Database Name</FormLabel>
+												<FormLabel>Veritabanı Adı</FormLabel>
 												<FormControl>
-													<Input placeholder="Database Name" {...field} />
+													<Input placeholder="Veritabanı Adı" {...field} />
 												</FormControl>
 
 												<FormMessage />
@@ -584,7 +584,7 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 										name="sqldNode"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Sqld Node</FormLabel>
+												<FormLabel>Sqld Düğümü</FormLabel>
 												<Select
 													onValueChange={field.onChange}
 													defaultValue={field.value || "primary"}
@@ -613,7 +613,7 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 										name="sqldPrimaryUrl"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Sqld Primary URL</FormLabel>
+												<FormLabel>Sqld Birincil URL</FormLabel>
 												<FormControl>
 													<Input
 														placeholder={"https://<host>:<port>"}
@@ -635,7 +635,7 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 											console.log(field.value);
 											return (
 												<FormItem>
-													<FormLabel>Enable Namespaces</FormLabel>
+													<FormLabel>Ad Alanlarını Etkinleştir</FormLabel>
 													<FormControl>
 														<Select
 															onValueChange={(value) =>
@@ -677,10 +677,10 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 										name="databaseUser"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Database User</FormLabel>
+												<FormLabel>Veritabanı Kullanıcısı</FormLabel>
 												<FormControl>
 													<Input
-														placeholder={`Default ${databasesUserDefaultPlaceholder[type]}`}
+														placeholder={`Varsayılan ${databasesUserDefaultPlaceholder[type]}`}
 														autoComplete="off"
 														{...field}
 													/>
@@ -697,7 +697,7 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 									name="databasePassword"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Database Password</FormLabel>
+											<FormLabel>Veritabanı Şifresi</FormLabel>
 											<FormControl>
 												<Input
 													type="password"
@@ -718,7 +718,7 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 										name="databaseRootPassword"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Database Root password</FormLabel>
+												<FormLabel>Veritabanı Root Şifresi</FormLabel>
 												<FormControl>
 													<Input
 														type="password"
@@ -741,10 +741,10 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 									render={({ field }) => {
 										return (
 											<FormItem>
-												<FormLabel>Docker image</FormLabel>
+												<FormLabel>Docker imajı</FormLabel>
 												<FormControl>
 													<Input
-														placeholder={`Default ${dockerImageDefaultPlaceholder[type]}`}
+														placeholder={`Varsayılan ${dockerImageDefaultPlaceholder[type]}`}
 														{...field}
 													/>
 												</FormControl>
@@ -763,7 +763,7 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 											return (
 												<FormItem className="flex flex-row items-center justify-between p-3 mt-4 border rounded-lg shadow-sm">
 													<div className="space-y-0.5">
-														<FormLabel>Use Replica Sets</FormLabel>
+														<FormLabel>Replika Setleri Kullan</FormLabel>
 													</div>
 													<FormControl>
 														<Switch
@@ -788,7 +788,7 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 							form="hook-form"
 							type="submit"
 						>
-							Create
+							Oluştur
 						</Button>
 					</DialogFooter>
 				</Form>

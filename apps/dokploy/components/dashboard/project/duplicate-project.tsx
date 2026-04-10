@@ -105,8 +105,8 @@ export const DuplicateProject = ({
 
 				toast.success(
 					duplicateType === "new-project"
-						? "Project duplicated successfully"
-						: "Services duplicated successfully",
+						? "Proje başarıyla kopyalandı"
+						: "Servisler başarıyla kopyalandı",
 				);
 				setOpen(false);
 				if (duplicateType === "new-project") {
@@ -122,17 +122,17 @@ export const DuplicateProject = ({
 
 	const handleDuplicate = async () => {
 		if (duplicateType === "new-project" && !name) {
-			toast.error("Project name is required");
+			toast.error("Proje adı gereklidir");
 			return;
 		}
 
 		if (duplicateType === "existing-environment") {
 			if (!selectedTargetProject) {
-				toast.error("Please select a target project");
+				toast.error("Lütfen hedef proje seçin");
 				return;
 			}
 			if (!selectedTargetEnvironment) {
-				toast.error("Please select a target environment");
+				toast.error("Lütfen hedef ortam seçin");
 				return;
 			}
 		}
@@ -169,20 +169,20 @@ export const DuplicateProject = ({
 			<DialogTrigger asChild>
 				<Button variant="ghost" className="w-full justify-start">
 					<Copy className="mr-2 h-4 w-4" />
-					Duplicate
+					Kopyala
 				</Button>
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Duplicate Services</DialogTitle>
+					<DialogTitle>Servisleri Kopyala</DialogTitle>
 					<DialogDescription>
-						Choose where to duplicate the selected services
+						Seçili servisleri nereye kopyalayacağınızı seçin
 					</DialogDescription>
 				</DialogHeader>
 
 				<div className="grid gap-4 py-4">
 					<div className="grid gap-2">
-						<Label>Duplicate to</Label>
+						<Label>Kopyala</Label>
 						<RadioGroup
 							value={duplicateType}
 							onValueChange={(value) => {
@@ -197,7 +197,7 @@ export const DuplicateProject = ({
 						>
 							<div className="flex items-center space-x-2">
 								<RadioGroupItem value="new-project" id="new-project" />
-								<Label htmlFor="new-project">New project</Label>
+								<Label htmlFor="new-project">Yeni proje</Label>
 							</div>
 							<div className="flex items-center space-x-2">
 								<RadioGroupItem
@@ -205,7 +205,7 @@ export const DuplicateProject = ({
 									id="existing-environment"
 								/>
 								<Label htmlFor="existing-environment">
-									Existing environment
+									Mevcut ortam
 								</Label>
 							</div>
 						</RadioGroup>
@@ -214,22 +214,22 @@ export const DuplicateProject = ({
 					{duplicateType === "new-project" && (
 						<>
 							<div className="grid gap-2">
-								<Label htmlFor="name">Name</Label>
+								<Label htmlFor="name">Ad</Label>
 								<Input
 									id="name"
 									value={name}
 									onChange={(e) => setName(e.target.value)}
-									placeholder="New project name"
+									placeholder="Yeni proje adı"
 								/>
 							</div>
 
 							<div className="grid gap-2">
-								<Label htmlFor="description">Description</Label>
+								<Label htmlFor="description">Açıklama</Label>
 								<Input
 									id="description"
 									value={description}
 									onChange={(e) => setDescription(e.target.value)}
-									placeholder="Project description (optional)"
+									placeholder="Proje açıklaması (isteğe bağlı)"
 								/>
 							</div>
 						</>
@@ -241,14 +241,14 @@ export const DuplicateProject = ({
 								.length === 0 ? (
 								<div className="flex flex-col items-center justify-center gap-2 py-4 text-center">
 									<p className="text-sm text-muted-foreground">
-										No other projects available. Create a new project first.
+										Başka proje bulunmuyor. Önce yeni bir proje oluşturun.
 									</p>
 								</div>
 							) : (
 								<>
 									{/* Step 1: Select Project */}
 									<div className="grid gap-2">
-										<Label>Target Project</Label>
+										<Label>Hedef Proje</Label>
 										<Select
 											value={selectedTargetProject}
 											onValueChange={(value) => {
@@ -257,7 +257,7 @@ export const DuplicateProject = ({
 											}}
 										>
 											<SelectTrigger>
-												<SelectValue placeholder="Select target project" />
+												<SelectValue placeholder="Hedef proje seçin" />
 											</SelectTrigger>
 											<SelectContent>
 												{allProjects
@@ -277,13 +277,13 @@ export const DuplicateProject = ({
 									{/* Step 2: Select Environment (only show if project is selected) */}
 									{selectedTargetProject && (
 										<div className="grid gap-2">
-											<Label>Target Environment</Label>
+											<Label>Hedef Ortam</Label>
 											<Select
 												value={selectedTargetEnvironment}
 												onValueChange={setSelectedTargetEnvironment}
 											>
 												<SelectTrigger>
-													<SelectValue placeholder="Select target environment" />
+													<SelectValue placeholder="Hedef ortam seçin" />
 												</SelectTrigger>
 												<SelectContent>
 													{selectedProjectEnvironments?.map((env) => (
@@ -304,7 +304,7 @@ export const DuplicateProject = ({
 					)}
 
 					<div className="grid gap-2">
-						<Label>Selected services to duplicate</Label>
+						<Label>Kopyalanacak seçili servisler</Label>
 						<div className="space-y-2 max-h-[200px] overflow-y-auto border rounded-md p-4">
 							{selectedServices.map((service) => (
 								<div key={service.id} className="flex items-center space-x-2">
@@ -323,7 +323,7 @@ export const DuplicateProject = ({
 						onClick={() => setOpen(false)}
 						disabled={isPending}
 					>
-						Cancel
+						İptal
 					</Button>
 					<Button
 						onClick={handleDuplicate}
@@ -338,13 +338,13 @@ export const DuplicateProject = ({
 							<>
 								<Loader2 className="mr-2 h-4 w-4 animate-spin" />
 								{duplicateType === "new-project"
-									? "Duplicating to new project..."
-									: "Duplicating to environment..."}
+									? "Yeni projeye kopyalanıyor..."
+									: "Ortama kopyalanıyor..."}
 							</>
 						) : duplicateType === "new-project" ? (
-							"Duplicate to new project"
+							"Yeni projeye kopyala"
 						) : (
-							"Duplicate to environment"
+							"Ortama kopyala"
 						)}
 					</Button>
 				</DialogFooter>

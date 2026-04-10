@@ -28,7 +28,7 @@ export const InvitationEmail = ({
 	inviteLink,
 	toEmail,
 }: VercelInviteUserEmailProps) => {
-	const previewText = "Join to Dokploy";
+	const previewText = "Yurt'a Katılın";
 	return (
 		<Html>
 			<Head />
@@ -53,19 +53,19 @@ export const InvitationEmail = ({
 								}
 								width="100"
 								height="50"
-								alt="Dokploy"
+								alt="Yurt"
 								className="my-0 mx-auto"
 							/>
 						</Section>
 						<Heading className="text-black text-[24px] font-normal text-center p-0 my-[30px] mx-0">
-							Join to <strong>Dokploy</strong>
+							Yurt'a Katılın
 						</Heading>
 						<Text className="text-black text-[14px] leading-[24px]">
 							Hello,
 						</Text>
 						<Text className="text-black text-[14px] leading-[24px]">
-							You have been invited to join <strong>Dokploy</strong>, a platform
-							that helps for deploying your apps to the cloud.
+							Uygulamalarınızı buluta dağıtmanıza yardımcı olan{" "}
+							<strong>Yurt</strong> platformuna davet edildiniz.
 						</Text>
 						<Section className="text-center mt-[32px] mb-[32px]">
 							<Button
@@ -78,13 +78,13 @@ export const InvitationEmail = ({
 						<Text className="text-black text-[14px] leading-[24px]">
 							or copy and paste this URL into your browser:{" "}
 							<Link href={inviteLink} className="text-blue-600 no-underline">
-								https://dokploy.com
+								https://yurt.dev
 							</Link>
 						</Text>
 						<Hr className="border border-solid border-[#eaeaea] my-[26px] mx-0 w-full" />
 						<Text className="text-[#666666] text-[12px] leading-[24px]">
 							This invitation was intended for {toEmail}. This invite was sent
-							from <strong className="text-black">dokploy.com</strong>. If you
+							from <strong className="text-black">yurt.dev</strong>. If you
 							were not expecting this invitation, you can ignore this email. If
 							you are concerned about your account's safety, please reply to
 						</Text>

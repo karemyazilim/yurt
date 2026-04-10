@@ -76,11 +76,11 @@ export const EnvironmentVariables = ({ environmentId, children }: Props) => {
 			environmentId: environmentId,
 		})
 			.then(() => {
-				toast.success("Environment variables updated successfully");
+				toast.success("Ortam değişkenleri başarıyla güncellendi");
 				utils.environment.one.invalidate({ environmentId });
 			})
 			.catch(() => {
-				toast.error("Error updating the environment variables");
+				toast.error("Ortam değişkenleri güncellenirken hata oluştu");
 			})
 			.finally(() => {});
 	};
@@ -118,22 +118,22 @@ export const EnvironmentVariables = ({ environmentId, children }: Props) => {
 						onSelect={(e) => e.preventDefault()}
 					>
 						<Terminal className="size-4" />
-						<span>Environment Variables</span>
+						<span>Ortam Değişkenleri</span>
 					</DropdownMenuItem>
 				)}
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-6xl">
 				<DialogHeader>
-					<DialogTitle>Environment Variables</DialogTitle>
+					<DialogTitle>Ortam Değişkenleri</DialogTitle>
 					<DialogDescription>
-						Update the environment variables that are accessible to all services
-						in this environment.
+						Bu ortamdaki tüm servislerin erişebileceği ortam değişkenlerini
+						güncelleyin.
 					</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
 				<AlertBlock type="info">
-					Use this syntax to reference environment-level variables in your
-					service environments:{" "}
+					Servis ortamlarınızda ortam düzeyindeki değişkenlere başvurmak için
+					şu söz dizimini kullanın:{" "}
 					<code>API_URL=${"{{environment.API_URL}}"}</code>
 				</AlertBlock>
 				<div className="grid gap-4">
@@ -148,7 +148,7 @@ export const EnvironmentVariables = ({ environmentId, children }: Props) => {
 									name="env"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Environment variables</FormLabel>
+											<FormLabel>Ortam değişkenleri</FormLabel>
 											<FormControl>
 												<CodeEditor
 													lineWrapping
@@ -173,7 +173,7 @@ API_KEY=your-api-key-here
 								{canWrite && (
 									<DialogFooter>
 										<Button isLoading={isPending} type="submit">
-											Update
+											Güncelle
 										</Button>
 									</DialogFooter>
 								)}

@@ -29,7 +29,7 @@ import { api } from "@/utils/api";
 
 const updateMysqlSchema = z.object({
 	name: z.string().min(1, {
-		message: "Name is required",
+		message: "Ad gereklidir",
 	}),
 	description: z.string().optional(),
 });
@@ -76,14 +76,14 @@ export const UpdateMysql = ({ mysqlId }: Props) => {
 			description: formData.description || "",
 		})
 			.then(() => {
-				toast.success("MySQL updated successfully");
+				toast.success("MySQL başarıyla güncellendi");
 				utils.mysql.one.invalidate({
 					mysqlId: mysqlId,
 				});
 				setIsOpen(false);
 			})
 			.catch(() => {
-				toast.error("Error updating MySQL");
+				toast.error("MySQL güncellenirken hata oluştu");
 			})
 			.finally(() => {});
 	};
@@ -101,8 +101,8 @@ export const UpdateMysql = ({ mysqlId }: Props) => {
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-lg">
 				<DialogHeader>
-					<DialogTitle>Modify MySQL</DialogTitle>
-					<DialogDescription>Update the MySQL data</DialogDescription>
+					<DialogTitle>MySQL Düzenle</DialogTitle>
+					<DialogDescription>MySQL verilerini güncelle</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
 
@@ -119,7 +119,7 @@ export const UpdateMysql = ({ mysqlId }: Props) => {
 									name="name"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Name</FormLabel>
+											<FormLabel>Ad</FormLabel>
 											<FormControl>
 												<Input placeholder="Vandelay Industries" {...field} />
 											</FormControl>
@@ -133,10 +133,10 @@ export const UpdateMysql = ({ mysqlId }: Props) => {
 									name="description"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Description</FormLabel>
+											<FormLabel>Açıklama</FormLabel>
 											<FormControl>
 												<Textarea
-													placeholder="Description about your project..."
+													placeholder="Projeniz hakkında açıklama..."
 													className="resize-none"
 													{...field}
 												/>
@@ -152,7 +152,7 @@ export const UpdateMysql = ({ mysqlId }: Props) => {
 										form="hook-form-mysql-update"
 										type="submit"
 									>
-										Update
+										Güncelle
 									</Button>
 								</DialogFooter>
 							</form>

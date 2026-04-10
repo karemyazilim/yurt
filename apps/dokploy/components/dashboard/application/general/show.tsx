@@ -56,28 +56,28 @@ export const ShowGeneralApplication = ({ applicationId }: Props) => {
 		<>
 			<Card className="bg-background">
 				<CardHeader>
-					<CardTitle className="text-xl">Deploy Settings</CardTitle>
+					<CardTitle className="text-xl">Dağıtım Ayarları</CardTitle>
 				</CardHeader>
 				<CardContent className="flex flex-row gap-4 flex-wrap">
 					<TooltipProvider delayDuration={0} disableHoverableContent={false}>
 						{canDeploy && (
 							<DialogAction
-								title="Deploy Application"
-								description="Are you sure you want to deploy this application?"
+								title="Uygulamayı Dağıt"
+								description="Bu uygulamayı dağıtmak istediğinizden emin misiniz?"
 								type="default"
 								onClick={async () => {
 									await deploy({
 										applicationId: applicationId,
 									})
 										.then(() => {
-											toast.success("Application deployed successfully");
+											toast.success("Uygulama başarıyla dağıtıldı");
 											refetch();
 											router.push(
 												`/dashboard/project/${data?.environment.projectId}/environment/${data?.environmentId}/services/application/${applicationId}?tab=deployments`,
 											);
 										})
 										.catch(() => {
-											toast.error("Error deploying application");
+											toast.error("Uygulama dağıtılırken hata oluştu");
 										});
 								}}
 							>
@@ -90,14 +90,14 @@ export const ShowGeneralApplication = ({ applicationId }: Props) => {
 										<TooltipTrigger asChild>
 											<div className="flex items-center">
 												<Rocket className="size-4 mr-1" />
-												Deploy
+												Dağıt
 											</div>
 										</TooltipTrigger>
 										<TooltipPrimitive.Portal>
 											<TooltipContent sideOffset={5} className="z-[60]">
 												<p>
-													Downloads the source code and performs a complete
-													build
+													Kaynak kodunu indirir ve tam bir derleme
+													gerçekleştirir
 												</p>
 											</TooltipContent>
 										</TooltipPrimitive.Portal>
@@ -107,8 +107,8 @@ export const ShowGeneralApplication = ({ applicationId }: Props) => {
 						)}
 						{canDeploy && (
 							<DialogAction
-								title="Reload Application"
-								description="Are you sure you want to reload this application?"
+								title="Uygulamayı Yeniden Yükle"
+								description="Bu uygulamayı yeniden yüklemek istediğinizden emin misiniz?"
 								type="default"
 								onClick={async () => {
 									await reload({
@@ -116,11 +116,11 @@ export const ShowGeneralApplication = ({ applicationId }: Props) => {
 										appName: data?.appName || "",
 									})
 										.then(() => {
-											toast.success("Application reloaded successfully");
+											toast.success("Uygulama başarıyla yeniden yüklendi");
 											refetch();
 										})
 										.catch(() => {
-											toast.error("Error reloading application");
+											toast.error("Uygulama yeniden yüklenirken hata oluştu");
 										});
 								}}
 							>
@@ -133,12 +133,12 @@ export const ShowGeneralApplication = ({ applicationId }: Props) => {
 										<TooltipTrigger asChild>
 											<div className="flex items-center">
 												<RefreshCcw className="size-4 mr-1" />
-												Reload
+												Yeniden Yükle
 											</div>
 										</TooltipTrigger>
 										<TooltipPrimitive.Portal>
 											<TooltipContent sideOffset={5} className="z-[60]">
-												<p>Reload the application without rebuilding it</p>
+												<p>Uygulamayı yeniden derlemeden yeniden yükle</p>
 											</TooltipContent>
 										</TooltipPrimitive.Portal>
 									</Tooltip>
@@ -147,19 +147,19 @@ export const ShowGeneralApplication = ({ applicationId }: Props) => {
 						)}
 						{canDeploy && (
 							<DialogAction
-								title="Rebuild Application"
-								description="Are you sure you want to rebuild this application?"
+								title="Uygulamayı Yeniden Derle"
+								description="Bu uygulamayı yeniden derlemek istediğinizden emin misiniz?"
 								type="default"
 								onClick={async () => {
 									await redeploy({
 										applicationId: applicationId,
 									})
 										.then(() => {
-											toast.success("Application rebuilt successfully");
+											toast.success("Uygulama başarıyla yeniden derlendi");
 											refetch();
 										})
 										.catch(() => {
-											toast.error("Error rebuilding application");
+											toast.error("Uygulama yeniden derlenirken hata oluştu");
 										});
 								}}
 							>
@@ -172,14 +172,14 @@ export const ShowGeneralApplication = ({ applicationId }: Props) => {
 										<TooltipTrigger asChild>
 											<div className="flex items-center">
 												<Hammer className="size-4 mr-1" />
-												Rebuild
+												Yeniden Derle
 											</div>
 										</TooltipTrigger>
 										<TooltipPrimitive.Portal>
 											<TooltipContent sideOffset={5} className="z-[60]">
 												<p>
-													Only rebuilds the application without downloading new
-													code
+													Yeni kod indirmeden yalnızca uygulamayı yeniden
+													derler
 												</p>
 											</TooltipContent>
 										</TooltipPrimitive.Portal>
@@ -190,19 +190,19 @@ export const ShowGeneralApplication = ({ applicationId }: Props) => {
 
 						{canDeploy && data?.applicationStatus === "idle" ? (
 							<DialogAction
-								title="Start Application"
-								description="Are you sure you want to start this application?"
+								title="Uygulamayı Başlat"
+								description="Bu uygulamayı başlatmak istediğinizden emin misiniz?"
 								type="default"
 								onClick={async () => {
 									await start({
 										applicationId: applicationId,
 									})
 										.then(() => {
-											toast.success("Application started successfully");
+											toast.success("Uygulama başarıyla başlatıldı");
 											refetch();
 										})
 										.catch(() => {
-											toast.error("Error starting application");
+											toast.error("Uygulama başlatılırken hata oluştu");
 										});
 								}}
 							>
@@ -215,14 +215,14 @@ export const ShowGeneralApplication = ({ applicationId }: Props) => {
 										<TooltipTrigger asChild>
 											<div className="flex items-center">
 												<CheckCircle2 className="size-4 mr-1" />
-												Start
+												Başlat
 											</div>
 										</TooltipTrigger>
 										<TooltipPrimitive.Portal>
 											<TooltipContent sideOffset={5} className="z-[60]">
 												<p>
-													Start the application (requires a previous successful
-													build)
+													Uygulamayı başlat (önceden başarılı bir derleme
+													gerektirir)
 												</p>
 											</TooltipContent>
 										</TooltipPrimitive.Portal>
@@ -231,18 +231,18 @@ export const ShowGeneralApplication = ({ applicationId }: Props) => {
 							</DialogAction>
 						) : canDeploy ? (
 							<DialogAction
-								title="Stop Application"
-								description="Are you sure you want to stop this application?"
+								title="Uygulamayı Durdur"
+								description="Bu uygulamayı durdurmak istediğinizden emin misiniz?"
 								onClick={async () => {
 									await stop({
 										applicationId: applicationId,
 									})
 										.then(() => {
-											toast.success("Application stopped successfully");
+											toast.success("Uygulama başarıyla durduruldu");
 											refetch();
 										})
 										.catch(() => {
-											toast.error("Error stopping application");
+											toast.error("Uygulama durdurulurken hata oluştu");
 										});
 								}}
 							>
@@ -255,12 +255,12 @@ export const ShowGeneralApplication = ({ applicationId }: Props) => {
 										<TooltipTrigger asChild>
 											<div className="flex items-center">
 												<Ban className="size-4 mr-1" />
-												Stop
+												Durdur
 											</div>
 										</TooltipTrigger>
 										<TooltipPrimitive.Portal>
 											<TooltipContent sideOffset={5} className="z-[60]">
-												<p>Stop the currently running application</p>
+												<p>Çalışmakta olan uygulamayı durdur</p>
 											</TooltipContent>
 										</TooltipPrimitive.Portal>
 									</Tooltip>
@@ -277,14 +277,14 @@ export const ShowGeneralApplication = ({ applicationId }: Props) => {
 							className="flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-offset-2"
 						>
 							<Terminal className="size-4 mr-1" />
-							Open Terminal
+							Terminal Aç
 						</Button>
 					</DockerTerminalModal>
 					{canUpdateService && (
 						<div className="flex flex-row items-center gap-2 rounded-md px-4 py-2 border">
-							<span className="text-sm font-medium">Autodeploy</span>
+							<span className="text-sm font-medium">Otomatik Dağıtım</span>
 							<Switch
-								aria-label="Toggle autodeploy"
+								aria-label="Otomatik dağıtımı aç/kapat"
 								checked={data?.autoDeploy || false}
 								onCheckedChange={async (enabled) => {
 									await update({
@@ -292,11 +292,11 @@ export const ShowGeneralApplication = ({ applicationId }: Props) => {
 										autoDeploy: enabled,
 									})
 										.then(async () => {
-											toast.success("Auto Deploy Updated");
+											toast.success("Otomatik Dağıtım Güncellendi");
 											await refetch();
 										})
 										.catch(() => {
-											toast.error("Error updating Auto Deploy");
+											toast.error("Otomatik Dağıtım güncellenirken hata oluştu");
 										});
 								}}
 								className="flex flex-row gap-2 items-center data-[state=checked]:bg-primary"
@@ -306,9 +306,9 @@ export const ShowGeneralApplication = ({ applicationId }: Props) => {
 
 					{canUpdateService && (
 						<div className="flex flex-row items-center gap-2 rounded-md px-4 py-2 border">
-							<span className="text-sm font-medium">Clean Cache</span>
+							<span className="text-sm font-medium">Önbelleği Temizle</span>
 							<Switch
-								aria-label="Toggle clean cache"
+								aria-label="Önbellek temizlemeyi aç/kapat"
 								checked={data?.cleanCache || false}
 								onCheckedChange={async (enabled) => {
 									await update({
@@ -316,11 +316,11 @@ export const ShowGeneralApplication = ({ applicationId }: Props) => {
 										cleanCache: enabled,
 									})
 										.then(async () => {
-											toast.success("Clean Cache Updated");
+											toast.success("Önbellek Temizleme Güncellendi");
 											await refetch();
 										})
 										.catch(() => {
-											toast.error("Error updating Clean Cache");
+											toast.error("Önbellek Temizleme güncellenirken hata oluştu");
 										});
 								}}
 								className="flex flex-row gap-2 items-center data-[state=checked]:bg-primary"

@@ -19,12 +19,12 @@ import { api } from "@/utils/api";
 import type { ServiceType } from "../../application/advanced/show-resources";
 
 const addDockerImage = z.object({
-	dockerImage: z.string().min(1, "Docker image is required"),
+	dockerImage: z.string().min(1, "Docker imajı gereklidir"),
 	command: z.string(),
 	args: z
 		.array(
 			z.object({
-				value: z.string().min(1, "Argument cannot be empty"),
+				value: z.string().min(1, "Argüman boş olamaz"),
 			}),
 		)
 		.optional(),
@@ -104,11 +104,11 @@ export const ShowCustomCommand = ({ id, type }: Props) => {
 			args: formData?.args?.map((arg) => arg.value).filter(Boolean),
 		})
 			.then(async () => {
-				toast.success("Custom Command Updated");
+				toast.success("Özel Komut Güncellendi");
 				await refetch();
 			})
 			.catch(() => {
-				toast.error("Error updating the custom command");
+				toast.error("Özel komut güncellenirken hata oluştu");
 			});
 	};
 	return (
@@ -116,7 +116,7 @@ export const ShowCustomCommand = ({ id, type }: Props) => {
 			<div className="flex w-full flex-col gap-5 ">
 				<Card className="bg-background">
 					<CardHeader>
-						<CardTitle className="text-xl">Advanced Settings</CardTitle>
+						<CardTitle className="text-xl">Gelişmiş Ayarlar</CardTitle>
 					</CardHeader>
 					<CardContent className="flex flex-col gap-4">
 						<Form {...form}>
@@ -130,7 +130,7 @@ export const ShowCustomCommand = ({ id, type }: Props) => {
 										name="dockerImage"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Docker Image</FormLabel>
+												<FormLabel>Docker İmajı</FormLabel>
 												<FormControl>
 													<Input placeholder="postgres:18" {...field} />
 												</FormControl>
@@ -145,13 +145,13 @@ export const ShowCustomCommand = ({ id, type }: Props) => {
 									name="command"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Command</FormLabel>
+											<FormLabel>Komut</FormLabel>
 											<FormControl>
 												<Input
 													placeholder={
 														type === "libsql"
 															? "sqld --db-path iku.db --http-listen-addr 0.0.0.0:8080 --grpc-listen-addr 0.0.0.0:5001 --admin-listen-addr 0.0.0.0:5000"
-															: "Custom command"
+															: "Özel komut"
 													}
 													{...field}
 												/>
@@ -164,7 +164,7 @@ export const ShowCustomCommand = ({ id, type }: Props) => {
 
 								<div className="space-y-2">
 									<div className="flex items-center justify-between">
-										<FormLabel>Arguments (Args)</FormLabel>
+										<FormLabel>Argümanlar (Args)</FormLabel>
 										<Button
 											type="button"
 											variant="outline"
@@ -172,13 +172,13 @@ export const ShowCustomCommand = ({ id, type }: Props) => {
 											onClick={() => append({ value: "" })}
 										>
 											<Plus className="h-4 w-4 mr-1" />
-											Add Argument
+											Argüman Ekle
 										</Button>
 									</div>
 
 									{fields.length === 0 && (
 										<p className="text-sm text-muted-foreground">
-											No arguments added yet. Click "Add Argument" to add one.
+											Henüz argüman eklenmedi. Eklemek için "Argüman Ekle" butonuna tıklayın.
 										</p>
 									)}
 
@@ -218,7 +218,7 @@ export const ShowCustomCommand = ({ id, type }: Props) => {
 
 								<div className="flex w-full justify-end">
 									<Button isLoading={form.formState.isSubmitting} type="submit">
-										Save
+										Kaydet
 									</Button>
 								</div>
 							</form>

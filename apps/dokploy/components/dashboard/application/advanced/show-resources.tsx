@@ -59,9 +59,9 @@ const memoryConverter = createConverter(1024 * 1024, (mb) => {
 });
 
 const ulimitSchema = z.object({
-	Name: z.string().min(1, "Name is required"),
-	Soft: z.coerce.number().int().min(-1, "Must be >= -1"),
-	Hard: z.coerce.number().int().min(-1, "Must be >= -1"),
+	Name: z.string().min(1, "Ad gereklidir"),
+	Soft: z.coerce.number().int().min(-1, ">= -1 olmalıdır"),
+	Hard: z.coerce.number().int().min(-1, ">= -1 olmalıdır"),
 });
 
 const addResourcesSchema = z.object({
@@ -73,19 +73,19 @@ const addResourcesSchema = z.object({
 });
 
 const ULIMIT_PRESETS = [
-	{ value: "nofile", label: "nofile (Open Files)" },
-	{ value: "nproc", label: "nproc (Processes)" },
-	{ value: "memlock", label: "memlock (Locked Memory)" },
-	{ value: "stack", label: "stack (Stack Size)" },
-	{ value: "core", label: "core (Core File Size)" },
-	{ value: "cpu", label: "cpu (CPU Time)" },
-	{ value: "data", label: "data (Data Segment)" },
-	{ value: "fsize", label: "fsize (File Size)" },
-	{ value: "locks", label: "locks (File Locks)" },
-	{ value: "msgqueue", label: "msgqueue (Message Queues)" },
-	{ value: "nice", label: "nice (Nice Priority)" },
-	{ value: "rtprio", label: "rtprio (Real-time Priority)" },
-	{ value: "sigpending", label: "sigpending (Pending Signals)" },
+	{ value: "nofile", label: "nofile (Açık Dosyalar)" },
+	{ value: "nproc", label: "nproc (İşlemler)" },
+	{ value: "memlock", label: "memlock (Kilitli Bellek)" },
+	{ value: "stack", label: "stack (Yığın Boyutu)" },
+	{ value: "core", label: "core (Çekirdek Dosya Boyutu)" },
+	{ value: "cpu", label: "cpu (CPU Süresi)" },
+	{ value: "data", label: "data (Veri Segmenti)" },
+	{ value: "fsize", label: "fsize (Dosya Boyutu)" },
+	{ value: "locks", label: "locks (Dosya Kilitleri)" },
+	{ value: "msgqueue", label: "msgqueue (Mesaj Kuyrukları)" },
+	{ value: "nice", label: "nice (Nice Önceliği)" },
+	{ value: "rtprio", label: "rtprio (Gerçek Zamanlı Öncelik)" },
+	{ value: "sigpending", label: "sigpending (Bekleyen Sinyaller)" },
 ];
 
 export type ServiceType =
@@ -182,27 +182,27 @@ export const ShowResources = ({ id, type }: Props) => {
 					: null,
 		})
 			.then(async () => {
-				toast.success("Resources Updated");
+				toast.success("Kaynaklar Güncellendi");
 				await refetch();
 			})
 			.catch(() => {
-				toast.error("Error updating the resources");
+				toast.error("Kaynaklar güncellenirken hata oluştu");
 			});
 	};
 
 	return (
 		<Card className="bg-background">
 			<CardHeader>
-				<CardTitle className="text-xl">Resources</CardTitle>
+				<CardTitle className="text-xl">Kaynaklar</CardTitle>
 				<CardDescription>
-					If you want to decrease or increase the resources to a specific.
-					application or database
+					Belirli bir uygulama veya veritabanı için kaynakları azaltmak veya
+					artırmak istiyorsanız
 				</CardDescription>
 			</CardHeader>
 			<CardContent className="flex flex-col gap-4">
 				<AlertBlock type="info">
-					Please remember to click Redeploy after modify the resources to apply
-					the changes.
+					Değişiklikleri uygulamak için kaynakları değiştirdikten sonra Yeniden
+					Dağıt'a tıklamayı unutmayın.
 				</AlertBlock>
 				<Form {...form}>
 					<form
@@ -221,7 +221,7 @@ export const ShowResources = ({ id, type }: Props) => {
 												className="flex items-center gap-2"
 												onClick={(e) => e.preventDefault()}
 											>
-												<FormLabel>Memory Limit</FormLabel>
+												<FormLabel>Bellek Limiti</FormLabel>
 												<TooltipProvider>
 													<Tooltip delayDuration={0}>
 														<TooltipTrigger>
@@ -229,9 +229,9 @@ export const ShowResources = ({ id, type }: Props) => {
 														</TooltipTrigger>
 														<TooltipContent>
 															<p>
-																Memory hard limit in bytes. Example: 1GB =
-																1073741824 bytes. Use +/- buttons to adjust by
-																256 MB.
+																Bayt cinsinden bellek sabit limiti. Örnek: 1GB =
+																1073741824 bayt. +/- düğmelerini kullanarak 256
+																MB ayarlayın.
 															</p>
 														</TooltipContent>
 													</Tooltip>
@@ -260,7 +260,7 @@ export const ShowResources = ({ id, type }: Props) => {
 											className="flex items-center gap-2"
 											onClick={(e) => e.preventDefault()}
 										>
-											<FormLabel>Memory Reservation</FormLabel>
+											<FormLabel>Bellek Rezervasyonu</FormLabel>
 											<TooltipProvider>
 												<Tooltip delayDuration={0}>
 													<TooltipTrigger>
@@ -268,9 +268,9 @@ export const ShowResources = ({ id, type }: Props) => {
 													</TooltipTrigger>
 													<TooltipContent>
 														<p>
-															Memory soft limit in bytes. Example: 256MB =
-															268435456 bytes. Use +/- buttons to adjust by 256
-															MB.
+															Bayt cinsinden bellek yumuşak limiti. Örnek: 256MB =
+															268435456 bayt. +/- düğmelerini kullanarak 256
+															MB ayarlayın.
 														</p>
 													</TooltipContent>
 												</Tooltip>
@@ -300,7 +300,7 @@ export const ShowResources = ({ id, type }: Props) => {
 												className="flex items-center gap-2"
 												onClick={(e) => e.preventDefault()}
 											>
-												<FormLabel>CPU Limit</FormLabel>
+												<FormLabel>CPU Limiti</FormLabel>
 												<TooltipProvider>
 													<Tooltip delayDuration={0}>
 														<TooltipTrigger>
@@ -308,9 +308,9 @@ export const ShowResources = ({ id, type }: Props) => {
 														</TooltipTrigger>
 														<TooltipContent>
 															<p>
-																CPU quota in units of 10^-9 CPUs. Example: 2
-																CPUs = 2000000000. Use +/- buttons to adjust by
-																0.25 CPU.
+																10^-9 CPU birimi cinsinden CPU kotası. Örnek: 2
+																CPU = 2000000000. +/- düğmelerini kullanarak
+																0,25 CPU ayarlayın.
 															</p>
 														</TooltipContent>
 													</Tooltip>
@@ -340,7 +340,7 @@ export const ShowResources = ({ id, type }: Props) => {
 												className="flex items-center gap-2"
 												onClick={(e) => e.preventDefault()}
 											>
-												<FormLabel>CPU Reservation</FormLabel>
+												<FormLabel>CPU Rezervasyonu</FormLabel>
 												<TooltipProvider>
 													<Tooltip delayDuration={0}>
 														<TooltipTrigger>
@@ -348,9 +348,9 @@ export const ShowResources = ({ id, type }: Props) => {
 														</TooltipTrigger>
 														<TooltipContent>
 															<p>
-																CPU shares (relative weight). Example: 1 CPU =
-																1000000000. Use +/- buttons to adjust by 0.25
-																CPU.
+																CPU payları (göreceli ağırlık). Örnek: 1 CPU =
+																1000000000. +/- düğmelerini kullanarak 0,25
+																CPU ayarlayın.
 															</p>
 														</TooltipContent>
 													</Tooltip>
@@ -376,7 +376,7 @@ export const ShowResources = ({ id, type }: Props) => {
 						<div className="space-y-4">
 							<div className="flex items-center justify-between">
 								<div className="flex items-center gap-2">
-									<FormLabel className="text-base">Ulimits</FormLabel>
+									<FormLabel className="text-base">Ulimit Değerleri</FormLabel>
 									<TooltipProvider>
 										<Tooltip delayDuration={0}>
 											<TooltipTrigger>
@@ -384,9 +384,9 @@ export const ShowResources = ({ id, type }: Props) => {
 											</TooltipTrigger>
 											<TooltipContent className="max-w-xs">
 												<p>
-													Set resource limits for the container. Each ulimit has
-													a soft limit (warning threshold) and hard limit
-													(maximum allowed). Use -1 for unlimited.
+													Konteyner için kaynak limitlerini ayarlayın. Her ulimit'in
+													yumuşak limiti (uyarı eşiği) ve sabit limiti
+													(izin verilen maksimum) vardır. Sınırsız için -1 kullanın.
 												</p>
 											</TooltipContent>
 										</Tooltip>
@@ -401,7 +401,7 @@ export const ShowResources = ({ id, type }: Props) => {
 									}
 								>
 									<Plus className="h-4 w-4 mr-1" />
-									Add Ulimit
+									Ulimit Ekle
 								</Button>
 							</div>
 
@@ -417,14 +417,14 @@ export const ShowResources = ({ id, type }: Props) => {
 												name={`ulimitsSwarm.${index}.Name`}
 												render={({ field }) => (
 													<FormItem className="flex-1">
-														<FormLabel className="text-xs">Type</FormLabel>
+														<FormLabel className="text-xs">Tür</FormLabel>
 														<Select
 															onValueChange={field.onChange}
 															value={field.value}
 														>
 															<FormControl>
 																<SelectTrigger>
-																	<SelectValue placeholder="Select ulimit" />
+																	<SelectValue placeholder="Ulimit seçin" />
 																</SelectTrigger>
 															</FormControl>
 															<SelectContent>
@@ -448,7 +448,7 @@ export const ShowResources = ({ id, type }: Props) => {
 												render={({ field }) => (
 													<FormItem className="w-32">
 														<FormLabel className="text-xs">
-															Soft Limit
+															Yumuşak Limit
 														</FormLabel>
 														<FormControl>
 															<Input
@@ -476,7 +476,7 @@ export const ShowResources = ({ id, type }: Props) => {
 												render={({ field }) => (
 													<FormItem className="w-32">
 														<FormLabel className="text-xs">
-															Hard Limit
+															Sabit Limit
 														</FormLabel>
 														<FormControl>
 															<Input
@@ -514,15 +514,15 @@ export const ShowResources = ({ id, type }: Props) => {
 
 							{fields.length === 0 && (
 								<p className="text-sm text-muted-foreground">
-									No ulimits configured. Click &quot;Add Ulimit&quot; to set
-									resource limits.
+									Ulimit yapılandırılmadı. Kaynak limitleri ayarlamak için
+									&quot;Ulimit Ekle&quot;ye tıklayın.
 								</p>
 							)}
 						</div>
 
 						<div className="flex w-full justify-end">
 							<Button isLoading={isPending} type="submit">
-								Save
+								Kaydet
 							</Button>
 						</div>
 					</form>

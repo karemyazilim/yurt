@@ -47,12 +47,12 @@ import { APP_NAME_MESSAGE, APP_NAME_REGEX } from "@/utils/schema";
 
 const AddTemplateSchema = z.object({
 	name: z.string().min(1, {
-		message: "Name is required",
+		message: "Ad gereklidir",
 	}),
 	appName: z
 		.string()
 		.min(1, {
-			message: "App name is required",
+			message: "Uygulama adı gereklidir",
 		})
 		.regex(APP_NAME_REGEX, {
 			message: APP_NAME_MESSAGE,
@@ -102,7 +102,7 @@ export const AddApplication = ({ environmentId, projectName }: Props) => {
 			environmentId,
 		})
 			.then(async () => {
-				toast.success("Service Created");
+				toast.success("Servis oluşturuldu");
 				form.reset();
 				setVisible(false);
 				await utils.environment.one.invalidate({
@@ -110,7 +110,7 @@ export const AddApplication = ({ environmentId, projectName }: Props) => {
 				});
 			})
 			.catch(() => {
-				toast.error("Error creating the service");
+				toast.error("Servis oluşturulurken hata oluştu");
 			});
 	};
 
@@ -122,14 +122,14 @@ export const AddApplication = ({ environmentId, projectName }: Props) => {
 					onSelect={(e) => e.preventDefault()}
 				>
 					<Folder className="size-4 text-muted-foreground" />
-					<span>Application</span>
+					<span>Uygulama</span>
 				</DropdownMenuItem>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-lg">
 				<DialogHeader>
-					<DialogTitle>Create</DialogTitle>
+					<DialogTitle>Oluştur</DialogTitle>
 					<DialogDescription>
-						Assign a name and description to your application
+						Uygulamanız için bir ad ve açıklama belirleyin
 					</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
@@ -144,7 +144,7 @@ export const AddApplication = ({ environmentId, projectName }: Props) => {
 							name="name"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Name</FormLabel>
+									<FormLabel>Ad</FormLabel>
 									<FormControl>
 										<Input
 											placeholder="Frontend"
@@ -171,7 +171,7 @@ export const AddApplication = ({ environmentId, projectName }: Props) => {
 											<Tooltip>
 												<TooltipTrigger asChild>
 													<FormLabel className="break-all w-fit flex flex-row gap-1 items-center">
-														Select a Server {!isCloud ? "(Optional)" : ""}
+														Sunucu Seçin {!isCloud ? "(İsteğe bağlı)" : ""}
 														<HelpCircle className="size-4 text-muted-foreground" />
 													</FormLabel>
 												</TooltipTrigger>
@@ -181,8 +181,8 @@ export const AddApplication = ({ environmentId, projectName }: Props) => {
 													side="top"
 												>
 													<span>
-														If no server is selected, the application will be
-														deployed on the server where the user is logged in.
+														Sunucu seçilmezse, uygulama kullanıcının oturum açtığı
+														sunucuya dağıtılacaktır.
 													</span>
 												</TooltipContent>
 											</Tooltip>
@@ -206,7 +206,7 @@ export const AddApplication = ({ environmentId, projectName }: Props) => {
 															<span className="flex items-center gap-2 justify-between w-full">
 																<span>Dokploy</span>
 																<span className="text-muted-foreground text-xs self-center">
-																	Default
+																	Varsayılan
 																</span>
 															</span>
 														</SelectItem>
@@ -225,7 +225,7 @@ export const AddApplication = ({ environmentId, projectName }: Props) => {
 														</SelectItem>
 													))}
 													<SelectLabel>
-														Servers ({servers?.length + (!isCloud ? 1 : 0)})
+														Sunucular ({servers?.length + (!isCloud ? 1 : 0)})
 													</SelectLabel>
 												</SelectGroup>
 											</SelectContent>
@@ -241,7 +241,7 @@ export const AddApplication = ({ environmentId, projectName }: Props) => {
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel className="flex items-center gap-2">
-										App Name
+										Uygulama Adı
 										<TooltipProvider delayDuration={0}>
 											<Tooltip>
 												<TooltipTrigger asChild>
@@ -249,7 +249,7 @@ export const AddApplication = ({ environmentId, projectName }: Props) => {
 												</TooltipTrigger>
 												<TooltipContent side="right">
 													<p>
-														This will be the name of the Docker Swarm service
+														Bu, Docker Swarm servisinin adı olacaktır
 													</p>
 												</TooltipContent>
 											</Tooltip>
@@ -267,10 +267,10 @@ export const AddApplication = ({ environmentId, projectName }: Props) => {
 							name="description"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Description</FormLabel>
+									<FormLabel>Açıklama</FormLabel>
 									<FormControl>
 										<Textarea
-											placeholder="Description of your service..."
+											placeholder="Servisinizin açıklaması..."
 											className="resize-none"
 											{...field}
 										/>
@@ -284,7 +284,7 @@ export const AddApplication = ({ environmentId, projectName }: Props) => {
 
 					<DialogFooter>
 						<Button isLoading={isPending} form="hook-form" type="submit">
-							Create
+							Oluştur
 						</Button>
 					</DialogFooter>
 				</Form>

@@ -172,11 +172,11 @@ export const SaveGiteaProvider = ({ applicationId }: Props) => {
 			enableSubmodules: data.enableSubmodules || false,
 		})
 			.then(async () => {
-				toast.success("Service Provider Saved");
+				toast.success("Servis Sağlayıcı Kaydedildi");
 				await refetch();
 			})
 			.catch(() => {
-				toast.error("Error saving the Gitea provider");
+				toast.error("Gitea sağlayıcısı kaydedilirken hata oluştu");
 			});
 	};
 
@@ -194,7 +194,7 @@ export const SaveGiteaProvider = ({ applicationId }: Props) => {
 							name="giteaId"
 							render={({ field }) => (
 								<FormItem className="md:col-span-2 flex flex-col">
-									<FormLabel>Gitea Account</FormLabel>
+									<FormLabel>Gitea Hesabı</FormLabel>
 									<Select
 										onValueChange={(value) => {
 											field.onChange(value);
@@ -209,7 +209,7 @@ export const SaveGiteaProvider = ({ applicationId }: Props) => {
 									>
 										<FormControl>
 											<SelectTrigger>
-												<SelectValue placeholder="Select a Gitea Account" />
+												<SelectValue placeholder="Bir Gitea hesabı seçin" />
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
@@ -234,7 +234,7 @@ export const SaveGiteaProvider = ({ applicationId }: Props) => {
 							render={({ field }) => (
 								<FormItem className="md:col-span-2 flex flex-col">
 									<div className="flex items-center justify-between">
-										<FormLabel>Repository</FormLabel>
+										<FormLabel>Depo</FormLabel>
 										{field.value.owner && field.value.repo && (
 											<Link
 												href={`${giteaUrl}/${field.value.owner}/${field.value.repo}`}
@@ -243,7 +243,7 @@ export const SaveGiteaProvider = ({ applicationId }: Props) => {
 												className="flex items-center gap-1 text-sm text-muted-foreground hover:text-primary"
 											>
 												<GiteaIcon className="h-4 w-4" />
-												<span>View Repository</span>
+												<span>Depoyu Görüntüle</span>
 											</Link>
 										)}
 									</div>
@@ -259,13 +259,13 @@ export const SaveGiteaProvider = ({ applicationId }: Props) => {
 													)}
 												>
 													{!field.value.owner
-														? "Select repository"
+														? "Depo seçin"
 														: isLoadingRepositories
-															? "Loading...."
+															? "Yükleniyor...."
 															: (repositories?.find(
 																	(repo: GiteaRepository) =>
 																		repo.name === field.value.repo,
-																)?.name ?? "Select repository")}
+																)?.name ?? "Depo seçin")}
 
 													<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 												</Button>
@@ -274,24 +274,24 @@ export const SaveGiteaProvider = ({ applicationId }: Props) => {
 										<PopoverContent className="p-0" align="start">
 											<Command>
 												<CommandInput
-													placeholder="Search repository..."
+													placeholder="Depo ara..."
 													className="h-9"
 												/>
 												{!giteaId ? (
 													<span className="py-6 text-center text-sm text-muted-foreground">
-														Select a Gitea account first
+														Önce bir Gitea hesabı seçin
 													</span>
 												) : isLoadingRepositories ? (
 													<span className="py-6 text-center text-sm">
-														Loading Repositories....
+														Depolar yükleniyor....
 													</span>
 												) : null}
-												<CommandEmpty>No repositories found.</CommandEmpty>
+												<CommandEmpty>Depo bulunamadı.</CommandEmpty>
 												<ScrollArea className="h-96">
 													<CommandGroup>
 														{repositories && repositories.length === 0 && (
 															<CommandEmpty>
-																No repositories found.
+																Depo bulunamadı.
 															</CommandEmpty>
 														)}
 														{repositories?.map((repo: GiteaRepository) => {
@@ -331,7 +331,7 @@ export const SaveGiteaProvider = ({ applicationId }: Props) => {
 									</Popover>
 									{form.formState.errors.repository && (
 										<p className={cn("text-sm font-medium text-destructive")}>
-											Repository is required
+											Depo gereklidir
 										</p>
 									)}
 								</FormItem>
@@ -342,7 +342,7 @@ export const SaveGiteaProvider = ({ applicationId }: Props) => {
 							name="branch"
 							render={({ field }) => (
 								<FormItem className="block w-full">
-									<FormLabel>Branch</FormLabel>
+									<FormLabel>Dal</FormLabel>
 									<Popover>
 										<PopoverTrigger asChild>
 											<FormControl>
@@ -354,13 +354,13 @@ export const SaveGiteaProvider = ({ applicationId }: Props) => {
 													)}
 												>
 													{status === "pending" && fetchStatus === "fetching"
-														? "Loading...."
+														? "Yükleniyor...."
 														: field.value
 															? branches?.find(
 																	(branch: GiteaBranch) =>
 																		branch.name === field.value,
 																)?.name
-															: "Select branch"}
+															: "Dal seçin"}
 													<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 												</Button>
 											</FormControl>
@@ -368,7 +368,7 @@ export const SaveGiteaProvider = ({ applicationId }: Props) => {
 										<PopoverContent className="p-0" align="start">
 											<Command>
 												<CommandInput
-													placeholder="Search branch..."
+													placeholder="Dal ara..."
 													className="h-9"
 												/>
 												{status === "pending" && fetchStatus === "fetching" && (

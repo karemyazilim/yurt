@@ -71,14 +71,14 @@ export const ShowGeneralPostgres = ({ postgresId }: Props) => {
 			<div className="flex w-full flex-col gap-5 ">
 				<Card className="bg-background">
 					<CardHeader>
-						<CardTitle className="text-xl">Deploy Settings</CardTitle>
+						<CardTitle className="text-xl">Dağıtım Ayarları</CardTitle>
 					</CardHeader>
 					<CardContent className="flex flex-row gap-4 flex-wrap">
 						<TooltipProvider disableHoverableContent={false}>
 							{canDeploy && (
 								<DialogAction
-									title="Deploy PostgreSQL"
-									description="Are you sure you want to deploy this postgres?"
+									title="PostgreSQL Dağıt"
+									description="Bu PostgreSQL veritabanını dağıtmak istediğinize emin misiniz?"
 									type="default"
 									onClick={async () => {
 										setIsDeploying(true);
@@ -95,12 +95,12 @@ export const ShowGeneralPostgres = ({ postgresId }: Props) => {
 											<TooltipTrigger asChild>
 												<div className="flex items-center">
 													<Rocket className="size-4 mr-1" />
-													Deploy
+													Dağıt
 												</div>
 											</TooltipTrigger>
 											<TooltipPrimitive.Portal>
 												<TooltipContent sideOffset={5} className="z-[60]">
-													<p>Downloads and sets up the PostgreSQL database</p>
+													<p>PostgreSQL veritabanını indirir ve kurar</p>
 												</TooltipContent>
 											</TooltipPrimitive.Portal>
 										</Tooltip>
@@ -109,8 +109,8 @@ export const ShowGeneralPostgres = ({ postgresId }: Props) => {
 							)}
 							{canDeploy && (
 								<DialogAction
-									title="Reload PostgreSQL"
-									description="Are you sure you want to reload this postgres?"
+									title="PostgreSQL Yeniden Yükle"
+									description="Bu PostgreSQL veritabanını yeniden yüklemek istediğinize emin misiniz?"
 									type="default"
 									onClick={async () => {
 										await reload({
@@ -118,11 +118,11 @@ export const ShowGeneralPostgres = ({ postgresId }: Props) => {
 											appName: data?.appName || "",
 										})
 											.then(() => {
-												toast.success("PostgreSQL reloaded successfully");
+												toast.success("PostgreSQL başarıyla yeniden yüklendi");
 												refetch();
 											})
 											.catch(() => {
-												toast.error("Error reloading PostgreSQL");
+												toast.error("PostgreSQL yeniden yüklenirken hata oluştu");
 											});
 									}}
 								>
@@ -135,13 +135,13 @@ export const ShowGeneralPostgres = ({ postgresId }: Props) => {
 											<TooltipTrigger asChild>
 												<div className="flex items-center">
 													<RefreshCcw className="size-4 mr-1" />
-													Reload
+													Yeniden Yükle
 												</div>
 											</TooltipTrigger>
 											<TooltipPrimitive.Portal>
 												<TooltipContent sideOffset={5} className="z-[60]">
 													<p>
-														Restart the PostgreSQL service without rebuilding
+														PostgreSQL hizmetini yeniden oluşturmadan yeniden başlatır
 													</p>
 												</TooltipContent>
 											</TooltipPrimitive.Portal>
@@ -152,19 +152,19 @@ export const ShowGeneralPostgres = ({ postgresId }: Props) => {
 							{canDeploy &&
 								(data?.applicationStatus === "idle" ? (
 									<DialogAction
-										title="Start PostgreSQL"
-										description="Are you sure you want to start this postgres?"
+										title="PostgreSQL Başlat"
+										description="Bu PostgreSQL veritabanını başlatmak istediğinize emin misiniz?"
 										type="default"
 										onClick={async () => {
 											await start({
 												postgresId: postgresId,
 											})
 												.then(() => {
-													toast.success("PostgreSQL started successfully");
+													toast.success("PostgreSQL başarıyla başlatıldı");
 													refetch();
 												})
 												.catch(() => {
-													toast.error("Error starting PostgreSQL");
+													toast.error("PostgreSQL başlatılırken hata oluştu");
 												});
 										}}
 									>
@@ -177,14 +177,14 @@ export const ShowGeneralPostgres = ({ postgresId }: Props) => {
 												<TooltipTrigger asChild>
 													<div className="flex items-center">
 														<CheckCircle2 className="size-4 mr-1" />
-														Start
+														Başlat
 													</div>
 												</TooltipTrigger>
 												<TooltipPrimitive.Portal>
 													<TooltipContent sideOffset={5} className="z-[60]">
 														<p>
-															Start the PostgreSQL database (requires a previous
-															successful setup)
+															PostgreSQL veritabanını başlatır (önceden başarılı bir
+															kurulum gerektirir)
 														</p>
 													</TooltipContent>
 												</TooltipPrimitive.Portal>
@@ -193,18 +193,18 @@ export const ShowGeneralPostgres = ({ postgresId }: Props) => {
 									</DialogAction>
 								) : (
 									<DialogAction
-										title="Stop PostgreSQL"
-										description="Are you sure you want to stop this postgres?"
+										title="PostgreSQL Durdur"
+										description="Bu PostgreSQL veritabanını durdurmak istediğinize emin misiniz?"
 										onClick={async () => {
 											await stop({
 												postgresId: postgresId,
 											})
 												.then(() => {
-													toast.success("PostgreSQL stopped successfully");
+													toast.success("PostgreSQL başarıyla durduruldu");
 													refetch();
 												})
 												.catch(() => {
-													toast.error("Error stopping PostgreSQL");
+													toast.error("PostgreSQL durdurulurken hata oluştu");
 												});
 										}}
 									>
@@ -217,13 +217,13 @@ export const ShowGeneralPostgres = ({ postgresId }: Props) => {
 												<TooltipTrigger asChild>
 													<div className="flex items-center">
 														<Ban className="size-4 mr-1" />
-														Stop
+														Durdur
 													</div>
 												</TooltipTrigger>
 												<TooltipPrimitive.Portal>
 													<TooltipContent sideOffset={5} className="z-[60]">
 														<p>
-															Stop the currently running PostgreSQL database
+															Çalışmakta olan PostgreSQL veritabanını durdurur
 														</p>
 													</TooltipContent>
 												</TooltipPrimitive.Portal>
@@ -244,12 +244,12 @@ export const ShowGeneralPostgres = ({ postgresId }: Props) => {
 									<TooltipTrigger asChild>
 										<div className="flex items-center">
 											<Terminal className="size-4 mr-1" />
-											Open Terminal
+											Terminal Aç
 										</div>
 									</TooltipTrigger>
 									<TooltipPrimitive.Portal>
 										<TooltipContent sideOffset={5} className="z-[60]">
-											<p>Open a terminal to the PostgreSQL container</p>
+											<p>PostgreSQL konteynerine terminal aç</p>
 										</TooltipContent>
 									</TooltipPrimitive.Portal>
 								</Tooltip>

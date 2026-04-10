@@ -33,7 +33,7 @@ import { api } from "@/utils/api";
 
 const deleteComposeSchema = z.object({
 	projectName: z.string().min(1, {
-		message: "Compose name is required",
+		message: "Compose adı gereklidir",
 	}),
 	deleteVolumes: z.boolean(),
 });
@@ -109,15 +109,15 @@ export const DeleteService = ({ id, type }: Props) => {
 					push(
 						`/dashboard/project/${result?.environment?.projectId}/environment/${result?.environment?.environmentId}`,
 					);
-					toast.success("Service deleted successfully");
+					toast.success("Servis başarıyla silindi");
 					setIsOpen(false);
 				})
 				.catch(() => {
-					toast.error("Error deleting the service");
+					toast.error("Servis silinirken hata oluştu");
 				});
 		} else {
 			form.setError("projectName", {
-				message: `Project name must match "${expectedName}"`,
+				message: `Proje adı "${expectedName}" ile eşleşmelidir`,
 			});
 		}
 	};
@@ -144,11 +144,10 @@ export const DeleteService = ({ id, type }: Props) => {
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-lg">
 				<DialogHeader>
-					<DialogTitle>Are you absolutely sure?</DialogTitle>
+					<DialogTitle>Kesinlikle emin misiniz?</DialogTitle>
 					<DialogDescription>
-						This action cannot be undone. This will permanently delete the
-						service. If you are sure please enter the service name to delete
-						this service.
+						Bu işlem geri alınamaz. Servis kalıcı olarak silinecektir.
+						Emin iseniz lütfen servisi silmek için servis adını girin.
 					</DialogDescription>
 				</DialogHeader>
 				<div className="grid gap-4">
@@ -165,26 +164,26 @@ export const DeleteService = ({ id, type }: Props) => {
 									<FormItem>
 										<FormLabel className="flex items-center gap-2">
 											<span>
-												To confirm, type{" "}
+												Onaylamak için aşağıdaki kutuya{" "}
 												<Badge
 													className="p-2 rounded-md ml-1 mr-1 hover:border-primary hover:text-primary-foreground hover:bg-primary hover:cursor-pointer"
 													variant="outline"
 													onClick={() => {
 														if (data?.name && data?.appName) {
 															copy(`${data.name}/${data.appName}`);
-															toast.success("Copied to clipboard. Be careful!");
+															toast.success("Panoya kopyalandı. Dikkatli olun!");
 														}
 													}}
 												>
 													{data?.name}/{data?.appName}&nbsp;
 													<Copy className="h-4 w-4 ml-1 text-muted-foreground" />
 												</Badge>{" "}
-												in the box below:
+												yazın:
 											</span>
 										</FormLabel>
 										<FormControl>
 											<Input
-												placeholder="Enter compose name to confirm"
+												placeholder="Onaylamak için compose adını girin"
 												{...field}
 											/>
 										</FormControl>
@@ -207,7 +206,7 @@ export const DeleteService = ({ id, type }: Props) => {
 												</FormControl>
 
 												<FormLabel className="ml-2">
-													Delete volumes associated with this compose
+													Bu compose ile ilişkili birimleri sil
 												</FormLabel>
 											</div>
 											<FormMessage />
@@ -220,8 +219,8 @@ export const DeleteService = ({ id, type }: Props) => {
 				</div>
 				{isDisabled && (
 					<AlertBlock type="warning" className="w-full mt-5">
-						Cannot delete the service while it is running. Please wait for the
-						build to finish and then try again.
+						Servis çalışırken silinemez. Lütfen derlemenin bitmesini bekleyin
+						ve tekrar deneyin.
 					</AlertBlock>
 				)}
 				<DialogFooter>
@@ -231,7 +230,7 @@ export const DeleteService = ({ id, type }: Props) => {
 							setIsOpen(false);
 						}}
 					>
-						Cancel
+						İptal
 					</Button>
 
 					<Button
@@ -241,7 +240,7 @@ export const DeleteService = ({ id, type }: Props) => {
 						type="submit"
 						variant="destructive"
 					>
-						Confirm
+						Onayla
 					</Button>
 				</DialogFooter>
 			</DialogContent>

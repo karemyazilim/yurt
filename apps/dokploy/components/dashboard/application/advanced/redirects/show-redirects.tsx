@@ -33,16 +33,16 @@ export const ShowRedirects = ({ applicationId }: Props) => {
 		<Card className="bg-background">
 			<CardHeader className="flex flex-row justify-between flex-wrap gap-4">
 				<div>
-					<CardTitle className="text-xl">Redirects</CardTitle>
+					<CardTitle className="text-xl">Yönlendirmeler</CardTitle>
 					<CardDescription>
-						If you want to redirect requests to this application use the
-						following config to setup the redirects
+						Bu uygulamaya gelen istekleri yönlendirmek istiyorsanız
+						yönlendirmeleri ayarlamak için aşağıdaki yapılandırmayı kullanın
 					</CardDescription>
 				</div>
 
 				{data && data?.redirects.length > 0 && (
 					<HandleRedirect applicationId={applicationId}>
-						Add Redirect
+						Yönlendirme Ekle
 					</HandleRedirect>
 				)}
 			</CardHeader>
@@ -51,10 +51,10 @@ export const ShowRedirects = ({ applicationId }: Props) => {
 					<div className="flex w-full flex-col items-center justify-center gap-3 pt-10">
 						<Split className="size-8 text-muted-foreground" />
 						<span className="text-base text-muted-foreground">
-							No redirects configured
+							Yönlendirme yapılandırılmadı
 						</span>
 						<HandleRedirect applicationId={applicationId}>
-							Add Redirect
+							Yönlendirme Ekle
 						</HandleRedirect>
 					</div>
 				) : (
@@ -65,21 +65,21 @@ export const ShowRedirects = ({ applicationId }: Props) => {
 									<div className="flex w-full flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-10 border rounded-lg p-4">
 										<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 flex-col gap-4 sm:gap-8">
 											<div className="flex flex-col gap-1">
-												<span className="font-medium">Regex</span>
+												<span className="font-medium">Düzenli İfade</span>
 												<span className="text-sm text-muted-foreground">
 													{redirect.regex}
 												</span>
 											</div>
 											<div className="flex flex-col gap-1">
-												<span className="font-medium">Replacement</span>
+												<span className="font-medium">Değiştirme</span>
 												<span className="text-sm text-muted-foreground">
 													{redirect.replacement}
 												</span>
 											</div>
 											<div className="flex flex-col gap-1">
-												<span className="font-medium">Permanent</span>
+												<span className="font-medium">Kalıcı</span>
 												<span className="text-sm text-muted-foreground">
-													{redirect.permanent ? "Yes" : "No"}
+													{redirect.permanent ? "Evet" : "Hayır"}
 												</span>
 											</div>
 										</div>
@@ -90,8 +90,8 @@ export const ShowRedirects = ({ applicationId }: Props) => {
 											/>
 
 											<DialogAction
-												title="Delete Redirect"
-												description="Are you sure you want to delete this redirect?"
+												title="Yönlendirmeyi Sil"
+												description="Bu yönlendirmeyi silmek istediğinizden emin misiniz?"
 												type="destructive"
 												onClick={async () => {
 													await deleteRedirect({
@@ -102,10 +102,10 @@ export const ShowRedirects = ({ applicationId }: Props) => {
 															utils.application.readTraefikConfig.invalidate({
 																applicationId,
 															});
-															toast.success("Redirect deleted successfully");
+															toast.success("Yönlendirme başarıyla silindi");
 														})
 														.catch(() => {
-															toast.error("Error deleting redirect");
+															toast.error("Yönlendirme silinirken hata oluştu");
 														});
 												}}
 											>

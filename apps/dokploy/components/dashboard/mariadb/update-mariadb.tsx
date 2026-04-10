@@ -29,7 +29,7 @@ import { api } from "@/utils/api";
 
 const updateMariadbSchema = z.object({
 	name: z.string().min(1, {
-		message: "Name is required",
+		message: "Ad gereklidir",
 	}),
 	description: z.string().optional(),
 });
@@ -76,14 +76,14 @@ export const UpdateMariadb = ({ mariadbId }: Props) => {
 			description: formData.description || "",
 		})
 			.then(() => {
-				toast.success("MariaDB updated successfully");
+				toast.success("MariaDB başarıyla güncellendi");
 				utils.mariadb.one.invalidate({
 					mariadbId: mariadbId,
 				});
 				setIsOpen(false);
 			})
 			.catch(() => {
-				toast.error("Error updating the Mariadb");
+				toast.error("MariaDB güncellenirken hata oluştu");
 			})
 			.finally(() => {});
 	};
@@ -101,8 +101,8 @@ export const UpdateMariadb = ({ mariadbId }: Props) => {
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-lg">
 				<DialogHeader>
-					<DialogTitle>Modify MariaDB</DialogTitle>
-					<DialogDescription>Update the MariaDB data</DialogDescription>
+					<DialogTitle>MariaDB Düzenle</DialogTitle>
+					<DialogDescription>MariaDB verilerini güncelle</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
 
@@ -119,7 +119,7 @@ export const UpdateMariadb = ({ mariadbId }: Props) => {
 									name="name"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Name</FormLabel>
+											<FormLabel>Ad</FormLabel>
 											<FormControl>
 												<Input placeholder="Vandelay Industries" {...field} />
 											</FormControl>
@@ -133,10 +133,10 @@ export const UpdateMariadb = ({ mariadbId }: Props) => {
 									name="description"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Description</FormLabel>
+											<FormLabel>Açıklama</FormLabel>
 											<FormControl>
 												<Textarea
-													placeholder="Description about your project..."
+													placeholder="Projeniz hakkında açıklama..."
 													className="resize-none"
 													{...field}
 												/>
@@ -152,7 +152,7 @@ export const UpdateMariadb = ({ mariadbId }: Props) => {
 										form="hook-form-update-mariadb"
 										type="submit"
 									>
-										Update
+										Güncelle
 									</Button>
 								</DialogFooter>
 							</form>

@@ -32,7 +32,7 @@ const AddRedirectSchema = z.object({
 	args: z
 		.array(
 			z.object({
-				value: z.string().min(1, "Argument cannot be empty"),
+				value: z.string().min(1, "Argüman boş olamaz"),
 			}),
 		)
 		.optional(),
@@ -81,13 +81,13 @@ export const AddCommand = ({ applicationId }: Props) => {
 			args: data?.args?.map((arg) => arg.value).filter(Boolean),
 		})
 			.then(async () => {
-				toast.success("Command Updated");
+				toast.success("Komut Güncellendi");
 				await utils.application.one.invalidate({
 					applicationId,
 				});
 			})
 			.catch(() => {
-				toast.error("Error updating the command");
+				toast.error("Komut güncellenirken hata oluştu");
 			});
 	};
 
@@ -95,10 +95,10 @@ export const AddCommand = ({ applicationId }: Props) => {
 		<Card className="bg-background">
 			<CardHeader className="flex flex-row justify-between">
 				<div>
-					<CardTitle className="text-xl">Run Command</CardTitle>
+					<CardTitle className="text-xl">Komut Çalıştır</CardTitle>
 					<CardDescription>
-						Run a custom command in the container after the application
-						initialized
+						Uygulama başlatıldıktan sonra konteynerde özel bir komut
+						çalıştırın
 					</CardDescription>
 				</div>
 			</CardHeader>
@@ -114,7 +114,7 @@ export const AddCommand = ({ applicationId }: Props) => {
 								name="command"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Command</FormLabel>
+										<FormLabel>Komut</FormLabel>
 										<FormControl>
 											<Input placeholder="/bin/sh" {...field} />
 										</FormControl>
@@ -126,7 +126,7 @@ export const AddCommand = ({ applicationId }: Props) => {
 
 							<div className="space-y-2">
 								<div className="flex items-center justify-between">
-									<FormLabel>Arguments (Args)</FormLabel>
+									<FormLabel>Argümanlar (Args)</FormLabel>
 									<Button
 										type="button"
 										variant="outline"
@@ -134,13 +134,13 @@ export const AddCommand = ({ applicationId }: Props) => {
 										onClick={() => append({ value: "" })}
 									>
 										<Plus className="h-4 w-4 mr-1" />
-										Add Argument
+										Argüman Ekle
 									</Button>
 								</div>
 
 								{fields.length === 0 && (
 									<p className="text-sm text-muted-foreground">
-										No arguments added yet. Click "Add Argument" to add one.
+										Henüz argüman eklenmedi. Eklemek için "Argüman Ekle"ye tıklayın.
 									</p>
 								)}
 
@@ -178,7 +178,7 @@ export const AddCommand = ({ applicationId }: Props) => {
 						</div>
 						<div className="flex justify-end">
 							<Button isLoading={isPending} type="submit" className="w-fit">
-								Save
+								Kaydet
 							</Button>
 						</div>
 					</form>

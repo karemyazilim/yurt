@@ -7,22 +7,22 @@ export const StepThree = ({ templateInfo }: StepProps) => {
 		<div className="flex flex-col h-full">
 			<div className="flex-grow">
 				<div className="space-y-6">
-					<h2 className="text-lg font-semibold">Step 3: Review and Finalize</h2>
+					<h2 className="text-lg font-semibold">Adım 3: Gözden Geçir ve Tamamla</h2>
 					<div className="space-y-4">
 						<div>
-							<h3 className="text-sm font-semibold">Name</h3>
+							<h3 className="text-sm font-semibold">Ad</h3>
 							<p className="text-sm text-muted-foreground">
 								{templateInfo?.details?.name}
 							</p>
 						</div>
 						<div>
-							<h3 className="text-sm font-semibold">Description</h3>
+							<h3 className="text-sm font-semibold">Açıklama</h3>
 							<ReactMarkdown className="text-sm text-muted-foreground">
 								{templateInfo?.details?.description}
 							</ReactMarkdown>
 						</div>
 						<div>
-							<h3 className="text-md font-semibold">Server</h3>
+							<h3 className="text-md font-semibold">Sunucu</h3>
 							<p className="text-sm text-muted-foreground">
 								{templateInfo?.server?.name || "Yurt Sunucusu"}
 							</p>
@@ -37,7 +37,7 @@ export const StepThree = ({ templateInfo }: StepProps) => {
 							/>
 						</div>
 						<div>
-							<h3 className="text-sm font-semibold">Environment Variables</h3>
+							<h3 className="text-sm font-semibold">Ortam Değişkenleri</h3>
 							<ul className="list-disc pl-5">
 								{templateInfo?.details?.envVariables.map(
 									(
@@ -61,7 +61,7 @@ export const StepThree = ({ templateInfo }: StepProps) => {
 							</ul>
 						</div>
 						<div>
-							<h3 className="text-sm font-semibold">Domains</h3>
+							<h3 className="text-sm font-semibold">Alan Adları</h3>
 							<ul className="list-disc pl-5">
 								{templateInfo?.details?.domains.map(
 									(
@@ -86,7 +86,7 @@ export const StepThree = ({ templateInfo }: StepProps) => {
 							</ul>
 						</div>
 						<div>
-							<h3 className="text-sm font-semibold">Configuration Files</h3>
+							<h3 className="text-sm font-semibold">Yapılandırma Dosyaları</h3>
 							<ul className="list-disc pl-5">
 								{templateInfo?.details?.configFiles?.map((file, index) => (
 									<li key={index}>

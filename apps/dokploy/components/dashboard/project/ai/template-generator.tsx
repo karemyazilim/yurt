@@ -77,15 +77,15 @@ const defaultTemplateInfo: TemplateInfo = {
 export const { useStepper, steps, Scoped } = defineStepper(
 	{
 		id: "needs",
-		title: "Describe your needs",
+		title: "İhtiyaçlarınızı tanımlayın",
 	},
 	{
 		id: "variant",
-		title: "Choose a Variant",
+		title: "Varyant Seçin",
 	},
 	{
 		id: "review",
-		title: "Review and Finalize",
+		title: "Gözden Geçir ve Tamamla",
 	},
 );
 
@@ -136,7 +136,7 @@ export const TemplateGenerator = ({ environmentId }: Props) => {
 			configFiles: templateInfo?.details?.configFiles || [],
 		})
 			.then(async () => {
-				toast.success("Compose Created");
+				toast.success("Compose oluşturuldu");
 				setOpen(false);
 				// Invalidate the project query to refresh the environment data
 				await utils.environment.one.invalidate({
@@ -144,7 +144,7 @@ export const TemplateGenerator = ({ environmentId }: Props) => {
 				});
 			})
 			.catch(() => {
-				toast.error("Error creating the compose");
+				toast.error("Compose oluşturulurken hata oluştu");
 			});
 	};
 
@@ -156,22 +156,22 @@ export const TemplateGenerator = ({ environmentId }: Props) => {
 					onSelect={(e) => e.preventDefault()}
 				>
 					<Bot className="size-4 text-muted-foreground" />
-					<span>AI Assistant</span>
+					<span>Yapay Zeka Asistanı</span>
 				</DropdownMenuItem>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-4xl w-full  flex flex-col">
 				<DialogHeader>
-					<DialogTitle>AI Assistant</DialogTitle>
+					<DialogTitle>Yapay Zeka Asistanı</DialogTitle>
 					<DialogDescription>
-						Create a custom template based on your needs
+						İhtiyaçlarınıza göre özel şablon oluşturun
 					</DialogDescription>
 				</DialogHeader>
 				<div className="grid gap-4">
 					<div className="flex justify-between">
-						<h2 className="text-lg font-semibold">Steps</h2>
+						<h2 className="text-lg font-semibold">Adımlar</h2>
 						<div className="flex items-center gap-2">
 							<span className="text-sm text-muted-foreground">
-								Step {stepper.current.index + 1} of {steps.length}
+								Adım {stepper.current.index + 1} / {steps.length}
 							</span>
 							<div />
 						</div>
@@ -222,14 +222,14 @@ export const TemplateGenerator = ({ environmentId }: Props) => {
 									{!haveAtleasOneProviderEnabled && (
 										<AlertBlock type="warning">
 											<div className="flex flex-col w-full">
-												<span>AI features are not enabled</span>
+												<span>Yapay zeka özellikleri etkin değil</span>
 												<span>
-													To use AI-powered template generation, please{" "}
+													Yapay zeka destekli şablon oluşturmayı kullanmak için lütfen{" "}
 													<Link
 														href="/dashboard/settings/ai"
 														className="font-medium underline underline-offset-4"
 													>
-														enable AI in your settings
+														ayarlarınızdan yapay zekayı etkinleştirin
 													</Link>
 													.
 												</span>
@@ -246,7 +246,7 @@ export const TemplateGenerator = ({ environmentId }: Props) => {
 														htmlFor="user-needs"
 														className="text-sm font-medium"
 													>
-														Select AI Provider
+														Yapay Zeka Sağlayıcısı Seçin
 													</label>
 													<Select
 														value={templateInfo.aiId}
@@ -258,7 +258,7 @@ export const TemplateGenerator = ({ environmentId }: Props) => {
 														}
 													>
 														<SelectTrigger>
-															<SelectValue placeholder="Select an AI provider" />
+															<SelectValue placeholder="Yapay zeka sağlayıcısı seçin" />
 														</SelectTrigger>
 														<SelectContent>
 															{aiSettings.map((ai) => (
@@ -302,7 +302,7 @@ export const TemplateGenerator = ({ environmentId }: Props) => {
 								disabled={stepper.isFirst}
 								variant="secondary"
 							>
-								Back
+								Geri
 							</Button>
 							<Button
 								disabled={isDisabled()}
@@ -328,7 +328,7 @@ export const TemplateGenerator = ({ environmentId }: Props) => {
 									// }
 								}}
 							>
-								{stepper.isLast ? "Create" : "Next"}
+								{stepper.isLast ? "Oluştur" : "İleri"}
 							</Button>
 						</div>
 					</div>

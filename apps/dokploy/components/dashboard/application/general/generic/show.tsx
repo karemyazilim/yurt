@@ -2,10 +2,10 @@ import { GitBranch, Loader2, UploadCloud } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
-import { SaveDockerProvider } from "@/components/dashboard/application/general/generic/save-docker-provider";
-import { SaveGitProvider } from "@/components/dashboard/application/general/generic/save-git-provider";
-import { SaveGiteaProvider } from "@/components/dashboard/application/general/generic/save-gitea-provider";
-import { SaveGithubProvider } from "@/components/dashboard/application/general/generic/save-github-provider";
+import { SaveDockerSağlayıcı } from "@/components/dashboard/application/general/generic/save-docker-provider";
+import { SaveGitSağlayıcı } from "@/components/dashboard/application/general/generic/save-git-provider";
+import { SaveGiteaSağlayıcı } from "@/components/dashboard/application/general/generic/save-gitea-provider";
+import { SaveGithubSağlayıcı } from "@/components/dashboard/application/general/generic/save-github-provider";
 import {
 	BitbucketIcon,
 	DockerIcon,
@@ -17,10 +17,10 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { api } from "@/utils/api";
-import { SaveBitbucketProvider } from "./save-bitbucket-provider";
+import { SaveBitbucketSağlayıcı } from "./save-bitbucket-provider";
 import { SaveDragNDrop } from "./save-drag-n-drop";
-import { SaveGitlabProvider } from "./save-gitlab-provider";
-import { UnauthorizedGitProvider } from "./unauthorized-git-provider";
+import { SaveGitlabSağlayıcı } from "./save-gitlab-provider";
+import { UnauthorizedGitSağlayıcı } from "./unauthorized-git-provider";
 
 type TabState =
 	| "github"
@@ -35,21 +35,21 @@ interface Props {
 	applicationId: string;
 }
 
-export const ShowProviderForm = ({ applicationId }: Props) => {
-	const { data: githubProviders, isPending: isLoadingGithub } =
-		api.github.githubProviders.useQuery();
-	const { data: gitlabProviders, isPending: isLoadingGitlab } =
-		api.gitlab.gitlabProviders.useQuery();
-	const { data: bitbucketProviders, isPending: isLoadingBitbucket } =
-		api.bitbucket.bitbucketProviders.useQuery();
-	const { data: giteaProviders, isPending: isLoadingGitea } =
-		api.gitea.giteaProviders.useQuery();
+export const ShowSağlayıcıForm = ({ applicationId }: Props) => {
+	const { data: githubSağlayıcıs, isPending: isLoadingGithub } =
+		api.github.githubSağlayıcıs.useQuery();
+	const { data: gitlabSağlayıcıs, isPending: isLoadingGitlab } =
+		api.gitlab.gitlabSağlayıcıs.useQuery();
+	const { data: bitbucketSağlayıcıs, isPending: isLoadingBitbucket } =
+		api.bitbucket.bitbucketSağlayıcıs.useQuery();
+	const { data: giteaSağlayıcıs, isPending: isLoadingGitea } =
+		api.gitea.giteaSağlayıcıs.useQuery();
 
 	const { data: application, refetch } = api.application.one.useQuery({
 		applicationId,
 	});
-	const { mutateAsync: disconnectGitProvider } =
-		api.application.disconnectGitProvider.useMutation();
+	const { mutateAsync: disconnectGitSağlayıcı } =
+		api.application.disconnectGitSağlayıcı.useMutation();
 
 	const [tab, setSab] = useState<TabState>(application?.sourceType || "github");
 
@@ -58,13 +58,13 @@ export const ShowProviderForm = ({ applicationId }: Props) => {
 
 	const handleDisconnect = async () => {
 		try {
-			await disconnectGitProvider({ applicationId });
-			toast.success("Repository disconnected successfully");
+			await disconnectGitSağlayıcı({ applicationId });
+			toast.success("Depo bağlantısı başarıyla kesildi");
 			await refetch();
 		} catch (error) {
 			toast.error(
-				`Failed to disconnect repository: ${
-					error instanceof Error ? error.message : "Unknown error"
+				`Depo bağlantısı kesilirken hata oluştu: ${
+					error instanceof Error ? error.message : "Bilinmeyen hata"
 				}`,
 			);
 		}
@@ -76,9 +76,9 @@ export const ShowProviderForm = ({ applicationId }: Props) => {
 				<CardHeader>
 					<CardTitle className="flex items-start justify-between">
 						<div className="flex flex-col gap-2">
-							<span className="flex flex-col space-y-0.5">Provider</span>
+							<span className="flex flex-col space-y-0.5">Sağlayıcı</span>
 							<p className="flex items-center text-sm font-normal text-muted-foreground">
-								Select the source of your code
+								Kodunuzun kaynağını seçin
 							</p>
 						</div>
 						<div className="hidden space-y-1 text-sm font-normal md:block">
@@ -90,7 +90,7 @@ export const ShowProviderForm = ({ applicationId }: Props) => {
 					<div className="flex min-h-[25vh] items-center justify-center">
 						<div className="flex items-center gap-2 text-muted-foreground">
 							<Loader2 className="size-4 animate-spin" />
-							<span>Loading providers...</span>
+							<span>Sağlayıcılar yükleniyor...</span>
 						</div>
 					</div>
 				</CardContent>
@@ -101,7 +101,7 @@ export const ShowProviderForm = ({ applicationId }: Props) => {
 	// Check if user doesn't have access to the current git provider
 	if (
 		application &&
-		!application.hasGitProviderAccess &&
+		!application.hasGitSağlayıcıAccess &&
 		application.sourceType !== "docker" &&
 		application.sourceType !== "drop"
 	) {
@@ -110,9 +110,9 @@ export const ShowProviderForm = ({ applicationId }: Props) => {
 				<CardHeader>
 					<CardTitle className="flex items-start justify-between">
 						<div className="flex flex-col gap-2">
-							<span className="flex flex-col space-y-0.5">Provider</span>
+							<span className="flex flex-col space-y-0.5">Sağlayıcı</span>
 							<p className="flex items-center text-sm font-normal text-muted-foreground">
-								Repository connection through unauthorized provider
+								Yetkisiz sağlayıcı üzerinden depo bağlantısı
 							</p>
 						</div>
 						<div className="hidden space-y-1 text-sm font-normal md:block">
@@ -121,7 +121,7 @@ export const ShowProviderForm = ({ applicationId }: Props) => {
 					</CardTitle>
 				</CardHeader>
 				<CardContent>
-					<UnauthorizedGitProvider
+					<UnauthorizedGitSağlayıcı
 						service={application}
 						onDisconnect={handleDisconnect}
 					/>
@@ -135,9 +135,9 @@ export const ShowProviderForm = ({ applicationId }: Props) => {
 			<CardHeader>
 				<CardTitle className="flex items-start justify-between">
 					<div className="flex flex-col gap-2">
-						<span className="flex flex-col space-y-0.5">Provider</span>
+						<span className="flex flex-col space-y-0.5">Sağlayıcı</span>
 						<p className="flex items-center text-sm font-normal text-muted-foreground">
-							Select the source of your code
+							Kodunuzun kaynağını seçin
 						</p>
 					</div>
 					<div className="hidden space-y-1 text-sm font-normal md:block">
@@ -208,91 +208,91 @@ export const ShowProviderForm = ({ applicationId }: Props) => {
 					</div>
 
 					<TabsContent value="github" className="w-full p-2">
-						{githubProviders && githubProviders?.length > 0 ? (
-							<SaveGithubProvider applicationId={applicationId} />
+						{githubSağlayıcıs && githubSağlayıcıs?.length > 0 ? (
+							<SaveGithubSağlayıcı applicationId={applicationId} />
 						) : (
 							<div className="flex flex-col items-center gap-3 min-h-[25vh] justify-center">
 								<GithubIcon className="size-8 text-muted-foreground" />
 								<span className="text-base text-muted-foreground">
-									To deploy using GitHub, you need to configure your account
-									first. Please, go to{" "}
+									GitHub kullanarak dağıtım yapmak için önce hesabınızı
+									yapılandırmanız gerekiyor. Lütfen{" "}
 									<Link
 										href="/dashboard/settings/git-providers"
 										className="text-foreground"
 									>
-										Settings
+										Ayarlar
 									</Link>{" "}
-									to do so.
+									bölümüne gidin.
 								</span>
 							</div>
 						)}
 					</TabsContent>
 					<TabsContent value="gitlab" className="w-full p-2">
-						{gitlabProviders && gitlabProviders?.length > 0 ? (
-							<SaveGitlabProvider applicationId={applicationId} />
+						{gitlabSağlayıcıs && gitlabSağlayıcıs?.length > 0 ? (
+							<SaveGitlabSağlayıcı applicationId={applicationId} />
 						) : (
 							<div className="flex flex-col items-center gap-3 min-h-[25vh] justify-center">
 								<GitlabIcon className="size-8 text-muted-foreground" />
 								<span className="text-base text-muted-foreground">
-									To deploy using GitLab, you need to configure your account
-									first. Please, go to{" "}
+									GitLab kullanarak dağıtım yapmak için önce hesabınızı
+									yapılandırmanız gerekiyor. Lütfen{" "}
 									<Link
 										href="/dashboard/settings/git-providers"
 										className="text-foreground"
 									>
-										Settings
+										Ayarlar
 									</Link>{" "}
-									to do so.
+									bölümüne gidin.
 								</span>
 							</div>
 						)}
 					</TabsContent>
 					<TabsContent value="bitbucket" className="w-full p-2">
-						{bitbucketProviders && bitbucketProviders?.length > 0 ? (
-							<SaveBitbucketProvider applicationId={applicationId} />
+						{bitbucketSağlayıcıs && bitbucketSağlayıcıs?.length > 0 ? (
+							<SaveBitbucketSağlayıcı applicationId={applicationId} />
 						) : (
 							<div className="flex flex-col items-center gap-3 min-h-[25vh] justify-center">
 								<BitbucketIcon className="size-8 text-muted-foreground" />
 								<span className="text-base text-muted-foreground">
-									To deploy using Bitbucket, you need to configure your account
-									first. Please, go to{" "}
+									Bitbucket kullanarak dağıtım yapmak için önce hesabınızı
+									yapılandırmanız gerekiyor. Lütfen{" "}
 									<Link
 										href="/dashboard/settings/git-providers"
 										className="text-foreground"
 									>
-										Settings
+										Ayarlar
 									</Link>{" "}
-									to do so.
+									bölümüne gidin.
 								</span>
 							</div>
 						)}
 					</TabsContent>
 					<TabsContent value="gitea" className="w-full p-2">
-						{giteaProviders && giteaProviders?.length > 0 ? (
-							<SaveGiteaProvider applicationId={applicationId} />
+						{giteaSağlayıcıs && giteaSağlayıcıs?.length > 0 ? (
+							<SaveGiteaSağlayıcı applicationId={applicationId} />
 						) : (
 							<div className="flex flex-col items-center gap-3 min-h-[25vh] justify-center">
 								<GiteaIcon className="size-8 text-muted-foreground" />
 								<span className="text-base text-muted-foreground">
-									To deploy using Gitea, you need to configure your account
-									first. Please, go to{" "}
+									Gitea kullanarak dağıtım yapmak için önce hesabınızı
+									yapılandırmanız gerekiyor. Lütfen{" "}
 									<Link
 										href="/dashboard/settings/git-providers"
 										className="text-foreground"
 									>
-										Settings
+										Ayarlar
 									</Link>{" "}
-									to do so.
+									bölümüne gidin.
 								</span>
 							</div>
 						)}
 					</TabsContent>
 					<TabsContent value="docker" className="w-full p-2">
-						<SaveDockerProvider applicationId={applicationId} />
+						<SaveDockerSağlayıcı applicationId={applicationId} />
 					</TabsContent>
 
 					<TabsContent value="git" className="w-full p-2">
-						<SaveGitProvider applicationId={applicationId} />
+						<SaveGitSağlayıcı applicationId={applicationId} />
 					</TabsContent>
 					<TabsContent value="drop" className="w-full p-2">
 						<SaveDragNDrop applicationId={applicationId} />

@@ -71,14 +71,14 @@ export const ShowGeneralMariadb = ({ mariadbId }: Props) => {
 			<div className="flex w-full flex-col gap-5 ">
 				<Card className="bg-background">
 					<CardHeader>
-						<CardTitle className="text-xl">Deploy Settings</CardTitle>
+						<CardTitle className="text-xl">Dağıtım Ayarları</CardTitle>
 					</CardHeader>
 					<CardContent className="flex flex-row gap-4 flex-wrap">
 						{canDeploy && (
 							<TooltipProvider delayDuration={0}>
 								<DialogAction
-									title="Deploy Mariadb"
-									description="Are you sure you want to deploy this mariadb?"
+									title="MariaDB Dağıt"
+									description="Bu MariaDB veritabanını dağıtmak istediğinize emin misiniz?"
 									type="default"
 									onClick={async () => {
 										setIsDeploying(true);
@@ -95,12 +95,12 @@ export const ShowGeneralMariadb = ({ mariadbId }: Props) => {
 											<TooltipTrigger asChild>
 												<div className="flex items-center">
 													<Rocket className="size-4 mr-1" />
-													Deploy
+													Dağıt
 												</div>
 											</TooltipTrigger>
 											<TooltipPrimitive.Portal>
 												<TooltipContent sideOffset={5} className="z-[60]">
-													<p>Downloads and sets up the MariaDB database</p>
+													<p>MariaDB veritabanını indirir ve kurar</p>
 												</TooltipContent>
 											</TooltipPrimitive.Portal>
 										</Tooltip>
@@ -111,8 +111,8 @@ export const ShowGeneralMariadb = ({ mariadbId }: Props) => {
 						{canDeploy && (
 							<TooltipProvider delayDuration={0}>
 								<DialogAction
-									title="Reload Mariadb"
-									description="Are you sure you want to reload this mariadb?"
+									title="MariaDB Yeniden Yükle"
+									description="Bu MariaDB veritabanını yeniden yüklemek istediğinize emin misiniz?"
 									type="default"
 									onClick={async () => {
 										await reload({
@@ -120,11 +120,11 @@ export const ShowGeneralMariadb = ({ mariadbId }: Props) => {
 											appName: data?.appName || "",
 										})
 											.then(() => {
-												toast.success("Mariadb reloaded successfully");
+												toast.success("MariaDB başarıyla yeniden yüklendi");
 												refetch();
 											})
 											.catch(() => {
-												toast.error("Error reloading Mariadb");
+												toast.error("MariaDB yeniden yüklenirken hata oluştu");
 											});
 									}}
 								>
@@ -137,12 +137,12 @@ export const ShowGeneralMariadb = ({ mariadbId }: Props) => {
 											<TooltipTrigger asChild>
 												<div className="flex items-center">
 													<RefreshCcw className="size-4 mr-1" />
-													Reload
+													Yeniden Yükle
 												</div>
 											</TooltipTrigger>
 											<TooltipPrimitive.Portal>
 												<TooltipContent sideOffset={5} className="z-[60]">
-													<p>Restart the MariaDB service without rebuilding</p>
+													<p>MariaDB hizmetini yeniden oluşturmadan yeniden başlatır</p>
 												</TooltipContent>
 											</TooltipPrimitive.Portal>
 										</Tooltip>
@@ -154,19 +154,19 @@ export const ShowGeneralMariadb = ({ mariadbId }: Props) => {
 							(data?.applicationStatus === "idle" ? (
 								<TooltipProvider delayDuration={0}>
 									<DialogAction
-										title="Start Mariadb"
-										description="Are you sure you want to start this mariadb?"
+										title="MariaDB Başlat"
+										description="Bu MariaDB veritabanını başlatmak istediğinize emin misiniz?"
 										type="default"
 										onClick={async () => {
 											await start({
 												mariadbId: mariadbId,
 											})
 												.then(() => {
-													toast.success("Mariadb started successfully");
+													toast.success("MariaDB başarıyla başlatıldı");
 													refetch();
 												})
 												.catch(() => {
-													toast.error("Error starting Mariadb");
+													toast.error("MariaDB başlatılırken hata oluştu");
 												});
 										}}
 									>
@@ -179,14 +179,14 @@ export const ShowGeneralMariadb = ({ mariadbId }: Props) => {
 												<TooltipTrigger asChild>
 													<div className="flex items-center">
 														<CheckCircle2 className="size-4 mr-1" />
-														Start
+														Başlat
 													</div>
 												</TooltipTrigger>
 												<TooltipPrimitive.Portal>
 													<TooltipContent sideOffset={5} className="z-[60]">
 														<p>
-															Start the MariaDB database (requires a previous
-															successful setup)
+															MariaDB veritabanını başlatır (önceden başarılı bir
+															kurulum gerektirir)
 														</p>
 													</TooltipContent>
 												</TooltipPrimitive.Portal>
@@ -197,18 +197,18 @@ export const ShowGeneralMariadb = ({ mariadbId }: Props) => {
 							) : (
 								<TooltipProvider delayDuration={0}>
 									<DialogAction
-										title="Stop Mariadb"
-										description="Are you sure you want to stop this mariadb?"
+										title="MariaDB Durdur"
+										description="Bu MariaDB veritabanını durdurmak istediğinize emin misiniz?"
 										onClick={async () => {
 											await stop({
 												mariadbId: mariadbId,
 											})
 												.then(() => {
-													toast.success("Mariadb stopped successfully");
+													toast.success("MariaDB başarıyla durduruldu");
 													refetch();
 												})
 												.catch(() => {
-													toast.error("Error stopping Mariadb");
+													toast.error("MariaDB durdurulurken hata oluştu");
 												});
 										}}
 									>
@@ -221,12 +221,12 @@ export const ShowGeneralMariadb = ({ mariadbId }: Props) => {
 												<TooltipTrigger asChild>
 													<div className="flex items-center">
 														<Ban className="size-4 mr-1" />
-														Stop
+														Durdur
 													</div>
 												</TooltipTrigger>
 												<TooltipPrimitive.Portal>
 													<TooltipContent sideOffset={5} className="z-[60]">
-														<p>Stop the currently running MariaDB database</p>
+														<p>Çalışmakta olan MariaDB veritabanını durdurur</p>
 													</TooltipContent>
 												</TooltipPrimitive.Portal>
 											</Tooltip>
@@ -246,12 +246,12 @@ export const ShowGeneralMariadb = ({ mariadbId }: Props) => {
 									<TooltipTrigger asChild>
 										<div className="flex items-center">
 											<Terminal className="size-4 mr-1" />
-											Open Terminal
+											Terminal Aç
 										</div>
 									</TooltipTrigger>
 									<TooltipPrimitive.Portal>
 										<TooltipContent sideOffset={5} className="z-[60]">
-											<p>Open a terminal to the MariaDB container</p>
+											<p>MariaDB konteynerine terminal aç</p>
 										</TooltipContent>
 									</TooltipPrimitive.Portal>
 								</Tooltip>

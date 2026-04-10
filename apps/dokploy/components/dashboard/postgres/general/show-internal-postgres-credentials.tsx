@@ -19,20 +19,20 @@ export const ShowInternalPostgresCredentials = ({ postgresId }: Props) => {
 			<div className="flex w-full flex-col gap-5 ">
 				<Card className="bg-background">
 					<CardHeader>
-						<CardTitle className="text-xl">Internal Credentials</CardTitle>
+						<CardTitle className="text-xl">Dahili Kimlik Bilgileri</CardTitle>
 					</CardHeader>
 					<CardContent className="flex w-full flex-row gap-4">
 						<div className="grid w-full md:grid-cols-2 gap-4 md:gap-8">
 							<div className="flex flex-col gap-2">
-								<Label>User</Label>
+								<Label>Kullanıcı</Label>
 								<Input disabled value={data?.databaseUser} />
 							</div>
 							<div className="flex flex-col gap-2">
-								<Label>Database Name</Label>
+								<Label>Veritabanı Adı</Label>
 								<Input disabled value={data?.databaseName} />
 							</div>
 							<div className="flex flex-col gap-2">
-								<Label>Password</Label>
+								<Label>Şifre</Label>
 								<div className="flex flex-row gap-2 items-center">
 									<ToggleVisibilityInput
 										value={data?.databasePassword}
@@ -44,24 +44,24 @@ export const ShowInternalPostgresCredentials = ({ postgresId }: Props) => {
 												postgresId,
 												password: newPassword,
 											});
-											toast.success("Password updated successfully");
+											toast.success("Şifre başarıyla güncellendi");
 											utils.postgres.one.invalidate({ postgresId });
 										}}
 									/>
 								</div>
 							</div>
 							<div className="flex flex-col gap-2">
-								<Label>Internal Port (Container)</Label>
+								<Label>Dahili Port (Konteyner)</Label>
 								<Input disabled value="5432" />
 							</div>
 
 							<div className="flex flex-col gap-2">
-								<Label>Internal Host</Label>
+								<Label>Dahili Host</Label>
 								<Input disabled value={data?.appName} />
 							</div>
 
 							<div className="flex flex-col gap-2">
-								<Label>Internal Connection URL </Label>
+								<Label>Dahili Bağlantı URL'si </Label>
 								<ToggleVisibilityInput
 									disabled
 									value={`postgresql://${data?.databaseUser}:${data?.databasePassword}@${data?.appName}:5432/${data?.databaseName}`}

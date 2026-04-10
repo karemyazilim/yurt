@@ -69,14 +69,14 @@ export const ShowGeneralMysql = ({ mysqlId }: Props) => {
 			<div className="flex w-full flex-col gap-5 ">
 				<Card className="bg-background">
 					<CardHeader>
-						<CardTitle className="text-xl">Deploy Settings</CardTitle>
+						<CardTitle className="text-xl">Dağıtım Ayarları</CardTitle>
 					</CardHeader>
 					<CardContent className="flex flex-row gap-4 flex-wrap">
 						<TooltipProvider delayDuration={0}>
 							{canDeploy && (
 								<DialogAction
-									title="Deploy MySQL"
-									description="Are you sure you want to deploy this mysql?"
+									title="MySQL Dağıt"
+									description="Bu MySQL veritabanını dağıtmak istediğinize emin misiniz?"
 									type="default"
 									onClick={async () => {
 										setIsDeploying(true);
@@ -93,12 +93,12 @@ export const ShowGeneralMysql = ({ mysqlId }: Props) => {
 											<TooltipTrigger asChild>
 												<div className="flex items-center">
 													<Rocket className="size-4 mr-1" />
-													Deploy
+													Dağıt
 												</div>
 											</TooltipTrigger>
 											<TooltipPrimitive.Portal>
 												<TooltipContent sideOffset={5} className="z-[60]">
-													<p>Downloads and sets up the MySQL database</p>
+													<p>MySQL veritabanını indirir ve kurar</p>
 												</TooltipContent>
 											</TooltipPrimitive.Portal>
 										</Tooltip>
@@ -107,8 +107,8 @@ export const ShowGeneralMysql = ({ mysqlId }: Props) => {
 							)}
 							{canDeploy && (
 								<DialogAction
-									title="Reload MySQL"
-									description="Are you sure you want to reload this mysql?"
+									title="MySQL Yeniden Yükle"
+									description="Bu MySQL veritabanını yeniden yüklemek istediğinize emin misiniz?"
 									type="default"
 									onClick={async () => {
 										await reload({
@@ -116,11 +116,11 @@ export const ShowGeneralMysql = ({ mysqlId }: Props) => {
 											appName: data?.appName || "",
 										})
 											.then(() => {
-												toast.success("MySQL reloaded successfully");
+												toast.success("MySQL başarıyla yeniden yüklendi");
 												refetch();
 											})
 											.catch(() => {
-												toast.error("Error reloading MySQL");
+												toast.error("MySQL yeniden yüklenirken hata oluştu");
 											});
 									}}
 								>
@@ -133,12 +133,12 @@ export const ShowGeneralMysql = ({ mysqlId }: Props) => {
 											<TooltipTrigger asChild>
 												<div className="flex items-center">
 													<RefreshCcw className="size-4 mr-1" />
-													Reload
+													Yeniden Yükle
 												</div>
 											</TooltipTrigger>
 											<TooltipPrimitive.Portal>
 												<TooltipContent sideOffset={5} className="z-[60]">
-													<p>Restart the MySQL service without rebuilding</p>
+													<p>MySQL hizmetini yeniden oluşturmadan yeniden başlatır</p>
 												</TooltipContent>
 											</TooltipPrimitive.Portal>
 										</Tooltip>
@@ -148,19 +148,19 @@ export const ShowGeneralMysql = ({ mysqlId }: Props) => {
 							{canDeploy &&
 								(data?.applicationStatus === "idle" ? (
 									<DialogAction
-										title="Start MySQL"
-										description="Are you sure you want to start this mysql?"
+										title="MySQL Başlat"
+										description="Bu MySQL veritabanını başlatmak istediğinize emin misiniz?"
 										type="default"
 										onClick={async () => {
 											await start({
 												mysqlId: mysqlId,
 											})
 												.then(() => {
-													toast.success("MySQL started successfully");
+													toast.success("MySQL başarıyla başlatıldı");
 													refetch();
 												})
 												.catch(() => {
-													toast.error("Error starting MySQL");
+													toast.error("MySQL başlatılırken hata oluştu");
 												});
 										}}
 									>
@@ -173,14 +173,14 @@ export const ShowGeneralMysql = ({ mysqlId }: Props) => {
 												<TooltipTrigger asChild>
 													<div className="flex items-center">
 														<CheckCircle2 className="size-4 mr-1" />
-														Start
+														Başlat
 													</div>
 												</TooltipTrigger>
 												<TooltipPrimitive.Portal>
 													<TooltipContent sideOffset={5} className="z-[60]">
 														<p>
-															Start the MySQL database (requires a previous
-															successful setup)
+															MySQL veritabanını başlatır (önceden başarılı bir
+															kurulum gerektirir)
 														</p>
 													</TooltipContent>
 												</TooltipPrimitive.Portal>
@@ -189,18 +189,18 @@ export const ShowGeneralMysql = ({ mysqlId }: Props) => {
 									</DialogAction>
 								) : (
 									<DialogAction
-										title="Stop MySQL"
-										description="Are you sure you want to stop this mysql?"
+										title="MySQL Durdur"
+										description="Bu MySQL veritabanını durdurmak istediğinize emin misiniz?"
 										onClick={async () => {
 											await stop({
 												mysqlId: mysqlId,
 											})
 												.then(() => {
-													toast.success("MySQL stopped successfully");
+													toast.success("MySQL başarıyla durduruldu");
 													refetch();
 												})
 												.catch(() => {
-													toast.error("Error stopping MySQL");
+													toast.error("MySQL durdurulurken hata oluştu");
 												});
 										}}
 									>
@@ -213,12 +213,12 @@ export const ShowGeneralMysql = ({ mysqlId }: Props) => {
 												<TooltipTrigger asChild>
 													<div className="flex items-center">
 														<Ban className="size-4 mr-1" />
-														Stop
+														Durdur
 													</div>
 												</TooltipTrigger>
 												<TooltipPrimitive.Portal>
 													<TooltipContent sideOffset={5} className="z-[60]">
-														<p>Stop the currently running MySQL database</p>
+														<p>Çalışmakta olan MySQL veritabanını durdurur</p>
 													</TooltipContent>
 												</TooltipPrimitive.Portal>
 											</Tooltip>
@@ -238,12 +238,12 @@ export const ShowGeneralMysql = ({ mysqlId }: Props) => {
 									<TooltipTrigger asChild>
 										<div className="flex items-center">
 											<Terminal className="size-4 mr-1" />
-											Open Terminal
+											Terminal Aç
 										</div>
 									</TooltipTrigger>
 									<TooltipPrimitive.Portal>
 										<TooltipContent sideOffset={5} className="z-[60]">
-											<p>Open a terminal to the MySQL container</p>
+											<p>MySQL konteynerine terminal aç</p>
 										</TooltipContent>
 									</TooltipPrimitive.Portal>
 								</Tooltip>

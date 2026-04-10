@@ -48,12 +48,12 @@ import { APP_NAME_MESSAGE, APP_NAME_REGEX } from "@/utils/schema";
 const AddComposeSchema = z.object({
 	composeType: z.enum(["docker-compose", "stack"]).optional(),
 	name: z.string().min(1, {
-		message: "Name is required",
+		message: "Ad gereklidir",
 	}),
 	appName: z
 		.string()
 		.min(1, {
-			message: "App name is required",
+			message: "Uygulama adı gereklidir",
 		})
 		.regex(APP_NAME_REGEX, {
 			message: APP_NAME_MESSAGE,
@@ -108,7 +108,7 @@ export const AddCompose = ({ environmentId, projectName }: Props) => {
 			serverId: data.serverId === "dokploy" ? undefined : data.serverId,
 		})
 			.then(async () => {
-				toast.success("Compose Created");
+				toast.success("Compose oluşturuldu");
 				setVisible(false);
 				// Invalidate the project query to refresh the environment data
 				await utils.environment.one.invalidate({
@@ -118,7 +118,7 @@ export const AddCompose = ({ environmentId, projectName }: Props) => {
 				await utils.project.all.invalidate();
 			})
 			.catch(() => {
-				toast.error("Error creating the compose");
+				toast.error("Compose oluşturulurken hata oluştu");
 			});
 	};
 
@@ -135,9 +135,9 @@ export const AddCompose = ({ environmentId, projectName }: Props) => {
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-xl">
 				<DialogHeader>
-					<DialogTitle>Create Compose</DialogTitle>
+					<DialogTitle>Compose Oluştur</DialogTitle>
 					<DialogDescription>
-						Assign a name and description to your compose
+						Compose için bir ad ve açıklama belirleyin
 					</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
@@ -154,7 +154,7 @@ export const AddCompose = ({ environmentId, projectName }: Props) => {
 								name="name"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Name</FormLabel>
+										<FormLabel>Ad</FormLabel>
 										<FormControl>
 											<Input
 												placeholder="Frontend"
@@ -182,7 +182,7 @@ export const AddCompose = ({ environmentId, projectName }: Props) => {
 											<Tooltip>
 												<TooltipTrigger asChild>
 													<FormLabel className="break-all w-fit flex flex-row gap-1 items-center">
-														Select a Server {!isCloud ? "(Optional)" : ""}
+														Sunucu Seçin {!isCloud ? "(İsteğe bağlı)" : ""}
 														<HelpCircle className="size-4 text-muted-foreground" />
 													</FormLabel>
 												</TooltipTrigger>
@@ -192,8 +192,8 @@ export const AddCompose = ({ environmentId, projectName }: Props) => {
 													side="top"
 												>
 													<span>
-														If no server is selected, the application will be
-														deployed on the server where the user is logged in.
+														Sunucu seçilmezse, uygulama kullanıcının oturum açtığı
+														sunucuya dağıtılacaktır.
 													</span>
 												</TooltipContent>
 											</Tooltip>
@@ -217,7 +217,7 @@ export const AddCompose = ({ environmentId, projectName }: Props) => {
 															<span className="flex items-center gap-2 justify-between w-full">
 																<span>Dokploy</span>
 																<span className="text-muted-foreground text-xs self-center">
-																	Default
+																	Varsayılan
 																</span>
 															</span>
 														</SelectItem>
@@ -236,7 +236,7 @@ export const AddCompose = ({ environmentId, projectName }: Props) => {
 														</SelectItem>
 													))}
 													<SelectLabel>
-														Servers ({servers?.length + (!isCloud ? 1 : 0)})
+														Sunucular ({servers?.length + (!isCloud ? 1 : 0)})
 													</SelectLabel>
 												</SelectGroup>
 											</SelectContent>
@@ -251,7 +251,7 @@ export const AddCompose = ({ environmentId, projectName }: Props) => {
 							name="appName"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>App Name</FormLabel>
+									<FormLabel>Uygulama Adı</FormLabel>
 									<FormControl>
 										<Input placeholder="my-app" {...field} />
 									</FormControl>
@@ -264,14 +264,14 @@ export const AddCompose = ({ environmentId, projectName }: Props) => {
 							name="composeType"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Compose Type</FormLabel>
+									<FormLabel>Compose Türü</FormLabel>
 									<Select
 										onValueChange={field.onChange}
 										defaultValue={field.value}
 									>
 										<FormControl>
 											<SelectTrigger>
-												<SelectValue placeholder="Select a compose type" />
+												<SelectValue placeholder="Compose türü seçin" />
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
@@ -290,10 +290,10 @@ export const AddCompose = ({ environmentId, projectName }: Props) => {
 							name="description"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Description</FormLabel>
+									<FormLabel>Açıklama</FormLabel>
 									<FormControl>
 										<Textarea
-											placeholder="Description of your service..."
+											placeholder="Servisinizin açıklaması..."
 											className="resize-none"
 											{...field}
 										/>
@@ -307,7 +307,7 @@ export const AddCompose = ({ environmentId, projectName }: Props) => {
 
 					<DialogFooter>
 						<Button isLoading={isPending} form="hook-form" type="submit">
-							Create
+							Oluştur
 						</Button>
 					</DialogFooter>
 				</Form>

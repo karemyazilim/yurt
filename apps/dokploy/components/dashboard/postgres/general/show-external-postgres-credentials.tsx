@@ -35,8 +35,8 @@ const DockerProviderSchema = z.object({
 		return null;
 	}, z
 		.number()
-		.gte(0, "Range must be 0 - 65535")
-		.lte(65535, "Range must be 0 - 65535")
+		.gte(0, "Aralık 0 - 65535 olmalıdır")
+		.lte(65535, "Aralık 0 - 65535 olmalıdır")
 		.nullable()),
 });
 
@@ -72,11 +72,11 @@ export const ShowExternalPostgresCredentials = ({ postgresId }: Props) => {
 			postgresId,
 		})
 			.then(async () => {
-				toast.success("External Port updated");
+				toast.success("Harici Port güncellendi");
 				await refetch();
 			})
 			.catch((error: Error) => {
-				toast.error(error?.message || "Error saving the external port");
+				toast.error(error?.message || "Harici port kaydedilirken hata oluştu");
 			});
 	};
 
@@ -102,26 +102,26 @@ export const ShowExternalPostgresCredentials = ({ postgresId }: Props) => {
 			<div className="flex w-full flex-col gap-5 ">
 				<Card className="bg-background">
 					<CardHeader>
-						<CardTitle className="text-xl">External Credentials</CardTitle>
+						<CardTitle className="text-xl">Harici Kimlik Bilgileri</CardTitle>
 						<CardDescription>
-							In order to make the database reachable through the internet, you
-							must set a port and ensure that the port is not being used by
-							another application or database
+							Veritabanını internet üzerinden erişilebilir kılmak için bir port
+							belirlemeniz ve bu portun başka bir uygulama veya veritabanı
+							tarafından kullanılmadığından emin olmanız gerekir
 						</CardDescription>
 					</CardHeader>
 					<CardContent className="flex w-full flex-col gap-4">
 						{!getIp && (
 							<AlertBlock type="warning">
-								You need to set an IP address in your{" "}
+								Veritabanı bağlantı URL'sini düzeltmek için{" "}
 								<Link
 									href="/dashboard/settings/server"
 									className="text-primary"
 								>
 									{data?.serverId
-										? "Remote Servers -> Server -> Edit Server -> Update IP Address"
-										: "Web Server -> Server -> Update Server IP"}
+										? "Uzak Sunucular -> Sunucu -> Sunucuyu Düzenle -> IP Adresini Güncelle"
+										: "Web Sunucusu -> Sunucu -> Sunucu IP'sini Güncelle"}
 								</Link>{" "}
-								to fix the database url connection.
+								bölümünden bir IP adresi belirlemeniz gerekiyor.
 							</AlertBlock>
 						)}
 						<Form {...form}>
@@ -137,7 +137,7 @@ export const ShowExternalPostgresCredentials = ({ postgresId }: Props) => {
 											render={({ field }) => {
 												return (
 													<FormItem>
-														<FormLabel>External Port (Internet)</FormLabel>
+														<FormLabel>Harici Port (İnternet)</FormLabel>
 														<FormControl>
 															<Input
 																placeholder="5432"
@@ -155,7 +155,7 @@ export const ShowExternalPostgresCredentials = ({ postgresId }: Props) => {
 								{!!data?.externalPort && (
 									<div className="grid w-full gap-8">
 										<div className="flex flex-col gap-3">
-											<Label>External Host</Label>
+											<Label>Harici Host</Label>
 											<ToggleVisibilityInput value={connectionUrl} disabled />
 										</div>
 									</div>
@@ -163,7 +163,7 @@ export const ShowExternalPostgresCredentials = ({ postgresId }: Props) => {
 
 								<div className="flex justify-end">
 									<Button type="submit" isLoading={isPending}>
-										Save
+										Kaydet
 									</Button>
 								</div>
 							</form>

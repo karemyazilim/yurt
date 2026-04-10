@@ -71,14 +71,14 @@ export const ShowGeneralMongo = ({ mongoId }: Props) => {
 			<div className="flex w-full flex-col gap-5 ">
 				<Card className="bg-background">
 					<CardHeader>
-						<CardTitle className="text-xl">Deploy Settings</CardTitle>
+						<CardTitle className="text-xl">Dağıtım Ayarları</CardTitle>
 					</CardHeader>
 					<CardContent className="flex flex-row gap-4 flex-wrap">
 						<TooltipProvider delayDuration={0}>
 							{canDeploy && (
 								<DialogAction
-									title="Deploy Mongo"
-									description="Are you sure you want to deploy this mongo?"
+									title="MongoDB Dağıt"
+									description="Bu MongoDB veritabanını dağıtmak istediğinize emin misiniz?"
 									type="default"
 									onClick={async () => {
 										setIsDeploying(true);
@@ -95,12 +95,12 @@ export const ShowGeneralMongo = ({ mongoId }: Props) => {
 											<TooltipTrigger asChild>
 												<div className="flex items-center">
 													<Rocket className="size-4 mr-1" />
-													Deploy
+													Dağıt
 												</div>
 											</TooltipTrigger>
 											<TooltipPrimitive.Portal>
 												<TooltipContent sideOffset={5} className="z-[60]">
-													<p>Downloads and sets up the MongoDB database</p>
+													<p>MongoDB veritabanını indirir ve kurar</p>
 												</TooltipContent>
 											</TooltipPrimitive.Portal>
 										</Tooltip>
@@ -109,8 +109,8 @@ export const ShowGeneralMongo = ({ mongoId }: Props) => {
 							)}
 							{canDeploy && (
 								<DialogAction
-									title="Reload Mongo"
-									description="Are you sure you want to reload this mongo?"
+									title="MongoDB Yeniden Yükle"
+									description="Bu MongoDB veritabanını yeniden yüklemek istediğinize emin misiniz?"
 									type="default"
 									onClick={async () => {
 										await reload({
@@ -118,11 +118,11 @@ export const ShowGeneralMongo = ({ mongoId }: Props) => {
 											appName: data?.appName || "",
 										})
 											.then(() => {
-												toast.success("Mongo reloaded successfully");
+												toast.success("MongoDB başarıyla yeniden yüklendi");
 												refetch();
 											})
 											.catch(() => {
-												toast.error("Error reloading Mongo");
+												toast.error("MongoDB yeniden yüklenirken hata oluştu");
 											});
 									}}
 								>
@@ -135,12 +135,12 @@ export const ShowGeneralMongo = ({ mongoId }: Props) => {
 											<TooltipTrigger asChild>
 												<div className="flex items-center">
 													<RefreshCcw className="size-4 mr-1" />
-													Reload
+													Yeniden Yükle
 												</div>
 											</TooltipTrigger>
 											<TooltipPrimitive.Portal>
 												<TooltipContent sideOffset={5} className="z-[60]">
-													<p>Restart the MongoDB service without rebuilding</p>
+													<p>MongoDB hizmetini yeniden oluşturmadan yeniden başlatır</p>
 												</TooltipContent>
 											</TooltipPrimitive.Portal>
 										</Tooltip>
@@ -150,19 +150,19 @@ export const ShowGeneralMongo = ({ mongoId }: Props) => {
 							{canDeploy &&
 								(data?.applicationStatus === "idle" ? (
 									<DialogAction
-										title="Start Mongo"
-										description="Are you sure you want to start this mongo?"
+										title="MongoDB Başlat"
+										description="Bu MongoDB veritabanını başlatmak istediğinize emin misiniz?"
 										type="default"
 										onClick={async () => {
 											await start({
 												mongoId: mongoId,
 											})
 												.then(() => {
-													toast.success("Mongo started successfully");
+													toast.success("MongoDB başarıyla başlatıldı");
 													refetch();
 												})
 												.catch(() => {
-													toast.error("Error starting Mongo");
+													toast.error("MongoDB başlatılırken hata oluştu");
 												});
 										}}
 									>
@@ -175,14 +175,14 @@ export const ShowGeneralMongo = ({ mongoId }: Props) => {
 												<TooltipTrigger asChild>
 													<div className="flex items-center">
 														<CheckCircle2 className="size-4 mr-1" />
-														Start
+														Başlat
 													</div>
 												</TooltipTrigger>
 												<TooltipPrimitive.Portal>
 													<TooltipContent sideOffset={5} className="z-[60]">
 														<p>
-															Start the MongoDB database (requires a previous
-															successful setup)
+															MongoDB veritabanını başlatır (önceden başarılı bir
+															kurulum gerektirir)
 														</p>
 													</TooltipContent>
 												</TooltipPrimitive.Portal>
@@ -191,8 +191,8 @@ export const ShowGeneralMongo = ({ mongoId }: Props) => {
 									</DialogAction>
 								) : (
 									<DialogAction
-										title="Stop Mongo"
-										description="Are you sure you want to stop this mongo?"
+										title="MongoDB Durdur"
+										description="Bu MongoDB veritabanını durdurmak istediğinize emin misiniz?"
 										onClick={async () => {
 											await stop({
 												mongoId: mongoId,

@@ -82,10 +82,10 @@ export const IsolatedDeploymentTab = ({ composeId }: Props) => {
 		})
 			.then(async (_data) => {
 				await refetch();
-				toast.success("Compose updated");
+				toast.success("Compose güncellendi");
 			})
 			.catch(() => {
-				toast.error("Error updating the compose");
+				toast.error("Compose güncellenirken hata oluştu");
 			});
 	};
 
@@ -101,7 +101,7 @@ export const IsolatedDeploymentTab = ({ composeId }: Props) => {
 				setCompose(data);
 			});
 		} catch {
-			toast.error("Error generating preview");
+			toast.error("Önizleme oluşturulurken hata oluştu");
 			setIsOpenPreview(false);
 		} finally {
 			setIsPreviewLoading(false);
@@ -111,25 +111,24 @@ export const IsolatedDeploymentTab = ({ composeId }: Props) => {
 	return (
 		<Card className="bg-background">
 			<CardHeader>
-				<CardTitle className="text-xl">Enable Isolated Deployment</CardTitle>
+				<CardTitle className="text-xl">İzole Dağıtımı Etkinleştir</CardTitle>
 				<CardDescription>
-					Configure isolated deployment to the compose file.
+					Compose dosyası için izole dağıtımı yapılandırın.
 					<div className="text-sm text-muted-foreground flex flex-col gap-2">
 						<span>
-							This feature creates an isolated environment for your deployment
-							by adding unique prefixes to all resources. It establishes a
-							dedicated network based on your compose file's name, ensuring your
-							services run in isolation. This prevents conflicts when running
-							multiple instances of the same template or services with identical
-							names.
+							Bu özellik, tüm kaynaklara benzersiz ön ekler ekleyerek dağıtımınız
+							için izole bir ortam oluşturur. Compose dosyanızın adına dayalı özel
+							bir ağ kurarak servislerinizin izole çalışmasını sağlar. Bu, aynı
+							şablonun veya aynı adlı servislerin birden fazla örneğini çalıştırırken
+							çakışmaları önler.
 						</span>
 						<div className="space-y-4">
 							<div>
 								<h4 className="font-medium mb-2">
-									Resources that will be isolated:
+									İzole edilecek kaynaklar:
 								</h4>
 								<ul className="list-disc list-inside">
-									<li>Docker networks</li>
+									<li>Docker ağları</li>
 								</ul>
 							</div>
 						</div>
@@ -163,10 +162,10 @@ export const IsolatedDeploymentTab = ({ composeId }: Props) => {
 											<FormItem className="mt-4 flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
 												<div className="space-y-0.5">
 													<FormLabel>
-														Enable Isolated Deployment ({data?.appName})
+														İzole Dağıtımı Etkinleştir ({data?.appName})
 													</FormLabel>
 													<FormDescription>
-														Enable isolated deployment to the compose file.
+														Compose dosyası için izole dağıtımı etkinleştirin.
 													</FormDescription>
 												</div>
 												<FormControl>
@@ -187,7 +186,7 @@ export const IsolatedDeploymentTab = ({ composeId }: Props) => {
 										className="lg:w-fit"
 										isLoading={form.formState.isSubmitting}
 									>
-										Save
+										Kaydet
 									</Button>
 								</div>
 							</div>
@@ -199,15 +198,15 @@ export const IsolatedDeploymentTab = ({ composeId }: Props) => {
 									variant="secondary"
 									className="lg:w-fit"
 								>
-									Preview Compose
+									Compose Önizleme
 								</Button>
 								<Dialog open={isOpenPreview} onOpenChange={setIsOpenPreview}>
 									<DialogContent className="sm:max-w-6xl max-h-[80vh]">
 										<DialogHeader>
-											<DialogTitle>Isolated Deployment Preview</DialogTitle>
+											<DialogTitle>İzole Dağıtım Önizlemesi</DialogTitle>
 											<DialogDescription>
-												Preview of the compose file with isolated deployment
-												configuration
+												İzole dağıtım yapılandırması ile compose dosyasının
+												önizlemesi
 											</DialogDescription>
 										</DialogHeader>
 										<div className="flex flex-col gap-4 overflow-auto">
@@ -215,7 +214,7 @@ export const IsolatedDeploymentTab = ({ composeId }: Props) => {
 												<div className="flex flex-col items-center justify-center py-12 gap-4">
 													<Loader2 className="w-8 h-8 animate-spin text-muted-foreground" />
 													<p className="text-muted-foreground">
-														Generating compose preview...
+														Compose önizlemesi oluşturuluyor...
 													</p>
 												</div>
 											) : (

@@ -77,15 +77,15 @@ export const SearchCommand = () => {
 		<div>
 			<CommandDialog open={open} onOpenChange={setOpen}>
 				<CommandInput
-					placeholder={"Search projects or settings"}
+					placeholder={"Proje veya ayar arayın"}
 					value={search}
 					onValueChange={setSearch}
 				/>
 				<CommandList>
 					<CommandEmpty>
-						No projects added yet. Click on Create project.
+						Henüz proje eklenmedi. Proje oluştur'a tıklayın.
 					</CommandEmpty>
-					<CommandGroup heading={"Projects"}>
+					<CommandGroup heading={"Projeler"}>
 						<CommandList>
 							{data?.map((project) => {
 								// Find default environment from accessible environments, or fall back to first accessible environment
@@ -114,7 +114,7 @@ export const SearchCommand = () => {
 						</CommandList>
 					</CommandGroup>
 					<CommandSeparator />
-					<CommandGroup heading={"Services"}>
+					<CommandGroup heading={"Servisler"}>
 						<CommandList>
 							{data?.map((project) => {
 								const applications: SearchServices[] =
@@ -164,14 +164,14 @@ export const SearchCommand = () => {
 						</CommandList>
 					</CommandGroup>
 					<CommandSeparator />
-					<CommandGroup heading={"Application"} hidden={true}>
+					<CommandGroup heading={"Uygulama"} hidden={true}>
 						<CommandItem
 							onSelect={() => {
 								router.push("/dashboard/projects");
 								setOpen(false);
 							}}
 						>
-							Projects
+							Projeler
 						</CommandItem>
 						<CommandItem
 							onSelect={() => {
@@ -179,7 +179,7 @@ export const SearchCommand = () => {
 								setOpen(false);
 							}}
 						>
-							Deployments
+							Dağıtımlar
 						</CommandItem>
 						{!isCloud && (
 							<>
@@ -189,7 +189,7 @@ export const SearchCommand = () => {
 										setOpen(false);
 									}}
 								>
-									Monitoring
+									İzleme
 								</CommandItem>
 								<CommandItem
 									onSelect={() => {
@@ -213,7 +213,7 @@ export const SearchCommand = () => {
 										setOpen(false);
 									}}
 								>
-									Requests
+									İstekler
 								</CommandItem>
 							</>
 						)}
@@ -223,7 +223,7 @@ export const SearchCommand = () => {
 								setOpen(false);
 							}}
 						>
-							Settings
+							Ayarlar
 						</CommandItem>
 					</CommandGroup>
 				</CommandList>

@@ -154,11 +154,11 @@ export const AddTemplate = ({ environmentId, baseUrl }: Props) => {
 						context.previousBookmarks,
 					);
 				}
-				toast.error("Failed to update bookmark");
+				toast.error("Yer işareti güncellenemedi");
 			},
 			onSuccess: (data) => {
 				toast.success(
-					data.isBookmarked ? "Added to bookmarks" : "Removed from bookmarks",
+					data.isBookmarked ? "Yer işaretlerine eklendi" : "Yer işaretlerinden kaldırıldı",
 				);
 			},
 		});
@@ -200,10 +200,10 @@ export const AddTemplate = ({ environmentId, baseUrl }: Props) => {
 			<DialogTrigger className="w-full">
 				<DropdownMenuItem
 					className="w-full cursor-pointer space-x-3"
-					onSelect={(e) => e.preventDefault()}
+					onSelect={(e) => e.preventVarsayılan()}
 				>
 					<PuzzleIcon className="size-4 text-muted-foreground" />
-					<span>Template</span>
+					<span>Şablon</span>
 				</DropdownMenuItem>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-[90vw] p-0">
@@ -211,20 +211,20 @@ export const AddTemplate = ({ environmentId, baseUrl }: Props) => {
 					<div className="flex flex-col space-y-6">
 						<div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
 							<div>
-								<DialogTitle>Create from Template</DialogTitle>
+								<DialogTitle>Şablondan Oluştur</DialogTitle>
 								<DialogDescription>
-									Create an open source application from a template
+									Şablondan açık kaynak uygulama oluşturun
 								</DialogDescription>
 							</div>
 							<div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
 								<Input
-									placeholder="Search Template"
+									placeholder="Şablon Ara"
 									onChange={(e) => setQuery(e.target.value)}
 									className="w-full"
 									value={query}
 								/>
 								<Input
-									placeholder="Base URL (optional)"
+									placeholder="Temel URL (isteğe bağlı)"
 									onChange={(e) =>
 										setCustomBaseUrl(e.target.value || undefined)
 									}
@@ -240,10 +240,10 @@ export const AddTemplate = ({ environmentId, baseUrl }: Props) => {
 											)}
 										>
 											{isLoadingTags
-												? "Loading...."
+												? "Yükleniyor..."
 												: selectedTags.length > 0
-													? `Selected ${selectedTags.length} tags`
-													: "Select tag"}
+													? `${selectedTags.length} etiket seçildi`
+													: "Etiket seçin"}
 
 											<ChevronsUpDown className="ml-2 h-4 w-4 opacity-50" />
 										</Button>
@@ -251,15 +251,15 @@ export const AddTemplate = ({ environmentId, baseUrl }: Props) => {
 									<PopoverContent className="p-0" align="start">
 										<Command>
 											<CommandInput
-												placeholder="Search tag..."
+												placeholder="Etiket ara..."
 												className="h-9"
 											/>
 											{isLoadingTags && (
 												<span className="py-6 text-center text-sm">
-													Loading Tags....
+													Etiketler yükleniyor...
 												</span>
 											)}
-											<CommandEmpty>No tags found.</CommandEmpty>
+											<CommandEmpty>Etiket bulunamadı.</CommandEmpty>
 											<ScrollArea className="h-96">
 												<CommandGroup>
 													{tags?.map((tag) => (
@@ -358,7 +358,7 @@ export const AddTemplate = ({ environmentId, baseUrl }: Props) => {
 							<div className="flex justify-center items-center w-full h-full flex-row gap-4">
 								<Loader2 className="size-8 text-muted-foreground animate-spin min-h-[60vh]" />
 								<div className="text-lg font-medium text-muted-foreground">
-									Loading templates...
+									Şablonlar yükleniyor...
 								</div>
 							</div>
 						) : templates.length === 0 ? (
@@ -366,13 +366,13 @@ export const AddTemplate = ({ environmentId, baseUrl }: Props) => {
 								<SearchIcon className="text-muted-foreground size-6" />
 								<div className="text-xl font-medium text-muted-foreground">
 									{showBookmarksOnly
-										? "No bookmarked templates found"
-										: "No templates found"}
+										? "Yer işaretli şablon bulunamadı"
+										: "Şablon bulunamadı"}
 								</div>
 								{showBookmarksOnly && (
 									<p className="text-sm text-muted-foreground">
-										Click the bookmark icon on templates to add them to
-										bookmarks
+										Yer işaretlerine eklemek için şablonlardaki yer işareti
+										simgesine tıklayın
 									</p>
 								)}
 							</div>
@@ -508,18 +508,17 @@ export const AddTemplate = ({ environmentId, baseUrl }: Props) => {
 															viewMode === "detailed" && "w-auto",
 														)}
 													>
-														Create
+														Oluştur
 													</Button>
 												</AlertDialogTrigger>
 												<AlertDialogContent>
 													<AlertDialogHeader>
 														<AlertDialogTitle>
-															Are you absolutely sure?
+															Emin misiniz?
 														</AlertDialogTitle>
 														<AlertDialogDescription>
-															This will create an application from the{" "}
-															{template?.name} template and add it to your
-															project.
+															Bu, {template?.name} şablonundan bir uygulama
+															oluşturacak ve projenize ekleyecektir.
 														</AlertDialogDescription>
 
 														{shouldShowServerDropdown && (
@@ -528,8 +527,8 @@ export const AddTemplate = ({ environmentId, baseUrl }: Props) => {
 																	<Tooltip>
 																		<TooltipTrigger asChild>
 																			<Label className="break-all w-fit flex flex-row gap-1 items-center pb-2 pt-3.5">
-																				Select a Server{" "}
-																				{!isCloud ? "(Optional)" : ""}
+																				Sunucu Seçin{" "}
+																				{!isCloud ? "(İsteğe bağlı)" : ""}
 																				<HelpCircle className="size-4 text-muted-foreground" />
 																			</Label>
 																		</TooltipTrigger>
@@ -539,9 +538,9 @@ export const AddTemplate = ({ environmentId, baseUrl }: Props) => {
 																			side="top"
 																		>
 																			<span>
-																				If no server is selected, the
-																				application will be deployed on the
-																				server where the user is logged in.
+																				Sunucu seçilmezse, uygulama
+																				kullanıcının oturum açtığı sunucuya
+																				dağıtılacaktır.
 																			</span>
 																		</TooltipContent>
 																	</Tooltip>
@@ -569,7 +568,7 @@ export const AddTemplate = ({ environmentId, baseUrl }: Props) => {
 																					<span className="flex items-center gap-2 justify-between w-full">
 																						<span>Dokploy</span>
 																						<span className="text-muted-foreground text-xs self-center">
-																							Default
+																							Varsayılan
 																						</span>
 																					</span>
 																				</SelectItem>
@@ -588,7 +587,7 @@ export const AddTemplate = ({ environmentId, baseUrl }: Props) => {
 																				</SelectItem>
 																			))}
 																			<SelectLabel>
-																				Servers (
+																				Sunucular (
 																				{servers?.length + (!isCloud ? 1 : 0)})
 																			</SelectLabel>
 																		</SelectGroup>
@@ -598,7 +597,7 @@ export const AddTemplate = ({ environmentId, baseUrl }: Props) => {
 														)}
 													</AlertDialogHeader>
 													<AlertDialogFooter>
-														<AlertDialogCancel>Cancel</AlertDialogCancel>
+														<AlertDialogCancel>İptal</AlertDialogCancel>
 														<AlertDialogAction
 															disabled={isPending}
 															onClick={async () => {
@@ -612,22 +611,22 @@ export const AddTemplate = ({ environmentId, baseUrl }: Props) => {
 																	baseUrl: customBaseUrl,
 																});
 																toast.promise(promise, {
-																	loading: "Setting up...",
+																	loading: "Kuruluyor...",
 																	success: () => {
 																		// Invalidate the project query to refresh the environment data
 																		utils.environment.one.invalidate({
 																			environmentId,
 																		});
 																		setOpen(false);
-																		return `${template.name} template created successfully`;
+																		return `${template.name} şablonu başarıyla oluşturuldu`;
 																	},
 																	error: () => {
-																		return `An error occurred deploying ${template.name} template`;
+																		return `${template.name} şablonu dağıtılırken bir hata oluştu`;
 																	},
 																});
 															}}
 														>
-															Confirm
+															Onayla
 														</AlertDialogAction>
 													</AlertDialogFooter>
 												</AlertDialogContent>

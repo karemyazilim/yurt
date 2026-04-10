@@ -29,7 +29,7 @@ import { api } from "@/utils/api";
 
 const updateComposeSchema = z.object({
 	name: z.string().min(1, {
-		message: "Name is required",
+		message: "Ad gereklidir",
 	}),
 	description: z.string().optional(),
 });
@@ -76,14 +76,14 @@ export const UpdateCompose = ({ composeId }: Props) => {
 			description: formData.description || "",
 		})
 			.then(() => {
-				toast.success("Compose updated successfully");
+				toast.success("Compose başarıyla güncellendi");
 				utils.compose.one.invalidate({
 					composeId: composeId,
 				});
 				setIsOpen(false);
 			})
 			.catch(() => {
-				toast.error("Error updating the Compose");
+				toast.error("Compose güncellenirken hata oluştu");
 			})
 			.finally(() => {});
 	};
@@ -101,8 +101,8 @@ export const UpdateCompose = ({ composeId }: Props) => {
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-lg">
 				<DialogHeader>
-					<DialogTitle>Modify Compose</DialogTitle>
-					<DialogDescription>Update the compose data</DialogDescription>
+					<DialogTitle>Compose Düzenle</DialogTitle>
+					<DialogDescription>Compose verilerini güncelle</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
 
@@ -119,7 +119,7 @@ export const UpdateCompose = ({ composeId }: Props) => {
 									name="name"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Name</FormLabel>
+											<FormLabel>Ad</FormLabel>
 											<FormControl>
 												<Input placeholder="Vandelay Industries" {...field} />
 											</FormControl>
@@ -133,10 +133,10 @@ export const UpdateCompose = ({ composeId }: Props) => {
 									name="description"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Description</FormLabel>
+											<FormLabel>Açıklama</FormLabel>
 											<FormControl>
 												<Textarea
-													placeholder="Description about your project..."
+													placeholder="Projeniz hakkında açıklama..."
 													className="resize-none"
 													{...field}
 												/>
@@ -152,7 +152,7 @@ export const UpdateCompose = ({ composeId }: Props) => {
 										form="hook-form-update-compose"
 										type="submit"
 									>
-										Update
+										Güncelle
 									</Button>
 								</DialogFooter>
 							</form>

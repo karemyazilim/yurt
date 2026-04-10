@@ -15,11 +15,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/utils/api";
 
 const examples = [
-	"Make a personal blog",
-	"Add a photo studio portfolio",
-	"Create a personal ad blocker",
-	"Build a social media dashboard",
-	"Sendgrid service opensource analogue",
+	"Kişisel blog oluştur",
+	"Fotoğraf stüdyosu portfolyosu ekle",
+	"Kişisel reklam engelleyici oluştur",
+	"Sosyal medya paneli oluştur",
+	"Sendgrid servisi açık kaynak alternatifi",
 ];
 
 export const StepOne = ({ setTemplateInfo, templateInfo }: any) => {
@@ -39,12 +39,12 @@ export const StepOne = ({ setTemplateInfo, templateInfo }: any) => {
 		<div className="flex flex-col h-full gap-4">
 			<div className="">
 				<div className="space-y-4 ">
-					<h2 className="text-lg font-semibold">Step 1: Describe Your Needs</h2>
+					<h2 className="text-lg font-semibold">Adım 1: İhtiyaçlarınızı Tanımlayın</h2>
 					<div className="space-y-2">
-						<Label htmlFor="user-needs">Describe your template needs</Label>
+						<Label htmlFor="user-needs">Şablon ihtiyaçlarınızı tanımlayın</Label>
 						<Textarea
 							id="user-needs"
-							placeholder="Describe the type of template you need, its purpose, and any specific features you'd like to include."
+							placeholder="İhtiyacınız olan şablon türünü, amacını ve dahil etmek istediğiniz özellikleri açıklayın."
 							value={templateInfo?.userInput}
 							onChange={(e) =>
 								setTemplateInfo({ ...templateInfo, userInput: e.target.value })
@@ -56,7 +56,7 @@ export const StepOne = ({ setTemplateInfo, templateInfo }: any) => {
 					{shouldShowServerDropdown && (
 						<div className="space-y-2">
 							<Label htmlFor="server-deploy">
-								Select the server where you want to deploy (optional)
+								Dağıtmak istediğiniz sunucuyu seçin (isteğe bağlı)
 							</Label>
 							<Select
 								value={
@@ -92,7 +92,7 @@ export const StepOne = ({ setTemplateInfo, templateInfo }: any) => {
 												<span className="flex items-center gap-2 justify-between w-full">
 													<span>Dokploy</span>
 													<span className="text-muted-foreground text-xs self-center">
-														Default
+														Varsayılan
 													</span>
 												</span>
 											</SelectItem>
@@ -103,7 +103,7 @@ export const StepOne = ({ setTemplateInfo, templateInfo }: any) => {
 											</SelectItem>
 										))}
 										<SelectLabel>
-											Servers ({servers?.length + (!isCloud ? 1 : 0)})
+											Sunucular ({servers?.length + (!isCloud ? 1 : 0)})
 										</SelectLabel>
 									</SelectGroup>
 								</SelectContent>
@@ -112,7 +112,7 @@ export const StepOne = ({ setTemplateInfo, templateInfo }: any) => {
 					)}
 
 					<div className="space-y-2">
-						<Label>Examples:</Label>
+						<Label>Örnekler:</Label>
 						<div className="flex flex-wrap gap-2">
 							{examples.map((example, index) => (
 								<Button

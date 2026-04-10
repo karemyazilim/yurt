@@ -27,8 +27,8 @@ import { Input } from "@/components/ui/input";
 import { api } from "@/utils/api";
 
 const AddSecuritychema = z.object({
-	username: z.string().min(1, "Username is required"),
-	password: z.string().min(1, "Password is required"),
+	username: z.string().min(1, "Kullanıcı adı gereklidir"),
+	password: z.string().min(1, "Şifre gereklidir"),
 });
 
 type AddSecurity = z.infer<typeof AddSecuritychema>;
@@ -81,7 +81,7 @@ export const HandleSecurity = ({
 			securityId: securityId || "",
 		})
 			.then(async () => {
-				toast.success(securityId ? "Security Updated" : "Security Created");
+				toast.success(securityId ? "Güvenlik Güncellendi" : "Güvenlik Oluşturuldu");
 				await utils.application.one.invalidate({
 					applicationId,
 				});
@@ -94,8 +94,8 @@ export const HandleSecurity = ({
 			.catch(() => {
 				toast.error(
 					securityId
-						? "Error updating the security"
-						: "Error creating security",
+						? "Güvenlik güncellenirken hata oluştu"
+						: "Güvenlik oluşturulurken hata oluştu",
 				);
 			});
 	};
@@ -117,9 +117,9 @@ export const HandleSecurity = ({
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-lg">
 				<DialogHeader>
-					<DialogTitle>Security</DialogTitle>
+					<DialogTitle>Güvenlik</DialogTitle>
 					<DialogDescription>
-						{securityId ? "Update" : "Add"} security to your application
+						Uygulamanıza güvenlik {securityId ? "güncelle" : "ekle"}
 					</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
@@ -136,7 +136,7 @@ export const HandleSecurity = ({
 								name="username"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Username</FormLabel>
+										<FormLabel>Kullanıcı Adı</FormLabel>
 										<FormControl>
 											<Input placeholder="test1" {...field} />
 										</FormControl>
@@ -150,7 +150,7 @@ export const HandleSecurity = ({
 								name="password"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Password</FormLabel>
+										<FormLabel>Şifre</FormLabel>
 										<FormControl>
 											<Input placeholder="test" type="password" {...field} />
 										</FormControl>
@@ -168,7 +168,7 @@ export const HandleSecurity = ({
 							form="hook-form-add-security"
 							type="submit"
 						>
-							{securityId ? "Update" : "Create"}
+							{securityId ? "Güncelle" : "Oluştur"}
 						</Button>
 					</DialogFooter>
 				</Form>

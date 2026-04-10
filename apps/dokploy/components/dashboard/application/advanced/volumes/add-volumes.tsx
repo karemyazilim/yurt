@@ -111,11 +111,11 @@ export const AddVolumes = ({
 				serviceType,
 			})
 				.then(() => {
-					toast.success("Mount Created");
+					toast.success("Bağlama Noktası Oluşturuldu");
 					setIsOpen(false);
 				})
 				.catch(() => {
-					toast.error("Error creating the Bind mount");
+					toast.error("Bind bağlama noktası oluşturulurken hata oluştu");
 				});
 		} else if (data.type === "volume") {
 			await mutateAsync({
@@ -126,11 +126,11 @@ export const AddVolumes = ({
 				serviceType,
 			})
 				.then(() => {
-					toast.success("Mount Created");
+					toast.success("Bağlama Noktası Oluşturuldu");
 					setIsOpen(false);
 				})
 				.catch(() => {
-					toast.error("Error creating the Volume mount");
+					toast.error("Birim bağlama noktası oluşturulurken hata oluştu");
 				});
 		} else if (data.type === "file") {
 			await mutateAsync({
@@ -142,11 +142,11 @@ export const AddVolumes = ({
 				serviceType,
 			})
 				.then(() => {
-					toast.success("Mount Created");
+					toast.success("Bağlama Noktası Oluşturuldu");
 					setIsOpen(false);
 				})
 				.catch(() => {
-					toast.error("Error creating the File mount");
+					toast.error("Dosya bağlama noktası oluşturulurken hata oluştu");
 				});
 		}
 
@@ -160,7 +160,7 @@ export const AddVolumes = ({
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-3xl">
 				<DialogHeader>
-					<DialogTitle>Volumes / Mounts</DialogTitle>
+					<DialogTitle>Birimler / Bağlama Noktaları</DialogTitle>
 				</DialogHeader>
 				{/* {isError && (
         <div className="flex items-center flex-row gap-4 rounded-lg bg-red-50 p-2 dark:bg-red-950">
@@ -181,15 +181,16 @@ export const AddVolumes = ({
 							<AlertBlock>
 								<div className="space-y-2">
 									<p>
-										Make sure the host path is a valid path and exists in the
-										host machine.
+										Ana bilgisayar yolunun geçerli bir yol olduğundan ve ana
+										makinede mevcut olduğundan emin olun.
 									</p>
 									<p className="text-sm text-muted-foreground">
-										<strong>Cluster Warning:</strong> If you're using cluster
-										features, bind mounts may cause deployment failures since
-										the path must exist on all worker/manager nodes. Consider
-										using external tools to distribute the folder across nodes
-										or use named volumes instead.
+										<strong>Küme Uyarısı:</strong> Küme özelliklerini
+										kullanıyorsanız, yolun tüm çalışan/yönetici düğümlerde
+										mevcut olması gerektiğinden bind bağlama noktaları dağıtım
+										hatalarına neden olabilir. Klasörü düğümler arasında
+										dağıtmak için harici araçlar kullanmayı veya bunun yerine
+										adlandırılmış birimler kullanmayı düşünün.
 									</p>
 								</div>
 							</AlertBlock>
@@ -201,7 +202,7 @@ export const AddVolumes = ({
 							render={({ field }) => (
 								<FormItem className="space-y-3">
 									<FormLabel className="text-muted-foreground">
-										Select the Mount Type
+										Bağlama Türünü Seçin
 									</FormLabel>
 									<FormControl>
 										<RadioGroup
@@ -222,7 +223,7 @@ export const AddVolumes = ({
 																htmlFor="bind"
 																className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer"
 															>
-																Bind Mount
+																Bind Bağlama
 															</Label>
 														</div>
 													</FormControl>
@@ -242,7 +243,7 @@ export const AddVolumes = ({
 																htmlFor="volume"
 																className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer"
 															>
-																Volume Mount
+																Birim Bağlama
 															</Label>
 														</div>
 													</FormControl>
@@ -266,7 +267,7 @@ export const AddVolumes = ({
 															htmlFor="file"
 															className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer"
 														>
-															File Mount
+															Dosya Bağlama
 														</Label>
 													</div>
 												</FormControl>
@@ -279,7 +280,7 @@ export const AddVolumes = ({
 						/>
 						<div className="flex flex-col gap-4">
 							<FormLabel className="text-lg font-semibold leading-none tracking-tight">
-								Fill the next fields.
+								Aşağıdaki alanları doldurun.
 							</FormLabel>
 							<div className="flex flex-col gap-2">
 								{type === "bind" && (
@@ -288,7 +289,7 @@ export const AddVolumes = ({
 										name="hostPath"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Host Path</FormLabel>
+												<FormLabel>Ana Bilgisayar Yolu</FormLabel>
 												<FormControl>
 													<Input placeholder="Host Path" {...field} />
 												</FormControl>
@@ -304,7 +305,7 @@ export const AddVolumes = ({
 										name="volumeName"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Volume Name</FormLabel>
+												<FormLabel>Birim Adı</FormLabel>
 												<FormControl>
 													<Input
 														placeholder="Volume Name"
@@ -325,7 +326,7 @@ export const AddVolumes = ({
 											name="content"
 											render={({ field }) => (
 												<FormItem className="max-w-full max-w-[45rem]">
-													<FormLabel>Content</FormLabel>
+													<FormLabel>İçerik</FormLabel>
 													<FormControl>
 														<FormControl>
 															<CodeEditor
@@ -347,11 +348,11 @@ PORT=3000
 											name="filePath"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>File Path</FormLabel>
+													<FormLabel>Dosya Yolu</FormLabel>
 													<FormControl>
 														<FormControl>
 															<Input
-																placeholder="Name of the file"
+																placeholder="Dosya adı"
 																{...field}
 															/>
 														</FormControl>
@@ -368,7 +369,7 @@ PORT=3000
 										name="mountPath"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Mount Path (In the container)</FormLabel>
+												<FormLabel>Bağlama Yolu (Konteyner içinde)</FormLabel>
 												<FormControl>
 													<Input placeholder="Mount Path" {...field} />
 												</FormControl>
@@ -388,7 +389,7 @@ PORT=3000
 							form="hook-form-volume"
 							type="submit"
 						>
-							Create
+							Oluştur
 						</Button>
 					</DialogFooter>
 				</Form>

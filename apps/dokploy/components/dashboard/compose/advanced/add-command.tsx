@@ -75,14 +75,14 @@ export const AddCommandCompose = ({ composeId }: Props) => {
 			command: data?.command,
 		})
 			.then(async () => {
-				toast.success("Command Updated");
+				toast.success("Komut güncellendi");
 				refetch();
 				await utils.compose.one.invalidate({
 					composeId,
 				});
 			})
 			.catch(() => {
-				toast.error("Error updating the command");
+				toast.error("Komut güncellenirken hata oluştu");
 			});
 	};
 
@@ -90,9 +90,9 @@ export const AddCommandCompose = ({ composeId }: Props) => {
 		<Card className="bg-background">
 			<CardHeader className="flex flex-row justify-between">
 				<div>
-					<CardTitle className="text-xl">Run Command</CardTitle>
+					<CardTitle className="text-xl">Komut Çalıştır</CardTitle>
 					<CardDescription>
-						Override a custom command to the compose file
+						Compose dosyasına özel bir komut tanımla
 					</CardDescription>
 				</div>
 			</CardHeader>
@@ -103,10 +103,10 @@ export const AddCommandCompose = ({ composeId }: Props) => {
 						className="grid w-full gap-4"
 					>
 						<AlertBlock type="warning">
-							Modifying the default command may affect deployment stability,
-							impacting logs and monitoring. Proceed carefully and test
-							thoroughly. By default, the command starts with{" "}
-							<strong>docker</strong>.
+							Varsayılan komutu değiştirmek dağıtım kararlılığını etkileyebilir,
+							günlükleri ve izlemeyi olumsuz etkileyebilir. Dikkatli ilerleyin ve
+							kapsamlı test edin. Varsayılan olarak komut{" "}
+							<strong>docker</strong> ile başlar.
 						</AlertBlock>
 						<div className="flex flex-col gap-4">
 							<FormField
@@ -114,13 +114,13 @@ export const AddCommandCompose = ({ composeId }: Props) => {
 								name="command"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Command</FormLabel>
+										<FormLabel>Komut</FormLabel>
 										<FormControl>
-											<Input placeholder="Custom command" {...field} />
+											<Input placeholder="Özel komut" {...field} />
 										</FormControl>
 
 										<FormDescription>
-											Default Command ({defaultCommand})
+											Varsayılan Komut ({defaultCommand})
 										</FormDescription>
 										<FormMessage />
 									</FormItem>
@@ -129,7 +129,7 @@ export const AddCommandCompose = ({ composeId }: Props) => {
 						</div>
 						<div className="flex justify-end">
 							<Button isLoading={isPending} type="submit" className="w-fit">
-								Save
+								Kaydet
 							</Button>
 						</div>
 					</form>

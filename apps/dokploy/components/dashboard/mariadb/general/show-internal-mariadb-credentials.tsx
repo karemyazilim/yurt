@@ -19,20 +19,20 @@ export const ShowInternalMariadbCredentials = ({ mariadbId }: Props) => {
 			<div className="flex w-full flex-col gap-5 ">
 				<Card className="bg-background">
 					<CardHeader>
-						<CardTitle className="text-xl">Internal Credentials</CardTitle>
+						<CardTitle className="text-xl">Dahili Kimlik Bilgileri</CardTitle>
 					</CardHeader>
 					<CardContent className="flex w-full flex-row gap-4">
 						<div className="grid w-full md:grid-cols-2 gap-4 md:gap-8">
 							<div className="flex flex-col gap-2">
-								<Label>User</Label>
+								<Label>Kullanıcı</Label>
 								<Input disabled value={data?.databaseUser} />
 							</div>
 							<div className="flex flex-col gap-2">
-								<Label>Database Name</Label>
+								<Label>Veritabanı Adı</Label>
 								<Input disabled value={data?.databaseName} />
 							</div>
 							<div className="flex flex-col gap-2">
-								<Label>Password</Label>
+								<Label>Şifre</Label>
 								<div className="flex flex-row gap-2 items-center">
 									<ToggleVisibilityInput
 										disabled
@@ -45,45 +45,45 @@ export const ShowInternalMariadbCredentials = ({ mariadbId }: Props) => {
 												password: newPassword,
 												type: "user",
 											});
-											toast.success("Password updated successfully");
+											toast.success("Şifre başarıyla güncellendi");
 											utils.mariadb.one.invalidate({ mariadbId });
 										}}
 									/>
 								</div>
 							</div>
 							<div className="flex flex-col gap-2">
-								<Label>Root Password</Label>
+								<Label>Root Şifresi</Label>
 								<div className="flex flex-row gap-2 items-center">
 									<ToggleVisibilityInput
 										disabled
 										value={data?.databaseRootPassword}
 									/>
 									<UpdateDatabasePassword
-										label="Root Password"
+										label="Root Şifresi"
 										onUpdatePassword={async (newPassword) => {
 											await changePassword({
 												mariadbId,
 												password: newPassword,
 												type: "root",
 											});
-											toast.success("Root password updated successfully");
+											toast.success("Root şifresi başarıyla güncellendi");
 											utils.mariadb.one.invalidate({ mariadbId });
 										}}
 									/>
 								</div>
 							</div>
 							<div className="flex flex-col gap-2">
-								<Label>Internal Port (Container)</Label>
+								<Label>Dahili Port (Konteyner)</Label>
 								<Input disabled value="3306" />
 							</div>
 
 							<div className="flex flex-col gap-2">
-								<Label>Internal Host</Label>
+								<Label>Dahili Host</Label>
 								<Input disabled value={data?.appName} />
 							</div>
 
 							<div className="flex flex-col gap-2 md:col-span-2">
-								<Label>Internal Connection URL </Label>
+								<Label>Dahili Bağlantı URL'si </Label>
 								<ToggleVisibilityInput
 									disabled
 									value={`mariadb://${data?.databaseUser}:${data?.databasePassword}@${data?.appName}:3306/${data?.databaseName}`}

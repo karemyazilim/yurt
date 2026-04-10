@@ -59,7 +59,7 @@ const schema = z
 		},
 		{
 			message:
-				"Both Build Server and Build Registry must be selected together, or both set to None",
+				"Derleme Sunucusu ve Derleme Kayıt Defteri birlikte seçilmeli veya her ikisi de Yok olarak ayarlanmalıdır",
 			path: ["buildServerId"], // Show error on buildServerId field
 		},
 	);
@@ -106,11 +106,11 @@ export const ShowBuildServer = ({ applicationId }: Props) => {
 					: formData?.buildRegistryId,
 		})
 			.then(async () => {
-				toast.success("Build Server Settings Updated");
+				toast.success("Derleme Sunucusu Ayarları Güncellendi");
 				await refetch();
 			})
 			.catch(() => {
-				toast.error("Error updating build server settings");
+				toast.error("Derleme sunucusu ayarları güncellenirken hata oluştu");
 			});
 	};
 
@@ -120,44 +120,44 @@ export const ShowBuildServer = ({ applicationId }: Props) => {
 				<div className="flex flex-row items-center gap-2">
 					<Server className="size-6 text-muted-foreground" />
 					<div>
-						<CardTitle className="text-xl">Build Server</CardTitle>
+						<CardTitle className="text-xl">Derleme Sunucusu</CardTitle>
 						<CardDescription>
-							Configure a dedicated server for building your application.
+							Uygulamanızı derlemek için özel bir sunucu yapılandırın.
 						</CardDescription>
 					</div>
 				</div>
 			</CardHeader>
 			<CardContent className="flex flex-col gap-4">
 				<AlertBlock type="info">
-					Build servers offload the build process from your deployment servers.
-					Select a build server and registry to use for building your
-					application.
+					Derleme sunucuları, derleme işlemini dağıtım sunucularınızdan alır.
+					Uygulamanızı derlemek için kullanılacak bir derleme sunucusu ve
+					kayıt defteri seçin.
 				</AlertBlock>
 
 				<AlertBlock type="info">
-					📊 <strong>Important:</strong> Once the build finishes, you'll need to
-					wait a few seconds for the deployment server to download the image.
-					These download logs will <strong>NOT</strong> appear in the build
-					deployment logs. Check the <strong>Logs</strong> tab to see when the
-					container starts running.
+					📊 <strong>Önemli:</strong> Derleme tamamlandıktan sonra, dağıtım
+					sunucusunun imajı indirmesi için birkaç saniye beklemeniz gerekecektir.
+					Bu indirme günlükleri derleme dağıtım günlüklerinde
+					<strong> GÖRÜNMEYECEK</strong>. Konteynerin çalışmaya başladığını görmek
+					için <strong>Günlükler</strong> sekmesini kontrol edin.
 				</AlertBlock>
 
 				<AlertBlock type="info">
-					<strong>Note:</strong> Build Server and Build Registry must be
-					configured together. You can either select both or set both to None.
+					<strong>Not:</strong> Derleme Sunucusu ve Derleme Kayıt Defteri birlikte
+					yapılandırılmalıdır. Her ikisini de seçebilir veya her ikisini de Yok olarak ayarlayabilirsiniz.
 				</AlertBlock>
 
 				{!registries || registries.length === 0 ? (
 					<AlertBlock type="warning">
-						You need to add at least one registry to use build servers. Please
-						go to{" "}
+						Derleme sunucularını kullanmak için en az bir kayıt defteri eklemeniz gerekir.
+						Lütfen bir kayıt defteri eklemek için{" "}
 						<Link
 							href="/dashboard/settings/registry"
 							className="text-primary underline"
 						>
-							Settings
+							Ayarlar
 						</Link>{" "}
-						to add a registry.
+						sayfasına gidin.
 					</AlertBlock>
 				) : null}
 
@@ -171,7 +171,7 @@ export const ShowBuildServer = ({ applicationId }: Props) => {
 							name="buildServerId"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Build Server</FormLabel>
+									<FormLabel>Derleme Sunucusu</FormLabel>
 									<Select
 										onValueChange={(value) => {
 											field.onChange(value);
@@ -184,14 +184,14 @@ export const ShowBuildServer = ({ applicationId }: Props) => {
 									>
 										<FormControl>
 											<SelectTrigger>
-												<SelectValue placeholder="Select a build server" />
+												<SelectValue placeholder="Bir derleme sunucusu seçin" />
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
 											<SelectGroup>
 												<SelectItem value="none">
 													<span className="flex items-center gap-2">
-														<span>None</span>
+														<span>Yok</span>
 													</span>
 												</SelectItem>
 												{buildServers?.map((server) => (
@@ -208,14 +208,14 @@ export const ShowBuildServer = ({ applicationId }: Props) => {
 													</SelectItem>
 												))}
 												<SelectLabel>
-													Build Servers ({buildServers?.length || 0})
+													Derleme Sunucuları ({buildServers?.length || 0})
 												</SelectLabel>
 											</SelectGroup>
 										</SelectContent>
 									</Select>
 									<FormDescription>
-										Select a build server to handle the build process for this
-										application.
+										Bu uygulama için derleme işlemini yürütecek bir derleme
+										sunucusu seçin.
 									</FormDescription>
 									<FormMessage />
 								</FormItem>
@@ -227,7 +227,7 @@ export const ShowBuildServer = ({ applicationId }: Props) => {
 							name="buildRegistryId"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Build Registry</FormLabel>
+									<FormLabel>Derleme Kayıt Defteri</FormLabel>
 									<Select
 										onValueChange={(value) => {
 											field.onChange(value);
@@ -240,14 +240,14 @@ export const ShowBuildServer = ({ applicationId }: Props) => {
 									>
 										<FormControl>
 											<SelectTrigger>
-												<SelectValue placeholder="Select a registry" />
+												<SelectValue placeholder="Bir kayıt defteri seçin" />
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
 											<SelectGroup>
 												<SelectItem value="none">
 													<span className="flex items-center gap-2">
-														<span>None</span>
+														<span>Yok</span>
 													</span>
 												</SelectItem>
 												{registries?.map((registry) => (
@@ -259,14 +259,14 @@ export const ShowBuildServer = ({ applicationId }: Props) => {
 													</SelectItem>
 												))}
 												<SelectLabel>
-													Registries ({registries?.length || 0})
+													Kayıt Defterleri ({registries?.length || 0})
 												</SelectLabel>
 											</SelectGroup>
 										</SelectContent>
 									</Select>
 									<FormDescription>
-										Select a registry to store the built images from the build
-										server.
+										Derleme sunucusundan oluşturulan imajları saklamak için bir
+										kayıt defteri seçin.
 									</FormDescription>
 									<FormMessage />
 								</FormItem>
@@ -275,7 +275,7 @@ export const ShowBuildServer = ({ applicationId }: Props) => {
 
 						<div className="flex w-full justify-end">
 							<Button isLoading={isPending} type="submit">
-								Save
+								Kaydet
 							</Button>
 						</div>
 					</form>

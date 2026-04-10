@@ -32,9 +32,9 @@ export const ShowPorts = ({ applicationId }: Props) => {
 		<Card className="bg-background">
 			<CardHeader className="flex flex-row justify-between flex-wrap gap-4">
 				<div>
-					<CardTitle className="text-xl">Ports</CardTitle>
+					<CardTitle className="text-xl">Portlar</CardTitle>
 					<CardDescription>
-						the ports allows you to expose your application to the internet
+						Portlar, uygulamanızı internete açmanızı sağlar
 					</CardDescription>
 				</div>
 

@@ -38,9 +38,9 @@ import { Switch } from "@/components/ui/switch";
 import { api } from "@/utils/api";
 
 const AddRedirectSchema = z.object({
-	regex: z.string().min(1, "Regex required"),
+	regex: z.string().min(1, "Düzenli ifade gereklidir"),
 	permanent: z.boolean().default(false),
-	replacement: z.string().min(1, "Replacement required"),
+	replacement: z.string().min(1, "Değiştirme gereklidir"),
 });
 
 type AddRedirect = z.infer<typeof AddRedirectSchema>;
@@ -57,7 +57,7 @@ const redirectPresets = [
 	// },
 	{
 		id: "to-www",
-		label: "Redirect to www",
+		label: "www'ye yönlendir",
 		redirect: {
 			regex: "^https?://(?:www.)?(.+)",
 			permanent: true,
@@ -66,7 +66,7 @@ const redirectPresets = [
 	},
 	{
 		id: "to-non-www",
-		label: "Redirect to non-www",
+		label: "www olmayan adrese yönlendir",
 		redirect: {
 			regex: "^https?://www.(.+)",
 			permanent: true,
@@ -128,7 +128,7 @@ export const HandleRedirect = ({
 			redirectId: redirectId || "",
 		})
 			.then(async () => {
-				toast.success(redirectId ? "Redirect Updated" : "Redirect Created");
+				toast.success(redirectId ? "Yönlendirme Güncellendi" : "Yönlendirme Oluşturuldu");
 				await utils.application.one.invalidate({
 					applicationId,
 				});
@@ -141,8 +141,8 @@ export const HandleRedirect = ({
 			.catch(() => {
 				toast.error(
 					redirectId
-						? "Error updating the redirect"
-						: "Error creating the redirect",
+						? "Yönlendirme güncellenirken hata oluştu"
+						: "Yönlendirme oluşturulurken hata oluştu",
 				);
 			});
 	};
@@ -181,18 +181,18 @@ export const HandleRedirect = ({
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-lg">
 				<DialogHeader>
-					<DialogTitle>Redirects</DialogTitle>
+					<DialogTitle>Yönlendirmeler</DialogTitle>
 					<DialogDescription>
-						Redirects are used to redirect requests to another url.
+						Yönlendirmeler, istekleri başka bir URL'ye yönlendirmek için kullanılır.
 					</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
 
 				<div className="md:col-span-2">
-					<Label>Presets</Label>
+					<Label>Ön Ayarlar</Label>
 					<Select onValueChange={onPresetSelect} value={presetSelected}>
 						<SelectTrigger>
-							<SelectValue placeholder="No preset selected" />
+							<SelectValue placeholder="Ön ayar seçilmedi" />
 						</SelectTrigger>
 						<SelectContent>
 							{redirectPresets.map((preset) => (
@@ -218,7 +218,7 @@ export const HandleRedirect = ({
 								name="regex"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Regex</FormLabel>
+										<FormLabel>Düzenli İfade</FormLabel>
 										<FormControl>
 											<Input placeholder="^http://localhost/(.*)" {...field} />
 										</FormControl>
@@ -232,7 +232,7 @@ export const HandleRedirect = ({
 								name="replacement"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Replacement</FormLabel>
+										<FormLabel>Değiştirme</FormLabel>
 										<FormControl>
 											<Input placeholder="http://mydomain/$${1}" {...field} />
 										</FormControl>
@@ -248,10 +248,10 @@ export const HandleRedirect = ({
 								render={({ field }) => (
 									<FormItem className="flex flex-row items-center justify-between p-3 mt-4 border rounded-lg shadow-sm">
 										<div className="space-y-0.5">
-											<FormLabel>Permanent</FormLabel>
+											<FormLabel>Kalıcı</FormLabel>
 											<FormDescription>
-												Set the permanent option to true to apply a permanent
-												redirection.
+												Kalıcı bir yönlendirme uygulamak için kalıcı seçeneğini
+												etkinleştirin.
 											</FormDescription>
 										</div>
 										<FormControl>
@@ -272,7 +272,7 @@ export const HandleRedirect = ({
 							form="hook-form-add-redirect"
 							type="submit"
 						>
-							{redirectId ? "Update" : "Create"}
+							{redirectId ? "Güncelle" : "Oluştur"}
 						</Button>
 					</DialogFooter>
 				</Form>

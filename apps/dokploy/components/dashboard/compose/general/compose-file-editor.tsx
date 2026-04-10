@@ -67,7 +67,7 @@ export const ComposeFileEditor = ({ composeId }: Props) => {
 		if (!valid) {
 			form.setError("composeFile", {
 				type: "manual",
-				message: error || "Invalid YAML",
+				message: error || "Geçersiz YAML",
 			});
 			return;
 		}
@@ -80,7 +80,7 @@ export const ComposeFileEditor = ({ composeId }: Props) => {
 			sourceType: "raw",
 		})
 			.then(async () => {
-				toast.success("Compose config Updated");
+				toast.success("Compose yapılandırması güncellendi");
 				setHasUnsavedChanges(false);
 				refetch();
 				await utils.compose.getConvertedCompose.invalidate({
@@ -88,7 +88,7 @@ export const ComposeFileEditor = ({ composeId }: Props) => {
 				});
 			})
 			.catch(() => {
-				toast.error("Error updating the Compose config");
+				toast.error("Compose yapılandırması güncellenirken hata oluştu");
 			});
 	};
 
@@ -112,12 +112,12 @@ export const ComposeFileEditor = ({ composeId }: Props) => {
 			<div className="w-full flex flex-col gap-4 ">
 				<div className="flex items-center justify-between">
 					<div>
-						<h3 className="text-lg font-medium">Compose File</h3>
+						<h3 className="text-lg font-medium">Compose Dosyası</h3>
 						<p className="text-sm text-muted-foreground">
-							Configure your Docker Compose file for this service.
+							Bu servis için Docker Compose dosyanızı yapılandırın.
 							{hasUnsavedChanges && (
 								<span className="text-yellow-500 ml-2">
-									(You have unsaved changes)
+									(Kaydedilmemiş değişiklikleriniz var)
 								</span>
 							)}
 						</p>
@@ -173,7 +173,7 @@ services:
 							isLoading={isPending}
 							className="lg:w-fit w-full"
 						>
-							Save
+							Kaydet
 						</Button>
 					)}
 				</div>

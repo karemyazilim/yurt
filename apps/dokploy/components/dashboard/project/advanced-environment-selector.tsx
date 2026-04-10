@@ -1,4 +1,4 @@
-import type { findEnvironmentsByProjectId } from "@dokploy/server";
+import type { findOrtamlarByProjectId } from "@dokploy/server";
 import { ChevronDownIcon, PencilIcon, PlusIcon, TrashIcon } from "lucide-react";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -27,7 +27,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/utils/api";
 
 type Environment = Awaited<
-	ReturnType<typeof findEnvironmentsByProjectId>
+	ReturnType<typeof findOrtamlarByProjectId>
 >[number];
 interface AdvancedEnvironmentSelectorProps {
 	projectId: string;
@@ -53,17 +53,17 @@ export const AdvancedEnvironmentSelector = ({
 	);
 
 	// Form states
-	const [name, setName] = useState("");
+	const [name, setAd] = useState("");
 	const [description, setDescription] = useState("");
 
 	// Get current user's permissions
 	const { data: permissions } = api.user.getPermissions.useQuery();
 
 	// Check if user can create environments
-	const canCreateEnvironments = !!permissions?.environment.create;
+	const canCreateOrtamlar = !!permissions?.environment.create;
 
 	// Check if user can delete environments
-	const canDeleteEnvironments = !!permissions?.environment.delete;
+	const canDeleteOrtamlar = !!permissions?.environment.delete;
 
 	const haveServices =
 		selectedEnvironment &&
@@ -90,16 +90,16 @@ export const AdvancedEnvironmentSelector = ({
 				description: description.trim() || undefined,
 			});
 
-			toast.success("Environment created successfully");
+			toast.success("Ortam başarıyla oluşturuldu");
 			utils.environment.byProjectId.invalidate({ projectId });
 			// Invalidate the project query to refresh the project data for the advance-breadcrumb
 			utils.project.all.invalidate();
 			setIsCreateDialogOpen(false);
-			setName("");
+			setAd("");
 			setDescription("");
 		} catch (error) {
 			toast.error(
-				`Failed to create environment: ${error instanceof Error ? error.message : error}`,
+				`Ortam oluşturulamadı: ${error instanceof Error ? error.message : error}`,
 			);
 		}
 	};
@@ -114,15 +114,15 @@ export const AdvancedEnvironmentSelector = ({
 				description: description.trim() || undefined,
 			});
 
-			toast.success("Environment updated successfully");
+			toast.success("Ortam başarıyla güncellendi");
 			utils.environment.byProjectId.invalidate({ projectId });
 			setIsEditDialogOpen(false);
 			setSelectedEnvironment(null);
-			setName("");
+			setAd("");
 			setDescription("");
 		} catch (error) {
 			toast.error(
-				`Failed to update environment: ${error instanceof Error ? error.message : error}`,
+				`Ortam güncellenemedi: ${error instanceof Error ? error.message : error}`,
 			);
 		}
 	};
@@ -135,7 +135,7 @@ export const AdvancedEnvironmentSelector = ({
 				environmentId: selectedEnvironment.environmentId,
 			});
 
-			toast.success("Environment deleted successfully");
+			toast.success("Ortam başarıyla silindi");
 			utils.environment.byProjectId.invalidate({ projectId });
 			setIsDeleteDialogOpen(false);
 			setSelectedEnvironment(null);
@@ -155,7 +155,7 @@ export const AdvancedEnvironmentSelector = ({
 				}
 			}
 		} catch (error) {
-			toast.error("Failed to delete environment");
+			toast.error("Ortam silinemedi");
 		}
 	};
 
@@ -167,7 +167,7 @@ export const AdvancedEnvironmentSelector = ({
 				description: environment.description || undefined,
 			});
 
-			toast.success("Environment duplicated successfully");
+			toast.success("Ortam başarıyla kopyalandı");
 			utils.project.one.invalidate({ projectId });
 
 			// Navigate to the new duplicated environment
@@ -175,13 +175,13 @@ export const AdvancedEnvironmentSelector = ({
 				`/dashboard/project/${projectId}/environment/${result.environmentId}`,
 			);
 		} catch (error) {
-			toast.error("Failed to duplicate environment");
+			toast.error("Ortam kopyalanamadı");
 		}
 	};
 
 	const openEditDialog = (environment: Environment) => {
 		setSelectedEnvironment(environment);
-		setName(environment.name);
+		setAd(environment.name);
 		setDescription(environment.description || "");
 		setIsEditDialogOpen(true);
 	};
@@ -199,16 +199,16 @@ export const AdvancedEnvironmentSelector = ({
 		<>
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
-					<Button variant="ghost" className="h-auto p-2 font-normal">
-						<div className="flex items-center gap-1">
-							<span className="text-muted-foreground">/</span>
-							<span>{currentEnv?.name || "Select Environment"}</span>
-							<ChevronDownIcon className="h-4 w-4 text-muted-foreground" />
+					<Button variant="ghost" classAd="h-auto p-2 font-normal">
+						<div classAd="flex items-center gap-1">
+							<span classAd="text-muted-foreground">/</span>
+							<span>{currentEnv?.name || "Ortam Seçin"}</span>
+							<ChevronDownIcon classAd="h-4 w-4 text-muted-foreground" />
 						</div>
 					</Button>
 				</DropdownMenuTrigger>
-				<DropdownMenuContent className="w-[300px]" align="start">
-					<DropdownMenuLabel>Environments</DropdownMenuLabel>
+				<DropdownMenuContent classAd="w-[300px]" align="start">
+					<DropdownMenuLabel>Ortamlar</DropdownMenuLabel>
 					<DropdownMenuSeparator />
 
 					{environments?.map((environment) => {
@@ -223,50 +223,50 @@ export const AdvancedEnvironmentSelector = ({
 						return (
 							<div
 								key={environment.environmentId}
-								className="flex items-center"
+								classAd="flex items-center"
 							>
 								<DropdownMenuItem
-									className="flex-1 cursor-pointer"
+									classAd="flex-1 cursor-pointer"
 									onClick={() => {
 										router.push(
 											`/dashboard/project/${projectId}/environment/${environment.environmentId}`,
 										);
 									}}
 								>
-									<div className="flex items-center justify-between w-full">
+									<div classAd="flex items-center justify-between w-full">
 										<span>
 											{environment.name} ({servicesCount})
 										</span>
 										{environment.environmentId === currentEnvironmentId && (
-											<div className="w-2 h-2 bg-blue-500 rounded-full" />
+											<div classAd="w-2 h-2 bg-blue-500 rounded-full" />
 										)}
 									</div>
 								</DropdownMenuItem>
-								<div className="flex items-center gap-1 px-2">
+								<div classAd="flex items-center gap-1 px-2">
 									{!environment.isDefault && (
 										<Button
 											variant="ghost"
 											size="sm"
-											className="h-6 w-6 p-0"
+											classAd="h-6 w-6 p-0"
 											onClick={(e) => {
 												e.stopPropagation();
 												openEditDialog(environment);
 											}}
 										>
-											<PencilIcon className="h-3 w-3" />
+											<PencilIcon classAd="h-3 w-3" />
 										</Button>
 									)}
-									{canDeleteEnvironments && !environment.isDefault && (
+									{canDeleteOrtamlar && !environment.isDefault && (
 										<Button
 											variant="ghost"
 											size="sm"
-											className="h-6 w-6 p-0 text-red-600 hover:text-red-700"
+											classAd="h-6 w-6 p-0 text-red-600 hover:text-red-700"
 											onClick={(e) => {
 												e.stopPropagation();
 												openDeleteDialog(environment);
 											}}
 										>
-											<TrashIcon className="h-3 w-3" />
+											<TrashIcon classAd="h-3 w-3" />
 										</Button>
 									)}
 								</div>
@@ -275,13 +275,13 @@ export const AdvancedEnvironmentSelector = ({
 					})}
 
 					<DropdownMenuSeparator />
-					{canCreateEnvironments && (
+					{canCreateOrtamlar && (
 						<DropdownMenuItem
-							className="cursor-pointer"
+							classAd="cursor-pointer"
 							onClick={() => setIsCreateDialogOpen(true)}
 						>
-							<PlusIcon className="h-4 w-4 mr-2" />
-							Create Environment
+							<PlusIcon classAd="h-4 w-4 mr-2" />
+							Ortam Oluştur
 						</DropdownMenuItem>
 					)}
 				</DropdownMenuContent>
@@ -290,29 +290,29 @@ export const AdvancedEnvironmentSelector = ({
 			<Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
 				<DialogContent>
 					<DialogHeader>
-						<DialogTitle>Create Environment</DialogTitle>
+						<DialogTitle>Ortam Oluştur</DialogTitle>
 						<DialogDescription>
-							Create a new environment for your project.
+							Projeniz için yeni bir ortam oluşturun.
 						</DialogDescription>
 					</DialogHeader>
 
-					<div className="space-y-4">
-						<div className="space-y-1">
-							<Label htmlFor="name">Name</Label>
+					<div classAd="space-y-4">
+						<div classAd="space-y-1">
+							<Label htmlFor="name">Ad</Label>
 							<Input
 								id="name"
 								value={name}
-								onChange={(e) => setName(e.target.value)}
-								placeholder="Environment name"
+								onChange={(e) => setAd(e.target.value)}
+								placeholder="Ortam adı"
 							/>
 						</div>
-						<div className="space-y-1">
-							<Label htmlFor="description">Description (optional)</Label>
+						<div classAd="space-y-1">
+							<Label htmlFor="description">Açıklama (isteğe bağlı)</Label>
 							<Textarea
 								id="description"
 								value={description}
 								onChange={(e) => setDescription(e.target.value)}
-								placeholder="Environment description"
+								placeholder="Ortam açıklaması"
 							/>
 						</div>
 					</div>
@@ -322,49 +322,49 @@ export const AdvancedEnvironmentSelector = ({
 							variant="outline"
 							onClick={() => {
 								setIsCreateDialogOpen(false);
-								setName("");
+								setAd("");
 								setDescription("");
 							}}
 						>
-							Cancel
+							İptal
 						</Button>
 						<Button
 							onClick={handleCreateEnvironment}
 							disabled={!name.trim() || createEnvironment.isPending}
 						>
-							{createEnvironment.isPending ? "Creating..." : "Create"}
+							{createEnvironment.isPending ? "Oluşturuluyor..." : "Oluştur"}
 						</Button>
 					</DialogFooter>
 				</DialogContent>
 			</Dialog>
 
-			{/* Edit Environment Dialog */}
+			{/* Ortamı Düzenle Dialog */}
 			<Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
 				<DialogContent>
 					<DialogHeader>
-						<DialogTitle>Edit Environment</DialogTitle>
+						<DialogTitle>Ortamı Düzenle</DialogTitle>
 						<DialogDescription>
-							Update the environment details.
+							Ortam detaylarını güncelleyin.
 						</DialogDescription>
 					</DialogHeader>
 
-					<div className="space-y-4">
-						<div className="space-y-1">
-							<Label htmlFor="edit-name">Name</Label>
+					<div classAd="space-y-4">
+						<div classAd="space-y-1">
+							<Label htmlFor="edit-name">Ad</Label>
 							<Input
 								id="edit-name"
 								value={name}
-								onChange={(e) => setName(e.target.value)}
-								placeholder="Environment name"
+								onChange={(e) => setAd(e.target.value)}
+								placeholder="Ortam adı"
 							/>
 						</div>
-						<div className="space-y-1">
-							<Label htmlFor="edit-description">Description (optional)</Label>
+						<div classAd="space-y-1">
+							<Label htmlFor="edit-description">Açıklama (isteğe bağlı)</Label>
 							<Textarea
 								id="edit-description"
 								value={description}
 								onChange={(e) => setDescription(e.target.value)}
-								placeholder="Environment description"
+								placeholder="Ortam açıklaması"
 							/>
 						</div>
 					</div>
@@ -375,17 +375,17 @@ export const AdvancedEnvironmentSelector = ({
 							onClick={() => {
 								setIsEditDialogOpen(false);
 								setSelectedEnvironment(null);
-								setName("");
+								setAd("");
 								setDescription("");
 							}}
 						>
-							Cancel
+							İptal
 						</Button>
 						<Button
 							onClick={handleUpdateEnvironment}
 							disabled={!name.trim() || updateEnvironment.isPending}
 						>
-							{updateEnvironment.isPending ? "Updating..." : "Update"}
+							{updateEnvironment.isPending ? "Güncelleniyor..." : "Güncelle"}
 						</Button>
 					</DialogFooter>
 				</DialogContent>
@@ -395,17 +395,16 @@ export const AdvancedEnvironmentSelector = ({
 			<Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
 				<DialogContent>
 					<DialogHeader>
-						<DialogTitle>Delete Environment</DialogTitle>
+						<DialogTitle>Ortamı Sil</DialogTitle>
 						<DialogDescription>
-							Are you sure you want to delete the environment "
-							{selectedEnvironment?.name}"? This action cannot be undone and
-							will also delete all services in this environment.
+							"{selectedEnvironment?.name}" ortamını silmek istediğinizden emin misiniz?
+							Bu işlem geri alınamaz ve bu ortamdaki tüm servisler de silinecektir.
 						</DialogDescription>
 					</DialogHeader>
 
 					{haveServices && (
 						<AlertBlock type="warning">
-							This environment have active services, please delete them first.
+							Bu ortamda aktif servisler var, lütfen önce onları silin.
 						</AlertBlock>
 					)}
 
@@ -417,7 +416,7 @@ export const AdvancedEnvironmentSelector = ({
 								setSelectedEnvironment(null);
 							}}
 						>
-							Cancel
+							İptal
 						</Button>
 						<Button
 							variant="destructive"
@@ -428,7 +427,7 @@ export const AdvancedEnvironmentSelector = ({
 								!selectedEnvironment
 							}
 						>
-							{deleteEnvironment.isPending ? "Deleting..." : "Delete"}
+							{deleteEnvironment.isPending ? "Siliniyor..." : "Sil"}
 						</Button>
 					</DialogFooter>
 				</DialogContent>

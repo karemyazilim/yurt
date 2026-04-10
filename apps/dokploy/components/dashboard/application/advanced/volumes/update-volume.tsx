@@ -141,11 +141,11 @@ export const UpdateVolume = ({
 				mountId,
 			})
 				.then(() => {
-					toast.success("Mount Update");
+					toast.success("Bağlama Noktası Güncellendi");
 					setIsOpen(false);
 				})
 				.catch(() => {
-					toast.error("Error updating the Bind mount");
+					toast.error("Bind bağlama noktası güncellenirken hata oluştu");
 				});
 		} else if (data.type === "volume") {
 			await mutateAsync({
@@ -155,11 +155,11 @@ export const UpdateVolume = ({
 				mountId,
 			})
 				.then(() => {
-					toast.success("Mount Update");
+					toast.success("Bağlama Noktası Güncellendi");
 					setIsOpen(false);
 				})
 				.catch(() => {
-					toast.error("Error updating the Volume mount");
+					toast.error("Birim bağlama noktası güncellenirken hata oluştu");
 				});
 		} else if (data.type === "file") {
 			await mutateAsync({
@@ -170,11 +170,11 @@ export const UpdateVolume = ({
 				mountId,
 			})
 				.then(() => {
-					toast.success("Mount Update");
+					toast.success("Bağlama Noktası Güncellendi");
 					setIsOpen(false);
 				})
 				.catch(() => {
-					toast.error("Error updating the File mount");
+					toast.error("Dosya bağlama noktası güncellenirken hata oluştu");
 				});
 		}
 		refetch();
@@ -194,13 +194,13 @@ export const UpdateVolume = ({
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-3xl">
 				<DialogHeader>
-					<DialogTitle>Update</DialogTitle>
-					<DialogDescription>Update the mount</DialogDescription>
+					<DialogTitle>Güncelle</DialogTitle>
+					<DialogDescription>Bağlama noktasını güncelle</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
 				{type === "file" && (
 					<AlertBlock type="warning">
-						Updating the mount will recreate the file or directory.
+						Bağlama noktasını güncellemek dosya veya dizini yeniden oluşturacaktır.
 					</AlertBlock>
 				)}
 
@@ -217,7 +217,7 @@ export const UpdateVolume = ({
 									name="hostPath"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Host Path</FormLabel>
+											<FormLabel>Ana Bilgisayar Yolu</FormLabel>
 											<FormControl>
 												<Input placeholder="Host Path" {...field} />
 											</FormControl>
@@ -233,7 +233,7 @@ export const UpdateVolume = ({
 									name="volumeName"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Volume Name</FormLabel>
+											<FormLabel>Birim Adı</FormLabel>
 											<FormControl>
 												<Input
 													placeholder="Volume Name"
@@ -254,7 +254,7 @@ export const UpdateVolume = ({
 										name="content"
 										render={({ field }) => (
 											<FormItem className="w-full max-w-[45rem]">
-												<FormLabel>Content</FormLabel>
+												<FormLabel>İçerik</FormLabel>
 												<FormControl>
 													<FormControl>
 														<CodeEditor
@@ -277,11 +277,11 @@ PORT=3000
 										name="filePath"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>File Path</FormLabel>
+												<FormLabel>Dosya Yolu</FormLabel>
 												<FormControl>
 													<Input
 														disabled
-														placeholder="Name of the file"
+														placeholder="Dosya adı"
 														{...field}
 													/>
 												</FormControl>
@@ -297,7 +297,7 @@ PORT=3000
 									name="mountPath"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Mount Path (In the container)</FormLabel>
+											<FormLabel>Bağlama Yolu (Konteyner içinde)</FormLabel>
 											<FormControl>
 												<Input placeholder="Mount Path" {...field} />
 											</FormControl>
@@ -314,7 +314,7 @@ PORT=3000
 								// form="hook-form-update-volume"
 								type="submit"
 							>
-								Update
+								Güncelle
 							</Button>
 						</DialogFooter>
 					</form>

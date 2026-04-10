@@ -149,11 +149,11 @@ export const SaveGithubProvider = ({ applicationId }: Props) => {
 			enableSubmodules: data.enableSubmodules,
 		})
 			.then(async () => {
-				toast.success("Service Provider Saved");
+				toast.success("Servis Sağlayıcı Kaydedildi");
 				await refetch();
 			})
 			.catch(() => {
-				toast.error("Error saving the github provider");
+				toast.error("GitHub sağlayıcısı kaydedilirken hata oluştu");
 			});
 	};
 
@@ -170,7 +170,7 @@ export const SaveGithubProvider = ({ applicationId }: Props) => {
 							name="githubId"
 							render={({ field }) => (
 								<FormItem className="md:col-span-2 flex flex-col">
-									<FormLabel>Github Account</FormLabel>
+									<FormLabel>Github Hesabı</FormLabel>
 									<Select
 										onValueChange={(value) => {
 											field.onChange(value);
@@ -185,7 +185,7 @@ export const SaveGithubProvider = ({ applicationId }: Props) => {
 									>
 										<FormControl>
 											<SelectTrigger>
-												<SelectValue placeholder="Select a Github Account" />
+												<SelectValue placeholder="Bir Github hesabı seçin" />
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
@@ -210,7 +210,7 @@ export const SaveGithubProvider = ({ applicationId }: Props) => {
 							render={({ field }) => (
 								<FormItem className="md:col-span-2 flex flex-col">
 									<div className="flex items-center justify-between">
-										<FormLabel>Repository</FormLabel>
+										<FormLabel>Depo</FormLabel>
 										{field.value.owner && field.value.repo && (
 											<Link
 												href={`https://github.com/${field.value.owner}/${field.value.repo}`}
@@ -219,7 +219,7 @@ export const SaveGithubProvider = ({ applicationId }: Props) => {
 												className="flex items-center gap-1 text-sm text-muted-foreground hover:text-primary"
 											>
 												<GithubIcon className="h-4 w-4" />
-												<span>View Repository</span>
+												<span>Depoyu Görüntüle</span>
 											</Link>
 										)}
 									</div>
@@ -234,12 +234,12 @@ export const SaveGithubProvider = ({ applicationId }: Props) => {
 													)}
 												>
 													{!field.value.owner
-														? "Select repository"
+														? "Depo seçin"
 														: isLoadingRepositories
-															? "Loading...."
+															? "Yükleniyor...."
 															: (repositories?.find(
 																	(repo) => repo.name === field.value.repo,
-																)?.name ?? "Select repository")}
+																)?.name ?? "Depo seçin")}
 
 													<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 												</Button>
@@ -248,19 +248,19 @@ export const SaveGithubProvider = ({ applicationId }: Props) => {
 										<PopoverContent className="p-0" align="start">
 											<Command>
 												<CommandInput
-													placeholder="Search repository..."
+													placeholder="Depo ara..."
 													className="h-9"
 												/>
 												{!githubId ? (
 													<span className="py-6 text-center text-sm text-muted-foreground">
-														Select a GitHub account first
+														Önce bir GitHub hesabı seçin
 													</span>
 												) : isLoadingRepositories ? (
 													<span className="py-6 text-center text-sm">
-														Loading Repositories....
+														Depolar yükleniyor....
 													</span>
 												) : null}
-												<CommandEmpty>No repositories found.</CommandEmpty>
+												<CommandEmpty>Depo bulunamadı.</CommandEmpty>
 												<ScrollArea className="h-96">
 													<CommandGroup>
 														{repositories?.map((repo) => (
@@ -298,7 +298,7 @@ export const SaveGithubProvider = ({ applicationId }: Props) => {
 									</Popover>
 									{form.formState.errors.repository && (
 										<p className={cn("text-sm font-medium text-destructive")}>
-											Repository is required
+											Depo gereklidir
 										</p>
 									)}
 								</FormItem>
@@ -309,7 +309,7 @@ export const SaveGithubProvider = ({ applicationId }: Props) => {
 							name="branch"
 							render={({ field }) => (
 								<FormItem className="block w-full">
-									<FormLabel>Branch</FormLabel>
+									<FormLabel>Dal</FormLabel>
 									<Popover>
 										<PopoverTrigger asChild>
 											<FormControl>
@@ -321,12 +321,12 @@ export const SaveGithubProvider = ({ applicationId }: Props) => {
 													)}
 												>
 													{status === "pending" && fetchStatus === "fetching"
-														? "Loading...."
+														? "Yükleniyor...."
 														: field.value
 															? branches?.find(
 																	(branch) => branch.name === field.value,
 																)?.name
-															: "Select branch"}
+															: "Dal seçin"}
 													<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 												</Button>
 											</FormControl>
@@ -334,21 +334,21 @@ export const SaveGithubProvider = ({ applicationId }: Props) => {
 										<PopoverContent className="p-0" align="start">
 											<Command>
 												<CommandInput
-													placeholder="Search branch..."
+													placeholder="Dal ara..."
 													className="h-9"
 												/>
 												{status === "pending" && fetchStatus === "fetching" && (
 													<span className="py-6 text-center text-sm text-muted-foreground">
-														Loading Branches....
+														Dallar yükleniyor....
 													</span>
 												)}
 												{!repository?.owner && (
 													<span className="py-6 text-center text-sm text-muted-foreground">
-														Select a repository
+														Bir depo seçin
 													</span>
 												)}
 												<ScrollArea className="h-96">
-													<CommandEmpty>No branch found.</CommandEmpty>
+													<CommandEmpty>Dal bulunamadı.</CommandEmpty>
 
 													<CommandGroup>
 														{branches?.map((branch) => (
@@ -385,7 +385,7 @@ export const SaveGithubProvider = ({ applicationId }: Props) => {
 							name="buildPath"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Build Path</FormLabel>
+									<FormLabel>Derleme Yolu</FormLabel>
 									<FormControl>
 										<Input placeholder="/" {...field} />
 									</FormControl>
@@ -399,7 +399,7 @@ export const SaveGithubProvider = ({ applicationId }: Props) => {
 							render={({ field }) => (
 								<FormItem className="md:col-span-2">
 									<div className="flex items-center gap-2 ">
-										<FormLabel>Trigger Type</FormLabel>
+										<FormLabel>Tetikleme Türü</FormLabel>
 										<TooltipProvider>
 											<Tooltip>
 												<TooltipTrigger asChild>
@@ -407,8 +407,8 @@ export const SaveGithubProvider = ({ applicationId }: Props) => {
 												</TooltipTrigger>
 												<TooltipContent>
 													<p>
-														Choose when to trigger deployments: on push to the
-														selected branch or when a new tag is created.
+														Dağıtımların ne zaman tetikleneceğini seçin: seçili
+														dala push yapıldığında veya yeni bir etiket oluşturulduğunda.
 													</p>
 												</TooltipContent>
 											</Tooltip>
@@ -421,12 +421,12 @@ export const SaveGithubProvider = ({ applicationId }: Props) => {
 									>
 										<FormControl>
 											<SelectTrigger>
-												<SelectValue placeholder="Select a trigger type" />
+												<SelectValue placeholder="Bir tetikleme türü seçin" />
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
-											<SelectItem value="push">On Push</SelectItem>
-											<SelectItem value="tag">On Tag</SelectItem>
+											<SelectItem value="push">Push Yapıldığında</SelectItem>
+											<SelectItem value="tag">Etiket Oluşturulduğunda</SelectItem>
 										</SelectContent>
 									</Select>
 									<FormMessage />
@@ -440,7 +440,7 @@ export const SaveGithubProvider = ({ applicationId }: Props) => {
 								render={({ field }) => (
 									<FormItem className="md:col-span-2">
 										<div className="flex items-center gap-2">
-											<FormLabel>Watch Paths</FormLabel>
+											<FormLabel>İzleme Yolları</FormLabel>
 											<TooltipProvider>
 												<Tooltip>
 													<TooltipTrigger asChild>
@@ -448,9 +448,9 @@ export const SaveGithubProvider = ({ applicationId }: Props) => {
 													</TooltipTrigger>
 													<TooltipContent>
 														<p>
-															Add paths to watch for changes. When files in
-															these paths change, a new deployment will be
-															triggered.
+															Değişiklikleri izlemek için yollar ekleyin. Bu
+															yollardaki dosyalar değiştiğinde yeni bir dağıtım
+															tetiklenecektir.
 														</p>
 													</TooltipContent>
 												</Tooltip>
@@ -478,7 +478,7 @@ export const SaveGithubProvider = ({ applicationId }: Props) => {
 										<div className="flex gap-2">
 											<FormControl>
 												<Input
-													placeholder="Enter a path to watch (e.g., src/**, dist/*.js)"
+													placeholder="İzlenecek bir yol girin (ör. src/**, dist/*.js)"
 													onKeyDown={(e) => {
 														if (e.key === "Enter") {
 															e.preventDefault();
@@ -527,7 +527,7 @@ export const SaveGithubProvider = ({ applicationId }: Props) => {
 											onCheckedChange={field.onChange}
 										/>
 									</FormControl>
-									<FormLabel className="!mt-0">Enable Submodules</FormLabel>
+									<FormLabel className="!mt-0">Alt Modülleri Etkinleştir</FormLabel>
 								</FormItem>
 							)}
 						/>
@@ -538,7 +538,7 @@ export const SaveGithubProvider = ({ applicationId }: Props) => {
 							type="submit"
 							className="w-fit"
 						>
-							Save
+							Kaydet
 						</Button>
 					</div>
 				</form>

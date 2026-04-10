@@ -40,22 +40,22 @@ export const ComposeActions = ({ composeId }: Props) => {
 			<TooltipProvider delayDuration={0} disableHoverableContent={false}>
 				{canDeploy && (
 					<DialogAction
-						title="Deploy Compose"
-						description="Are you sure you want to deploy this compose?"
+						title="Compose Dağıt"
+						description="Bu compose'u dağıtmak istediğinizden emin misiniz?"
 						type="default"
 						onClick={async () => {
 							await deploy({
 								composeId: composeId,
 							})
 								.then(() => {
-									toast.success("Compose deployed successfully");
+									toast.success("Compose başarıyla dağıtıldı");
 									refetch();
 									router.push(
 										`/dashboard/project/${data?.environment.projectId}/environment/${data?.environmentId}/services/compose/${composeId}?tab=deployments`,
 									);
 								})
 								.catch(() => {
-									toast.error("Error deploying compose");
+									toast.error("Compose dağıtılırken hata oluştu");
 								});
 						}}
 					>
@@ -68,13 +68,13 @@ export const ComposeActions = ({ composeId }: Props) => {
 								<TooltipTrigger asChild>
 									<div className="flex items-center">
 										<Rocket className="size-4 mr-1" />
-										Deploy
+										Dağıt
 									</div>
 								</TooltipTrigger>
 								<TooltipPrimitive.Portal>
 									<TooltipContent sideOffset={5} className="z-[60]">
 										<p>
-											Downloads the source code and performs a complete build
+											Kaynak kodunu indirir ve tam bir derleme gerçekleştirir
 										</p>
 									</TooltipContent>
 								</TooltipPrimitive.Portal>
@@ -84,19 +84,19 @@ export const ComposeActions = ({ composeId }: Props) => {
 				)}
 				{canDeploy && (
 					<DialogAction
-						title="Reload Compose"
-						description="Are you sure you want to reload this compose?"
+						title="Compose Yeniden Yükle"
+						description="Bu compose'u yeniden yüklemek istediğinizden emin misiniz?"
 						type="default"
 						onClick={async () => {
 							await redeploy({
 								composeId: composeId,
 							})
 								.then(() => {
-									toast.success("Compose reloaded successfully");
+									toast.success("Compose başarıyla yeniden yüklendi");
 									refetch();
 								})
 								.catch(() => {
-									toast.error("Error reloading compose");
+									toast.error("Compose yeniden yüklenirken hata oluştu");
 								});
 						}}
 					>
@@ -109,12 +109,12 @@ export const ComposeActions = ({ composeId }: Props) => {
 								<TooltipTrigger asChild>
 									<div className="flex items-center">
 										<RefreshCcw className="size-4 mr-1" />
-										Reload
+										Yeniden Yükle
 									</div>
 								</TooltipTrigger>
 								<TooltipPrimitive.Portal>
 									<TooltipContent sideOffset={5} className="z-[60]">
-										<p>Reload the compose without rebuilding it</p>
+										<p>Compose'u yeniden derlemeden yeniden yükle</p>
 									</TooltipContent>
 								</TooltipPrimitive.Portal>
 							</Tooltip>
@@ -125,19 +125,19 @@ export const ComposeActions = ({ composeId }: Props) => {
 					(data?.composeType === "docker-compose" &&
 					data?.composeStatus === "idle" ? (
 						<DialogAction
-							title="Start Compose"
-							description="Are you sure you want to start this compose?"
+							title="Compose Başlat"
+							description="Bu compose'u başlatmak istediğinizden emin misiniz?"
 							type="default"
 							onClick={async () => {
 								await start({
 									composeId: composeId,
 								})
 									.then(() => {
-										toast.success("Compose started successfully");
+										toast.success("Compose başarıyla başlatıldı");
 										refetch();
 									})
 									.catch(() => {
-										toast.error("Error starting compose");
+										toast.error("Compose başlatılırken hata oluştu");
 									});
 							}}
 						>
@@ -150,13 +150,13 @@ export const ComposeActions = ({ composeId }: Props) => {
 									<TooltipTrigger asChild>
 										<div className="flex items-center">
 											<CheckCircle2 className="size-4 mr-1" />
-											Start
+											Başlat
 										</div>
 									</TooltipTrigger>
 									<TooltipPrimitive.Portal>
 										<TooltipContent sideOffset={5} className="z-[60]">
 											<p>
-												Start the compose (requires a previous successful build)
+												Compose'u başlat (önceden başarılı bir derleme gerektirir)
 											</p>
 										</TooltipContent>
 									</TooltipPrimitive.Portal>
@@ -165,18 +165,18 @@ export const ComposeActions = ({ composeId }: Props) => {
 						</DialogAction>
 					) : (
 						<DialogAction
-							title="Stop Compose"
-							description="Are you sure you want to stop this compose?"
+							title="Compose Durdur"
+							description="Bu compose'u durdurmak istediğinizden emin misiniz?"
 							onClick={async () => {
 								await stop({
 									composeId: composeId,
 								})
 									.then(() => {
-										toast.success("Compose stopped successfully");
+										toast.success("Compose başarıyla durduruldu");
 										refetch();
 									})
 									.catch(() => {
-										toast.error("Error stopping compose");
+										toast.error("Compose durdurulurken hata oluştu");
 									});
 							}}
 						>
@@ -189,12 +189,12 @@ export const ComposeActions = ({ composeId }: Props) => {
 									<TooltipTrigger asChild>
 										<div className="flex items-center">
 											<Ban className="size-4 mr-1" />
-											Stop
+											Durdur
 										</div>
 									</TooltipTrigger>
 									<TooltipPrimitive.Portal>
 										<TooltipContent sideOffset={5} className="z-[60]">
-											<p>Stop the currently running compose</p>
+											<p>Çalışmakta olan compose'u durdur</p>
 										</TooltipContent>
 									</TooltipPrimitive.Portal>
 								</Tooltip>
@@ -212,14 +212,14 @@ export const ComposeActions = ({ composeId }: Props) => {
 					className="flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-offset-2"
 				>
 					<Terminal className="size-4 mr-1" />
-					Open Terminal
+					Terminal Aç
 				</Button>
 			</DockerTerminalModal>
 			{canUpdateService && (
 				<div className="flex flex-row items-center gap-2 rounded-md px-4 py-2 border">
-					<span className="text-sm font-medium">Autodeploy</span>
+					<span className="text-sm font-medium">Otomatik Dağıtım</span>
 					<Switch
-						aria-label="Toggle autodeploy"
+						aria-label="Otomatik dağıtımı aç/kapat"
 						checked={data?.autoDeploy || false}
 						onCheckedChange={async (enabled) => {
 							await update({
@@ -227,11 +227,11 @@ export const ComposeActions = ({ composeId }: Props) => {
 								autoDeploy: enabled,
 							})
 								.then(async () => {
-									toast.success("Auto Deploy Updated");
+									toast.success("Otomatik Dağıtım güncellendi");
 									await refetch();
 								})
 								.catch(() => {
-									toast.error("Error updating Auto Deploy");
+									toast.error("Otomatik Dağıtım güncellenirken hata oluştu");
 								});
 						}}
 						className="flex flex-row gap-2 items-center data-[state=checked]:bg-primary"
