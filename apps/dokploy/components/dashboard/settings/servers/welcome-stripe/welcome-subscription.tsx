@@ -334,7 +334,7 @@ export const WelcomeSubscription = () => {
 												<Button className="rounded-full bg-[#5965F2] hover:bg-[#4A55E0] w-fit">
 													<Link
 														href="https://discord.gg/2tBnJ3jDJc"
-														aria-label="Dokploy on GitHub"
+														aria-label="Yurt GitHub"
 														target="_blank"
 														className="flex flex-row items-center gap-2 text-white"
 													>
@@ -352,7 +352,7 @@ export const WelcomeSubscription = () => {
 												<Button className="rounded-full  w-fit">
 													<Link
 														href="https://github.com/Dokploy/dokploy"
-														aria-label="Dokploy on GitHub"
+														aria-label="Yurt GitHub"
 														target="_blank"
 														className="flex flex-row items-center gap-2 "
 													>
@@ -367,7 +367,7 @@ export const WelcomeSubscription = () => {
 												>
 													<Link
 														href="https://docs.dokploy.com/docs/core"
-														aria-label="Dokploy Docs"
+														aria-label="Yurt Dokümantasyon"
 														target="_blank"
 														className="flex flex-row items-center gap-2 "
 													>

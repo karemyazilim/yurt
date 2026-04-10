@@ -59,11 +59,11 @@ export default function Home({ IS_CLOUD }: Props) {
 	const { data: showSignInWithSSO } = api.sso.showSignInWithSSO.useQuery();
 	const [isLoginLoading, setIsLoginLoading] = useState(false);
 	const [isTwoFactorLoading, setIsTwoFactorLoading] = useState(false);
-	const [isBackupCodeLoading, setIsBackupCodeLoading] = useState(false);
+	const [isBackupCodeLoading, setIsGeriupCodeLoading] = useState(false);
 	const [isTwoFactor, setIsTwoFactor] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [twoFactorCode, setTwoFactorCode] = useState("");
-	const [isBackupCodeModalOpen, setIsBackupCodeModalOpen] = useState(false);
+	const [isBackupCodeModalOpen, setIsGeriupCodeModalOpen] = useState(false);
 	const [backupCode, setBackupCode] = useState("");
 	const loginForm = useForm<LoginForm>({
 		resolver: zodResolver(LoginSchema),
@@ -83,7 +83,7 @@ export default function Home({ IS_CLOUD }: Props) {
 
 			if (error) {
 				toast.error(error.message);
-				setError(error.message || "An error occurred while logging in");
+				setError(error.message || "Giriş yapılırken bir hata oluştu");
 				return;
 			}
 
@@ -91,14 +91,14 @@ export default function Home({ IS_CLOUD }: Props) {
 			if (data?.twoFactorRedirect as boolean) {
 				setTwoFactorCode("");
 				setIsTwoFactor(true);
-				toast.info("Please enter your 2FA code");
+				toast.info("Lütfen 2FA kodunuzu girin");
 				return;
 			}
 
-			toast.success("Logged in successfully");
+			toast.success("Başarıyla giriş yapıldı");
 			router.push("/dashboard/projects");
 		} catch {
-			toast.error("An error occurred while logging in");
+			toast.error("Giriş yapılırken bir hata oluştu");
 		} finally {
 			setIsLoginLoading(false);
 		}
@@ -106,7 +106,7 @@ export default function Home({ IS_CLOUD }: Props) {
 	const onTwoFactorSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		if (twoFactorCode.length !== 6) {
-			toast.error("Please enter a valid 6-digit code");
+			toast.error("Lütfen geçerli bir 6 haneli kod girin");
 			return;
 		}
 
@@ -118,14 +118,14 @@ export default function Home({ IS_CLOUD }: Props) {
 
 			if (error) {
 				toast.error(error.message);
-				setError(error.message || "An error occurred while verifying 2FA code");
+				setError(error.message || "2FA kodu doğrulanırken bir hata oluştu");
 				return;
 			}
 
-			toast.success("Logged in successfully");
+			toast.success("Başarıyla giriş yapıldı");
 			router.push("/dashboard/projects");
 		} catch {
-			toast.error("An error occurred while verifying 2FA code");
+			toast.error("2FA kodu doğrulanırken bir hata oluştu");
 		} finally {
 			setIsTwoFactorLoading(false);
 		}
@@ -134,11 +134,11 @@ export default function Home({ IS_CLOUD }: Props) {
 	const onBackupCodeSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		if (backupCode.length < 8) {
-			toast.error("Please enter a valid backup code");
+			toast.error("Lütfen geçerli bir yedek kod girin");
 			return;
 		}
 
-		setIsBackupCodeLoading(true);
+		setIsGeriupCodeLoading(true);
 		try {
 			const { error } = await authClient.twoFactor.verifyBackupCode({
 				code: backupCode.trim(),
@@ -147,17 +147,17 @@ export default function Home({ IS_CLOUD }: Props) {
 			if (error) {
 				toast.error(error.message);
 				setError(
-					error.message || "An error occurred while verifying backup code",
+					error.message || "Yedek kod doğrulanırken bir hata oluştu",
 				);
 				return;
 			}
 
-			toast.success("Logged in successfully");
+			toast.success("Başarıyla giriş yapıldı");
 			router.push("/dashboard/projects");
 		} catch {
-			toast.error("An error occurred while verifying backup code");
+			toast.error("Yedek kod doğrulanırken bir hata oluştu");
 		} finally {
-			setIsBackupCodeLoading(false);
+			setIsGeriupCodeLoading(false);
 		}
 	};
 
@@ -176,7 +176,7 @@ export default function Home({ IS_CLOUD }: Props) {
 						name="email"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Email</FormLabel>
+								<FormLabel>E-posta</FormLabel>
 								<FormControl>
 									<Input placeholder="john@example.com" {...field} />
 								</FormControl>
@@ -189,11 +189,11 @@ export default function Home({ IS_CLOUD }: Props) {
 						name="password"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Password</FormLabel>
+								<FormLabel>Şifre</FormLabel>
 								<FormControl>
 									<Input
 										type="password"
-										placeholder="Enter your password"
+										placeholder="Şifrenizi girin"
 										{...field}
 									/>
 								</FormControl>
@@ -202,7 +202,7 @@ export default function Home({ IS_CLOUD }: Props) {
 						)}
 					/>
 					<Button className="w-full" type="submit" isLoading={isLoginLoading}>
-						Login
+						Giriş
 					</Button>
 				</form>
 			</Form>
@@ -222,11 +222,11 @@ export default function Home({ IS_CLOUD }: Props) {
 								undefined
 							}
 						/>
-						Sign in
+						Giriş Yap
 					</div>
 				</h1>
 				<p className="text-sm text-muted-foreground">
-					Enter your email and password to sign in
+					E-posta ve şifrenizi girerek oturum açın
 				</p>
 			</div>
 			{error && (
@@ -252,7 +252,7 @@ export default function Home({ IS_CLOUD }: Props) {
 							autoComplete="on"
 						>
 							<div className="flex flex-col gap-2">
-								<Label htmlFor="totp-code">2FA Code</Label>
+								<Label htmlFor="totp-code">2FA Kodu</Label>
 								<InputOTP
 									id="totp-code"
 									name="totp"
@@ -264,14 +264,14 @@ export default function Home({ IS_CLOUD }: Props) {
 									autoFocus
 								/>
 								<CardDescription>
-									Enter the 6-digit code from your authenticator app
+									Doğrulama uygulamanızdaki 6 haneli kodu girin
 								</CardDescription>
 								<button
 									type="button"
-									onClick={() => setIsBackupCodeModalOpen(true)}
+									onClick={() => setIsGeriupCodeModalOpen(true)}
 									className="text-sm text-muted-foreground hover:underline self-start mt-2"
 								>
-									Lost access to your authenticator app?
+									Doğrulama uygulamanıza erişiminizi mi kaybettiniz?
 								</button>
 							</div>
 
@@ -285,42 +285,42 @@ export default function Home({ IS_CLOUD }: Props) {
 										setTwoFactorCode("");
 									}}
 								>
-									Back
+									Geri
 								</Button>
 								<Button
 									className="w-full"
 									type="submit"
 									isLoading={isTwoFactorLoading}
 								>
-									Verify
+									Doğrula
 								</Button>
 							</div>
 						</form>
 
 						<Dialog
 							open={isBackupCodeModalOpen}
-							onOpenChange={setIsBackupCodeModalOpen}
+							onOpenChange={setIsGeriupCodeModalOpen}
 						>
 							<DialogContent>
 								<DialogHeader>
-									<DialogTitle>Enter Backup Code</DialogTitle>
+									<DialogTitle>Yedek Kodu Girin</DialogTitle>
 									<DialogDescription>
-										Enter one of your backup codes to access your account
+										Hesabınıza erişmek için yedek kodlarınızdan birini girin
 									</DialogDescription>
 								</DialogHeader>
 
 								<form onSubmit={onBackupCodeSubmit} className="space-y-4">
 									<div className="flex flex-col gap-2">
-										<Label>Backup Code</Label>
+										<Label>Yedek Kod</Label>
 										<Input
 											value={backupCode}
 											onChange={(e) => setBackupCode(e.target.value)}
-											placeholder="Enter your backup code"
+											placeholder="Yedek kodunuzu girin"
 											className="font-mono"
 										/>
 										<CardDescription>
-											Enter one of the backup codes you received when setting up
-											2FA
+											2FA kurulumu sırasında aldığınız yedek kodlardan birini
+											girin
 										</CardDescription>
 									</div>
 
@@ -330,18 +330,18 @@ export default function Home({ IS_CLOUD }: Props) {
 											className="w-full"
 											type="button"
 											onClick={() => {
-												setIsBackupCodeModalOpen(false);
+												setIsGeriupCodeModalOpen(false);
 												setBackupCode("");
 											}}
 										>
-											Cancel
+											İptal
 										</Button>
 										<Button
 											className="w-full"
 											type="submit"
 											isLoading={isBackupCodeLoading}
 										>
-											Verify
+											Doğrula
 										</Button>
 									</div>
 								</form>
@@ -357,7 +357,7 @@ export default function Home({ IS_CLOUD }: Props) {
 								className="hover:underline text-muted-foreground"
 								href="/register"
 							>
-								Create an account
+								Hesap oluştur
 							</Link>
 						)}
 					</div>
@@ -368,7 +368,7 @@ export default function Home({ IS_CLOUD }: Props) {
 								className="hover:underline text-muted-foreground"
 								href="/send-reset-password"
 							>
-								Lost your password?
+								Şifrenizi mi unuttunuz?
 							</Link>
 						) : (
 							<Link
@@ -376,7 +376,7 @@ export default function Home({ IS_CLOUD }: Props) {
 								href="https://docs.dokploy.com/docs/core/reset-password"
 								target="_blank"
 							>
-								Lost your password?
+								Şifrenizi mi unuttunuz?
 							</Link>
 						)}
 					</div>

@@ -680,7 +680,7 @@ export const settingsRouter = createTRPCRouter({
 			});
 
 			openApiDocument.info = {
-				title: "Dokploy API",
+				title: "Yurt API",
 				description: "Endpoints for dokploy",
 				version: packageInfo.version,
 			};

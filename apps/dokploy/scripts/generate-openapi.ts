@@ -20,7 +20,7 @@ async function generateOpenAPI() {
 		console.log("🔄 Generating OpenAPI specification...");
 
 		const openApiDocument = generateOpenApiDocument(appRouter, {
-			title: "Dokploy API",
+			title: "Yurt API",
 			version: "1.0.0",
 			baseUrl: "https://your-dokploy-instance.com/api",
 			docsUrl: "https://docs.dokploy.com/api",
@@ -67,12 +67,12 @@ async function generateOpenAPI() {
 
 		// Enhance metadata
 		openApiDocument.info = {
-			title: "Dokploy API",
+			title: "Yurt API",
 			description:
 				"Complete API documentation for Dokploy - Deploy applications, manage databases, and orchestrate your infrastructure. This API allows you to programmatically manage all aspects of your Dokploy instance.",
 			version: "1.0.0",
 			contact: {
-				name: "Dokploy Team",
+				name: "Yurt Team",
 				url: "https://dokploy.com",
 			},
 			license: {

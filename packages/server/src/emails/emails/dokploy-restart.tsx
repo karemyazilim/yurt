@@ -18,7 +18,7 @@ export type TemplateProps = {
 export const DokployRestartEmail = ({
 	date = "2023-05-01T00:00:00.000Z",
 }: TemplateProps) => {
-	const previewText = "Your dokploy server was restarted";
+	const previewText = "Yurt sunucunuz yeniden başlatıldı";
 	return (
 		<Html>
 			<Preview>{previewText}</Preview>

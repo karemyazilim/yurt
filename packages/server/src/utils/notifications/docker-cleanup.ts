@@ -11,6 +11,7 @@ import {
 	sendGotifyNotification,
 	sendLarkNotification,
 	sendMattermostNotification,
+	sendNetgsmNotification,
 	sendNtfyNotification,
 	sendPushoverNotification,
 	sendResendNotification,
@@ -21,7 +22,7 @@ import {
 
 export const sendDockerCleanupNotifications = async (
 	organizationId: string,
-	message = "Docker cleanup for dokploy",
+	message = "Yurt Docker temizliği",
 ) => {
 	const date = new Date();
 	const unixDate = ~~(Number(date) / 1000);
@@ -43,6 +44,7 @@ export const sendDockerCleanupNotifications = async (
 			lark: true,
 			pushover: true,
 			teams: true,
+			netgsm: true,
 		},
 	});
 
@@ -60,6 +62,7 @@ export const sendDockerCleanupNotifications = async (
 			lark,
 			pushover,
 			teams,
+			netgsm,
 		} = notification;
 		try {
 			if (email || resend) {
@@ -70,7 +73,7 @@ export const sendDockerCleanupNotifications = async (
 				if (email) {
 					await sendEmailNotification(
 						email,
-						"Docker cleanup for dokploy",
+						"Yurt Docker temizliği",
 						template,
 					);
 				}
@@ -78,7 +81,7 @@ export const sendDockerCleanupNotifications = async (
 				if (resend) {
 					await sendResendNotification(
 						resend,
-						"Docker cleanup for dokploy",
+						"Yurt Docker temizliği",
 						template,
 					);
 				}
@@ -114,7 +117,7 @@ export const sendDockerCleanupNotifications = async (
 					],
 					timestamp: date.toISOString(),
 					footer: {
-						text: "Dokploy Docker Cleanup Notification",
+						text: "Yurt Docker Temizliği Bildirimi",
 					},
 				});
 			}
@@ -175,7 +178,7 @@ export const sendDockerCleanupNotifications = async (
 				await sendMattermostNotification(mattermost, {
 					text: `**✅ Docker Cleanup**\n\n**Message:** ${message}\n**Date:** ${format(date, "PP")}\n**Time:** ${format(date, "pp")}`,
 					channel: mattermost.channel,
-					username: mattermost.username || "Dokploy",
+					username: mattermost.username || "Yurt",
 				});
 			}
 
@@ -285,6 +288,14 @@ export const sendDockerCleanupNotifications = async (
 						{ name: "Message", value: message },
 					],
 				});
+			}
+
+			if (netgsm) {
+				await sendNetgsmNotification(
+					netgsm,
+					"Docker Cleanup",
+					`Date: ${date.toLocaleString()}\nMessage: ${message}`,
+				);
 			}
 		} catch (error) {
 			console.log(error);

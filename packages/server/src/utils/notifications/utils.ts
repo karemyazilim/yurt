@@ -5,6 +5,7 @@ import type {
 	gotify,
 	lark,
 	mattermost,
+	netgsm,
 	ntfy,
 	pushover,
 	resend,
@@ -387,5 +388,28 @@ export const sendPushoverNotification = async (
 		throw new Error(
 			`Failed to send Pushover notification: ${response.statusText}`,
 		);
+	}
+};
+
+export const sendNetgsmNotification = async (
+	connection: typeof netgsm.$inferInsert,
+	title: string,
+	message: string,
+) => {
+	const params = new URLSearchParams({
+		usercode: connection.usercode,
+		password: connection.password,
+		gsmno: connection.phone,
+		message: `${title}\n${message}`,
+		msgheader: connection.msgheader,
+	});
+
+	const response = await fetch(
+		`https://api.netgsm.com.tr/sms/send/get?${params.toString()}`,
+	);
+	const result = await response.text();
+
+	if (!result.startsWith("00")) {
+		throw new Error(`Netgsm SMS error: ${result}`);
 	}
 };

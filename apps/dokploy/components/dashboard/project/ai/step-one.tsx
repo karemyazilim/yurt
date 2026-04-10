@@ -82,7 +82,7 @@ export const StepOne = ({ setTemplateInfo, templateInfo }: any) => {
 							>
 								<SelectTrigger className="w-full">
 									<SelectValue
-										placeholder={!isCloud ? "Dokploy" : "Select a Server"}
+										placeholder={!isCloud ? "Yurt" : "Sunucu Seçin"}
 									/>
 								</SelectTrigger>
 								<SelectContent>

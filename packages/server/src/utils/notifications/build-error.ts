@@ -11,6 +11,7 @@ import {
 	sendGotifyNotification,
 	sendLarkNotification,
 	sendMattermostNotification,
+	sendNetgsmNotification,
 	sendNtfyNotification,
 	sendPushoverNotification,
 	sendResendNotification,
@@ -56,6 +57,7 @@ export const sendBuildErrorNotifications = async ({
 			lark: true,
 			pushover: true,
 			teams: true,
+			netgsm: true,
 		},
 	});
 
@@ -73,6 +75,7 @@ export const sendBuildErrorNotifications = async ({
 			lark,
 			pushover,
 			teams,
+			netgsm,
 		} = notification;
 		try {
 			if (email || resend) {
@@ -90,7 +93,7 @@ export const sendBuildErrorNotifications = async ({
 				if (email) {
 					await sendEmailNotification(
 						email,
-						"Build failed for dokploy",
+						"Yurt derleme başarısız",
 						template,
 					);
 				}
@@ -98,7 +101,7 @@ export const sendBuildErrorNotifications = async ({
 				if (resend) {
 					await sendResendNotification(
 						resend,
-						"Build failed for dokploy",
+						"Yurt derleme başarısız",
 						template,
 					);
 				}
@@ -155,7 +158,7 @@ export const sendBuildErrorNotifications = async ({
 					],
 					timestamp: date.toISOString(),
 					footer: {
-						text: "Dokploy Build Notification",
+						text: "Yurt Derleme Bildirimi",
 					},
 				});
 			}
@@ -268,7 +271,7 @@ ${errorMessage}
 
 [View Build Details](${buildLink})`,
 					channel: mattermost.channel,
-					username: mattermost.username || "Dokploy Bot",
+					username: mattermost.username || "Yurt Bot",
 				});
 			}
 
@@ -426,6 +429,14 @@ ${errorMessage}
 						url: buildLink,
 					},
 				});
+			}
+
+			if (netgsm) {
+				await sendNetgsmNotification(
+					netgsm,
+					"Build Failed",
+					`Project: ${projectName}\nApplication: ${applicationName}\nType: ${applicationType}\nDate: ${date.toLocaleString()}\nError: ${errorMessage}`,
+				);
 			}
 		} catch (error) {
 			console.log(error);

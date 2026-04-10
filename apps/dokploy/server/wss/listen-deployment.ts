@@ -57,6 +57,16 @@ export const setupDeploymentLogsWebSocketServer = (
 			if (serverId) {
 				const server = await findServerById(serverId);
 
+				// Tenant isolation: verify server belongs to user's organization
+				if (
+					server.organizationId &&
+					session.activeOrganizationId &&
+					server.organizationId !== session.activeOrganizationId
+				) {
+					ws.close(4003, "Server not accessible from this organization");
+					return;
+				}
+
 				if (!server.sshKeyId) {
 					ws.close();
 					return;

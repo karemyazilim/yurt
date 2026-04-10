@@ -11,6 +11,7 @@ import {
 	sendGotifyNotification,
 	sendLarkNotification,
 	sendMattermostNotification,
+	sendNetgsmNotification,
 	sendNtfyNotification,
 	sendPushoverNotification,
 	sendResendNotification,
@@ -56,6 +57,7 @@ export const sendDatabaseBackupNotifications = async ({
 			lark: true,
 			pushover: true,
 			teams: true,
+			netgsm: true,
 		},
 	});
 
@@ -73,6 +75,7 @@ export const sendDatabaseBackupNotifications = async ({
 			lark,
 			pushover,
 			teams,
+			netgsm,
 		} = notification;
 		try {
 			if (email || resend) {
@@ -90,7 +93,7 @@ export const sendDatabaseBackupNotifications = async ({
 				if (email) {
 					await sendEmailNotification(
 						email,
-						"Database backup for dokploy",
+						"Yurt veritabanı yedekleme",
 						template,
 					);
 				}
@@ -98,7 +101,7 @@ export const sendDatabaseBackupNotifications = async ({
 				if (resend) {
 					await sendResendNotification(
 						resend,
-						"Database backup for dokploy",
+						"Yurt veritabanı yedekleme",
 						template,
 					);
 				}
@@ -163,7 +166,7 @@ export const sendDatabaseBackupNotifications = async ({
 					],
 					timestamp: date.toISOString(),
 					footer: {
-						text: "Dokploy Database Backup Notification",
+						text: "Yurt Veritabanı Yedekleme Bildirimi",
 					},
 				});
 			}
@@ -286,7 +289,7 @@ export const sendDatabaseBackupNotifications = async ({
 				await sendMattermostNotification(mattermost, {
 					text: `**${statusEmoji} Database Backup ${typeStatus}**\n\n**Project:** ${projectName}\n**Application:** ${applicationName}\n**Type:** ${databaseType}\n**Database Name:** ${databaseName}\n**Date:** ${format(date, "PP")}\n**Time:** ${format(date, "pp")}${errorMsg}`,
 					channel: mattermost.channel,
-					username: mattermost.username || "Dokploy",
+					username: mattermost.username || "Yurt",
 				});
 			}
 
@@ -454,6 +457,14 @@ export const sendDatabaseBackupNotifications = async ({
 							: "❌ Database Backup Failed",
 					facts,
 				});
+			}
+
+			if (netgsm) {
+				await sendNetgsmNotification(
+					netgsm,
+					`Database Backup ${type === "success" ? "Successful" : "Failed"}`,
+					`Project: ${projectName}\nApplication: ${applicationName}\nDatabase: ${databaseType}\nDatabase Name: ${databaseName}\nDate: ${date.toLocaleString()}${type === "error" && errorMessage ? `\nError: ${errorMessage}` : ""}`,
+				);
 			}
 		} catch (error) {
 			console.log(error);

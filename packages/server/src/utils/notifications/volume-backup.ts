@@ -11,6 +11,7 @@ import {
 	sendGotifyNotification,
 	sendLarkNotification,
 	sendMattermostNotification,
+	sendNetgsmNotification,
 	sendNtfyNotification,
 	sendPushoverNotification,
 	sendResendNotification,
@@ -66,6 +67,7 @@ export const sendVolumeBackupNotifications = async ({
 			lark: true,
 			pushover: true,
 			teams: true,
+			netgsm: true,
 		},
 	});
 
@@ -83,6 +85,7 @@ export const sendVolumeBackupNotifications = async ({
 			lark,
 			pushover,
 			teams,
+			netgsm,
 		} = notification;
 
 		try {
@@ -176,7 +179,7 @@ export const sendVolumeBackupNotifications = async ({
 					],
 					timestamp: date.toISOString(),
 					footer: {
-						text: "Dokploy Volume Backup Notification",
+						text: "Yurt Birim Yedekleme Bildirimi",
 					},
 				});
 			}
@@ -317,7 +320,7 @@ export const sendVolumeBackupNotifications = async ({
 				await sendMattermostNotification(mattermost, {
 					text: `**${statusEmoji} Volume Backup ${typeStatus}**\n\n**Project:** ${projectName}\n**Application:** ${applicationName}\n**Volume Name:** ${volumeName}\n**Service Type:** ${serviceType}${sizeInfo}\n**Date:** ${format(date, "PP")}\n**Time:** ${format(date, "pp")}${errorMsg}`,
 					channel: mattermost.channel,
-					username: mattermost.username || "Dokploy",
+					username: mattermost.username || "Yurt",
 				});
 			}
 
@@ -489,6 +492,14 @@ export const sendVolumeBackupNotifications = async ({
 					date: date.toLocaleString(),
 					status: type,
 				});
+			}
+
+			if (netgsm) {
+				await sendNetgsmNotification(
+					netgsm,
+					`Volume Backup ${type === "success" ? "Successful" : "Failed"}`,
+					`Project: ${projectName}\nApplication: ${applicationName}\nVolume: ${volumeName}\nService Type: ${serviceType}${backupSize ? `\nBackup Size: ${backupSize}` : ""}\nDate: ${date.toLocaleString()}${type === "error" && errorMessage ? `\nError: ${errorMessage}` : ""}`,
+				);
 			}
 		} catch (error) {
 			console.log(error);

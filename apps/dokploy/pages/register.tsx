@@ -30,42 +30,42 @@ import { useWhitelabelingPublic } from "@/utils/hooks/use-whitelabeling";
 const registerSchema = z
 	.object({
 		name: z.string().min(1, {
-			message: "First name is required",
+			message: "Ad gereklidir",
 		}),
 		lastName: z.string().min(1, {
-			message: "Last name is required",
+			message: "Soyad gereklidir",
 		}),
 		email: z
 			.string()
 			.min(1, {
-				message: "Email is required",
+				message: "E-posta gereklidir",
 			})
 			.email({
-				message: "Email must be a valid email",
+				message: "Geçerli bir e-posta adresi girin",
 			}),
 		password: z
 			.string()
 			.min(1, {
-				message: "Password is required",
+				message: "Şifre gereklidir",
 			})
 			.refine((password) => password === "" || password.length >= 8, {
-				message: "Password must be at least 8 characters",
+				message: "Şifre en az 8 karakter olmalıdır",
 			}),
 		confirmPassword: z
 			.string()
 			.min(1, {
-				message: "Password is required",
+				message: "Şifre gereklidir",
 			})
 			.refine(
 				(confirmPassword) =>
 					confirmPassword === "" || confirmPassword.length >= 8,
 				{
-					message: "Password must be at least 8 characters",
+					message: "Şifre en az 8 karakter olmalıdır",
 				},
 			),
 	})
 	.refine((data) => data.password === data.confirmPassword, {
-		message: "Passwords do not match",
+		message: "Şifreler eşleşmiyor",
 		path: ["confirmPassword"],
 	});
 
@@ -108,9 +108,9 @@ const Register = ({ isCloud }: Props) => {
 
 		if (error) {
 			setIsError(true);
-			setError(error.message || "An error occurred");
+			setError(error.message || "Bir hata oluştu");
 		} else {
-			toast.success("User registered successfully", {
+			toast.success("Kullanıcı başarıyla kaydedildi", {
 				duration: 2000,
 			});
 			if (!isCloud) {
@@ -135,11 +135,11 @@ const Register = ({ isCloud }: Props) => {
 								}
 							/>
 						</Link>
-						{isCloud ? "Sign Up" : "Setup the server"}
+						{isCloud ? "Kayıt Ol" : "Sunucuyu Kur"}
 					</CardTitle>
 					<CardDescription>
-						Enter your email and password to{" "}
-						{isCloud ? "create an account" : "setup the server"}
+						E-posta ve şifrenizi girerek{" "}
+						{isCloud ? "hesap oluşturun" : "sunucuyu kurun"}
 					</CardDescription>
 					<div className="mx-auto w-full max-w-lg bg-transparent">
 						{isError && (
@@ -153,8 +153,8 @@ const Register = ({ isCloud }: Props) => {
 						{isCloud && data && (
 							<AlertBlock type="success" className="my-2">
 								<span>
-									Registered successfully, please check your inbox or spam
-									folder to confirm your account.
+									Kayıt başarılı, hesabınızı onaylamak için gelen kutunuzu veya spam
+									klasörünüzü kontrol edin.
 								</span>
 							</AlertBlock>
 						)}
@@ -167,7 +167,7 @@ const Register = ({ isCloud }: Props) => {
 							)}
 							{isCloud && (
 								<p className="mb-4 text-center text-xs text-muted-foreground">
-									Or register with email
+									Veya e-posta ile kayıt olun
 								</p>
 							)}
 							<Form {...form}>
@@ -181,9 +181,9 @@ const Register = ({ isCloud }: Props) => {
 											name="name"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>First Name</FormLabel>
+													<FormLabel>Ad</FormLabel>
 													<FormControl>
-														<Input placeholder="John" {...field} />
+														<Input placeholder="Ahmet" {...field} />
 													</FormControl>
 													<FormMessage />
 												</FormItem>
@@ -194,9 +194,9 @@ const Register = ({ isCloud }: Props) => {
 											name="lastName"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>Last Name</FormLabel>
+													<FormLabel>Soyad</FormLabel>
 													<FormControl>
-														<Input placeholder="Doe" {...field} />
+														<Input placeholder="Yılmaz" {...field} />
 													</FormControl>
 													<FormMessage />
 												</FormItem>
@@ -207,9 +207,9 @@ const Register = ({ isCloud }: Props) => {
 											name="email"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>Email</FormLabel>
+													<FormLabel>E-posta</FormLabel>
 													<FormControl>
-														<Input placeholder="email@dokploy.com" {...field} />
+														<Input placeholder="email@yurt.dev" {...field} />
 													</FormControl>
 													<FormMessage />
 												</FormItem>
@@ -220,11 +220,11 @@ const Register = ({ isCloud }: Props) => {
 											name="password"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>Password</FormLabel>
+													<FormLabel>Şifre</FormLabel>
 													<FormControl>
 														<Input
 															type="password"
-															placeholder="Password"
+															placeholder="Şifrenizi girin"
 															{...field}
 														/>
 													</FormControl>
@@ -238,11 +238,11 @@ const Register = ({ isCloud }: Props) => {
 											name="confirmPassword"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>Confirm Password</FormLabel>
+													<FormLabel>Şifre Tekrar</FormLabel>
 													<FormControl>
 														<Input
 															type="password"
-															placeholder="Password"
+															placeholder="Şifrenizi girin"
 															{...field}
 														/>
 													</FormControl>
@@ -256,7 +256,7 @@ const Register = ({ isCloud }: Props) => {
 											isLoading={form.formState.isSubmitting}
 											className="w-full"
 										>
-											Register
+											Kayıt Ol
 										</Button>
 									</div>
 								</form>
@@ -264,21 +264,21 @@ const Register = ({ isCloud }: Props) => {
 							<div className="flex flex-row justify-between flex-wrap">
 								{isCloud && (
 									<div className="mt-4 text-center text-sm flex gap-2 text-muted-foreground">
-										Already have account?
+										Zaten hesabınız var mı?
 										<Link className="underline" href="/">
-											Sign in
+											Giriş yap
 										</Link>
 									</div>
 								)}
 
 								<div className="mt-4 text-center text-sm flex flex-row justify-center gap-2  text-muted-foreground">
-									Need help?
+									Yardım mı lazım?
 									<Link
 										className="underline"
 										href="https://dokploy.com"
 										target="_blank"
 									>
-										Contact us
+										Bize ulaşın
 									</Link>
 								</div>
 							</div>

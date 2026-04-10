@@ -6,6 +6,7 @@ import {
 	type apiCreateGotify,
 	type apiCreateLark,
 	type apiCreateMattermost,
+	type apiCreateNetgsm,
 	type apiCreateNtfy,
 	type apiCreatePushover,
 	type apiCreateResend,
@@ -18,6 +19,7 @@ import {
 	type apiUpdateGotify,
 	type apiUpdateLark,
 	type apiUpdateMattermost,
+	type apiUpdateNetgsm,
 	type apiUpdateNtfy,
 	type apiUpdatePushover,
 	type apiUpdateResend,
@@ -30,6 +32,7 @@ import {
 	gotify,
 	lark,
 	mattermost,
+	netgsm,
 	notifications,
 	ntfy,
 	pushover,
@@ -806,6 +809,104 @@ export const updateCustomNotification = async (
 	});
 };
 
+export const createNetgsmNotification = async (
+	input: z.infer<typeof apiCreateNetgsm>,
+	organizationId: string,
+) => {
+	await db.transaction(async (tx) => {
+		const newNetgsm = await tx
+			.insert(netgsm)
+			.values({
+				usercode: input.usercode,
+				password: input.password,
+				msgheader: input.msgheader,
+				phone: input.phone,
+			})
+			.returning()
+			.then((value) => value[0]);
+
+		if (!newNetgsm) {
+			throw new TRPCError({
+				code: "BAD_REQUEST",
+				message: "Error input: Inserting netgsm",
+			});
+		}
+
+		const newDestination = await tx
+			.insert(notifications)
+			.values({
+				netgsmId: newNetgsm.netgsmId,
+				name: input.name,
+				appDeploy: input.appDeploy,
+				appBuildError: input.appBuildError,
+				databaseBackup: input.databaseBackup,
+				dokployBackup: input.dokployBackup,
+				volumeBackup: input.volumeBackup,
+				dokployRestart: input.dokployRestart,
+				dockerCleanup: input.dockerCleanup,
+				notificationType: "netgsm",
+				organizationId: organizationId,
+				serverThreshold: input.serverThreshold,
+			})
+			.returning()
+			.then((value) => value[0]);
+
+		if (!newDestination) {
+			throw new TRPCError({
+				code: "BAD_REQUEST",
+				message: "Error input: Inserting notification",
+			});
+		}
+
+		return newDestination;
+	});
+};
+
+export const updateNetgsmNotification = async (
+	input: z.infer<typeof apiUpdateNetgsm>,
+) => {
+	await db.transaction(async (tx) => {
+		const newDestination = await tx
+			.update(notifications)
+			.set({
+				name: input.name,
+				appDeploy: input.appDeploy,
+				appBuildError: input.appBuildError,
+				databaseBackup: input.databaseBackup,
+				dokployBackup: input.dokployBackup,
+				volumeBackup: input.volumeBackup,
+				dokployRestart: input.dokployRestart,
+				dockerCleanup: input.dockerCleanup,
+				organizationId: input.organizationId,
+				serverThreshold: input.serverThreshold,
+			})
+			.where(eq(notifications.notificationId, input.notificationId))
+			.returning()
+			.then((value) => value[0]);
+
+		if (!newDestination) {
+			throw new TRPCError({
+				code: "BAD_REQUEST",
+				message: "Error Updating notification",
+			});
+		}
+
+		await tx
+			.update(netgsm)
+			.set({
+				usercode: input.usercode,
+				password: input.password,
+				msgheader: input.msgheader,
+				phone: input.phone,
+			})
+			.where(eq(netgsm.netgsmId, input.netgsmId))
+			.returning()
+			.then((value) => value[0]);
+
+		return newDestination;
+	});
+};
+
 export const findNotificationById = async (notificationId: string) => {
 	const notification = await db.query.notifications.findFirst({
 		where: eq(notifications.notificationId, notificationId),
@@ -822,6 +923,7 @@ export const findNotificationById = async (notificationId: string) => {
 			lark: true,
 			pushover: true,
 			teams: true,
+			netgsm: true,
 		},
 	});
 	if (!notification) {

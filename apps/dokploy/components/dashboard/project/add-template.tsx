@@ -558,7 +558,7 @@ export const AddTemplate = ({ environmentId, baseUrl }: Props) => {
 																	<SelectTrigger>
 																		<SelectValue
 																			placeholder={
-																				!isCloud ? "Dokploy" : "Select a Server"
+																				!isCloud ? "Yurt" : "Sunucu Seçin"
 																			}
 																		/>
 																	</SelectTrigger>

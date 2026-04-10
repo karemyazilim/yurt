@@ -154,6 +154,16 @@ export const setupTerminalWebSocketServer = (
 				return;
 			}
 
+			// Tenant isolation: verify server belongs to user's organization
+			if (
+				server.organizationId &&
+				session.activeOrganizationId &&
+				server.organizationId !== session.activeOrganizationId
+			) {
+				ws.close(4003, "Server not accessible from this organization");
+				return;
+			}
+
 			const { ipAddress: host, port, username, sshKey, sshKeyId } = server;
 
 			if (!sshKeyId) {

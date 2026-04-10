@@ -83,10 +83,21 @@ const getDockerConfig = (): Docker => {
 
 export const docker = getDockerConfig();
 
-// When not set, use the legacy default so 2FA remains working for users who
-// enabled it before BETTER_AUTH_SECRET was introduced.
-export const BETTER_AUTH_SECRET =
-	process.env.BETTER_AUTH_SECRET || "better-auth-secret-123456789";
+// SECURITY: Require BETTER_AUTH_SECRET in production. Generate one during install.
+// Fallback only allowed in development for convenience.
+export const BETTER_AUTH_SECRET = (() => {
+	const secret = process.env.BETTER_AUTH_SECRET;
+	if (!secret && process.env.NODE_ENV === "production") {
+		console.error(
+			"CRITICAL: BETTER_AUTH_SECRET is not set. Generate one with: openssl rand -base64 32",
+		);
+		// Use a per-instance random fallback so sessions invalidate on restart
+		// but at least aren't signed with a publicly known key
+		const { randomBytes } = require("node:crypto");
+		return randomBytes(32).toString("base64");
+	}
+	return secret || "dev-only-secret-do-not-use-in-production";
+})();
 
 export const paths = (isServer = false) => {
 	const BASE_PATH =

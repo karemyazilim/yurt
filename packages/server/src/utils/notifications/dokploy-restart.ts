@@ -11,6 +11,7 @@ import {
 	sendGotifyNotification,
 	sendLarkNotification,
 	sendMattermostNotification,
+	sendNetgsmNotification,
 	sendNtfyNotification,
 	sendPushoverNotification,
 	sendResendNotification,
@@ -38,6 +39,7 @@ export const sendDokployRestartNotifications = async () => {
 				lark: true,
 				pushover: true,
 				teams: true,
+				netgsm: true,
 			},
 		});
 
@@ -55,6 +57,7 @@ export const sendDokployRestartNotifications = async () => {
 				lark,
 				pushover,
 				teams,
+				netgsm,
 			} = notification;
 
 			try {
@@ -66,7 +69,7 @@ export const sendDokployRestartNotifications = async () => {
 					if (email) {
 						await sendEmailNotification(
 							email,
-							"Dokploy Server Restarted",
+							"Yurt Sunucusu Yeniden Başlatıldı",
 							template,
 						);
 					}
@@ -74,7 +77,7 @@ export const sendDokployRestartNotifications = async () => {
 					if (resend) {
 						await sendResendNotification(
 							resend,
-							"Dokploy Server Restarted",
+							"Yurt Sunucusu Yeniden Başlatıldı",
 							template,
 						);
 					}
@@ -85,7 +88,7 @@ export const sendDokployRestartNotifications = async () => {
 						`${discord.decoration ? decoration : ""} ${text}`.trim();
 
 					await sendDiscordNotification(discord, {
-						title: decorate(">", "`✅` Dokploy Server Restarted"),
+						title: decorate(">", "`✅` Yurt Sunucusu Yeniden Başlatıldı"),
 						color: 0x57f287,
 						fields: [
 							{
@@ -106,7 +109,7 @@ export const sendDokployRestartNotifications = async () => {
 						],
 						timestamp: date.toISOString(),
 						footer: {
-							text: "Dokploy Restart Notification",
+							text: "Yurt Yeniden Başlatma Bildirimi",
 						},
 					});
 				}
@@ -116,7 +119,7 @@ export const sendDokployRestartNotifications = async () => {
 						`${gotify.decoration ? decoration : ""} ${text}\n`;
 					await sendGotifyNotification(
 						gotify,
-						decorate("✅", "Dokploy Server Restarted"),
+						decorate("✅", "Yurt Sunucusu Yeniden Başlatıldı"),
 						`${decorate("🕒", `Date: ${date.toLocaleString()}`)}`,
 					);
 				}
@@ -124,7 +127,7 @@ export const sendDokployRestartNotifications = async () => {
 				if (ntfy) {
 					await sendNtfyNotification(
 						ntfy,
-						"Dokploy Server Restarted",
+						"Yurt Sunucusu Yeniden Başlatıldı",
 						"white_check_mark",
 						"",
 						`🕒Date: ${date.toLocaleString()}`,
@@ -134,7 +137,7 @@ export const sendDokployRestartNotifications = async () => {
 				if (telegram) {
 					await sendTelegramNotification(
 						telegram,
-						`<b>✅ Dokploy Server Restarted</b>\n\n<b>Date:</b> ${format(
+						`<b>✅ Yurt Sunucusu Yeniden Başlatıldı</b>\n\n<b>Date:</b> ${format(
 							date,
 							"PP",
 						)}\n<b>Time:</b> ${format(date, "pp")}`,
@@ -148,7 +151,7 @@ export const sendDokployRestartNotifications = async () => {
 						attachments: [
 							{
 								color: "#00FF00",
-								pretext: ":white_check_mark: *Dokploy Server Restarted*",
+								pretext: ":white_check_mark: *Yurt Sunucusu Yeniden Başlatıldı*",
 								fields: [
 									{
 										title: "Time",
@@ -163,17 +166,17 @@ export const sendDokployRestartNotifications = async () => {
 
 				if (mattermost) {
 					await sendMattermostNotification(mattermost, {
-						text: `**✅ Dokploy Server Restarted**\n\n**Date:** ${format(date, "PP")}\n**Time:** ${format(date, "pp")}`,
+						text: `**✅ Yurt Sunucusu Yeniden Başlatıldı**\n\n**Date:** ${format(date, "PP")}\n**Time:** ${format(date, "pp")}`,
 						channel: mattermost.channel,
-						username: mattermost.username || "Dokploy",
+						username: mattermost.username || "Yurt",
 					});
 				}
 
 				if (custom) {
 					try {
 						await sendCustomNotification(custom, {
-							title: "Dokploy Server Restarted",
-							message: "Dokploy server has been restarted successfully",
+							title: "Yurt Sunucusu Yeniden Başlatıldı",
+							message: "Yurt sunucusu başarıyla yeniden başlatıldı",
 							timestamp: date.toISOString(),
 							date: date.toLocaleString(),
 							status: "success",
@@ -204,7 +207,7 @@ export const sendDokployRestartNotifications = async () => {
 							header: {
 								title: {
 									tag: "plain_text",
-									content: "✅ Dokploy Server Restarted",
+									content: "✅ Yurt Sunucusu Yeniden Başlatıldı",
 								},
 								subtitle: {
 									tag: "plain_text",
@@ -262,19 +265,27 @@ export const sendDokployRestartNotifications = async () => {
 				if (pushover) {
 					await sendPushoverNotification(
 						pushover,
-						"Dokploy Server Restarted",
+						"Yurt Sunucusu Yeniden Başlatıldı",
 						`Date: ${date.toLocaleString()}`,
 					);
 				}
 
 				if (teams) {
 					await sendTeamsNotification(teams, {
-						title: "✅ Dokploy Server Restarted",
+						title: "✅ Yurt Sunucusu Yeniden Başlatıldı",
 						facts: [
 							{ name: "Status", value: "Successful" },
 							{ name: "Restart Time", value: format(date, "PP pp") },
 						],
 					});
+				}
+
+				if (netgsm) {
+					await sendNetgsmNotification(
+						netgsm,
+						"Yurt Sunucusu Yeniden Başlatıldı",
+						`Date: ${date.toLocaleString()}`,
+					);
 				}
 			} catch (error) {
 				console.log(error);

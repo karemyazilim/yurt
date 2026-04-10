@@ -476,7 +476,7 @@ export const AddDatabase = ({ environmentId, projectName }: Props) => {
 													<SelectTrigger>
 														<SelectValue
 															placeholder={
-																!isCloud ? "Dokploy" : "Select a Server"
+																!isCloud ? "Yurt" : "Sunucu Seçin"
 															}
 														/>
 													</SelectTrigger>

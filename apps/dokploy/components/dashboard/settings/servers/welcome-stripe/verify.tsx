@@ -150,7 +150,7 @@ export const Verify = () => {
 											}
 										/>
 										<StatusRow
-											label="Dokploy Network Created"
+											label="Yurt Ağı Oluşturuldu"
 											isEnabled={data?.isDokployNetworkInstalled}
 											description={
 												data?.isDokployNetworkInstalled

@@ -486,7 +486,7 @@ export const HandleRegistry = ({ registryId }: Props) => {
 											username,
 											password,
 											registryUrl,
-											registryName: "Dokploy Registry",
+											registryName: "Yurt Registry",
 											imagePrefix,
 											serverId,
 											isEditing: !!registryId,

@@ -1,64 +1,61 @@
 <div align="center">
-  <a href="https://dokploy.com">
-    <img src=".github/sponsors/logo.png" alt="Dokploy - Open Source Alternative to Vercel, Heroku and Netlify." width="100%"  />
-  </a>
-  </br>
-  </br>
-  <p>Join us on Discord for help, feedback, and discussions!</p>
-  <a href="https://discord.gg/2tBnJ3jDJc">
-    <img src="https://discordapp.com/api/guilds/1234073262418563112/widget.png?style=banner2" alt="Discord Shield"/>
-  </a>
+  <h1>Yurt</h1>
+  <p><strong>Kendi sunucunuzda barındırabileceğiniz, açık kaynak PaaS platformu</strong></p>
+  <p>Vercel, Heroku ve Netlify'a Türkçe alternatif</p>
+  <p><a href="https://github.com/dokploy/dokploy">Dokploy</a> fork'u — güvenlik yamaları ve Türkçe arayüz ile</p>
 </div>
-<br />
 
+## Özellikler
 
-Dokploy is a free, self-hostable Platform as a Service (PaaS) that simplifies the deployment and management of applications and databases.
+- **Uygulamalar**: Her türlü uygulamayı dağıtın (Node.js, PHP, Python, Go, Ruby, vb.)
+- **Veritabanları**: MySQL, PostgreSQL, MongoDB, MariaDB, libsql ve Redis desteği
+- **Yedeklemeler**: Veritabanı yedeklerini harici depolamaya otomatik olarak alın
+- **Docker Compose**: Karmaşık uygulamalar için yerel Docker Compose desteği
+- **Çoklu Sunucu**: Docker Swarm ile uygulamalarınızı birden fazla sunucuya ölçeklendirin
+- **Şablonlar**: Açık kaynak şablonları (Plausible, Pocketbase, Calcom, vb.) tek tıkla dağıtın
+- **Traefik Entegrasyonu**: Yönlendirme ve yük dengeleme için otomatik Traefik entegrasyonu
+- **Gerçek Zamanlı İzleme**: CPU, bellek, depolama ve ağ kullanımını izleyin
+- **Bildirimler**: Slack, Discord, Telegram, E-posta ve **Netgsm SMS** ile bildirim alın
+- **CLI/API**: Komut satırı veya API ile uygulamalarınızı yönetin
+- **Türkçe Arayüz**: Tamamen Türkçeleştirilmiş kullanıcı arayüzü
 
-## ✨ Features
+## Hızlı Başlangıç
 
-Dokploy includes multiple features to make your life easier.
-
-- **Applications**: Deploy any type of application (Node.js, PHP, Python, Go, Ruby, etc.).
-- **Databases**: Create and manage databases with support for MySQL, PostgreSQL, MongoDB, MariaDB, libsql, and Redis.
-- **Backups**: Automate backups for databases to an external storage destination.
-- **Docker Compose**: Native support for Docker Compose to manage complex applications.
-- **Multi Node**: Scale applications to multiple nodes using Docker Swarm to manage the cluster.
-- **Templates**: Deploy open-source templates (Plausible, Pocketbase, Calcom, etc.) with a single click.
-- **Traefik Integration**: Automatically integrates with Traefik for routing and load balancing.
-- **Real-time Monitoring**: Monitor CPU, memory, storage, and network usage for every resource.
-- **Docker Management**: Easily deploy and manage Docker containers.
-- **CLI/API**: Manage your applications and databases using the command line or through the API.
-- **Notifications**: Get notified when your deployments succeed or fail (via Slack, Discord, Telegram, Email, etc.).
-- **Multi Server**: Deploy and manage your applications remotely to external servers.
-- **Self-Hosted**: Self-host Dokploy on your VPS.
-
-## 🚀 Getting Started
-
-To get started, run the following command on a VPS:
-
-Want to skip the installation process? [Try the Dokploy Cloud](https://app.dokploy.com).
+VPS sunucunuzda aşağıdaki komutu çalıştırın:
 
 ```bash
-curl -sSL https://dokploy.com/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/karemyazilim/dokploy/main/install.sh | bash
 ```
 
-For detailed documentation, visit [docs.dokploy.com](https://docs.dokploy.com).
+## Güvenlik İyileştirmeleri
 
+Bu fork, orijinal Dokploy'a ek olarak şu güvenlik yamalarını içerir:
 
-[Github Sponsors](https://github.com/sponsors/Siumauricio)
+| Yama | Açıklama |
+|------|----------|
+| Kriptografik parola üretimi | `Math.random()` yerine `crypto.randomBytes()` |
+| SSH command injection koruması | Shell-escape ile güvenli komut çalıştırma |
+| WebSocket tenant isolation | Organizasyon seviyesinde sunucu erişim kontrolü |
+| Güvenli install.sh | `chmod 750`, Docker Secrets, Redis şifreli |
+| Hardcoded şifre temizliği | `.env.example`'dan varsayılan şifre kaldırıldı |
 
-### Contributors 🤝
+## Geliştirme
 
-<a href="https://github.com/dokploy/dokploy/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=dokploy/dokploy" alt="Contributors" />
-</a>
+```bash
+# Bağımlılıkları kur
+pnpm install
 
-## 📺 Video Tutorial
+# Geliştirme sunucusunu başlat
+pnpm dokploy:dev
 
-<a href="https://youtu.be/mznYKPvhcfw">
-  <img src="https://dokploy.com/banner.png" alt="Watch the video" width="400"/>
-</a>
+# Build
+pnpm dokploy:build
+```
 
-## 🤝 Contributing
+## Lisans
 
-Check out the [Contributing Guide](CONTRIBUTING.md) for more information.
+Apache License 2.0 — Orijinal [Dokploy](https://github.com/dokploy/dokploy) projesi temel alınmıştır.
+
+## Katkıda Bulunun
+
+Pull request'ler kabul edilir! Lütfen önce bir issue açın.

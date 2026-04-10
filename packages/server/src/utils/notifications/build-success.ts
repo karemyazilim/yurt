@@ -12,6 +12,7 @@ import {
 	sendGotifyNotification,
 	sendLarkNotification,
 	sendMattermostNotification,
+	sendNetgsmNotification,
 	sendNtfyNotification,
 	sendPushoverNotification,
 	sendResendNotification,
@@ -59,6 +60,7 @@ export const sendBuildSuccessNotifications = async ({
 			lark: true,
 			pushover: true,
 			teams: true,
+			netgsm: true,
 		},
 	});
 
@@ -76,6 +78,7 @@ export const sendBuildSuccessNotifications = async ({
 			lark,
 			pushover,
 			teams,
+			netgsm,
 		} = notification;
 		try {
 			if (email || resend) {
@@ -93,7 +96,7 @@ export const sendBuildSuccessNotifications = async ({
 				if (email) {
 					await sendEmailNotification(
 						email,
-						"Build success for dokploy",
+						"Yurt derleme başarılı",
 						template,
 					);
 				}
@@ -101,7 +104,7 @@ export const sendBuildSuccessNotifications = async ({
 				if (resend) {
 					await sendResendNotification(
 						resend,
-						"Build success for dokploy",
+						"Yurt derleme başarılı",
 						template,
 					);
 				}
@@ -157,7 +160,7 @@ export const sendBuildSuccessNotifications = async ({
 					],
 					timestamp: date.toISOString(),
 					footer: {
-						text: "Dokploy Build Notification",
+						text: "Yurt Derleme Bildirimi",
 					},
 				});
 			}
@@ -272,7 +275,7 @@ export const sendBuildSuccessNotifications = async ({
 				await sendMattermostNotification(mattermost, {
 					text: `**✅ Build Success**\n\n**Project:** ${projectName}\n**Application:** ${applicationName}\n**Type:** ${applicationType}\n**Date:** ${format(date, "PP")}\n**Time:** ${format(date, "pp")}\n\n[View Build Details](${buildLink})`,
 					channel: mattermost.channel,
-					username: mattermost.username || "Dokploy",
+					username: mattermost.username || "Yurt",
 				});
 			}
 
@@ -426,6 +429,14 @@ export const sendBuildSuccessNotifications = async ({
 						url: buildLink,
 					},
 				});
+			}
+
+			if (netgsm) {
+				await sendNetgsmNotification(
+					netgsm,
+					"Build Success",
+					`Project: ${projectName}\nApplication: ${applicationName}\nEnvironment: ${environmentName}\nType: ${applicationType}\nDate: ${date.toLocaleString()}`,
+				);
 			}
 		} catch (error) {
 			console.log(error);

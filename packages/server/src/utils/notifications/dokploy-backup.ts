@@ -11,6 +11,7 @@ import {
 	sendGotifyNotification,
 	sendLarkNotification,
 	sendMattermostNotification,
+	sendNetgsmNotification,
 	sendNtfyNotification,
 	sendPushoverNotification,
 	sendResendNotification,
@@ -45,6 +46,7 @@ export const sendDokployBackupNotifications = async ({
 			lark: true,
 			pushover: true,
 			teams: true,
+			netgsm: true,
 		},
 	});
 
@@ -62,6 +64,7 @@ export const sendDokployBackupNotifications = async ({
 			lark,
 			pushover,
 			teams,
+			netgsm,
 		} = notification;
 
 		try {
@@ -78,7 +81,7 @@ export const sendDokployBackupNotifications = async ({
 				if (email) {
 					await sendEmailNotification(
 						email,
-						"Dokploy instance backup",
+						"Yurt sunucu yedeklemesi",
 						template,
 					);
 				}
@@ -86,7 +89,7 @@ export const sendDokployBackupNotifications = async ({
 				if (resend) {
 					await sendResendNotification(
 						resend,
-						"Dokploy instance backup",
+						"Yurt sunucu yedeklemesi",
 						template,
 					);
 				}
@@ -99,13 +102,13 @@ export const sendDokployBackupNotifications = async ({
 				await sendDiscordNotification(discord, {
 					title:
 						type === "success"
-							? decorate(">", "`✅` Dokploy Backup Successful")
-							: decorate(">", "`❌` Dokploy Backup Failed"),
+							? decorate(">", "`✅` Yurt Yedekleme Başarılı")
+							: decorate(">", "`❌` Yurt Yedekleme Başarısız"),
 					color: type === "success" ? 0x57f287 : 0xed4245,
 					fields: [
 						{
 							name: decorate("`📦`", "Backup Type"),
-							value: "Complete Dokploy Instance",
+							value: "Yurt Sunucu Tam Yedekleme",
 							inline: true,
 						},
 						...(backupSize
@@ -145,7 +148,7 @@ export const sendDokployBackupNotifications = async ({
 					],
 					timestamp: date.toISOString(),
 					footer: {
-						text: "Dokploy Instance Backup Notification",
+						text: "Yurt Sunucu Yedekleme Bildirimi",
 					},
 				});
 			}
@@ -158,9 +161,9 @@ export const sendDokployBackupNotifications = async ({
 					gotify,
 					decorate(
 						type === "success" ? "✅" : "❌",
-						`Dokploy Backup ${type === "success" ? "Successful" : "Failed"}`,
+						`Yurt Yedekleme ${type === "success" ? "Başarılı" : "Başarısız"}`,
 					),
-					`${decorate("📦", "Backup Type: Complete Dokploy Instance")}` +
+					`${decorate("📦", "Yedekleme Türü: Yurt Sunucu Tam Yedekleme")}` +
 						`${backupSize ? decorate("💾", `Backup Size: ${backupSize}`) : ""}` +
 						`${decorate("🕒", `Date: ${date.toLocaleString()}`)}` +
 						`${type === "error" && errorMessage ? decorate("❌", `Error:\n${errorMessage}`) : ""}`,
@@ -170,10 +173,10 @@ export const sendDokployBackupNotifications = async ({
 			if (ntfy) {
 				await sendNtfyNotification(
 					ntfy,
-					`Dokploy Backup ${type === "success" ? "Successful" : "Failed"}`,
+					`Yurt Yedekleme ${type === "success" ? "Başarılı" : "Başarısız"}`,
 					`${type === "success" ? "white_check_mark" : "x"}`,
 					"",
-					"📦Backup Type: Complete Dokploy Instance\n" +
+					"📦Yedekleme Türü: Yurt Sunucu Tam Yedekleme\n" +
 						`${backupSize ? `💾Backup Size: ${backupSize}\n` : ""}` +
 						`🕒Date: ${date.toLocaleString()}\n` +
 						`${type === "error" && errorMessage ? `❌Error:\n${errorMessage}` : ""}`,
@@ -192,7 +195,7 @@ export const sendDokployBackupNotifications = async ({
 					? `\n<b>Backup Size:</b> ${backupSize}`
 					: "";
 
-				const messageText = `<b>${statusEmoji} Dokploy Backup ${typeStatus}</b>\n\n<b>Backup Type:</b> Complete Dokploy Instance${sizeInfo}\n<b>Date:</b> ${format(date, "PP")}\n<b>Time:</b> ${format(date, "pp")}${isError ? errorMsg : ""}`;
+				const messageText = `<b>${statusEmoji} Yurt Yedekleme ${typeStatus}</b>\n\n<b>Yedekleme Türü:</b> Yurt Sunucu Tam Yedekleme${sizeInfo}\n<b>Date:</b> ${format(date, "PP")}\n<b>Time:</b> ${format(date, "pp")}${isError ? errorMsg : ""}`;
 
 				await sendTelegramNotification(telegram, messageText);
 			}
@@ -206,8 +209,8 @@ export const sendDokployBackupNotifications = async ({
 							color: type === "success" ? "#00FF00" : "#FF0000",
 							pretext:
 								type === "success"
-									? ":white_check_mark: *Dokploy Backup Successful*"
-									: ":x: *Dokploy Backup Failed*",
+									? ":white_check_mark: *Yurt Yedekleme Başarılı*"
+									: ":x: *Yurt Yedekleme Başarısız*",
 							fields: [
 								...(type === "error" && errorMessage
 									? [
@@ -220,7 +223,7 @@ export const sendDokployBackupNotifications = async ({
 									: []),
 								{
 									title: "Backup Type",
-									value: "Complete Dokploy Instance",
+									value: "Yurt Sunucu Tam Yedekleme",
 									short: true,
 								},
 								...(backupSize
@@ -276,8 +279,8 @@ export const sendDokployBackupNotifications = async ({
 								tag: "plain_text",
 								content:
 									type === "success"
-										? "✅ Dokploy Backup Successful"
-										: "❌ Dokploy Backup Failed",
+										? "✅ Yurt Yedekleme Başarılı"
+										: "❌ Yurt Yedekleme Başarısız",
 							},
 							subtitle: {
 								tag: "plain_text",
@@ -300,7 +303,7 @@ export const sendDokployBackupNotifications = async ({
 												{
 													tag: "markdown",
 													content:
-														"**Backup Type:**\nComplete Dokploy Instance",
+														"**Yedekleme Türü:**\nYurt Sunucu Tam Yedekleme",
 													text_align: "left",
 													text_size: "normal_v2",
 												},
@@ -360,21 +363,21 @@ export const sendDokployBackupNotifications = async ({
 				const statusEmoji = type === "success" ? ":white_check_mark:" : ":x:";
 				const typeStatus = type === "success" ? "Successful" : "Failed";
 				await sendMattermostNotification(mattermost, {
-					text: `${statusEmoji} **Dokploy Backup ${typeStatus}**
+					text: `${statusEmoji} **Yurt Yedekleme ${typeStatus}**
 
-**Backup Type:** Complete Dokploy Instance${backupSize ? `\n**Backup Size:** ${backupSize}` : ""}
+**Yedekleme Türü:** Yurt Sunucu Tam Yedekleme${backupSize ? `\n**Backup Size:** ${backupSize}` : ""}
 **Date:** ${date.toLocaleString()}
 **Status:** ${typeStatus}${type === "error" && errorMessage ? `\n\n**Error:**\n\`\`\`\n${errorMessage}\n\`\`\`` : ""}`,
 					channel: mattermost.channel,
-					username: mattermost.username || "Dokploy Bot",
+					username: mattermost.username || "Yurt Bot",
 				});
 			}
 
 			if (custom) {
 				await sendCustomNotification(custom, {
-					title: `Dokploy Backup ${type === "success" ? "Successful" : "Failed"}`,
-					message: `Dokploy instance backup ${type === "success" ? "completed successfully" : "failed"}`,
-					backupType: "Complete Dokploy Instance",
+					title: `Yurt Yedekleme ${type === "success" ? "Başarılı" : "Başarısız"}`,
+					message: `Yurt sunucu yedeklemesi ${type === "success" ? "başarıyla tamamlandı" : "başarısız oldu"}`,
+					backupType: "Yurt Sunucu Tam Yedekleme",
 					...(backupSize ? { backupSize } : {}),
 					...(type === "error" && errorMessage ? { errorMessage } : {}),
 					timestamp: date.toISOString(),
@@ -387,16 +390,16 @@ export const sendDokployBackupNotifications = async ({
 			if (pushover) {
 				await sendPushoverNotification(
 					pushover,
-					`Dokploy Backup ${type === "success" ? "Successful" : "Failed"}`,
-					`Backup Type: Complete Dokploy Instance${backupSize ? `\nBackup Size: ${backupSize}` : ""}\nDate: ${date.toLocaleString()}${type === "error" && errorMessage ? `\nError: ${errorMessage}` : ""}`,
+					`Yurt Yedekleme ${type === "success" ? "Başarılı" : "Başarısız"}`,
+					`Yedekleme Türü: Yurt Sunucu Tam Yedekleme${backupSize ? `\nYedek Boyutu: ${backupSize}` : ""}\nTarih: ${date.toLocaleString()}${type === "error" && errorMessage ? `\nHata: ${errorMessage}` : ""}`,
 				);
 			}
 
 			if (teams) {
 				await sendTeamsNotification(teams, {
-					title: `${type === "success" ? "✅" : "❌"} Dokploy Backup ${type === "success" ? "Successful" : "Failed"}`,
+					title: `${type === "success" ? "✅" : "❌"} Yurt Yedekleme ${type === "success" ? "Başarılı" : "Başarısız"}`,
 					facts: [
-						{ name: "Backup Type", value: "Complete Dokploy Instance" },
+						{ name: "Backup Type", value: "Yurt Sunucu Tam Yedekleme" },
 						...(backupSize ? [{ name: "Backup Size", value: backupSize }] : []),
 						{ name: "Date", value: format(date, "PP pp") },
 						{
@@ -408,6 +411,14 @@ export const sendDokployBackupNotifications = async ({
 							: []),
 					],
 				});
+			}
+
+			if (netgsm) {
+				await sendNetgsmNotification(
+					netgsm,
+					`Yurt Yedekleme ${type === "success" ? "Başarılı" : "Başarısız"}`,
+					`Yedekleme Türü: Yurt Sunucu Tam Yedekleme${backupSize ? `\nYedek Boyutu: ${backupSize}` : ""}\nTarih: ${date.toLocaleString()}${type === "error" && errorMessage ? `\nHata: ${errorMessage}` : ""}`,
+				);
 			}
 		} catch (error) {
 			console.error(error);

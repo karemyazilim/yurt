@@ -25,6 +25,7 @@ export const notificationType = pgEnum("notificationType", [
 	"custom",
 	"lark",
 	"teams",
+	"netgsm",
 ]);
 
 export const notifications = pgTable("notification", {
@@ -79,6 +80,9 @@ export const notifications = pgTable("notification", {
 		onDelete: "cascade",
 	}),
 	teamsId: text("teamsId").references(() => teams.teamsId, {
+		onDelete: "cascade",
+	}),
+	netgsmId: text("netgsmId").references(() => netgsm.netgsmId, {
 		onDelete: "cascade",
 	}),
 	organizationId: text("organizationId")
@@ -206,6 +210,17 @@ export const teams = pgTable("teams", {
 	webhookUrl: text("webhookUrl").notNull(),
 });
 
+export const netgsm = pgTable("netgsm", {
+	netgsmId: text("netgsmId")
+		.notNull()
+		.primaryKey()
+		.$defaultFn(() => nanoid()),
+	usercode: text("usercode").notNull(),
+	password: text("password").notNull(),
+	msgheader: text("msgheader").notNull(),
+	phone: text("phone").notNull(),
+});
+
 export const notificationsRelations = relations(notifications, ({ one }) => ({
 	slack: one(slack, {
 		fields: [notifications.slackId],
@@ -254,6 +269,10 @@ export const notificationsRelations = relations(notifications, ({ one }) => ({
 	teams: one(teams, {
 		fields: [notifications.teamsId],
 		references: [teams.teamsId],
+	}),
+	netgsm: one(netgsm, {
+		fields: [notifications.netgsmId],
+		references: [netgsm.netgsmId],
 	}),
 	organization: one(organization, {
 		fields: [notifications.organizationId],
@@ -621,6 +640,39 @@ export const apiUpdateTeams = apiCreateTeams.partial().extend({
 
 export const apiTestTeamsConnection = apiCreateTeams.pick({
 	webhookUrl: true,
+});
+
+export const apiCreateNetgsm = notificationsSchema
+	.pick({
+		appBuildError: true,
+		databaseBackup: true,
+		dokployBackup: true,
+		volumeBackup: true,
+		dokployRestart: true,
+		name: true,
+		appDeploy: true,
+		dockerCleanup: true,
+		serverThreshold: true,
+	})
+	.extend({
+		usercode: z.string().min(1),
+		password: z.string().min(1),
+		msgheader: z.string().min(1),
+		phone: z.string().min(1),
+	})
+	.required();
+
+export const apiUpdateNetgsm = apiCreateNetgsm.partial().extend({
+	notificationId: z.string().min(1),
+	netgsmId: z.string().min(1),
+	organizationId: z.string().optional(),
+});
+
+export const apiTestNetgsmConnection = apiCreateNetgsm.pick({
+	usercode: true,
+	password: true,
+	msgheader: true,
+	phone: true,
 });
 
 export const apiCreatePushover = notificationsSchema

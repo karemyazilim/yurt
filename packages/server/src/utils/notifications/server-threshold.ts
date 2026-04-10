@@ -6,6 +6,7 @@ import {
 	sendDiscordNotification,
 	sendLarkNotification,
 	sendMattermostNotification,
+	sendNetgsmNotification,
 	sendPushoverNotification,
 	sendSlackNotification,
 	sendTeamsNotification,
@@ -44,6 +45,7 @@ export const sendServerThresholdNotifications = async (
 			lark: true,
 			pushover: true,
 			teams: true,
+			netgsm: true,
 		},
 	});
 
@@ -60,6 +62,7 @@ export const sendServerThresholdNotifications = async (
 			lark,
 			pushover,
 			teams,
+			netgsm,
 		} = notification;
 
 		try {
@@ -108,7 +111,7 @@ export const sendServerThresholdNotifications = async (
 					],
 					timestamp: date.toISOString(),
 					footer: {
-						text: "Dokploy Server Monitoring Alert",
+						text: "Yurt Sunucu İzleme Uyarısı",
 					},
 				});
 			}
@@ -176,7 +179,7 @@ export const sendServerThresholdNotifications = async (
 				await sendMattermostNotification(mattermost, {
 					text: `**⚠️ Server ${payload.Type} Alert**\n\n**Server Name:** ${payload.ServerName}\n**Type:** ${payload.Type}\n**Current Value:** ${payload.Value.toFixed(2)}%\n**Threshold:** ${payload.Threshold.toFixed(2)}%\n**Message:** ${payload.Message}\n**Time:** ${date.toLocaleString()}`,
 					channel: mattermost.channel,
-					username: mattermost.username || "Dokploy",
+					username: mattermost.username || "Yurt",
 				});
 			}
 
@@ -314,6 +317,14 @@ export const sendServerThresholdNotifications = async (
 					{ name: "Message", value: payload.Message },
 				],
 			});
+		}
+
+		if (netgsm) {
+			await sendNetgsmNotification(
+				netgsm,
+				`Server ${payload.Type} Alert`,
+				`Server: ${payload.ServerName}\nType: ${payload.Type}\nCurrent: ${payload.Value.toFixed(2)}%\nThreshold: ${payload.Threshold.toFixed(2)}%\nMessage: ${payload.Message}\nTime: ${date.toLocaleString()}`,
+			);
 		}
 	}
 };

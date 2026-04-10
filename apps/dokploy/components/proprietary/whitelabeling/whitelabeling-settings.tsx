@@ -288,10 +288,10 @@ export function WhitelabelingSettings() {
 									<FormItem>
 										<FormLabel>Application Name</FormLabel>
 										<FormControl>
-											<Input placeholder="Dokploy" {...field} />
+											<Input placeholder="Yurt" {...field} />
 										</FormControl>
 										<FormDescription>
-											Replaces "Dokploy" across the entire interface.
+											Tüm arayüzde "Yurt" adını değiştirir.
 										</FormDescription>
 										<FormMessage />
 									</FormItem>
@@ -449,10 +449,10 @@ export function WhitelabelingSettings() {
 									<FormItem>
 										<FormLabel>Page Title</FormLabel>
 										<FormControl>
-											<Input placeholder="Dokploy" {...field} />
+											<Input placeholder="Yurt" {...field} />
 										</FormControl>
 										<FormDescription>
-											Browser tab title. Defaults to "Dokploy" if empty.
+											Tarayıcı sekme başlığı. Boş bırakılırsa "Yurt" kullanılır.
 										</FormDescription>
 										<FormMessage />
 									</FormItem>

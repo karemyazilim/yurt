@@ -150,20 +150,20 @@ const MENU: Menu = {
 	home: [
 		{
 			isSingle: true,
-			title: "Projects",
+			title: "Projeler",
 			url: "/dashboard/projects",
 			icon: Folder,
 		},
 		{
 			isSingle: true,
-			title: "Deployments",
+			title: "Dağıtımlar",
 			url: "/dashboard/deployments",
 			icon: Rocket,
 			isEnabled: ({ permissions }) => !!permissions?.deployment.read,
 		},
 		{
 			isSingle: true,
-			title: "Monitoring",
+			title: "İzleme",
 			url: "/dashboard/monitoring",
 			icon: BarChartHorizontalBigIcon,
 			// Only enabled in non-cloud environments and if user has monitoring.read
@@ -172,7 +172,7 @@ const MENU: Menu = {
 		},
 		{
 			isSingle: true,
-			title: "Schedules",
+			title: "Zamanlamalar",
 			url: "/dashboard/schedules",
 			icon: Clock,
 			// Only enabled in non-cloud environments
@@ -181,7 +181,7 @@ const MENU: Menu = {
 		},
 		{
 			isSingle: true,
-			title: "Traefik File System",
+			title: "Traefik Dosya Sistemi",
 			url: "/dashboard/traefik",
 			icon: GalleryVerticalEnd,
 			// Only enabled for users with access to Traefik files in non-cloud environments
@@ -208,7 +208,7 @@ const MENU: Menu = {
 		},
 		{
 			isSingle: true,
-			title: "Requests",
+			title: "İstekler",
 			url: "/dashboard/requests",
 			icon: Forward,
 			// Only enabled for users with access to Docker in non-cloud environments
@@ -276,7 +276,7 @@ const MENU: Menu = {
 	settings: [
 		{
 			isSingle: true,
-			title: "Web Server",
+			title: "Web Sunucusu",
 			url: "/dashboard/settings/server",
 			icon: Activity,
 			// Only enabled for admins in non-cloud environments
@@ -285,20 +285,20 @@ const MENU: Menu = {
 		},
 		{
 			isSingle: true,
-			title: "Profile",
+			title: "Profil",
 			url: "/dashboard/settings/profile",
 			icon: User,
 		},
 		{
 			isSingle: true,
-			title: "Remote Servers",
+			title: "Uzak Sunucular",
 			url: "/dashboard/settings/servers",
 			icon: Server,
 			isEnabled: ({ permissions }) => !!permissions?.server.read,
 		},
 		{
 			isSingle: true,
-			title: "Users",
+			title: "Kullanıcılar",
 			icon: Users,
 			url: "/dashboard/settings/users",
 			// Only enabled for users with member.read permission
@@ -306,14 +306,14 @@ const MENU: Menu = {
 		},
 		{
 			isSingle: true,
-			title: "Audit Logs",
+			title: "Denetim Kayıtları",
 			icon: ClipboardList,
 			url: "/dashboard/settings/audit-logs",
 			isEnabled: ({ permissions }) => !!permissions?.auditLog.read,
 		},
 		{
 			isSingle: true,
-			title: "SSH Keys",
+			title: "SSH Anahtarları",
 			icon: KeyRound,
 			url: "/dashboard/settings/ssh-keys",
 			// Only enabled for users with access to SSH keys
@@ -328,7 +328,7 @@ const MENU: Menu = {
 		},
 		{
 			isSingle: true,
-			title: "Tags",
+			title: "Etiketler",
 			url: "/dashboard/settings/tags",
 			icon: Tags,
 			isEnabled: ({ permissions }) => !!permissions?.tag.read,
@@ -343,14 +343,14 @@ const MENU: Menu = {
 		},
 		{
 			isSingle: true,
-			title: "Registry",
+			title: "Kayıt Defteri",
 			url: "/dashboard/settings/registry",
 			icon: Package,
 			isEnabled: ({ permissions }) => !!permissions?.registry.read,
 		},
 		{
 			isSingle: true,
-			title: "S3 Destinations",
+			title: "S3 Hedefleri",
 			url: "/dashboard/settings/destinations",
 			icon: Database,
 			isEnabled: ({ permissions }) => !!permissions?.destination.read,
@@ -358,14 +358,14 @@ const MENU: Menu = {
 
 		{
 			isSingle: true,
-			title: "Certificates",
+			title: "Sertifikalar",
 			url: "/dashboard/settings/certificates",
 			icon: ShieldCheck,
 			isEnabled: ({ permissions }) => !!permissions?.certificate.read,
 		},
 		{
 			isSingle: true,
-			title: "Cluster",
+			title: "Küme",
 			url: "/dashboard/settings/cluster",
 			icon: Boxes,
 			// Only enabled for admins in non-cloud environments
@@ -374,7 +374,7 @@ const MENU: Menu = {
 		},
 		{
 			isSingle: true,
-			title: "Notifications",
+			title: "Bildirimler",
 			url: "/dashboard/settings/notifications",
 			icon: Bell,
 			// Only enabled for users with access to notifications
@@ -382,7 +382,7 @@ const MENU: Menu = {
 		},
 		{
 			isSingle: true,
-			title: "Billing",
+			title: "Faturalandırma",
 			url: "/dashboard/settings/billing",
 			icon: CreditCard,
 			// Only enabled for owners in cloud environments
@@ -390,7 +390,7 @@ const MENU: Menu = {
 		},
 		{
 			isSingle: true,
-			title: "License",
+			title: "Lisans",
 			url: "/dashboard/settings/license",
 			icon: Key,
 			// Only enabled for owners
@@ -406,7 +406,7 @@ const MENU: Menu = {
 		},
 		{
 			isSingle: true,
-			title: "Whitelabeling",
+			title: "Marka Özelleştirme",
 			url: "/dashboard/settings/whitelabeling",
 			icon: Palette,
 			// Only enabled for owners in non-cloud environments (enterprise)
@@ -416,12 +416,12 @@ const MENU: Menu = {
 
 	help: [
 		{
-			name: "Documentation",
+			name: "Dokümantasyon",
 			url: "https://docs.dokploy.com/docs/core",
 			icon: BookIcon,
 		},
 		{
-			name: "Support",
+			name: "Destek",
 			url: "https://discord.gg/2tBnJ3jDJc",
 			icon: CircleHelp,
 		},
@@ -460,10 +460,10 @@ function createMenuForAuthUser(opts: {
 
 	// Apply whitelabeling URL overrides to help items
 	const helpItems = filterEnabled(MENU.help).map((item) => {
-		if (opts.whitelabeling?.docsUrl && item.name === "Documentation") {
+		if (opts.whitelabeling?.docsUrl && item.name === "Dokümantasyon") {
 			return { ...item, url: opts.whitelabeling.docsUrl };
 		}
-		if (opts.whitelabeling?.supportUrl && item.name === "Support") {
+		if (opts.whitelabeling?.supportUrl && item.name === "Destek") {
 			return { ...item, url: opts.whitelabeling.supportUrl };
 		}
 		return item;
@@ -1154,7 +1154,7 @@ export default function Page({ children }: Props) {
 						)}
 						{dokployVersion && (
 							<div className="px-3 text-xs text-muted-foreground text-center group-data-[collapsible=icon]:hidden">
-								Version {dokployVersion}
+								Sürüm {dokployVersion}
 							</div>
 						)}
 					</SidebarMenu>

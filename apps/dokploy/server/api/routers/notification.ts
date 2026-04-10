@@ -5,6 +5,7 @@ import {
 	createGotifyNotification,
 	createLarkNotification,
 	createMattermostNotification,
+	createNetgsmNotification,
 	createNtfyNotification,
 	createPushoverNotification,
 	createResendNotification,
@@ -21,6 +22,7 @@ import {
 	sendGotifyNotification,
 	sendLarkNotification,
 	sendMattermostNotification,
+	sendNetgsmNotification,
 	sendNtfyNotification,
 	sendPushoverNotification,
 	sendResendNotification,
@@ -34,6 +36,7 @@ import {
 	updateGotifyNotification,
 	updateLarkNotification,
 	updateMattermostNotification,
+	updateNetgsmNotification,
 	updateNtfyNotification,
 	updatePushoverNotification,
 	updateResendNotification,
@@ -58,6 +61,7 @@ import {
 	apiCreateGotify,
 	apiCreateLark,
 	apiCreateMattermost,
+	apiCreateNetgsm,
 	apiCreateNtfy,
 	apiCreatePushover,
 	apiCreateResend,
@@ -71,6 +75,7 @@ import {
 	apiTestGotifyConnection,
 	apiTestLarkConnection,
 	apiTestMattermostConnection,
+	apiTestNetgsmConnection,
 	apiTestNtfyConnection,
 	apiTestPushoverConnection,
 	apiTestResendConnection,
@@ -83,6 +88,7 @@ import {
 	apiUpdateGotify,
 	apiUpdateLark,
 	apiUpdateMattermost,
+	apiUpdateNetgsm,
 	apiUpdateNtfy,
 	apiUpdatePushover,
 	apiUpdateResend,
@@ -484,6 +490,7 @@ export const notificationRouter = createTRPCRouter({
 				lark: true,
 				pushover: true,
 				teams: true,
+				netgsm: true,
 			},
 			orderBy: desc(notifications.createdAt),
 			where: eq(notifications.organizationId, ctx.session.activeOrganizationId),
@@ -518,7 +525,7 @@ export const notificationRouter = createTRPCRouter({
 					}
 
 					organizationId = "";
-					ServerName = "Dokploy";
+					ServerName = "Yurt";
 				} else {
 					const result = await db
 						.select()
@@ -742,7 +749,7 @@ export const notificationRouter = createTRPCRouter({
 				await sendMattermostNotification(input, {
 					text: "Hi, From Dokploy 👋",
 					channel: input.channel,
-					username: input.username || "Dokploy Bot",
+					username: input.username || "Yurt Bot",
 				});
 				return true;
 			} catch (error) {
@@ -1000,6 +1007,71 @@ export const notificationRouter = createTRPCRouter({
 		.mutation(async ({ input }) => {
 			try {
 				await sendPushoverNotification(
+					input,
+					"Test Notification",
+					"Hi, From Dokploy 👋",
+				);
+				return true;
+			} catch (error) {
+				throw new TRPCError({
+					code: "BAD_REQUEST",
+					message: "Error testing the notification",
+					cause: error,
+				});
+			}
+		}),
+	createNetgsm: withPermission("notification", "create")
+		.input(apiCreateNetgsm)
+		.mutation(async ({ input, ctx }) => {
+			try {
+				await createNetgsmNotification(input, ctx.session.activeOrganizationId);
+				await audit(ctx, {
+					action: "create",
+					resourceType: "notification",
+					resourceName: input.name,
+				});
+			} catch (error) {
+				throw new TRPCError({
+					code: "BAD_REQUEST",
+					message: "Error creating the notification",
+					cause: error,
+				});
+			}
+		}),
+	updateNetgsm: withPermission("notification", "update")
+		.input(apiUpdateNetgsm)
+		.mutation(async ({ input, ctx }) => {
+			try {
+				const notification = await findNotificationById(input.notificationId);
+				if (
+					IS_CLOUD &&
+					notification.organizationId !== ctx.session.activeOrganizationId
+				) {
+					throw new TRPCError({
+						code: "UNAUTHORIZED",
+						message: "You are not authorized to update this notification",
+					});
+				}
+				const result = await updateNetgsmNotification({
+					...input,
+					organizationId: ctx.session.activeOrganizationId,
+				});
+				await audit(ctx, {
+					action: "update",
+					resourceType: "notification",
+					resourceId: input.notificationId,
+					resourceName: notification.name,
+				});
+				return result;
+			} catch (error) {
+				throw error;
+			}
+		}),
+	testNetgsmConnection: withPermission("notification", "create")
+		.input(apiTestNetgsmConnection)
+		.mutation(async ({ input }) => {
+			try {
+				await sendNetgsmNotification(
 					input,
 					"Test Notification",
 					"Hi, From Dokploy 👋",

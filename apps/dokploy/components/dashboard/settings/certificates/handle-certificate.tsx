@@ -251,7 +251,7 @@ export const HandleCertificate = ({ certificateId }: Props) => {
 										>
 											<SelectTrigger>
 												<SelectValue
-													placeholder={!isCloud ? "Dokploy" : "Select a Server"}
+													placeholder={!isCloud ? "Yurt" : "Sunucu Seçin"}
 												/>
 											</SelectTrigger>
 											<SelectContent>

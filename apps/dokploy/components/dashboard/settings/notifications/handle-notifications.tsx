@@ -1526,7 +1526,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 												<FormItem>
 													<FormLabel>Username</FormLabel>
 													<FormControl>
-														<Input placeholder="Dokploy" {...field} />
+														<Input placeholder="Yurt" {...field} />
 													</FormControl>
 													<FormDescription>
 														Optional. Display name for the webhook.

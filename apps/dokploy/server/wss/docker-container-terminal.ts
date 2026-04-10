@@ -61,6 +61,17 @@ export const setupDockerContainerTerminalWebSocketServer = (
 		try {
 			if (serverId) {
 				const server = await findServerById(serverId);
+
+				// Tenant isolation: verify server belongs to user's organization
+				if (
+					server.organizationId &&
+					session.activeOrganizationId &&
+					server.organizationId !== session.activeOrganizationId
+				) {
+					ws.close(4003, "Server not accessible from this organization");
+					return;
+				}
+
 				if (!server.sshKeyId)
 					throw new Error("No SSH key available for this server");
 
@@ -69,16 +80,10 @@ export const setupDockerContainerTerminalWebSocketServer = (
 				let _stderr = "";
 				conn
 					.once("ready", () => {
-						// Use array-style arguments to prevent shell injection
-						const dockerCommand = [
-							"docker",
-							"exec",
-							"-it",
-							"-w",
-							"/",
-							containerId,
-							shell,
-						].join(" ");
+						// Shell-escape arguments for safe SSH execution
+						const safeId = containerId.replace(/'/g, "'\\''");
+						const safeShell = shell.replace(/'/g, "'\\''");
+						const dockerCommand = `docker exec -it -w / '${safeId}' '${safeShell}'`;
 						conn.exec(dockerCommand, { pty: true }, (err, stream) => {
 							if (err) {
 								console.error("SSH exec error:", err);
