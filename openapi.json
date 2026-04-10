@@ -1,16 +1,16 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Dokploy API",
-    "description": "Complete API documentation for Dokploy - Deploy applications, manage databases, and orchestrate your infrastructure. This API allows you to programmatically manage all aspects of your Dokploy instance.",
+    "title": "Yurt API",
+    "description": "Complete API documentation for Yurt - Deploy applications, manage databases, and orchestrate your infrastructure. This API allows you to programmatically manage all aspects of your Yurt instance.",
     "version": "1.0.0",
     "contact": {
-      "name": "Dokploy Team",
-      "url": "https://dokploy.com"
+      "name": "Yurt Team",
+      "url": "https://github.com/karemyazilim/yurt"
     },
     "license": {
       "name": "Apache 2.0",
-      "url": "https://github.com/dokploy/dokploy/blob/canary/LICENSE"
+      "url": "https://github.com/karemyazilim/yurt/blob/canary/LICENSE"
     }
   },
   "servers": [
@@ -133,7 +133,7 @@
   ],
   "externalDocs": {
     "description": "Full documentation",
-    "url": "https://docs.dokploy.com"
+    "url": "https://github.com/karemyazilim/yurt"
   },
   "paths": {
     "/admin.setupMonitoring": {
@@ -48964,7 +48964,7 @@
         "type": "apiKey",
         "in": "header",
         "name": "x-api-key",
-        "description": "API key authentication. Generate an API key from your Dokploy dashboard under Settings > API Keys."
+        "description": "API key authentication. Generate an API key from your Yurt dashboard under Settings > API Keys."
       }
     }
   },
