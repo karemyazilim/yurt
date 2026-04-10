@@ -35,8 +35,8 @@ import { Enable2FA } from "./enable-2fa";
 const profileSchema = z.object({
 	email: z
 		.string()
-		.email("Please enter a valid email address")
-		.min(1, "Email is required"),
+		.email("Lütfen geçerli bir e-posta adresi girin")
+		.min(1, "E-posta gereklidir"),
 	password: z.string().nullable(),
 	currentPassword: z.string().nullable(),
 	image: z.string().optional(),
@@ -133,7 +133,7 @@ export const ProfileForm = () => {
 				lastName: values.lastName || undefined,
 			});
 			await refetch();
-			toast.success("Profile Updated");
+			toast.success("Profil Güncellendi");
 			form.reset({
 				email: values.email,
 				password: "",
@@ -143,7 +143,7 @@ export const ProfileForm = () => {
 				lastName: values.lastName || "",
 			});
 		} catch (error) {
-			toast.error("Error updating the profile");
+			toast.error("Profil güncellenirken hata oluştu");
 		}
 	};
 
@@ -155,10 +155,10 @@ export const ProfileForm = () => {
 						<div>
 							<CardTitle className="text-xl flex flex-row gap-2">
 								<User className="size-6 text-muted-foreground self-center" />
-								Account
+								Hesap
 							</CardTitle>
 							<CardDescription>
-								Change the details of your profile here.
+								Profil bilgilerinizi buradan değiştirin.
 							</CardDescription>
 						</div>
 
@@ -169,7 +169,7 @@ export const ProfileForm = () => {
 						{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
 						{isPending ? (
 							<div className="flex flex-row gap-2 items-center justify-center text-sm text-muted-foreground min-h-[35vh]">
-								<span>Loading...</span>
+								<span>Yükleniyor...</span>
 								<Loader2 className="animate-spin size-4" />
 							</div>
 						) : (
@@ -185,7 +185,7 @@ export const ProfileForm = () => {
 												name="firstName"
 												render={({ field }) => (
 													<FormItem>
-														<FormLabel>First Name</FormLabel>
+														<FormLabel>Ad</FormLabel>
 														<FormControl>
 															<Input placeholder="John" {...field} />
 														</FormControl>
@@ -198,7 +198,7 @@ export const ProfileForm = () => {
 												name="lastName"
 												render={({ field }) => (
 													<FormItem>
-														<FormLabel>Last Name</FormLabel>
+														<FormLabel>Soyad</FormLabel>
 														<FormControl>
 															<Input placeholder="Doe" {...field} />
 														</FormControl>
@@ -211,9 +211,9 @@ export const ProfileForm = () => {
 												name="email"
 												render={({ field }) => (
 													<FormItem>
-														<FormLabel>Email</FormLabel>
+														<FormLabel>E-posta</FormLabel>
 														<FormControl>
-															<Input placeholder="Email" {...field} />
+															<Input placeholder="E-posta" {...field} />
 														</FormControl>
 														<FormMessage />
 													</FormItem>
@@ -224,11 +224,11 @@ export const ProfileForm = () => {
 												name="currentPassword"
 												render={({ field }) => (
 													<FormItem>
-														<FormLabel>Current Password</FormLabel>
+														<FormLabel>Mevcut Şifre</FormLabel>
 														<FormControl>
 															<Input
 																type="password"
-																placeholder="Current Password"
+																placeholder="Mevcut Şifre"
 																{...field}
 																value={field.value || ""}
 															/>
@@ -242,11 +242,11 @@ export const ProfileForm = () => {
 												name="password"
 												render={({ field }) => (
 													<FormItem>
-														<FormLabel>Password</FormLabel>
+														<FormLabel>Şifre</FormLabel>
 														<FormControl>
 															<Input
 																type="password"
-																placeholder="Password"
+																placeholder="Şifre"
 																{...field}
 																value={field.value || ""}
 															/>
@@ -339,7 +339,7 @@ export const ProfileForm = () => {
 																					// max file size 2mb
 																					if (file.size > 2 * 1024 * 1024) {
 																						toast.error(
-																							"Image size must be less than 2MB",
+																							"Görsel boyutu 2MB'den küçük olmalıdır",
 																						);
 																						return;
 																					}
@@ -422,13 +422,14 @@ export const ProfileForm = () => {
 													render={({ field }) => (
 														<FormItem className="flex flex-row items-center justify-between p-3 mt-4 border rounded-lg shadow-sm">
 															<div className="space-y-0.5">
-																<FormLabel>Allow Impersonation</FormLabel>
+																<FormLabel>Kimliğe Bürünmeye İzin Ver</FormLabel>
 																<FormDescription>
-																	Enable this option to allow Dokploy Cloud
-																	administrators to temporarily access your
-																	account for troubleshooting and support
-																	purposes. This helps them quickly identify and
-																	resolve any issues you may encounter.
+																	Dokploy Cloud yöneticilerinin sorun giderme ve
+																	destek amacıyla hesabınıza geçici olarak
+																	erişmesine izin vermek için bu seçeneği
+																	etkinleştirin. Bu, karşılaşabileceğiniz
+																	sorunları hızlıca tespit edip çözmelerine
+																	yardımcı olur.
 																</FormDescription>
 															</div>
 															<FormControl>
@@ -445,7 +446,7 @@ export const ProfileForm = () => {
 
 										<div className="flex items-center justify-end gap-2">
 											<Button type="submit" isLoading={isUpdating}>
-												Save
+												Kaydet
 											</Button>
 										</div>
 									</form>

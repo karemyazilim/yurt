@@ -39,9 +39,9 @@ const addInvitation = z
 		mode: z.enum(["invitation", "credentials"]),
 		email: z
 			.string()
-			.min(1, "Email is required")
-			.email({ message: "Invalid email" }),
-		role: z.string().min(1, "Role is required"),
+			.min(1, "E-posta gereklidir")
+			.email({ message: "Geçersiz e-posta" }),
+		role: z.string().min(1, "Rol gereklidir"),
 		notificationId: z.string().optional(),
 		password: z.string().optional(),
 		confirmPassword: z.string().optional(),
@@ -54,13 +54,13 @@ const addInvitation = z
 		if (!value.password) {
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
-				message: "Password is required",
+				message: "Şifre gereklidir",
 				path: ["password"],
 			});
 		} else if (value.password.length < 8) {
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
-				message: "Password must be at least 8 characters",
+				message: "Şifre en az 8 karakter olmalıdır",
 				path: ["password"],
 			});
 		}
@@ -68,13 +68,13 @@ const addInvitation = z
 		if (!value.confirmPassword) {
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
-				message: "Confirm password is required",
+				message: "Şifre tekrarı gereklidir",
 				path: ["confirmPassword"],
 			});
 		} else if (value.confirmPassword.length < 8) {
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
-				message: "Password must be at least 8 characters",
+				message: "Şifre en az 8 karakter olmalıdır",
 				path: ["confirmPassword"],
 			});
 		}
@@ -86,7 +86,7 @@ const addInvitation = z
 		) {
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
-				message: "Passwords do not match",
+				message: "Şifreler eşleşmiyor",
 				path: ["confirmPassword"],
 			});
 		}
@@ -142,7 +142,7 @@ export const AddInvitation = () => {
 					password: data.password!,
 					role: data.role,
 				});
-				toast.success("User created with initial credentials");
+				toast.success("Kullanıcı başlangıç kimlik bilgileriyle oluşturuldu");
 				setOpen(false);
 			} else {
 				const result = await inviteMember({
@@ -156,20 +156,20 @@ export const AddInvitation = () => {
 						notificationId: data.notificationId || "",
 					})
 						.then(() => {
-							toast.success("Invitation created and email sent");
+							toast.success("Davetiye oluşturuldu ve e-posta gönderildi");
 						})
 						.catch((error: any) => {
 							toast.error(error.message);
 						});
 				} else {
-					toast.success("Invitation created");
+					toast.success("Davetiye oluşturuldu");
 				}
 
 				setOpen(false);
 			}
 		} catch (error) {
 			const message =
-				error instanceof Error ? error.message : "Failed to create user";
+				error instanceof Error ? error.message : "Kullanıcı oluşturulamadı";
 			setError(message);
 			toast.error(message);
 		} finally {
@@ -184,16 +184,16 @@ export const AddInvitation = () => {
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger className="" asChild>
 				<Button>
-					<PlusIcon className="h-4 w-4" /> Add Invitation
+					<PlusIcon className="h-4 w-4" /> Davetiye Ekle
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-2xl">
 				<DialogHeader>
-					<DialogTitle>Add Invitation</DialogTitle>
+					<DialogTitle>Davetiye Ekle</DialogTitle>
 					<DialogDescription>
 						{mode === "credentials"
-							? "Create a user with initial credentials"
-							: "Invite a new user"}
+							? "Başlangıç kimlik bilgileriyle kullanıcı oluşturun"
+							: "Yeni bir kullanıcı davet edin"}
 					</DialogDescription>
 				</DialogHeader>
 				{error && <AlertBlock type="error">{error}</AlertBlock>}
@@ -211,28 +211,28 @@ export const AddInvitation = () => {
 								render={({ field }) => {
 									return (
 										<FormItem>
-											<FormLabel>Invite Method</FormLabel>
+											<FormLabel>Davet Yöntemi</FormLabel>
 											<Select
 												onValueChange={field.onChange}
 												defaultValue={field.value}
 											>
 												<FormControl>
 													<SelectTrigger>
-														<SelectValue placeholder="Select invite method" />
+														<SelectValue placeholder="Davet yöntemi seçin" />
 													</SelectTrigger>
 												</FormControl>
 												<SelectContent>
 													<SelectItem value="invitation">
-														Invitation Link
+														Davet Bağlantısı
 													</SelectItem>
 													<SelectItem value="credentials">
-														Initial Credentials
+														Başlangıç Kimlik Bilgileri
 													</SelectItem>
 												</SelectContent>
 											</Select>
 											<FormDescription>
-												Choose between invitation link flow or direct
-												credentials provisioning
+												Davet bağlantısı veya doğrudan kimlik bilgileri
+												sağlama arasında seçim yapın
 											</FormDescription>
 											<FormMessage />
 										</FormItem>
@@ -247,12 +247,12 @@ export const AddInvitation = () => {
 							render={({ field }) => {
 								return (
 									<FormItem>
-										<FormLabel>Email</FormLabel>
+										<FormLabel>E-posta</FormLabel>
 										<FormControl>
 											<Input placeholder={"email@dokploy.com"} {...field} />
 										</FormControl>
 										<FormDescription>
-											This will be the email of the new user
+											Bu, yeni kullanıcının e-posta adresi olacaktır
 										</FormDescription>
 										<FormMessage />
 									</FormItem>
@@ -266,19 +266,19 @@ export const AddInvitation = () => {
 							render={({ field }) => {
 								return (
 									<FormItem>
-										<FormLabel>Role</FormLabel>
+										<FormLabel>Rol</FormLabel>
 										<Select
 											onValueChange={field.onChange}
 											defaultValue={field.value}
 										>
 											<FormControl>
 												<SelectTrigger>
-													<SelectValue placeholder="Select a role" />
+													<SelectValue placeholder="Bir rol seçin" />
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
-												<SelectItem value="member">Member</SelectItem>
-												<SelectItem value="admin">Admin</SelectItem>
+												<SelectItem value="member">Üye</SelectItem>
+												<SelectItem value="admin">Yönetici</SelectItem>
 												{customRoles?.map((role) => (
 													<SelectItem key={role.role} value={role.role}>
 														{role.role}
@@ -287,7 +287,7 @@ export const AddInvitation = () => {
 											</SelectContent>
 										</Select>
 										<FormDescription>
-											Select the role for the new user
+											Yeni kullanıcı için rol seçin
 										</FormDescription>
 										<FormMessage />
 									</FormItem>
@@ -302,14 +302,14 @@ export const AddInvitation = () => {
 								render={({ field }) => {
 									return (
 										<FormItem>
-											<FormLabel>Email Provider</FormLabel>
+											<FormLabel>E-posta Sağlayıcısı</FormLabel>
 											<Select
 												onValueChange={field.onChange}
 												defaultValue={field.value}
 											>
 												<FormControl>
 													<SelectTrigger>
-														<SelectValue placeholder="Select an email provider" />
+														<SelectValue placeholder="E-posta sağlayıcısı seçin" />
 													</SelectTrigger>
 												</FormControl>
 												<SelectContent>
@@ -322,12 +322,12 @@ export const AddInvitation = () => {
 														</SelectItem>
 													))}
 													<SelectItem value="none" disabled>
-														None
+														Yok
 													</SelectItem>
 												</SelectContent>
 											</Select>
 											<FormDescription>
-												Select the email provider to send the invitation
+												Davetiyeyi göndermek için e-posta sağlayıcısı seçin
 											</FormDescription>
 											<FormMessage />
 										</FormItem>
@@ -344,16 +344,16 @@ export const AddInvitation = () => {
 									render={({ field }) => {
 										return (
 											<FormItem>
-												<FormLabel>Password</FormLabel>
+												<FormLabel>Şifre</FormLabel>
 												<FormControl>
 													<Input
 														type="password"
-														placeholder="Enter initial password"
+														placeholder="Başlangıç şifresini girin"
 														{...field}
 													/>
 												</FormControl>
 												<FormDescription>
-													The user can sign in with this password immediately
+													Kullanıcı bu şifre ile hemen giriş yapabilir
 												</FormDescription>
 												<FormMessage />
 											</FormItem>
@@ -367,11 +367,11 @@ export const AddInvitation = () => {
 									render={({ field }) => {
 										return (
 											<FormItem>
-												<FormLabel>Confirm Password</FormLabel>
+												<FormLabel>Şifre Tekrar</FormLabel>
 												<FormControl>
 													<Input
 														type="password"
-														placeholder="Confirm initial password"
+														placeholder="Başlangıç şifresini onaylayın"
 														{...field}
 													/>
 												</FormControl>
@@ -389,7 +389,7 @@ export const AddInvitation = () => {
 								form="hook-form-add-invitation"
 								type="submit"
 							>
-								Create
+								Oluştur
 							</Button>
 						</DialogFooter>
 					</form>

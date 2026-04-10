@@ -291,12 +291,12 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 			canCreateEnvironments: data.canCreateEnvironments,
 		})
 			.then(async () => {
-				toast.success("Permissions updated");
+				toast.success("İzinler güncellendi");
 				refetch();
 				setIsOpen(false);
 			})
 			.catch(() => {
-				toast.error("Error updating the permissions");
+				toast.error("İzinler güncellenirken hata oluştu");
 			});
 	};
 	return (
@@ -306,13 +306,13 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 					className="w-full cursor-pointer"
 					onSelect={(e) => e.preventDefault()}
 				>
-					Add Permissions
+					İzin Ekle
 				</DropdownMenuItem>
 			</DialogTrigger>
 			<DialogContent className="max-h-[85vh]  sm:max-w-4xl">
 				<DialogHeader>
-					<DialogTitle>Permissions</DialogTitle>
-					<DialogDescription>Add or remove permissions</DialogDescription>
+					<DialogTitle>İzinler</DialogTitle>
+					<DialogDescription>İzin ekleyin veya kaldırın</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
 
@@ -324,9 +324,9 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 					>
 						{isCustomRole && (
 							<div className="md:col-span-2 rounded-lg border p-3 bg-muted/50 text-sm text-muted-foreground">
-								This user has a custom role assigned. Capabilities are defined
-								by the role. You can still manage which projects, environments,
-								and services they can access below.
+								Bu kullanıcıya özel bir rol atanmış. Yetenekler rol tarafından
+								tanımlanır. Aşağıda hangi projelere, ortamlara ve hizmetlere
+								erişebileceklerini yönetebilirsiniz.
 							</div>
 						)}
 						{!isCustomRole && (
@@ -337,9 +337,9 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
 											<div className="space-y-0.5">
-												<FormLabel>Create Projects</FormLabel>
+												<FormLabel>Proje Oluştur</FormLabel>
 												<FormDescription>
-													Allow the user to create projects
+													Kullanıcının proje oluşturmasına izin ver
 												</FormDescription>
 											</div>
 											<FormControl>
@@ -357,9 +357,9 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
 											<div className="space-y-0.5">
-												<FormLabel>Delete Projects</FormLabel>
+												<FormLabel>Proje Sil</FormLabel>
 												<FormDescription>
-													Allow the user to delete projects
+													Kullanıcının proje silmesine izin ver
 												</FormDescription>
 											</div>
 											<FormControl>
@@ -377,9 +377,9 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
 											<div className="space-y-0.5">
-												<FormLabel>Create Services</FormLabel>
+												<FormLabel>Servis Oluştur</FormLabel>
 												<FormDescription>
-													Allow the user to create services
+													Kullanıcının servis oluşturmasına izin ver
 												</FormDescription>
 											</div>
 											<FormControl>
@@ -397,9 +397,9 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
 											<div className="space-y-0.5">
-												<FormLabel>Delete Services</FormLabel>
+												<FormLabel>Servis Sil</FormLabel>
 												<FormDescription>
-													Allow the user to delete services
+													Kullanıcının servis silmesine izin ver
 												</FormDescription>
 											</div>
 											<FormControl>
@@ -417,9 +417,9 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
 											<div className="space-y-0.5">
-												<FormLabel>Create Environments</FormLabel>
+												<FormLabel>Ortam Oluştur</FormLabel>
 												<FormDescription>
-													Allow the user to create environments
+													Kullanıcının ortam oluşturmasına izin ver
 												</FormDescription>
 											</div>
 											<FormControl>
@@ -437,9 +437,9 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
 											<div className="space-y-0.5">
-												<FormLabel>Delete Environments</FormLabel>
+												<FormLabel>Ortam Sil</FormLabel>
 												<FormDescription>
-													Allow the user to delete environments
+													Kullanıcının ortam silmesine izin ver
 												</FormDescription>
 											</div>
 											<FormControl>
@@ -457,9 +457,9 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
 											<div className="space-y-0.5">
-												<FormLabel>Access to Traefik Files</FormLabel>
+												<FormLabel>Traefik Dosyalarına Erişim</FormLabel>
 												<FormDescription>
-													Allow the user to access to the Traefik Tab Files
+													Kullanıcının Traefik Dosyaları sekmesine erişmesine izin ver
 												</FormDescription>
 											</div>
 											<FormControl>
@@ -477,9 +477,9 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
 											<div className="space-y-0.5">
-												<FormLabel>Access to Docker</FormLabel>
+												<FormLabel>Docker'a Erişim</FormLabel>
 												<FormDescription>
-													Allow the user to access to the Docker Tab
+													Kullanıcının Docker sekmesine erişmesine izin ver
 												</FormDescription>
 											</div>
 											<FormControl>
@@ -497,9 +497,9 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
 											<div className="space-y-0.5">
-												<FormLabel>Access to API/CLI</FormLabel>
+												<FormLabel>API/CLI Erişimi</FormLabel>
 												<FormDescription>
-													Allow the user to access to the API/CLI
+													Kullanıcının API/CLI'ye erişmesine izin ver
 												</FormDescription>
 											</div>
 											<FormControl>
@@ -517,9 +517,9 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
 											<div className="space-y-0.5">
-												<FormLabel>Access to SSH Keys</FormLabel>
+												<FormLabel>SSH Anahtarlarına Erişim</FormLabel>
 												<FormDescription>
-													Allow to users to access to the SSH Keys section
+													Kullanıcının SSH Anahtarları bölümüne erişmesine izin ver
 												</FormDescription>
 											</div>
 											<FormControl>
@@ -537,9 +537,9 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
 											<div className="space-y-0.5">
-												<FormLabel>Access to Git Providers</FormLabel>
+												<FormLabel>Git Sağlayıcılarına Erişim</FormLabel>
 												<FormDescription>
-													Allow to users to access to the Git Providers section
+													Kullanıcının Git Sağlayıcıları bölümüne erişmesine izin ver
 												</FormDescription>
 											</div>
 											<FormControl>
@@ -559,14 +559,14 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 							render={() => (
 								<FormItem className="md:col-span-2">
 									<div className="mb-4">
-										<FormLabel className="text-base">Projects</FormLabel>
+										<FormLabel className="text-base">Projeler</FormLabel>
 										<FormDescription>
-											Select the Projects that the user can access
+											Kullanıcının erişebileceği projeleri seçin
 										</FormDescription>
 									</div>
 									{projects?.length === 0 && (
 										<p className="text-sm text-muted-foreground">
-											No projects found
+											Proje bulunamadı
 										</p>
 									)}
 									<div className="grid md:grid-cols-1 gap-4">
@@ -660,7 +660,7 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 																<div className="ml-6 w-full space-y-3">
 																	{project.environments.length === 0 && (
 																		<p className="text-sm text-muted-foreground">
-																			No environments found
+																			Ortam bulunamadı
 																		</p>
 																	)}
 																	{project.environments.map(
@@ -753,7 +753,7 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 																										{environment.name}
 																									</FormLabel>
 																									<span className="text-xs text-muted-foreground">
-																										({services.length} services)
+																										({services.length} servis)
 																									</span>
 																								</div>
 																							</FormItem>
@@ -764,7 +764,7 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 																					<div className="ml-4 space-y-2">
 																						{services.length === 0 && (
 																							<p className="text-xs text-muted-foreground">
-																								No services found
+																								Servis bulunamadı
 																							</p>
 																						)}
 																						{services.map(

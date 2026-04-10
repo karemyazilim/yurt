@@ -57,16 +57,16 @@ export const ShowUsers = () => {
 					<CardHeader className="">
 						<CardTitle className="text-xl flex flex-row gap-2">
 							<Users className="size-6 text-muted-foreground self-center" />
-							Users
+							Kullanıcılar
 						</CardTitle>
 						<CardDescription>
-							Add your users to your Dokploy account.
+							Dokploy hesabınıza kullanıcılarınızı ekleyin.
 						</CardDescription>
 					</CardHeader>
 					<CardContent className="space-y-2 py-8 border-t">
 						{isPending ? (
 							<div className="flex flex-row gap-2 items-center justify-center text-sm text-muted-foreground min-h-[25vh]">
-								<span>Loading...</span>
+								<span>Yükleniyor...</span>
 								<Loader2 className="animate-spin size-4" />
 							</div>
 						) : (
@@ -75,7 +75,7 @@ export const ShowUsers = () => {
 									<div className="flex flex-col items-center gap-3  min-h-[25vh] justify-center">
 										<Users className="size-8 self-center text-muted-foreground" />
 										<span className="text-base text-muted-foreground">
-											Invite users to your Dokploy account
+											Dokploy hesabınıza kullanıcıları davet edin
 										</span>
 									</div>
 								) : (
@@ -84,25 +84,25 @@ export const ShowUsers = () => {
 											<AlertBlock type="warning">
 												You have{" "}
 												{membersWithCustomRoles?.length === 1
-													? "1 user"
-													: `${membersWithCustomRoles?.length} users`}{" "}
-												assigned to custom roles. Custom roles will not work
-												without a valid Enterprise license. Please activate your
-												license or change these users to a free role (Admin or
-												Member).
+													? "1 kullanıcı"
+													: `${membersWithCustomRoles?.length} kullanıcı`}{" "}
+												özel rollere atanmış. Özel roller geçerli bir Enterprise
+												lisansı olmadan çalışmayacaktır. Lütfen lisansınızı
+												etkinleştirin veya bu kullanıcıları ücretsiz bir role
+												(Yönetici veya Üye) değiştirin.
 											</AlertBlock>
 										)}
 										<Table>
 											<TableHeader>
 												<TableRow>
-													<TableHead className="w-[100px]">Email</TableHead>
-													<TableHead className="text-center">Role</TableHead>
+													<TableHead className="w-[100px]">E-posta</TableHead>
+													<TableHead className="text-center">Rol</TableHead>
 													<TableHead className="text-center">2FA</TableHead>
 
 													<TableHead className="text-center">
-														Created At
+														Oluşturulma Tarihi
 													</TableHead>
-													<TableHead className="text-right">Actions</TableHead>
+													<TableHead className="text-right">İşlemler</TableHead>
 												</TableRow>
 											</TableHeader>
 											<TableBody>
@@ -158,7 +158,7 @@ export const ShowUsers = () => {
 																{member.user.email}
 																{member.user.id === session?.user?.id && (
 																	<span className="text-muted-foreground ml-1">
-																		(You)
+																		(Siz)
 																	</span>
 																)}
 															</TableCell>
@@ -175,8 +175,8 @@ export const ShowUsers = () => {
 															</TableCell>
 															<TableCell className="text-center">
 																{member.user.twoFactorEnabled
-																	? "Enabled"
-																	: "Disabled"}
+																	? "Etkin"
+																	: "Devre Dışı"}
 															</TableCell>
 															<TableCell className="text-center">
 																<span className="text-sm text-muted-foreground">
@@ -193,14 +193,14 @@ export const ShowUsers = () => {
 																				className="h-8 w-8 p-0"
 																			>
 																				<span className="sr-only">
-																					Open menu
+																					Menüyü aç
 																				</span>
 																				<MoreHorizontal className="h-4 w-4" />
 																			</Button>
 																		</DropdownMenuTrigger>
 																		<DropdownMenuContent align="end">
 																			<DropdownMenuLabel>
-																				Actions
+																				İşlemler
 																			</DropdownMenuLabel>
 
 																			{canChangeRole && (
@@ -220,8 +220,8 @@ export const ShowUsers = () => {
 
 																			{canDelete && (
 																				<DialogAction
-																					title="Delete User"
-																					description="Are you sure you want to delete this user?"
+																					title="Kullanıcıyı Sil"
+																					description="Bu kullanıcıyı silmek istediğinize emin misiniz?"
 																					type="destructive"
 																					onClick={async () => {
 																						await mutateAsync({
@@ -229,14 +229,14 @@ export const ShowUsers = () => {
 																						})
 																							.then(() => {
 																								toast.success(
-																									"User deleted successfully",
+																									"Kullanıcı başarıyla silindi",
 																								);
 																								refetch();
 																							})
 																							.catch((err) => {
 																								toast.error(
 																									err?.message ||
-																										"Error deleting user",
+																										"Kullanıcı silinirken hata oluştu",
 																								);
 																							});
 																					}}
@@ -245,15 +245,15 @@ export const ShowUsers = () => {
 																						className="w-full cursor-pointer text-red-500 hover:!text-red-600"
 																						onSelect={(e) => e.preventDefault()}
 																					>
-																						Delete User
+																						Kullanıcıyı Sil
 																					</DropdownMenuItem>
 																				</DialogAction>
 																			)}
 
 																			{canUnlink && (
 																				<DialogAction
-																					title="Unlink User"
-																					description="Are you sure you want to unlink this user?"
+																					title="Kullanıcı Bağlantısını Kaldır"
+																					description="Bu kullanıcının bağlantısını kaldırmak istediğinize emin misiniz?"
 																					type="destructive"
 																					onClick={async () => {
 																						if (!isCloud) {
@@ -270,13 +270,13 @@ export const ShowUsers = () => {
 																								})
 																									.then(() => {
 																										toast.success(
-																											"User deleted successfully",
+																											"Kullanıcı başarıyla silindi",
 																										);
 																										refetch();
 																									})
 																									.catch(() => {
 																										toast.error(
-																											"Error deleting user",
+																											"Kullanıcı silinirken hata oluştu",
 																										);
 																									});
 																								return;
@@ -292,12 +292,12 @@ export const ShowUsers = () => {
 
 																						if (!error) {
 																							toast.success(
-																								"User unlinked successfully",
+																								"Kullanıcı bağlantısı başarıyla kaldırıldı",
 																							);
 																							refetch();
 																						} else {
 																							toast.error(
-																								"Error unlinking user",
+																								"Kullanıcı bağlantısı kaldırılırken hata oluştu",
 																							);
 																						}
 																					}}
@@ -306,7 +306,7 @@ export const ShowUsers = () => {
 																						className="w-full cursor-pointer text-red-500 hover:!text-red-600"
 																						onSelect={(e) => e.preventDefault()}
 																					>
-																						Unlink User
+																						Bağlantıyı Kaldır
 																					</DropdownMenuItem>
 																				</DialogAction>
 																			)}
@@ -319,7 +319,7 @@ export const ShowUsers = () => {
 																		disabled
 																	>
 																		<span className="sr-only">
-																			No actions available
+																			İşlem mevcut değil
 																		</span>
 																		<MoreHorizontal className="h-4 w-4 text-muted-foreground" />
 																	</Button>

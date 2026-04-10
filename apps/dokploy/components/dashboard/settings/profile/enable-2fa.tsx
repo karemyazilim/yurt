@@ -37,14 +37,14 @@ import { api } from "@/utils/api";
 
 const PasswordSchema = z.object({
 	password: z.string().min(8, {
-		message: "Password is required",
+		message: "Şifre gereklidir",
 	}),
 	issuer: z.string().optional(),
 });
 
 const PinSchema = z.object({
 	pin: z.string().min(6, {
-		message: "Pin is required",
+		message: "PIN gereklidir",
 	}),
 });
 
@@ -96,7 +96,7 @@ export const Enable2FA = () => {
 
 			if (result.error) {
 				if (result.error.code === "INVALID_TWO_FACTOR_AUTHENTICATION") {
-					toast.error("Invalid verification code");
+					toast.error("Geçersiz doğrulama kodu");
 					return;
 				}
 
@@ -104,23 +104,23 @@ export const Enable2FA = () => {
 			}
 
 			if (!result.data) {
-				throw new Error("No response received from server");
+				throw new Error("Sunucudan yanıt alınamadı");
 			}
 
-			toast.success("2FA configured successfully");
+			toast.success("2FA başarıyla yapılandırıldı");
 			utils.user.get.invalidate();
 			setIsDialogOpen(false);
 		} catch (error) {
 			if (error instanceof Error) {
 				const errorMessage =
 					error.message === "Failed to fetch"
-						? "Connection error. Please check your internet connection."
+						? "Bağlantı hatası. Lütfen internet bağlantınızı kontrol edin."
 						: error.message;
 
 				toast.error(errorMessage);
 			} else {
-				toast.error("Error verifying 2FA code", {
-					description: error instanceof Error ? error.message : "Unknown error",
+				toast.error("2FA kodu doğrulanırken hata oluştu", {
+					description: error instanceof Error ? error.message : "Bilinmeyen hata",
 				});
 			}
 		}
@@ -168,7 +168,7 @@ export const Enable2FA = () => {
 			});
 
 			if (!enableData) {
-				throw new Error(error?.message || "Error enabling 2FA");
+				throw new Error(error?.message || "2FA etkinleştirilirken hata oluştu");
 			}
 
 			if (enableData.backupCodes) {
@@ -185,17 +185,17 @@ export const Enable2FA = () => {
 				});
 
 				setStep("verify");
-				toast.success("Scan the QR code with your authenticator app");
+				toast.success("QR kodu kimlik doğrulama uygulamanızla tarayın");
 			} else {
-				throw new Error("No TOTP URI received from server");
+				throw new Error("Sunucudan TOTP URI alınamadı");
 			}
 		} catch (error) {
 			toast.error(
-				error instanceof Error ? error.message : "Error setting up 2FA",
+				error instanceof Error ? error.message : "2FA kurulurken hata oluştu",
 			);
 			passwordForm.setError("password", {
 				message:
-					error instanceof Error ? error.message : "Error setting up 2FA",
+					error instanceof Error ? error.message : "2FA kurulurken hata oluştu",
 			});
 		} finally {
 			setIsPasswordLoading(false);
@@ -204,7 +204,7 @@ export const Enable2FA = () => {
 
 	const handleDownloadBackupCodes = () => {
 		if (!backupCodes || backupCodes.length === 0) {
-			toast.error("No backup codes to download.");
+			toast.error("İndirilecek yedek kod bulunamadı.");
 			return;
 		}
 
@@ -247,7 +247,7 @@ export const Enable2FA = () => {
 			.replace(BACKUP_CODES_PLACEHOLDER, backupCodesFormatted);
 
 		copy(backupCodesText);
-		toast.success("Backup codes copied to clipboard");
+		toast.success("Yedek kodlar panoya kopyalandı");
 	};
 
 	return (
@@ -255,16 +255,16 @@ export const Enable2FA = () => {
 			<DialogTrigger asChild>
 				<Button variant="ghost">
 					<Fingerprint className="size-4 text-muted-foreground" />
-					Enable 2FA
+					2FA Etkinleştir
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-xl">
 				<DialogHeader>
-					<DialogTitle>2FA Setup</DialogTitle>
+					<DialogTitle>2FA Kurulumu</DialogTitle>
 					<DialogDescription>
 						{step === "password"
-							? "Enter your password to begin 2FA setup"
-							: "Scan the QR code and verify with your authenticator app"}
+							? "2FA kurulumuna başlamak için şifrenizi girin"
+							: "QR kodu tarayın ve kimlik doğrulama uygulamanızla doğrulayın"}
 					</DialogDescription>
 				</DialogHeader>
 
@@ -280,16 +280,16 @@ export const Enable2FA = () => {
 								name="password"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Password</FormLabel>
+										<FormLabel>Şifre</FormLabel>
 										<FormControl>
 											<Input
 												type="password"
-												placeholder="Enter your password"
+												placeholder="Şifrenizi girin"
 												{...field}
 											/>
 										</FormControl>
 										<FormDescription>
-											Enter your password to enable 2FA
+											2FA'yı etkinleştirmek için şifrenizi girin
 										</FormDescription>
 										<FormMessage />
 									</FormItem>
@@ -300,17 +300,17 @@ export const Enable2FA = () => {
 								name="issuer"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Issuer</FormLabel>
+										<FormLabel>Yayıncı</FormLabel>
 										<FormControl>
 											<Input
 												type="text"
-												placeholder="Enter your issuer"
+												placeholder="Yayıncı adını girin"
 												{...field}
 											/>
 										</FormControl>
 										<FormDescription>
-											Use a custom issuer to identify the service you're
-											authenticating with.
+											Kimlik doğrulaması yaptığınız hizmeti tanımlamak
+											için özel bir yayıncı adı kullanın.
 										</FormDescription>
 										<FormMessage />
 									</FormItem>
@@ -321,7 +321,7 @@ export const Enable2FA = () => {
 								className="w-full"
 								isLoading={isPasswordLoading}
 							>
-								Continue
+								Devam Et
 							</Button>
 						</form>
 					</Form>
@@ -334,7 +334,7 @@ export const Enable2FA = () => {
 										<div className="flex flex-col items-center gap-4 p-6 border rounded-lg">
 											<QrCode className="size-5 text-muted-foreground" />
 											<span className="text-sm font-medium">
-												Scan this QR code with your authenticator app
+												Bu QR kodu kimlik doğrulama uygulamanızla tarayın
 											</span>
 											{/** biome-ignore lint/performance/noImgElement: This is a valid use case for an img element */}
 											<img
@@ -344,7 +344,7 @@ export const Enable2FA = () => {
 											/>
 											<div className="flex flex-col gap-2 text-center">
 												<span className="text-sm text-muted-foreground">
-													Can't scan the QR code?
+													QR kodu tarayamıyor musunuz?
 												</span>
 												<span className="text-xs font-mono bg-muted p-2 rounded">
 													{data.secret}
@@ -355,7 +355,7 @@ export const Enable2FA = () => {
 										{backupCodes && backupCodes.length > 0 && (
 											<div className="w-full space-y-3 border rounded-lg p-4">
 												<div className="flex items-center justify-between">
-													<h4 className="font-medium">Backup Codes</h4>
+													<h4 className="font-medium">Yedek Kodlar</h4>
 													<div className="flex items-center gap-2">
 														<TooltipProvider>
 															<Tooltip delayDuration={0}>
@@ -370,7 +370,7 @@ export const Enable2FA = () => {
 																	</Button>
 																</TooltipTrigger>
 																<TooltipContent>
-																	<p>Copy</p>
+																	<p>Kopyala</p>
 																</TooltipContent>
 															</Tooltip>
 														</TooltipProvider>
@@ -388,7 +388,7 @@ export const Enable2FA = () => {
 																	</Button>
 																</TooltipTrigger>
 																<TooltipContent>
-																	<p>Download</p>
+																	<p>İndir</p>
 																</TooltipContent>
 															</Tooltip>
 														</TooltipProvider>
@@ -405,9 +405,9 @@ export const Enable2FA = () => {
 													))}
 												</div>
 												<p className="text-sm text-muted-foreground">
-													Save these backup codes in a secure place. You can use
-													them to access your account if you lose access to your
-													authenticator device.
+													Bu yedek kodları güvenli bir yerde saklayın.
+													Kimlik doğrulama cihazınıza erişiminizi kaybederseniz
+													hesabınıza erişmek için bunları kullanabilirsiniz.
 												</p>
 											</div>
 										)}
@@ -420,7 +420,7 @@ export const Enable2FA = () => {
 							</div>
 
 							<div className="flex flex-col gap-2">
-								<FormLabel>Verification Code</FormLabel>
+								<FormLabel>Doğrulama Kodu</FormLabel>
 								<InputOTP
 									maxLength={6}
 									value={otpValue}
@@ -428,7 +428,7 @@ export const Enable2FA = () => {
 									autoFocus
 								/>
 								<FormDescription>
-									Enter the 6-digit code from your authenticator app
+									Kimlik doğrulama uygulamanızdaki 6 haneli kodu girin
 								</FormDescription>
 							</div>
 
@@ -438,7 +438,7 @@ export const Enable2FA = () => {
 								isLoading={isPasswordLoading}
 								disabled={otpValue.length !== 6}
 							>
-								Enable 2FA
+								2FA Etkinleştir
 							</Button>
 						</form>
 					</Form>

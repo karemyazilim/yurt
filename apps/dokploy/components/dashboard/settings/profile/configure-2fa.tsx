@@ -51,7 +51,7 @@ import {
 
 const PasswordSchema = z.object({
 	password: z.string().min(8, {
-		message: "Password is required",
+		message: "Şifre gereklidir",
 	}),
 });
 
@@ -105,9 +105,9 @@ export const Configure2FA = () => {
 			setStep("actions");
 		} catch (error) {
 			form.setError("password", {
-				message: error instanceof Error ? error.message : "Incorrect password",
+				message: error instanceof Error ? error.message : "Yanlış şifre",
 			});
-			toast.error("Incorrect password");
+			toast.error("Yanlış şifre");
 		} finally {
 			setIsRegenerating(false);
 		}
@@ -128,13 +128,13 @@ export const Configure2FA = () => {
 			if (result.data?.backupCodes) {
 				setBackupCodes(result.data.backupCodes);
 				setStep("backup-codes");
-				toast.success("Backup codes regenerated successfully");
+				toast.success("Yedek kodlar başarıyla yeniden oluşturuldu");
 			}
 		} catch (error) {
 			toast.error(
 				error instanceof Error
 					? error.message
-					: "Failed to regenerate backup codes",
+					: "Yedek kodlar yeniden oluşturulamadı",
 			);
 		} finally {
 			setIsRegenerating(false);
@@ -153,12 +153,12 @@ export const Configure2FA = () => {
 				return;
 			}
 
-			toast.success("2FA disabled successfully");
+			toast.success("2FA başarıyla devre dışı bırakıldı");
 			utils.user.get.invalidate();
 			setIsDialogOpen(false);
 			setShowDisableConfirm(false);
 		} catch (error) {
-			toast.error("Failed to disable 2FA. Please try again.");
+			toast.error("2FA devre dışı bırakılamadı. Lütfen tekrar deneyin.");
 		} finally {
 			setIsDisabling(false);
 		}
@@ -174,7 +174,7 @@ export const Configure2FA = () => {
 
 	const handleDownloadBackupCodes = () => {
 		if (!backupCodes || backupCodes.length === 0) {
-			toast.error("No backup codes to download.");
+			toast.error("İndirilecek yedek kod bulunamadı.");
 			return;
 		}
 
@@ -217,7 +217,7 @@ export const Configure2FA = () => {
 			.replace(BACKUP_CODES_PLACEHOLDER, backupCodesFormatted);
 
 		copy(backupCodesText);
-		toast.success("Backup codes copied to clipboard");
+		toast.success("Yedek kodlar panoya kopyalandı");
 	};
 
 	return (
@@ -226,23 +226,23 @@ export const Configure2FA = () => {
 				<DialogTrigger asChild>
 					<Button variant="secondary">
 						<KeyRound className="size-4 text-muted-foreground" />
-						Manage 2FA
+						2FA Yönet
 					</Button>
 				</DialogTrigger>
 				<DialogContent className="sm:max-w-xl">
 					<DialogHeader>
 						<DialogTitle>
-							{step === "password" && "Verify Your Identity"}
-							{step === "actions" && "2FA Configuration"}
-							{step === "backup-codes" && "New Backup Codes"}
+							{step === "password" && "Kimliğinizi Doğrulayın"}
+							{step === "actions" && "2FA Yapılandırması"}
+							{step === "backup-codes" && "Yeni Yedek Kodlar"}
 						</DialogTitle>
 						<DialogDescription>
 							{step === "password" &&
-								"Enter your password to manage your 2FA settings"}
+								"2FA ayarlarınızı yönetmek için şifrenizi girin"}
 							{step === "actions" &&
-								"Choose an action to manage your two-factor authentication"}
+								"İki faktörlü doğrulamanızı yönetmek için bir işlem seçin"}
 							{step === "backup-codes" &&
-								"Save these backup codes in a secure place"}
+								"Bu yedek kodları güvenli bir yerde saklayın"}
 						</DialogDescription>
 					</DialogHeader>
 
@@ -257,16 +257,16 @@ export const Configure2FA = () => {
 									name="password"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Password</FormLabel>
+											<FormLabel>Şifre</FormLabel>
 											<FormControl>
 												<Input
 													type="password"
-													placeholder="Enter your password"
+													placeholder="Şifrenizi girin"
 													{...field}
 												/>
 											</FormControl>
 											<FormDescription>
-												Enter your password to continue
+												Devam etmek için şifrenizi girin
 											</FormDescription>
 											<FormMessage />
 										</FormItem>
@@ -278,10 +278,10 @@ export const Configure2FA = () => {
 										variant="outline"
 										onClick={() => setIsDialogOpen(false)}
 									>
-										Cancel
+										İptal
 									</Button>
 									<Button type="submit" isLoading={isRegenerating}>
-										Continue
+										Devam Et
 									</Button>
 								</div>
 							</form>
@@ -296,11 +296,11 @@ export const Configure2FA = () => {
 										<div className="flex-1">
 											<h4 className="font-medium flex items-center gap-2">
 												<RefreshCw className="size-4" />
-												Regenerate Backup Codes
+												Yedek Kodları Yeniden Oluştur
 											</h4>
 											<p className="text-sm text-muted-foreground mt-1">
-												Generate new backup codes to replace your existing ones.
-												This will invalidate all previous backup codes.
+												Mevcut yedek kodlarınızı değiştirmek için yeni kodlar oluşturun.
+												Bu, önceki tüm yedek kodları geçersiz kılacaktır.
 											</p>
 										</div>
 									</div>
@@ -311,7 +311,7 @@ export const Configure2FA = () => {
 										isLoading={isRegenerating}
 									>
 										<RefreshCw className="size-4 mr-2" />
-										Regenerate Backup Codes
+										Yedek Kodları Yeniden Oluştur
 									</Button>
 								</div>
 
@@ -320,11 +320,11 @@ export const Configure2FA = () => {
 										<div className="flex-1">
 											<h4 className="font-medium flex items-center gap-2 text-destructive">
 												<ShieldOff className="size-4" />
-												Disable 2FA
+												2FA Devre Dışı Bırak
 											</h4>
 											<p className="text-sm text-muted-foreground mt-1">
-												Completely disable two-factor authentication for your
-												account. This will make your account less secure.
+												Hesabınız için iki faktörlü doğrulamayı tamamen devre dışı bırakın.
+												Bu, hesabınızı daha az güvenli hale getirecektir.
 											</p>
 										</div>
 									</div>
@@ -334,7 +334,7 @@ export const Configure2FA = () => {
 										className="w-full mt-2"
 									>
 										<ShieldOff className="size-4 mr-2" />
-										Disable 2FA
+										2FA Devre Dışı Bırak
 									</Button>
 								</div>
 							</div>
@@ -344,7 +344,7 @@ export const Configure2FA = () => {
 									variant="outline"
 									onClick={() => setIsDialogOpen(false)}
 								>
-									Close
+									Kapat
 								</Button>
 							</div>
 						</div>
@@ -364,9 +364,9 @@ export const Configure2FA = () => {
 									))}
 								</div>
 								<p className="text-sm text-muted-foreground">
-									Save these backup codes in a secure place. You can use them to
-									access your account if you lose access to your authenticator
-									device. Each code can only be used once.
+									Bu yedek kodları güvenli bir yerde saklayın. Kimlik doğrulama
+									cihazınıza erişiminizi kaybederseniz hesabınıza erişmek
+									için bunları kullanabilirsiniz. Her kod yalnızca bir kez kullanılabilir.
 								</p>
 							</div>
 
@@ -377,7 +377,7 @@ export const Configure2FA = () => {
 									className="flex-1"
 								>
 									<DownloadIcon className="size-4 mr-2" />
-									Download
+									İndir
 								</Button>
 								<Button
 									variant="outline"
@@ -385,15 +385,15 @@ export const Configure2FA = () => {
 									className="flex-1"
 								>
 									<CopyIcon className="size-4 mr-2" />
-									Copy
+									Kopyala
 								</Button>
 							</div>
 
 							<div className="flex justify-end gap-4">
 								<Button variant="outline" onClick={handleCloseDialog}>
-									Back to Actions
+									İşlemlere Dön
 								</Button>
-								<Button onClick={() => setIsDialogOpen(false)}>Done</Button>
+								<Button onClick={() => setIsDialogOpen(false)}>Tamam</Button>
 							</div>
 						</div>
 					)}
@@ -406,20 +406,20 @@ export const Configure2FA = () => {
 			>
 				<AlertDialogContent>
 					<AlertDialogHeader>
-						<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+						<AlertDialogTitle>Kesinlikle emin misiniz?</AlertDialogTitle>
 						<AlertDialogDescription>
-							This will permanently disable Two-Factor Authentication for your
-							account. Your account will be less secure without 2FA enabled.
+							Bu, hesabınız için İki Faktörlü Doğrulamayı kalıcı olarak devre dışı
+							bırakacaktır. 2FA etkin olmadan hesabınız daha az güvenli olacaktır.
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter>
-						<AlertDialogCancel>Cancel</AlertDialogCancel>
+						<AlertDialogCancel>İptal</AlertDialogCancel>
 						<AlertDialogAction
 							onClick={handleDisable2FA}
 							className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
 							disabled={isDisabling}
 						>
-							{isDisabling ? "Disabling..." : "Disable 2FA"}
+							{isDisabling ? "Devre dışı bırakılıyor..." : "2FA Devre Dışı Bırak"}
 						</AlertDialogAction>
 					</AlertDialogFooter>
 				</AlertDialogContent>
