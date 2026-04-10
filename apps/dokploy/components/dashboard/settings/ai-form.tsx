@@ -26,16 +26,16 @@ export const AiForm = () => {
 						<div>
 							<CardTitle className="text-xl flex flex-row gap-2">
 								<BotIcon className="size-6 text-muted-foreground self-center" />
-								AI Settings
+								Yapay Zeka Ayarları
 							</CardTitle>
-							<CardDescription>Manage your AI configurations</CardDescription>
+							<CardDescription>Yapay zeka yapılandırmalarınızı yönetin</CardDescription>
 						</div>
 						{aiConfigs && aiConfigs?.length > 0 && <HandleAi />}
 					</CardHeader>
 					<CardContent className="space-y-2 py-8 border-t">
 						{isPending ? (
 							<div className="flex flex-row gap-2 items-center justify-center text-sm text-muted-foreground min-h-[25vh]">
-								<span>Loading...</span>
+								<span>Yükleniyor...</span>
 								<Loader2 className="animate-spin size-4" />
 							</div>
 						) : (
@@ -44,7 +44,7 @@ export const AiForm = () => {
 									<div className="flex flex-col items-center gap-3  min-h-[25vh] justify-center">
 										<BotIcon className="size-8 self-center text-muted-foreground" />
 										<span className="text-base text-muted-foreground text-center">
-											You don't have any AI configurations
+											Henüz yapay zeka yapılandırmanız yok
 										</span>
 										<HandleAi />
 									</div>
@@ -65,19 +65,19 @@ export const AiForm = () => {
 													<div className="flex justify-between items-center">
 														<HandleAi aiId={config.aiId} />
 														<DialogAction
-															title="Delete AI"
-															description="Are you sure you want to delete this AI?"
+															title="Yapay Zekayı Sil"
+															description="Bu yapay zeka yapılandırmasını silmek istediğinizden emin misiniz?"
 															type="destructive"
 															onClick={async () => {
 																await mutateAsync({
 																	aiId: config.aiId,
 																})
 																	.then(() => {
-																		toast.success("AI deleted successfully");
+																		toast.success("Yapay zeka başarıyla silindi");
 																		refetch();
 																	})
 																	.catch(() => {
-																		toast.error("Error deleting AI");
+																		toast.error("Yapay zeka silinirken hata oluştu");
 																	});
 															}}
 														>

@@ -77,12 +77,12 @@ export const UpdateServerIp = ({ children }: Props) => {
 			serverIp: data.serverIp,
 		})
 			.then(async () => {
-				toast.success("Server IP Updated");
+				toast.success("Sunucu IP'si Güncellendi");
 				await refetch();
 				setIsOpen(false);
 			})
 			.catch(() => {
-				toast.error("Error updating the IP of the server");
+				toast.error("Sunucu IP'si güncellenirken hata oluştu");
 			});
 	};
 
@@ -91,8 +91,8 @@ export const UpdateServerIp = ({ children }: Props) => {
 			<DialogTrigger asChild>{children}</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Update Server IP</DialogTitle>
-					<DialogDescription>Update the IP of the server</DialogDescription>
+					<DialogTitle>Sunucu IP'sini Güncelle</DialogTitle>
+					<DialogDescription>Sunucunun IP adresini güncelleyin</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
 
@@ -106,7 +106,7 @@ export const UpdateServerIp = ({ children }: Props) => {
 							name="serverIp"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Server IP</FormLabel>
+									<FormLabel>Sunucu IP</FormLabel>
 									<FormControl className="flex gap-2">
 										<div>
 											<Input {...field} />
@@ -127,7 +127,7 @@ export const UpdateServerIp = ({ children }: Props) => {
 														sideOffset={5}
 														className="max-w-[11rem]"
 													>
-														<p>Set current public IP</p>
+														<p>Mevcut genel IP'yi ayarla</p>
 													</TooltipContent>
 												</Tooltip>
 											</TooltipProvider>
@@ -148,7 +148,7 @@ export const UpdateServerIp = ({ children }: Props) => {
 							form="hook-form-update-server-ip"
 							type="submit"
 						>
-							Update
+							Güncelle
 						</Button>
 					</DialogFooter>
 				</Form>

@@ -94,20 +94,20 @@ export const DockerTerminalModal = ({
 				onEscapeKeyDown={(event) => event.preventDefault()}
 			>
 				<DialogHeader>
-					<DialogTitle>Docker Terminal</DialogTitle>
+					<DialogTitle>Docker Terminali</DialogTitle>
 					<DialogDescription>
-						Easy way to access to docker container
+						Docker konteynerine erişmenin kolay yolu
 					</DialogDescription>
 				</DialogHeader>
 				<Select onValueChange={setContainerId} value={containerId}>
 					<SelectTrigger>
 						{isPending ? (
 							<div className="flex flex-row gap-2 items-center justify-center text-sm text-muted-foreground">
-								<span>Loading...</span>
+								<span>Yükleniyor...</span>
 								<Loader2 className="animate-spin size-4" />
 							</div>
 						) : (
-							<SelectValue placeholder="Select a container" />
+							<SelectValue placeholder="Bir konteyner seçin" />
 						)}
 					</SelectTrigger>
 					<SelectContent>
@@ -123,7 +123,7 @@ export const DockerTerminalModal = ({
 									</Badge>
 								</SelectItem>
 							))}
-							<SelectLabel>Containers ({data?.length})</SelectLabel>
+							<SelectLabel>Konteynerler ({data?.length})</SelectLabel>
 						</SelectGroup>
 					</SelectContent>
 				</Select>
@@ -136,17 +136,17 @@ export const DockerTerminalModal = ({
 					<DialogContent onEscapeKeyDown={(event) => event.preventDefault()}>
 						<DialogHeader>
 							<DialogTitle>
-								Are you sure you want to close the terminal?
+								Terminali kapatmak istediğinizden emin misiniz?
 							</DialogTitle>
 							<DialogDescription>
-								By clicking the confirm button, the terminal will be closed.
+								Onayla düğmesine tıkladığınızda terminal kapatılacaktır.
 							</DialogDescription>
 						</DialogHeader>
 						<DialogFooter>
 							<Button variant="outline" onClick={handleCancel}>
-								Cancel
+								İptal
 							</Button>
-							<Button onClick={handleConfirm}>Confirm</Button>
+							<Button onClick={handleConfirm}>Onayla</Button>
 						</DialogFooter>
 					</DialogContent>
 				</Dialog>

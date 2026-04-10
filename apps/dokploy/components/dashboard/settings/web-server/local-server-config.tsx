@@ -74,7 +74,7 @@ const LocalServerConfig = ({ onSave }: Props) => {
 					<div className="flex flex-row items-center gap-2 justify-between w-full">
 						<div className="flex flex-row gap-2 items-center">
 							<Settings className="h-4 w-4" />
-							<span className="dark:hover:text-white">Connection settings</span>
+							<span className="dark:hover:text-white">Bağlantı ayarları</span>
 						</div>
 					</div>
 				</AccordionTrigger>
@@ -119,7 +119,7 @@ const LocalServerConfig = ({ onSave }: Props) => {
 								name="username"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Username</FormLabel>
+										<FormLabel>Kullanıcı Adı</FormLabel>
 										<FormControl>
 											<Input placeholder="root" {...field} />
 										</FormControl>
@@ -137,7 +137,7 @@ const LocalServerConfig = ({ onSave }: Props) => {
 						className="ml-auto"
 						disabled={!form.formState.isDirty}
 					>
-						Save
+						Kaydet
 					</Button>
 				</AccordionContent>
 			</AccordionItem>

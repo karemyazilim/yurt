@@ -1,6 +1,6 @@
 "use client";
 
-import { Link2, Loader2, Unlink } from "lucide-react";
+import { Link2, Loader2, Bağlantıyı Kaldır } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -33,7 +33,7 @@ export function LinkingAccount() {
 	const [linkingProvider, setLinkingProvider] = useState<SocialProvider | null>(
 		null,
 	);
-	const [unlinkingProviderId, setUnlinkingProviderId] = useState<string | null>(
+	const [unlinkingProviderId, setBağlantıyı KaldıringProviderId] = useState<string | null>(
 		null,
 	);
 
@@ -71,43 +71,43 @@ export function LinkingAccount() {
 				callbackURL: LINKING_CALLBACK_URL,
 			});
 			if (error) {
-				toast.error(error.message ?? "Failed to link account");
+				toast.error(error.message ?? "Hesap bağlanamadı");
 				setLinkingProvider(null);
 				return;
 			}
 		} catch (err) {
 			toast.error(
-				"Failed to link account",
+				"Hesap bağlanamadı",
 				err instanceof Error ? { description: err.message } : undefined,
 			);
 			setLinkingProvider(null);
 		}
 	};
 
-	const handleUnlink = async (providerId: string, accountId?: string) => {
-		setUnlinkingProviderId(providerId);
+	const handleBağlantıyı Kaldır = async (providerId: string, accountId?: string) => {
+		setBağlantıyı KaldıringProviderId(providerId);
 		try {
 			const { error } = await authClient.unlinkAccount({
 				providerId,
 				...(accountId && { accountId }),
 			});
 			if (error) {
-				toast.error(error.message ?? "Failed to unlink account");
+				toast.error(error.message ?? "Hesap bağlantısı kaldırılamadı");
 				return;
 			}
-			toast.success("Account unlinked");
+			toast.success("Hesap bağlantısı kaldırıldı");
 			await fetchAccounts();
 		} catch (err) {
 			toast.error(
-				"Failed to unlink account",
+				"Hesap bağlantısı kaldırılamadı",
 				err instanceof Error ? { description: err.message } : undefined,
 			);
 		} finally {
-			setUnlinkingProviderId(null);
+			setBağlantıyı KaldıringProviderId(null);
 		}
 	};
 
-	const canUnlink = accounts.length > 1;
+	const canBağlantıyı Kaldır = accounts.length > 1;
 
 	return (
 		<Card className="h-full bg-sidebar p-2.5 rounded-xl max-w-6xl mx-auto w-full">
@@ -117,26 +117,26 @@ export function LinkingAccount() {
 						<div>
 							<CardTitle className="text-xl flex flex-row gap-2">
 								<Link2 className="size-6 text-muted-foreground self-center" />
-								Linking account
+								Hesap Bağlama
 							</CardTitle>
 							<CardDescription>
-								Link your Google or GitHub account to sign in with them.
+								Oturum açmak için Google veya GitHub hesabınızı bağlayın.
 							</CardDescription>
 						</div>
 					</div>
 				</CardHeader>
 				<CardContent className="space-y-6 py-8 border-t">
-					{/* Linked accounts */}
+					{/* Bağlı hesaplar */}
 					<div className="space-y-2">
-						<p className="text-sm font-medium">Linked accounts</p>
+						<p className="text-sm font-medium">Bağlı hesaplar</p>
 						{accountsLoading ? (
 							<div className="flex items-center gap-2 text-sm text-muted-foreground py-2">
 								<Loader2 className="size-4 animate-spin" />
-								Loading...
+								Yükleniyor...
 							</div>
 						) : socialAccounts.length === 0 ? (
 							<p className="text-sm text-muted-foreground py-2">
-								No social accounts linked yet.
+								Henüz bağlı sosyal hesap yok.
 							</p>
 						) : (
 							<ul className="space-y-2">
@@ -148,13 +148,13 @@ export function LinkingAccount() {
 										<span className="font-medium">
 											{providerLabel(acc.providerId)}
 										</span>
-										{canUnlink && (
+										{canBağlantıyı Kaldır && (
 											<Button
 												variant="ghost"
 												size="sm"
 												className="text-destructive hover:text-destructive hover:bg-destructive/10"
 												onClick={() =>
-													handleUnlink(acc.providerId, acc.accountId)
+													handleBağlantıyı Kaldır(acc.providerId, acc.accountId)
 												}
 												disabled={unlinkingProviderId === acc.providerId}
 												isLoading={unlinkingProviderId === acc.providerId}
@@ -163,8 +163,8 @@ export function LinkingAccount() {
 													<Loader2 className="size-4 animate-spin" />
 												) : (
 													<>
-														<Unlink className="mr-1.5 size-4" />
-														Unlink
+														<Bağlantıyı Kaldır className="mr-1.5 size-4" />
+														Bağlantıyı Kaldır
 													</>
 												)}
 											</Button>
@@ -176,8 +176,8 @@ export function LinkingAccount() {
 					</div>
 
 					<p className="text-sm text-muted-foreground">
-						Click a provider below to link it to your account. You will be
-						redirected to complete the flow.
+						Hesabınıza bağlamak için aşağıdaki bir sağlayıcıya tıklayın.
+						İşlemi tamamlamak için yönlendirileceksiniz.
 					</p>
 					<div className="flex flex-wrap gap-3">
 						{!linkedProviderIds.has("google") && (
@@ -211,7 +211,7 @@ export function LinkingAccount() {
 										/>
 									</svg>
 								)}
-								Link with Google
+								Google ile Bağla
 							</Button>
 						)}
 						{!linkedProviderIds.has("github") && (
@@ -234,7 +234,7 @@ export function LinkingAccount() {
 										<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
 									</svg>
 								)}
-								Link with GitHub
+								GitHub ile Bağla
 							</Button>
 						)}
 					</div>

@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import {
 	AlertDialog,
 	AlertDialogAction,
-	AlertDialogCancel,
+	AlertDialogİptal,
 	AlertDialogContent,
 	AlertDialogDescription,
 	AlertDialogFooter,
@@ -95,7 +95,7 @@ export const UpdateWebServer = () => {
 			}
 
 			toast.success(
-				"The server has been updated. The page will be reloaded to reflect the changes...",
+				"Sunucu güncellendi. Değişiklikleri yansıtmak için sayfa yeniden yüklenecek...",
 			);
 
 			setTimeout(() => {
@@ -107,7 +107,7 @@ export const UpdateWebServer = () => {
 		}
 	};
 
-	const handleConfirm = async () => {
+	const handleOnayla = async () => {
 		try {
 			setModalState("updating");
 			await updateServer();
@@ -119,7 +119,7 @@ export const UpdateWebServer = () => {
 			setModalState("results");
 			console.error("Error updating server:", error);
 			toast.error(
-				"An error occurred while updating the server, please try again.",
+				"Sunucu güncellenirken bir hata oluştu, lütfen tekrar deneyin.",
 			);
 		}
 	};
@@ -145,36 +145,36 @@ export const UpdateWebServer = () => {
 						<span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
 						<span className="relative inline-flex rounded-full h-3 w-3 bg-green-500" />
 					</span>
-					Update Server
+					Sunucuyu Güncelle
 				</Button>
 			</AlertDialogTrigger>
 			<AlertDialogContent>
 				<AlertDialogHeader>
 					<AlertDialogTitle>
-						{modalState === "idle" && "Are you absolutely sure?"}
-						{modalState === "checking" && "Verifying Services..."}
+						{modalState === "idle" && "Kesinlikle emin misiniz?"}
+						{modalState === "checking" && "Hizmetler Doğrulanıyor..."}
 						{modalState === "results" &&
-							(allHealthy ? "Ready to Update" : "Service Issues Detected")}
-						{modalState === "updating" && "Server update in progress"}
+							(allHealthy ? "Güncellemeye Hazır" : "Hizmet Sorunları Tespit Edildi")}
+						{modalState === "updating" && "Sunucu güncellemesi devam ediyor"}
 					</AlertDialogTitle>
 					<AlertDialogDescription asChild>
 						<div>
 							{modalState === "idle" && (
 								<span>
-									This will update the web server to the new version. You will
-									not be able to use the panel during the update process. The
-									page will be reloaded once the update is finished.
+									Bu işlem web sunucusunu yeni sürüme güncelleyecektir.
+									Güncelleme sürecinde paneli kullanamazsınız. Güncelleme
+									tamamlandığında sayfa yeniden yüklenecektir.
 									<br />
 									<br />
-									We recommend verifying that all services are running before
-									updating.
+									Güncellemeden önce tüm hizmetlerin çalıştığını doğrulamanızı
+									öneririz.
 								</span>
 							)}
 
 							{modalState === "checking" && (
 								<span className="flex items-center gap-2">
 									<Loader2 className="animate-spin h-4 w-4" />
-									Checking PostgreSQL, Redis and Traefik...
+									PostgreSQL, Redis ve Traefik kontrol ediliyor...
 								</span>
 							)}
 
@@ -199,15 +199,15 @@ export const UpdateWebServer = () => {
 										<div className="flex items-start gap-2 rounded-md border border-yellow-500/30 bg-yellow-500/10 p-3">
 											<AlertTriangle className="h-4 w-4 text-yellow-500 mt-0.5 shrink-0" />
 											<span className="text-sm text-yellow-600 dark:text-yellow-400">
-												Some services are not healthy. You can still proceed
-												with the update.
+												Bazı hizmetler sağlıklı değil. Yine de güncellemeye
+												devam edebilirsiniz.
 											</span>
 										</div>
 									)}
 
 									{allHealthy && (
 										<span className="text-sm text-muted-foreground">
-											All services are running. You can proceed with the update.
+											Tüm hizmetler çalışıyor. Güncellemeye devam edebilirsiniz.
 										</span>
 									)}
 								</div>
@@ -217,8 +217,8 @@ export const UpdateWebServer = () => {
 								<div className="flex items-start gap-2 rounded-md border border-yellow-500/30 bg-yellow-500/10 p-3">
 									<AlertTriangle className="h-4 w-4 text-yellow-500 mt-0.5 shrink-0" />
 									<span className="text-sm text-yellow-600 dark:text-yellow-400">
-										Could not verify services. You can still proceed with the
-										update.
+										Hizmetler doğrulanamadı. Yine de güncellemeye
+										devam edebilirsiniz.
 									</span>
 								</div>
 							)}
@@ -226,7 +226,7 @@ export const UpdateWebServer = () => {
 							{modalState === "updating" && (
 								<span className="flex items-center gap-2">
 									<Loader2 className="animate-spin h-4 w-4" />
-									The server is being updated, please wait...
+									Sunucu güncelleniyor, lütfen bekleyin...
 								</span>
 							)}
 						</div>
@@ -234,25 +234,25 @@ export const UpdateWebServer = () => {
 				</AlertDialogHeader>
 				{modalState === "idle" && (
 					<AlertDialogFooter>
-						<AlertDialogCancel onClick={handleClose}>Cancel</AlertDialogCancel>
+						<AlertDialogİptal onClick={handleClose}>İptal</AlertDialogİptal>
 						<Button variant="secondary" onClick={handleVerify}>
 							<RefreshCw className="h-4 w-4" />
-							Verify Status
+							Durumu Doğrula
 						</Button>
-						<AlertDialogAction onClick={handleConfirm}>
-							Confirm
+						<AlertDialogAction onClick={handleOnayla}>
+							Onayla
 						</AlertDialogAction>
 					</AlertDialogFooter>
 				)}
 				{modalState === "results" && (
 					<AlertDialogFooter>
-						<AlertDialogCancel onClick={handleClose}>Cancel</AlertDialogCancel>
+						<AlertDialogİptal onClick={handleClose}>İptal</AlertDialogİptal>
 						<Button variant="secondary" onClick={handleVerify}>
 							<RefreshCw className="h-4 w-4" />
-							Re-check
+							Tekrar Kontrol Et
 						</Button>
-						<AlertDialogAction onClick={handleConfirm}>
-							{allHealthy ? "Confirm" : "Confirm Anyway"}
+						<AlertDialogAction onClick={handleOnayla}>
+							{allHealthy ? "Onayla" : "Yine de Onayla"}
 						</AlertDialogAction>
 					</AlertDialogFooter>
 				)}

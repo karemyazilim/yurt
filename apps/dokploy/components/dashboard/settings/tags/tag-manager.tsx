@@ -27,16 +27,16 @@ export const TagManager = () => {
 					<CardHeader>
 						<CardTitle className="text-xl flex flex-row gap-2">
 							<TagIcon className="size-6 text-muted-foreground self-center" />
-							Tags
+							Etiketler
 						</CardTitle>
 						<CardDescription>
-							Create and manage tags to organize your projects
+							Projelerinizi düzenlemek için etiketler oluşturun ve yönetin
 						</CardDescription>
 					</CardHeader>
 					<CardContent className="space-y-2 py-8 border-t">
 						{isPending ? (
 							<div className="flex flex-row gap-2 items-center justify-center text-sm text-muted-foreground min-h-[25vh]">
-								<span>Loading...</span>
+								<span>Yükleniyor...</span>
 								<Loader2 className="animate-spin size-4" />
 							</div>
 						) : (
@@ -45,8 +45,8 @@ export const TagManager = () => {
 									<div className="flex flex-col items-center gap-3 min-h-[25vh] justify-center">
 										<TagIcon className="size-6 text-muted-foreground" />
 										<span className="text-base text-muted-foreground text-center">
-											No tags yet. Create your first tag to start organizing
-											projects.
+											Henüz etiket yok. Projeleri düzenlemeye başlamak için
+											ilk etiketinizi oluşturun.
 										</span>
 										{permissions?.tag.create && <HandleTag />}
 									</div>
@@ -73,8 +73,8 @@ export const TagManager = () => {
 															)}
 															{permissions?.tag.delete && (
 																<DialogAction
-																	title="Delete Tag"
-																	description={`Are you sure you want to delete the tag "${tag.name}"? This will remove the tag from all projects. This action cannot be undone.`}
+																	title="Etiketi Sil"
+																	description={`"${tag.name}" etiketini silmek istediğinizden emin misiniz? Bu etiket tüm projelerden kaldırılacaktır. Bu işlem geri alınamaz.`}
 																	type="destructive"
 																	onClick={async () => {
 																		await deleteTag({
@@ -83,11 +83,11 @@ export const TagManager = () => {
 																			.then(async () => {
 																				await utils.tag.all.invalidate();
 																				toast.success(
-																					"Tag deleted successfully",
+																					"Etiket başarıyla silindi",
 																				);
 																			})
 																			.catch(() => {
-																				toast.error("Error deleting tag");
+																				toast.error("Etiket silinirken hata oluştu");
 																			});
 																	}}
 																>

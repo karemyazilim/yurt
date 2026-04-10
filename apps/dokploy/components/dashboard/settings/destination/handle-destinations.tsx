@@ -144,7 +144,7 @@ export const HandleDestinations = ({ destinationId }: Props) => {
 			additionalFlags: data.additionalFlags?.map((f) => f.value) ?? [],
 		})
 			.then(async () => {
-				toast.success(`Destination ${destinationId ? "Updated" : "Created"}`);
+				toast.success(`Hedef ${destinationId ? "Güncellendi" : "Oluşturuldu"}`);
 				await utils.destination.all.invalidate();
 				if (destinationId) {
 					await utils.destination.one.invalidate({ destinationId });
@@ -153,7 +153,7 @@ export const HandleDestinations = ({ destinationId }: Props) => {
 			})
 			.catch((e) => {
 				toast.error(
-					`Error ${destinationId ? "Updating" : "Creating"} the Destination`,
+					`Hedef ${destinationId ? "güncellenirken" : "oluşturulurken"} hata oluştu`,
 					{
 						description: e.message,
 					},
@@ -178,14 +178,14 @@ export const HandleDestinations = ({ destinationId }: Props) => {
 				.filter(Boolean)
 				.join("\n");
 
-			toast.error("Please fill all required fields", {
+			toast.error("Lütfen tüm gerekli alanları doldurun", {
 				description: errorFields,
 			});
 			return;
 		}
 
 		if (isCloud && !serverId) {
-			toast.error("Please select a server");
+			toast.error("Lütfen bir sunucu seçin");
 			return;
 		}
 
@@ -211,10 +211,10 @@ export const HandleDestinations = ({ destinationId }: Props) => {
 				form.getValues("additionalFlags")?.map((f) => f.value) ?? [],
 		})
 			.then(() => {
-				toast.success("Connection Success");
+				toast.success("Bağlantı Başarılı");
 			})
 			.catch((e) => {
-				toast.error("Error connecting to provider", {
+				toast.error("Sağlayıcıya bağlanırken hata oluştu", {
 					description: `${e.message}\n\nTry manually: rclone ls ${connectionString}`,
 				});
 			});
@@ -234,19 +234,19 @@ export const HandleDestinations = ({ destinationId }: Props) => {
 				) : (
 					<Button className="cursor-pointer space-x-3">
 						<PlusIcon className="h-4 w-4" />
-						Add Destination
+						Hedef Ekle
 					</Button>
 				)}
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-2xl">
 				<DialogHeader>
 					<DialogTitle>
-						{destinationId ? "Update" : "Add"} Destination
+						{destinationId ? "Güncelle" : "Ekle"} Hedef
 					</DialogTitle>
 					<DialogDescription>
-						In this section, you can configure and add new destinations for your
-						backups. Please ensure that you provide the correct information to
-						guarantee secure and efficient storage.
+						Bu bölümde yedeklemeleriniz için yeni hedefler yapılandırabilir ve
+						ekleyebilirsiniz. Güvenli ve verimli depolama sağlamak için doğru
+						bilgileri girdiğinizden emin olun.
 					</DialogDescription>
 				</DialogHeader>
 				{(isError || isErrorConnection) && (
@@ -267,7 +267,7 @@ export const HandleDestinations = ({ destinationId }: Props) => {
 							render={({ field }) => {
 								return (
 									<FormItem>
-										<FormLabel>Name</FormLabel>
+										<FormLabel>Ad</FormLabel>
 										<FormControl>
 											<Input placeholder={"S3 Bucket"} {...field} />
 										</FormControl>
@@ -282,7 +282,7 @@ export const HandleDestinations = ({ destinationId }: Props) => {
 							render={({ field }) => {
 								return (
 									<FormItem>
-										<FormLabel>Provider</FormLabel>
+										<FormLabel>Sağlayıcı</FormLabel>
 										<FormControl>
 											<Select
 												onValueChange={field.onChange}
@@ -291,7 +291,7 @@ export const HandleDestinations = ({ destinationId }: Props) => {
 											>
 												<FormControl>
 													<SelectTrigger>
-														<SelectValue placeholder="Select a S3 Provider" />
+														<SelectValue placeholder="Bir S3 Sağlayıcısı Seçin" />
 													</SelectTrigger>
 												</FormControl>
 												<SelectContent>
@@ -318,7 +318,7 @@ export const HandleDestinations = ({ destinationId }: Props) => {
 							render={({ field }) => {
 								return (
 									<FormItem>
-										<FormLabel>Access Key Id</FormLabel>
+										<FormLabel>Erişim Anahtarı Kimliği</FormLabel>
 										<FormControl>
 											<Input placeholder={"xcas41dasde"} {...field} />
 										</FormControl>
@@ -333,7 +333,7 @@ export const HandleDestinations = ({ destinationId }: Props) => {
 							render={({ field }) => (
 								<FormItem>
 									<div className="space-y-0.5">
-										<FormLabel>Secret Access Key</FormLabel>
+										<FormLabel>Gizli Erişim Anahtarı</FormLabel>
 									</div>
 									<FormControl>
 										<Input placeholder={"asd123asdasw"} {...field} />
@@ -348,7 +348,7 @@ export const HandleDestinations = ({ destinationId }: Props) => {
 							render={({ field }) => (
 								<FormItem>
 									<div className="space-y-0.5">
-										<FormLabel>Bucket</FormLabel>
+										<FormLabel>Depo (Bucket)</FormLabel>
 									</div>
 									<FormControl>
 										<Input placeholder={"dokploy-bucket"} {...field} />
@@ -363,7 +363,7 @@ export const HandleDestinations = ({ destinationId }: Props) => {
 							render={({ field }) => (
 								<FormItem>
 									<div className="space-y-0.5">
-										<FormLabel>Region</FormLabel>
+										<FormLabel>Bölge</FormLabel>
 									</div>
 									<FormControl>
 										<Input placeholder={"us-east-1"} {...field} />
@@ -377,7 +377,7 @@ export const HandleDestinations = ({ destinationId }: Props) => {
 							name="endpoint"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Endpoint</FormLabel>
+									<FormLabel>Uç Nokta</FormLabel>
 									<FormControl>
 										<Input
 											placeholder={"https://us.bucket.aws/s3"}
@@ -390,7 +390,7 @@ export const HandleDestinations = ({ destinationId }: Props) => {
 						/>
 						<div className="flex flex-col gap-2">
 							<div className="flex items-center justify-between">
-								<FormLabel>Additional Flags (Optional)</FormLabel>
+								<FormLabel>Ek Bayraklar (İsteğe Bağlı)</FormLabel>
 								<Button
 									type="button"
 									variant="ghost"
@@ -398,7 +398,7 @@ export const HandleDestinations = ({ destinationId }: Props) => {
 									onClick={() => append({ value: "" })}
 								>
 									<PlusIcon className="size-4" />
-									Add Flag
+									Bayrak Ekle
 								</Button>
 							</div>
 							{fields.map((field, index) => (
@@ -441,26 +441,26 @@ export const HandleDestinations = ({ destinationId }: Props) => {
 						{isCloud ? (
 							<div className="flex flex-col gap-4 border p-2 rounded-lg">
 								<span className="text-sm text-muted-foreground">
-									Select a server to test the destination. If you don't have a
-									server choose the default one.
+									Hedefi test etmek için bir sunucu seçin. Sunucunuz yoksa
+									varsayılanı seçin.
 								</span>
 								<FormField
 									control={form.control}
 									name="serverId"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Server (Optional)</FormLabel>
+											<FormLabel>Sunucu (İsteğe Bağlı)</FormLabel>
 											<FormControl>
 												<Select
 													onValueChange={field.onChange}
 													defaultValue={field.value}
 												>
 													<SelectTrigger className="w-full">
-														<SelectValue placeholder="Select a server" />
+														<SelectValue placeholder="Bir sunucu seçin" />
 													</SelectTrigger>
 													<SelectContent>
 														<SelectGroup>
-															<SelectLabel>Servers</SelectLabel>
+															<SelectLabel>Sunucular</SelectLabel>
 															{servers?.map((server) => (
 																<SelectItem
 																	key={server.serverId}
@@ -469,7 +469,7 @@ export const HandleDestinations = ({ destinationId }: Props) => {
 																	{server.name}
 																</SelectItem>
 															))}
-															<SelectItem value={"none"}>None</SelectItem>
+															<SelectItem value={"none"}>Hiçbiri</SelectItem>
 														</SelectGroup>
 													</SelectContent>
 												</Select>
@@ -487,7 +487,7 @@ export const HandleDestinations = ({ destinationId }: Props) => {
 										await handleTestConnection(form.getValues("serverId"));
 									}}
 								>
-									Test Connection
+									Bağlantıyı Test Et
 								</Button>
 							</div>
 						) : (
@@ -499,7 +499,7 @@ export const HandleDestinations = ({ destinationId }: Props) => {
 									await handleTestConnection();
 								}}
 							>
-								Test connection
+								Bağlantıyı Test Et
 							</Button>
 						)}
 
@@ -508,7 +508,7 @@ export const HandleDestinations = ({ destinationId }: Props) => {
 							form="hook-form-destination-add"
 							type="submit"
 						>
-							{destinationId ? "Update" : "Create"}
+							{destinationId ? "Güncelle" : "Oluştur"}
 						</Button>
 					</DialogFooter>
 				</Form>

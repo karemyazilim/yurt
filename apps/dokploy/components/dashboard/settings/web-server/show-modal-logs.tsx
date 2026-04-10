@@ -69,20 +69,20 @@ export const ShowModalLogs = ({
 			<DialogTrigger asChild>{children}</DialogTrigger>
 			<DialogContent className="max-h-[85vh]  sm:max-w-7xl">
 				<DialogHeader>
-					<DialogTitle>View Logs</DialogTitle>
-					<DialogDescription>View the logs for {appName}</DialogDescription>
+					<DialogTitle>Günlükleri Görüntüle</DialogTitle>
+					<DialogDescription>{appName} için günlükleri görüntüle</DialogDescription>
 				</DialogHeader>
 				<div className="flex flex-col gap-4 pt-2.5">
-					<Label>Select a container to view logs</Label>
+					<Label>Günlükleri görüntülemek için bir konteyner seçin</Label>
 					<Select onValueChange={setContainerId} value={containerId}>
 						<SelectTrigger>
 							{isPending ? (
 								<div className="flex flex-row gap-2 items-center justify-center text-sm text-muted-foreground">
-									<span>Loading...</span>
+									<span>Yükleniyor...</span>
 									<Loader2 className="animate-spin size-4" />
 								</div>
 							) : (
-								<SelectValue placeholder="Select a container" />
+								<SelectValue placeholder="Bir konteyner seçin" />
 							)}
 						</SelectTrigger>
 						<SelectContent>
@@ -98,7 +98,7 @@ export const ShowModalLogs = ({
 										</Badge>
 									</SelectItem>
 								))}
-								<SelectLabel>Containers ({data?.length})</SelectLabel>
+								<SelectLabel>Konteynerler ({data?.length})</SelectLabel>
 							</SelectGroup>
 						</SelectContent>
 					</Select>

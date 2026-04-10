@@ -63,8 +63,8 @@ export const EditGiteaProvider = ({ giteaId }: Props) => {
 		if (!router.isReady) return;
 
 		if (connected) {
-			toast.success("Successfully connected to Gitea", {
-				description: "Your Gitea provider has been authorized.",
+			toast.success("Gitea'ya başarıyla bağlanıldı", {
+				description: "Gitea sağlayıcınız yetkilendirildi.",
 				id: "gitea-connection-success",
 			});
 			refetch();
@@ -79,7 +79,7 @@ export const EditGiteaProvider = ({ giteaId }: Props) => {
 		}
 
 		if (error) {
-			toast.error("Gitea Connection Failed", {
+			toast.error("Gitea Bağlantısı Başarısız", {
 				description: decodeURIComponent(error as string),
 				id: "gitea-connection-error",
 			});
@@ -129,19 +129,19 @@ export const EditGiteaProvider = ({ giteaId }: Props) => {
 		})
 			.then(async () => {
 				await utils.gitProvider.getAll.invalidate();
-				toast.success("Gitea provider updated successfully");
+				toast.success("Gitea sağlayıcısı başarıyla güncellendi");
 				await refetch();
 				setOpen(false);
 			})
 			.catch(() => {
-				toast.error("Error updating Gitea provider");
+				toast.error("Gitea sağlayıcısı güncellenirken hata oluştu");
 			});
 	};
 
 	const handleTestConnection = async () => {
 		try {
 			const result = await testConnection({ giteaId });
-			toast.success("Gitea Connection Verified", {
+			toast.success("Gitea Bağlantısı Doğrulandı", {
 				description: result,
 			});
 		} catch (error: any) {
@@ -155,13 +155,13 @@ export const EditGiteaProvider = ({ giteaId }: Props) => {
 					typeof url === "string" ? url : (url as any).url || "",
 				);
 
-			toast.error("Gitea Not Connected", {
+			toast.error("Gitea Bağlı Değil", {
 				description:
-					error.message || "Please complete the OAuth authorization process.",
+					error.message || "Lütfen OAuth yetkilendirme sürecini tamamlayın.",
 				action:
 					authUrl && authUrl !== "#"
 						? {
-								label: "Authorize Now",
+								label: "Şimdi Yetkilendir",
 								onClick: () => window.open(authUrl, "_blank"),
 							}
 						: undefined,
@@ -195,9 +195,9 @@ export const EditGiteaProvider = ({ giteaId }: Props) => {
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Edit Gitea Provider</DialogTitle>
+					<DialogTitle>Gitea Sağlayıcısını Düzenle</DialogTitle>
 					<DialogDescription>
-						Update your Gitea provider details.
+						Gitea sağlayıcı bilgilerinizi güncelleyin.
 					</DialogDescription>
 				</DialogHeader>
 				<Form {...form}>
@@ -207,7 +207,7 @@ export const EditGiteaProvider = ({ giteaId }: Props) => {
 							name="name"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Name</FormLabel>
+									<FormLabel>Ad</FormLabel>
 									<FormControl>
 										<Input
 											placeholder="My Gitea"
@@ -237,7 +237,7 @@ export const EditGiteaProvider = ({ giteaId }: Props) => {
 							name="giteaInternalUrl"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Internal URL (Optional)</FormLabel>
+									<FormLabel>Dahili URL (İsteğe Bağlı)</FormLabel>
 									<FormControl>
 										<Input
 											placeholder="http://gitea:3000"
@@ -246,9 +246,9 @@ export const EditGiteaProvider = ({ giteaId }: Props) => {
 										/>
 									</FormControl>
 									<FormDescription>
-										Use when Gitea runs on the same instance as Dokploy. Used
-										for OAuth token exchange to reach Gitea via internal network
-										(e.g. Docker service name).
+										Gitea, Dokploy ile aynı sunucuda çalıştığında kullanın.
+										OAuth token değişimi için dahili ağ üzerinden Gitea'ya
+										ulaşmak için kullanılır (ör. Docker servis adı).
 									</FormDescription>
 									<FormMessage />
 								</FormItem>
@@ -292,7 +292,7 @@ export const EditGiteaProvider = ({ giteaId }: Props) => {
 								onClick={handleTestConnection}
 								isLoading={isTesting}
 							>
-								Test Connection
+								Bağlantıyı Test Et
 							</Button>
 
 							<Button
@@ -311,11 +311,11 @@ export const EditGiteaProvider = ({ giteaId }: Props) => {
 									}
 								}}
 							>
-								Connect to Gitea
+								Gitea'ya Bağlan
 							</Button>
 
 							<Button type="submit" isLoading={isUpdating}>
-								Save
+								Kaydet
 							</Button>
 						</div>
 					</form>

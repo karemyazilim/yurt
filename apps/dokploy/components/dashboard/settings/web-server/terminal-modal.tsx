@@ -69,7 +69,7 @@ export const TerminalModal = ({
 			>
 				<DialogHeader className="flex flex-col gap-1">
 					<DialogTitle>Terminal ({data?.name ?? serverId})</DialogTitle>
-					<DialogDescription>Easy way to access the server</DialogDescription>
+					<DialogDescription>Sunucuya erişmenin kolay yolu</DialogDescription>
 				</DialogHeader>
 
 				{isLocalServer && (

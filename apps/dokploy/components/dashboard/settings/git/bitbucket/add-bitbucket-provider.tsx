@@ -71,11 +71,11 @@ export const AddBitbucketProvider = () => {
 		})
 			.then(async () => {
 				await utils.gitProvider.getAll.invalidate();
-				toast.success("Bitbucket configured successfully");
+				toast.success("Bitbucket başarıyla yapılandırıldı");
 				setIsOpen(false);
 			})
 			.catch(() => {
-				toast.error("Error configuring Bitbucket");
+				toast.error("Bitbucket yapılandırılırken hata oluştu");
 			});
 	};
 
@@ -93,7 +93,7 @@ export const AddBitbucketProvider = () => {
 			<DialogContent className="sm:max-w-2xl ">
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">
-						Bitbucket Provider <BitbucketIcon className="size-5" />
+						Bitbucket Sağlayıcısı <BitbucketIcon className="size-5" />
 					</DialogTitle>
 				</DialogHeader>
 
@@ -107,35 +107,35 @@ export const AddBitbucketProvider = () => {
 						<CardContent className="p-0">
 							<div className="flex flex-col gap-4">
 								<AlertBlock type="warning">
-									Bitbucket App Passwords are deprecated for new providers. Use
-									an API Token instead. Existing providers with App Passwords
-									will continue to work until 9th June 2026.
+									Bitbucket Uygulama Şifreleri yeni sağlayıcılar için kullanımdan
+									kaldırılmıştır. Bunun yerine API Token kullanın. Mevcut Uygulama
+									Şifreli sağlayıcılar 9 Haziran 2026'ya kadar çalışmaya devam edecektir.
 								</AlertBlock>
 
 								<div className="mt-1 text-sm">
-									Manage tokens in
+									Token'ları şurada yönetin:
 									<Link
 										href="https://id.atlassian.com/manage-profile/security/api-tokens"
 										target="_blank"
 										className="inline-flex items-center gap-1 ml-1"
 									>
-										<span>Bitbucket settings</span>
+										<span>Bitbucket ayarları</span>
 										<ExternalLink className="w-fit text-primary size-4" />
 									</Link>
 								</div>
 								<ul className="list-disc list-inside ml-4 text-sm text-muted-foreground">
 									<li className="text-muted-foreground text-sm">
-										Click on Create API token with scopes
+										Kapsamlarla API token oluştur'a tıklayın
 									</li>
 									<li className="text-muted-foreground text-sm">
-										Select the expiration date (Max 1 year)
+										Son kullanma tarihini seçin (Maks. 1 yıl)
 									</li>
 									<li className="text-muted-foreground text-sm">
-										Select Bitbucket product.
+										Bitbucket ürününü seçin.
 									</li>
 								</ul>
 								<p className="text-muted-foreground text-sm">
-									Select the following scopes:
+									Aşağıdaki kapsamları seçin:
 								</p>
 
 								<ul className="list-disc list-inside ml-4 text-sm text-muted-foreground">
@@ -151,7 +151,7 @@ export const AddBitbucketProvider = () => {
 									name="name"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Name</FormLabel>
+											<FormLabel>Ad</FormLabel>
 											<FormControl>
 												<Input
 													placeholder="Your Bitbucket Provider, eg: my-personal-account"
@@ -167,7 +167,7 @@ export const AddBitbucketProvider = () => {
 									name="username"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Bitbucket Username</FormLabel>
+											<FormLabel>Bitbucket Kullanıcı Adı</FormLabel>
 											<FormControl>
 												<Input
 													placeholder="Your Bitbucket username"
@@ -184,7 +184,7 @@ export const AddBitbucketProvider = () => {
 									name="email"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Bitbucket Email</FormLabel>
+											<FormLabel>Bitbucket E-postası</FormLabel>
 											<FormControl>
 												<Input placeholder="Your Bitbucket email" {...field} />
 											</FormControl>
@@ -215,7 +215,7 @@ export const AddBitbucketProvider = () => {
 									name="workspaceName"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Workspace Name (optional)</FormLabel>
+											<FormLabel>Çalışma Alanı Adı (isteğe bağlı)</FormLabel>
 											<FormControl>
 												<Input
 													placeholder="For organization accounts"
@@ -228,7 +228,7 @@ export const AddBitbucketProvider = () => {
 								/>
 
 								<Button isLoading={form.formState.isSubmitting}>
-									Configure Bitbucket
+									Bitbucket'ı Yapılandır
 								</Button>
 							</div>
 						</CardContent>

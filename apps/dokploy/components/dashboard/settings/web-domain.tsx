@@ -102,10 +102,10 @@ export const WebDomain = () => {
 		})
 			.then(async () => {
 				await refetch();
-				toast.success("Domain Assigned");
+				toast.success("Alan Adı Atandı");
 			})
 			.catch(() => {
-				toast.error("Error assigning the domain");
+				toast.error("Alan adı atanırken hata oluştu");
 			});
 	};
 
@@ -117,10 +117,10 @@ export const WebDomain = () => {
 						<div className="flex flex-col gap-1">
 							<CardTitle className="text-xl flex flex-row gap-2">
 								<GlobeIcon className="size-6 text-muted-foreground self-center" />
-								Server Domain
+								Sunucu Alan Adı
 							</CardTitle>
 							<CardDescription>
-								Add a domain to your server application.
+								Sunucu uygulamanıza bir alan adı ekleyin.
 							</CardDescription>
 						</div>
 					</CardHeader>
@@ -129,11 +129,11 @@ export const WebDomain = () => {
 						{hasChanged && (
 							<AlertBlock type="warning">
 								<div className="space-y-2">
-									<p className="font-medium">⚠️ Important: URL Change Impact</p>
+									<p className="font-medium">⚠️ Önemli: URL Değişikliği Etkisi</p>
 									<p>
-										If you change the Dokploy Server URL make sure to update
-										your Github Apps to keep the auto-deploy working and preview
-										deployments working.
+										Dokploy Sunucu URL'sini değiştirirseniz, otomatik dağıtım ve
+										önizleme dağıtımlarının çalışmaya devam etmesi için
+										Github Uygulamalarınızı güncellediğinizden emin olun.
 									</p>
 								</div>
 							</AlertBlock>
@@ -149,7 +149,7 @@ export const WebDomain = () => {
 									render={({ field }) => {
 										return (
 											<FormItem>
-												<FormLabel>Domain</FormLabel>
+												<FormLabel>Alan Adı</FormLabel>
 												<FormControl>
 													<Input
 														className="w-full"
@@ -169,7 +169,7 @@ export const WebDomain = () => {
 									render={({ field }) => {
 										return (
 											<FormItem>
-												<FormLabel>Let's Encrypt Email</FormLabel>
+												<FormLabel>Let's Encrypt E-postası</FormLabel>
 												<FormControl>
 													<Input
 														className="w-full"
@@ -190,7 +190,7 @@ export const WebDomain = () => {
 											<div className="space-y-0.5">
 												<FormLabel>HTTPS</FormLabel>
 												<FormDescription>
-													Automatically provision SSL Certificate.
+													SSL Sertifikasını otomatik olarak sağlayın.
 												</FormDescription>
 												<FormMessage />
 											</div>
@@ -210,18 +210,18 @@ export const WebDomain = () => {
 										render={({ field }) => {
 											return (
 												<FormItem className="md:col-span-2">
-													<FormLabel>Certificate Provider</FormLabel>
+													<FormLabel>Sertifika Sağlayıcısı</FormLabel>
 													<Select
 														onValueChange={field.onChange}
 														value={field.value}
 													>
 														<FormControl>
 															<SelectTrigger>
-																<SelectValue placeholder="Select a certificate" />
+																<SelectValue placeholder="Bir sertifika seçin" />
 															</SelectTrigger>
 														</FormControl>
 														<SelectContent>
-															<SelectItem value={"none"}>None</SelectItem>
+															<SelectItem value={"none"}>Hiçbiri</SelectItem>
 															<SelectItem value={"letsencrypt"}>
 																Let's Encrypt
 															</SelectItem>
@@ -236,7 +236,7 @@ export const WebDomain = () => {
 
 								<div className="flex w-full justify-end col-span-2">
 									<Button isLoading={isPending} type="submit">
-										Save
+										Kaydet
 									</Button>
 								</div>
 							</form>

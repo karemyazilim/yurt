@@ -27,16 +27,16 @@ export const WebServer = () => {
 					<CardHeader className="">
 						<CardTitle className="text-xl flex flex-row gap-2">
 							<ServerIcon className="size-6 text-muted-foreground self-center" />
-							Web Server
+							Web Sunucusu
 						</CardTitle>
-						<CardDescription>Reload or clean the web server.</CardDescription>
+						<CardDescription>Web sunucusunu yeniden yükleyin veya temizleyin.</CardDescription>
 					</CardHeader>
 					{/* <CardHeader>
 						<CardTitle className="text-xl">
-							Web Server
+							Web Sunucusu
 						</CardTitle>
 						<CardDescription>
-							Reload or clean the web server.
+							Web sunucusunu yeniden yükleyin veya temizleyin.
 						</CardDescription>
 					</CardHeader> */}
 					<CardContent className="space-y-6 py-6 border-t">
@@ -50,10 +50,10 @@ export const WebServer = () => {
 
 						<div className="flex items-center flex-wrap justify-between gap-4">
 							<span className="text-sm text-muted-foreground">
-								Server IP: {webServerSettings?.serverIp}
+								Sunucu IP: {webServerSettings?.serverIp}
 							</span>
 							<span className="text-sm text-muted-foreground">
-								Version: {dokployVersion}
+								Sürüm: {dokployVersion}
 							</span>
 
 							<ToggleDockerCleanup />

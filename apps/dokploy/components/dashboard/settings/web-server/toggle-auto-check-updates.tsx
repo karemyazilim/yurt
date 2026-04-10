@@ -21,7 +21,7 @@ export const ToggleAutoCheckUpdates = ({ disabled }: { disabled: boolean }) => {
 				disabled={disabled}
 			/>
 			<Label className="text-primary" htmlFor="autoCheckUpdatesToggle">
-				Automatically check for new updates
+				Yeni güncellemeleri otomatik kontrol et
 			</Label>
 		</div>
 	);

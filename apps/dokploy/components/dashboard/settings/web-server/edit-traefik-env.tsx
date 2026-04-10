@@ -52,7 +52,7 @@ export const EditTraefikEnv = ({ children, serverId }: Props) => {
 		isExecuting: isHealthCheckExecuting,
 	} = useHealthCheckAfterMutation({
 		initialDelay: 5000,
-		successMessage: "Traefik Env Updated",
+		successMessage: "Traefik Ortam Değişkenleri Güncellendi",
 	});
 
 	const form = useForm<Schema>({
@@ -80,7 +80,7 @@ export const EditTraefikEnv = ({ children, serverId }: Props) => {
 				}),
 			);
 		} catch {
-			toast.error("Error updating the Traefik env");
+			toast.error("Traefik ortam değişkenleri güncellenirken hata oluştu");
 		}
 	};
 
@@ -109,9 +109,9 @@ export const EditTraefikEnv = ({ children, serverId }: Props) => {
 			<DialogTrigger asChild>{children}</DialogTrigger>
 			<DialogContent className="sm:max-w-4xl">
 				<DialogHeader>
-					<DialogTitle>Update Traefik Environment</DialogTitle>
+					<DialogTitle>Traefik Ortam Değişkenlerini Güncelle</DialogTitle>
 					<DialogDescription>
-						Update the traefik environment variables
+						Traefik ortam değişkenlerini güncelleyin
 					</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
@@ -157,7 +157,7 @@ TRAEFIK_CERTIFICATESRESOLVERS_LETSENCRYPT_HTTP_CHALLENGE_DNS_PROVIDER=cloudflare
 													setCanEdit(!canEdit);
 												}}
 											>
-												{canEdit ? "Unlock" : "Lock"}
+												{canEdit ? "Kilidi Aç" : "Kilitle"}
 											</Button>
 										</div>
 									</FormItem>
@@ -173,7 +173,7 @@ TRAEFIK_CERTIFICATESRESOLVERS_LETSENCRYPT_HTTP_CHALLENGE_DNS_PROVIDER=cloudflare
 							form="hook-form-update-server-traefik-config"
 							type="submit"
 						>
-							Update
+							Güncelle
 						</Button>
 					</DialogFooter>
 				</Form>

@@ -65,7 +65,7 @@ export const AddGithubProvider = () => {
 			<DialogContent className="sm:max-w-2xl ">
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">
-						Github Provider <GithubIcon className="size-5" />
+						Github Sağlayıcısı <GithubIcon className="size-5" />
 					</DialogTitle>
 				</DialogHeader>
 
@@ -73,14 +73,14 @@ export const AddGithubProvider = () => {
 					<CardContent className="p-0">
 						<div className="flex flex-col ">
 							<p className="text-muted-foreground text-sm">
-								To integrate your GitHub account with our services, you'll need
-								to create and install a GitHub app. This process is
-								straightforward and only takes a few minutes. Click the button
-								below to get started.
+								GitHub hesabınızı hizmetlerimizle entegre etmek için bir GitHub
+								uygulaması oluşturmanız ve yüklemeniz gerekir. Bu işlem basittir
+								ve yalnızca birkaç dakika sürer. Başlamak için aşağıdaki düğmeye
+								tıklayın.
 							</p>
 							<div className="mt-4 flex flex-col gap-4">
 								<div className="flex flex-row gap-4">
-									<span>Organization?</span>
+									<span>Kuruluş?</span>
 									<Switch
 										checked={isOrganization}
 										onCheckedChange={(checked) => setIsOrganization(checked)}
@@ -90,7 +90,7 @@ export const AddGithubProvider = () => {
 								{isOrganization && (
 									<Input
 										required
-										placeholder="Organization name"
+										placeholder="Kuruluş adı"
 										onChange={(e) => setOrganization(e.target.value)}
 									/>
 								)}
@@ -128,14 +128,14 @@ export const AddGithubProvider = () => {
 										target="_blank"
 										rel="noopener noreferrer"
 									>
-										Unsure if you already have an app?
+										Zaten bir uygulamanız olup olmadığından emin değil misiniz?
 									</a>
 									<Button
 										disabled={isOrganization && organizationName.length < 1}
 										type="submit"
 										className="self-end"
 									>
-										Create GitHub App
+										GitHub Uygulaması Oluştur
 									</Button>
 								</div>
 							</form>

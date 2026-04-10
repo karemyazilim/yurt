@@ -26,17 +26,17 @@ export const ShowDestinations = () => {
 					<CardHeader className="">
 						<CardTitle className="text-xl flex flex-row gap-2">
 							<KeyRound className="size-6 text-muted-foreground self-center" />
-							SSH Keys
+							SSH Anahtarları
 						</CardTitle>
 						<CardDescription>
-							Create and manage SSH Keys, you can use them to access your
-							servers, git private repositories, and more.
+							SSH Anahtarları oluşturun ve yönetin; sunucularınıza, git özel
+							depolarınıza ve daha fazlasına erişmek için kullanabilirsiniz.
 						</CardDescription>
 					</CardHeader>
 					<CardContent className="space-y-2 py-8 border-t">
 						{isPending ? (
 							<div className="flex flex-row gap-2 items-center justify-center text-sm text-muted-foreground min-h-[25vh]">
-								<span>Loading...</span>
+								<span>Yükleniyor...</span>
 								<Loader2 className="animate-spin size-4" />
 							</div>
 						) : (
@@ -45,7 +45,7 @@ export const ShowDestinations = () => {
 									<div className="flex flex-col items-center gap-3  min-h-[25vh] justify-center">
 										<KeyRound className="size-8 self-center text-muted-foreground" />
 										<span className="text-base text-muted-foreground text-center">
-											You don't have any SSH keys
+											Henüz SSH anahtarınız yok
 										</span>
 										{permissions?.sshKeys.create && <HandleSSHKeys />}
 									</div>
@@ -69,7 +69,7 @@ export const ShowDestinations = () => {
 																			{sshKey.description}
 																		</span>
 																		<div className="text-xs  text-muted-foreground">
-																			Created:{" "}
+																			Oluşturulma:{" "}
 																			{formatDistanceToNow(
 																				new Date(sshKey.createdAt),
 																				{
@@ -87,8 +87,8 @@ export const ShowDestinations = () => {
 
 															{permissions?.sshKeys.delete && (
 																<DialogAction
-																	title="Delete SSH Key"
-																	description="Are you sure you want to delete this SSH Key?"
+																	title="SSH Anahtarını Sil"
+																	description="Bu SSH Anahtarını silmek istediğinizden emin misiniz?"
 																	type="destructive"
 																	onClick={async () => {
 																		await mutateAsync({
@@ -96,12 +96,12 @@ export const ShowDestinations = () => {
 																		})
 																			.then(() => {
 																				toast.success(
-																					"SSH Key deleted successfully",
+																					"SSH Anahtarı başarıyla silindi",
 																				);
 																				refetch();
 																			})
 																			.catch(() => {
-																				toast.error("Error deleting SSH Key");
+																				toast.error("SSH Anahtarı silinirken hata oluştu");
 																			});
 																	}}
 																>

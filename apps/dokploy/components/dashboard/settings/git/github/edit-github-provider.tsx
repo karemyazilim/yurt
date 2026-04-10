@@ -79,11 +79,11 @@ export const EditGithubProvider = ({ githubId }: Props) => {
 		})
 			.then(async () => {
 				await utils.gitProvider.getAll.invalidate();
-				toast.success("Github updated successfully");
+				toast.success("Github başarıyla güncellendi");
 				setIsOpen(false);
 			})
 			.catch(() => {
-				toast.error("Error updating Github");
+				toast.error("Github güncellenirken hata oluştu");
 			});
 	};
 
@@ -101,7 +101,7 @@ export const EditGithubProvider = ({ githubId }: Props) => {
 			<DialogContent className="sm:max-w-2xl ">
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">
-						Update Github <GithubIcon className="size-5" />
+						Github'ı Güncelle <GithubIcon className="size-5" />
 					</DialogTitle>
 				</DialogHeader>
 
@@ -119,7 +119,7 @@ export const EditGithubProvider = ({ githubId }: Props) => {
 									name="name"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Name</FormLabel>
+											<FormLabel>Ad</FormLabel>
 											<FormControl>
 												<Input
 													placeholder="Random Name eg(my-personal-account)"
@@ -135,7 +135,7 @@ export const EditGithubProvider = ({ githubId }: Props) => {
 									name="appName"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>App Name</FormLabel>
+											<FormLabel>Uygulama Adı</FormLabel>
 											<FormControl>
 												<Input
 													placeholder="pp Name eg(my-personal)"
@@ -164,10 +164,10 @@ export const EditGithubProvider = ({ githubId }: Props) => {
 												});
 										}}
 									>
-										Test Connection
+										Bağlantıyı Test Et
 									</Button>
 									<Button type="submit" isLoading={form.formState.isSubmitting}>
-										Update
+										Güncelle
 									</Button>
 								</div>
 							</div>

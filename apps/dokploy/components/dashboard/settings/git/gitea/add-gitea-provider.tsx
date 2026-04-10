@@ -108,7 +108,7 @@ export const AddGiteaProvider = () => {
 
 			// Check if we have a giteaId from the response
 			if (!result || !result.giteaId) {
-				toast.error("Failed to get Gitea ID from response");
+				toast.error("Yanıttan Gitea kimliği alınamadı");
 				return;
 			}
 
@@ -124,18 +124,18 @@ export const AddGiteaProvider = () => {
 			if (authUrl !== "#") {
 				window.open(authUrl, "_blank");
 			} else {
-				toast.error("Configuration Incomplete", {
-					description: "Please fill in Client ID and Gitea URL first.",
+				toast.error("Yapılandırma Eksik", {
+					description: "Lütfen önce İstemci Kimliği ve Gitea URL'sini doldurun.",
 				});
 			}
 
-			toast.success("Gitea provider created successfully");
+			toast.success("Gitea sağlayıcısı başarıyla oluşturuldu");
 			setIsOpen(false);
 		} catch (error: unknown) {
 			if (error instanceof Error) {
-				toast.error(`Error configuring Gitea: ${error.message}`);
+				toast.error(`Gitea yapılandırılırken hata oluştu: ${error.message}`);
 			} else {
-				toast.error("An unknown error occurred.");
+				toast.error("Bilinmeyen bir hata oluştu.");
 			}
 		}
 	};
@@ -154,7 +154,7 @@ export const AddGiteaProvider = () => {
 			<DialogContent className="sm:max-w-2xl">
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">
-						Gitea Provider <GiteaIcon className="size-5" />
+						Gitea Sağlayıcısı <GiteaIcon className="size-5" />
 					</DialogTitle>
 				</DialogHeader>
 
@@ -168,12 +168,12 @@ export const AddGiteaProvider = () => {
 						<CardContent className="p-0">
 							<div className="flex flex-col gap-4">
 								<p className="text-muted-foreground text-sm">
-									To integrate your Gitea account, you need to create a new
-									application in your Gitea settings. Follow these steps:
+									Gitea hesabınızı entegre etmek için Gitea ayarlarınızda yeni
+									bir uygulama oluşturmanız gerekir. Şu adımları izleyin:
 								</p>
 								<ol className="list-decimal list-inside text-sm text-muted-foreground">
 									<li className="flex flex-row gap-2 items-center">
-										Go to your Gitea settings{" "}
+										Gitea ayarlarınıza gidin{" "}
 										<Link
 											href={`${giteaUrl}/user/settings/applications`}
 											target="_blank"
@@ -182,11 +182,11 @@ export const AddGiteaProvider = () => {
 										</Link>
 									</li>
 									<li>
-										Navigate to Applications {"->"} Create new OAuth2
-										Application
+										Uygulamalar {"->"} Yeni OAuth2 Uygulaması Oluştur
+										bölümüne gidin
 									</li>
 									<li>
-										Create a new application with the following details:
+										Aşağıdaki bilgilerle yeni bir uygulama oluşturun:
 										<ul className="list-disc list-inside ml-4">
 											<li>Name: Dokploy</li>
 											<li>
@@ -196,8 +196,8 @@ export const AddGiteaProvider = () => {
 										</ul>
 									</li>
 									<li>
-										After creating, you'll receive an ID and Secret, copy them
-										and paste them below.
+										Oluşturduktan sonra bir Kimlik ve Gizli Anahtar
+										alacaksınız, bunları kopyalayıp aşağıya yapıştırın.
 									</li>
 								</ol>
 								<FormField
@@ -205,7 +205,7 @@ export const AddGiteaProvider = () => {
 									name="name"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Name</FormLabel>
+											<FormLabel>Ad</FormLabel>
 											<FormControl>
 												<Input
 													placeholder="Random Name eg(my-personal-account)"
@@ -236,7 +236,7 @@ export const AddGiteaProvider = () => {
 									name="giteaInternalUrl"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Internal URL (Optional)</FormLabel>
+											<FormLabel>Dahili URL (İsteğe Bağlı)</FormLabel>
 											<FormControl>
 												<Input
 													placeholder="http://gitea:3000"
@@ -245,9 +245,9 @@ export const AddGiteaProvider = () => {
 												/>
 											</FormControl>
 											<FormDescription>
-												Use when Gitea runs on the same instance as Dokploy.
-												Used for OAuth token exchange to reach Gitea via
-												internal network (e.g. Docker service name).
+												Gitea, Dokploy ile aynı sunucuda çalıştığında kullanın.
+												OAuth token değişimi için dahili ağ üzerinden Gitea'ya
+												ulaşmak için kullanılır (ör. Docker servis adı).
 											</FormDescription>
 											<FormMessage />
 										</FormItem>
@@ -259,7 +259,7 @@ export const AddGiteaProvider = () => {
 									name="redirectUri"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Redirect URI</FormLabel>
+											<FormLabel>Yönlendirme URI'si</FormLabel>
 											<FormControl>
 												<Input
 													disabled
@@ -305,7 +305,7 @@ export const AddGiteaProvider = () => {
 								/>
 
 								<Button isLoading={form.formState.isSubmitting}>
-									Configure Gitea App
+									Gitea Uygulamasını Yapılandır
 								</Button>
 							</div>
 						</CardContent>

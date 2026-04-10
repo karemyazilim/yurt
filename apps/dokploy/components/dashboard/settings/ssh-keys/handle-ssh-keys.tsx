@@ -84,8 +84,8 @@ export const HandleSSHKeys = ({ sshKeyId }: Props) => {
 			.then(async () => {
 				toast.success(
 					sshKeyId
-						? "SSH key updated successfully"
-						: "SSH key created successfully",
+						? "SSH anahtarı başarıyla güncellendi"
+						: "SSH anahtarı başarıyla oluşturuldu",
 				);
 				await utils.sshKey.all.invalidate();
 				form.reset();
@@ -94,8 +94,8 @@ export const HandleSSHKeys = ({ sshKeyId }: Props) => {
 			.catch(() => {
 				toast.error(
 					sshKeyId
-						? "Error updating the SSH key"
-						: "Error creating the SSH key",
+						? "SSH anahtarı güncellenirken hata oluştu"
+						: "SSH anahtarı oluşturulurken hata oluştu",
 				);
 			});
 	};
@@ -104,12 +104,12 @@ export const HandleSSHKeys = ({ sshKeyId }: Props) => {
 		generateMutation
 			.mutateAsync(type)
 			.then(async (data) => {
-				toast.success("SSH Key Generated");
+				toast.success("SSH Anahtarı Oluşturuldu");
 				form.setValue("privateKey", data.privateKey);
 				form.setValue("publicKey", data.publicKey);
 			})
 			.catch(() => {
-				toast.error("Error generating the SSH Key");
+				toast.error("SSH Anahtarı oluşturulurken hata oluştu");
 			});
 
 	const downloadKey = (content: string, keyType: "private" | "public") => {
@@ -148,17 +148,17 @@ export const HandleSSHKeys = ({ sshKeyId }: Props) => {
 				) : (
 					<Button className="cursor-pointer space-x-3">
 						<PlusIcon className="h-4 w-4" />
-						Add SSH Key
+						SSH Anahtarı Ekle
 					</Button>
 				)}
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-2xl">
 				<DialogHeader>
-					<DialogTitle>SSH Key</DialogTitle>
+					<DialogTitle>SSH Anahtarı</DialogTitle>
 					<DialogDescription className="space-y-4">
 						<div>
-							In this section you can add one of your keys or generate a new
-							one.
+							Bu bölümde anahtarlarınızdan birini ekleyebilir veya yeni bir
+							anahtar oluşturabilirsiniz.
 						</div>
 						{!sshKeyId && (
 							<div className="flex gap-4">
@@ -173,7 +173,7 @@ export const HandleSSHKeys = ({ sshKeyId }: Props) => {
 									}
 									type="button"
 								>
-									Generate RSA SSH Key
+									RSA SSH Anahtarı Oluştur
 								</Button>
 								<Button
 									variant={"secondary"}
@@ -186,7 +186,7 @@ export const HandleSSHKeys = ({ sshKeyId }: Props) => {
 									}
 									type="button"
 								>
-									Generate ED25519 SSH Key
+									ED25519 SSH Anahtarı Oluştur
 								</Button>
 							</div>
 						)}
@@ -205,7 +205,7 @@ export const HandleSSHKeys = ({ sshKeyId }: Props) => {
 							render={({ field }) => {
 								return (
 									<FormItem>
-										<FormLabel>Name</FormLabel>
+										<FormLabel>Ad</FormLabel>
 										<FormControl>
 											<Input placeholder={"Personal projects"} {...field} />
 										</FormControl>
@@ -221,7 +221,7 @@ export const HandleSSHKeys = ({ sshKeyId }: Props) => {
 							render={({ field }) => {
 								return (
 									<FormItem>
-										<FormLabel>Description</FormLabel>
+										<FormLabel>Açıklama</FormLabel>
 										<FormControl>
 											<Input
 												placeholder={"Used on my personal Hetzner VPS"}
@@ -239,7 +239,7 @@ export const HandleSSHKeys = ({ sshKeyId }: Props) => {
 							render={({ field }) => (
 								<FormItem>
 									<div className="space-y-0.5">
-										<FormLabel>Private Key</FormLabel>
+										<FormLabel>Özel Anahtar</FormLabel>
 									</div>
 									<FormControl>
 										<Textarea
@@ -258,7 +258,7 @@ export const HandleSSHKeys = ({ sshKeyId }: Props) => {
 							render={({ field }) => (
 								<FormItem>
 									<div className="space-y-0.5">
-										<FormLabel>Public Key</FormLabel>
+										<FormLabel>Açık Anahtar</FormLabel>
 									</div>
 									<FormControl>
 										<Input placeholder={"ssh-rsa AAAAB3NzaC1yc2E"} {...field} />
@@ -280,7 +280,7 @@ export const HandleSSHKeys = ({ sshKeyId }: Props) => {
 										className="flex items-center gap-2"
 									>
 										<DownloadIcon className="h-4 w-4" />
-										Private Key
+										Özel Anahtar
 									</Button>
 								)}
 								{form.watch("publicKey") && (
@@ -294,12 +294,12 @@ export const HandleSSHKeys = ({ sshKeyId }: Props) => {
 										className="flex items-center gap-2"
 									>
 										<DownloadIcon className="h-4 w-4" />
-										Public Key
+										Açık Anahtar
 									</Button>
 								)}
 							</div>
 							<Button isLoading={isPending} type="submit">
-								{sshKeyId ? "Update" : "Create"}
+								{sshKeyId ? "Güncelle" : "Oluştur"}
 							</Button>
 						</DialogFooter>
 					</form>

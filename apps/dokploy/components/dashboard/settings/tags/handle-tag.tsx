@@ -103,12 +103,12 @@ export const HandleTag = ({ tagId }: HandleTagProps) => {
 		})
 			.then(async () => {
 				await utils.tag.all.invalidate();
-				toast.success(tagId ? "Tag Updated" : "Tag Created");
+				toast.success(tagId ? "Etiket Güncellendi" : "Etiket Oluşturuldu");
 				setIsOpen(false);
 				form.reset();
 			})
 			.catch(() => {
-				toast.error(tagId ? "Error updating tag" : "Error creating tag");
+				toast.error(tagId ? "Etiket güncellenirken hata oluştu" : "Etiket oluşturulurken hata oluştu");
 			});
 	};
 
@@ -124,17 +124,17 @@ export const HandleTag = ({ tagId }: HandleTagProps) => {
 				) : (
 					<Button>
 						<PlusIcon className="h-4 w-4" />
-						Create Tag
+						Etiket Oluştur
 					</Button>
 				)}
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-lg">
 				<DialogHeader>
-					<DialogTitle>{tagId ? "Update" : "Create"} Tag</DialogTitle>
+					<DialogTitle>{tagId ? "Güncelle" : "Oluştur"} Etiket</DialogTitle>
 					<DialogDescription>
 						{tagId
-							? "Update the tag name and color"
-							: "Create a new tag to organize your projects"}
+							? "Etiket adını ve rengini güncelleyin"
+							: "Projelerinizi düzenlemek için yeni bir etiket oluşturun"}
 					</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
@@ -149,7 +149,7 @@ export const HandleTag = ({ tagId }: HandleTagProps) => {
 							name="name"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Name</FormLabel>
+									<FormLabel>Ad</FormLabel>
 									<FormControl>
 										<Input
 											placeholder="e.g., Production, Client, Internal"
@@ -166,7 +166,7 @@ export const HandleTag = ({ tagId }: HandleTagProps) => {
 							name="color"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Color (Optional)</FormLabel>
+									<FormLabel>Renk (İsteğe Bağlı)</FormLabel>
 									<FormControl>
 										<div className="flex items-center gap-3">
 											<FormLabel
@@ -202,7 +202,7 @@ export const HandleTag = ({ tagId }: HandleTagProps) => {
 													}}
 												/>
 												<FormDescription className="mt-1">
-													Choose a color to easily identify this tag
+													Bu etiketi kolayca tanımlamak için bir renk seçin
 												</FormDescription>
 											</div>
 										</div>
@@ -214,9 +214,9 @@ export const HandleTag = ({ tagId }: HandleTagProps) => {
 
 						{colorValue && (
 							<div className="flex items-center gap-2">
-								<span className="text-sm text-muted-foreground">Preview:</span>
+								<span className="text-sm text-muted-foreground">Önizleme:</span>
 								<TagBadge
-									name={form.watch("name") || "Tag Name"}
+									name={form.watch("name") || "Etiket Adı"}
 									color={colorValue}
 								/>
 							</div>
@@ -230,7 +230,7 @@ export const HandleTag = ({ tagId }: HandleTagProps) => {
 						form="hook-form-tag"
 						type="submit"
 					>
-						{tagId ? "Update" : "Create"}
+						{tagId ? "Güncelle" : "Oluştur"}
 					</Button>
 				</DialogFooter>
 			</DialogContent>

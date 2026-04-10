@@ -123,12 +123,12 @@ export const HandleAi = ({ aiId }: Props) => {
 			});
 
 			utils.ai.getAll.invalidate();
-			toast.success("AI settings saved successfully");
+			toast.success("Yapay zeka ayarları başarıyla kaydedildi");
 			refetch();
 			setOpen(false);
 		} catch (error) {
-			toast.error("Failed to save AI settings", {
-				description: error instanceof Error ? error.message : "Unknown error",
+			toast.error("Yapay zeka ayarları kaydedilemedi", {
+				description: error instanceof Error ? error.message : "Bilinmeyen hata",
 			});
 		}
 	};
@@ -156,15 +156,15 @@ export const HandleAi = ({ aiId }: Props) => {
 				) : (
 					<Button className="cursor-pointer space-x-3">
 						<PlusIcon className="h-4 w-4" />
-						Add AI
+						Yapay Zeka Ekle
 					</Button>
 				)}
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-lg">
 				<DialogHeader>
-					<DialogTitle>{aiId ? "Edit AI" : "Add AI"}</DialogTitle>
+					<DialogTitle>{aiId ? "Yapay Zekayı Düzenle" : "Yapay Zeka Ekle"}</DialogTitle>
 					<DialogDescription>
-						Configure your AI provider settings
+						Yapay zeka sağlayıcı ayarlarınızı yapılandırın
 					</DialogDescription>
 				</DialogHeader>
 				<Form {...form}>
@@ -177,12 +177,12 @@ export const HandleAi = ({ aiId }: Props) => {
 							name="name"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Name</FormLabel>
+									<FormLabel>Ad</FormLabel>
 									<FormControl>
 										<Input placeholder="My OpenAI Config" {...field} />
 									</FormControl>
 									<FormDescription>
-										A name to identify this configuration
+										Bu yapılandırmayı tanımlamak için bir ad
 									</FormDescription>
 									<FormMessage />
 								</FormItem>
@@ -209,7 +209,7 @@ export const HandleAi = ({ aiId }: Props) => {
 										/>
 									</FormControl>
 									<FormDescription>
-										The base URL for your AI provider's API
+										Yapay zeka sağlayıcınızın API temel URL'si
 									</FormDescription>
 									<FormMessage />
 								</FormItem>
@@ -222,7 +222,7 @@ export const HandleAi = ({ aiId }: Props) => {
 								name="apiKey"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>API Key</FormLabel>
+										<FormLabel>API Anahtarı</FormLabel>
 										<FormControl>
 											<Input
 												type="password"
@@ -239,7 +239,7 @@ export const HandleAi = ({ aiId }: Props) => {
 											/>
 										</FormControl>
 										<FormDescription>
-											Your API key for authentication
+											Kimlik doğrulama için API anahtarınız
 										</FormDescription>
 										<FormMessage />
 									</FormItem>
@@ -249,13 +249,13 @@ export const HandleAi = ({ aiId }: Props) => {
 
 						{isLoadingServerModels && (
 							<span className="text-sm text-muted-foreground">
-								Loading models...
+								Modeller yükleniyor...
 							</span>
 						)}
 
 						{!isLoadingServerModels && !models?.length && (
 							<span className="text-sm text-muted-foreground">
-								No models available
+								Kullanılabilir model yok
 							</span>
 						)}
 
@@ -297,7 +297,7 @@ export const HandleAi = ({ aiId }: Props) => {
 														>
 															{field.value
 																? (selectedModel?.id ?? field.value)
-																: "Select a model"}
+																: "Bir model seçin"}
 															<ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 														</Button>
 													</FormControl>
@@ -305,12 +305,12 @@ export const HandleAi = ({ aiId }: Props) => {
 												<PopoverContent className="w-[400px] p-0" align="start">
 													<Command>
 														<CommandInput
-															placeholder="Search models..."
+															placeholder="Modelleri ara..."
 															value={modelSearch}
 															onValueChange={setModelSearch}
 														/>
 														<CommandList>
-															<CommandEmpty>No models found.</CommandEmpty>
+															<CommandEmpty>Model bulunamadı.</CommandEmpty>
 															{displayModels.map((model) => {
 																const isSelected = field.value === model.id;
 																return (
@@ -340,7 +340,7 @@ export const HandleAi = ({ aiId }: Props) => {
 												</PopoverContent>
 											</Popover>
 											<FormDescription>
-												Select an AI model to use
+												Kullanılacak bir yapay zeka modeli seçin
 											</FormDescription>
 											<FormMessage />
 										</FormItem>
@@ -356,10 +356,10 @@ export const HandleAi = ({ aiId }: Props) => {
 								<FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
 									<div className="space-y-0.5">
 										<FormLabel className="text-base">
-											Enable AI Features
+											Yapay Zeka Özelliklerini Etkinleştir
 										</FormLabel>
 										<FormDescription>
-											Turn on/off AI functionality
+											Yapay zeka işlevselliğini açın/kapatın
 										</FormDescription>
 									</div>
 									<FormControl>
@@ -374,7 +374,7 @@ export const HandleAi = ({ aiId }: Props) => {
 
 						<div className="flex justify-end  gap-2 pt-4">
 							<Button type="submit" isLoading={isPending}>
-								{aiId ? "Update" : "Create"}
+								{aiId ? "Güncelle" : "Oluştur"}
 							</Button>
 						</div>
 					</form>

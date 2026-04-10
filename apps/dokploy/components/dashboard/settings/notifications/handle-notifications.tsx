@@ -778,7 +778,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 			});
 		} else if (data.type === "pushover") {
 			if (data.priority === 2 && (data.retry == null || data.expire == null)) {
-				toast.error("Retry and expire are required for emergency priority (2)");
+				toast.error("Acil öncelik (2) için yeniden deneme ve süre sonu gereklidir");
 				return;
 			}
 			promise = pushoverMutation.mutateAsync({
@@ -805,7 +805,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 			await promise
 				.then(async () => {
 					toast.success(
-						notificationId ? "Notification Updated" : "Notification Created",
+						notificationId ? "Bildirim Güncellendi" : "Bildirim Oluşturuldu",
 					);
 					form.reset({
 						type: "slack",
@@ -820,8 +820,8 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 				.catch(() => {
 					toast.error(
 						notificationId
-							? "Error updating a notification"
-							: "Error creating a notification",
+							? "Bildirim güncellenirken hata oluştu"
+							: "Bildirim oluşturulurken hata oluştu",
 					);
 				});
 		}
@@ -840,19 +840,19 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 				) : (
 					<Button className="cursor-pointer space-x-3">
 						<PlusIcon className="h-4 w-4" />
-						Add Notification
+						Bildirim Ekle
 					</Button>
 				)}
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-3xl">
 				<DialogHeader>
 					<DialogTitle>
-						{notificationId ? "Update" : "Add"} Notification
+						{notificationId ? "Güncelle" : "Ekle"} Bildirim
 					</DialogTitle>
 					<DialogDescription>
 						{notificationId
-							? "Update your notification providers for multiple channels."
-							: "Create new notification providers for multiple channels."}
+							? "Birden fazla kanal için bildirim sağlayıcılarınızı güncelleyin."
+							: "Birden fazla kanal için yeni bildirim sağlayıcıları oluşturun."}
 					</DialogDescription>
 				</DialogHeader>
 				<Form {...form}>
@@ -868,7 +868,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 							render={({ field }) => (
 								<FormItem className="space-y-3">
 									<FormLabel className="text-muted-foreground">
-										Select a provider
+										Bir sağlayıcı seçin
 									</FormLabel>
 									<FormControl>
 										<RadioGroup
@@ -916,7 +916,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 
 						<div className="flex flex-col gap-4">
 							<FormLabel className="text-lg font-semibold leading-none tracking-tight">
-								Fill the next fields.
+								Aşağıdaki alanları doldurun.
 							</FormLabel>
 							<div className="flex flex-col gap-2">
 								<FormField
@@ -924,7 +924,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 									name="name"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Name</FormLabel>
+											<FormLabel>Ad</FormLabel>
 											<FormControl>
 												<Input placeholder="Name" {...field} />
 											</FormControl>
@@ -1010,15 +1010,15 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 											name="messageThreadId"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>Message Thread ID</FormLabel>
+													<FormLabel>Mesaj Konu Kimliği</FormLabel>
 													<FormControl>
 														<Input placeholder="11" {...field} />
 													</FormControl>
 
 													<FormMessage />
 													<FormDescription>
-														Optional. Use it when you want to send notifications
-														to a specific topic in a group.
+														İsteğe bağlı. Bir gruptaki belirli bir konuya
+														bildirim göndermek istediğinizde kullanın.
 													</FormDescription>
 												</FormItem>
 											)}
@@ -1053,9 +1053,9 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 											render={({ field }) => (
 												<FormItem className="flex items-center justify-between rounded-lg border p-3 shadow-sm">
 													<div className="space-y-0.5">
-														<FormLabel>Decoration</FormLabel>
+														<FormLabel>Süsleme</FormLabel>
 														<FormDescription>
-															Decorate the notification with emojis.
+															Bildirimi emojilerle süsle.
 														</FormDescription>
 													</div>
 													<FormControl>
@@ -1160,7 +1160,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 											name="fromAddress"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>From Address</FormLabel>
+													<FormLabel>Gönderen Adresi</FormLabel>
 													<FormControl>
 														<Input placeholder="from@example.com" {...field} />
 													</FormControl>
@@ -1169,7 +1169,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 											)}
 										/>
 										<div className="flex flex-col gap-2 pt-2">
-											<FormLabel>To Addresses</FormLabel>
+											<FormLabel>Alıcı Adresleri</FormLabel>
 
 											{fields.map((field, index) => (
 												<div
@@ -1200,7 +1200,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 															remove(index);
 														}}
 													>
-														Remove
+														Kaldır
 													</Button>
 												</div>
 											))}
@@ -1219,7 +1219,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 												append("");
 											}}
 										>
-											Add
+											Ekle
 										</Button>
 									</>
 								)}
@@ -1249,7 +1249,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 											name="fromAddress"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>From Address</FormLabel>
+													<FormLabel>Gönderen Adresi</FormLabel>
 													<FormControl>
 														<Input placeholder="from@example.com" {...field} />
 													</FormControl>
@@ -1259,7 +1259,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 										/>
 
 										<div className="flex flex-col gap-2 pt-2">
-											<FormLabel>To Addresses</FormLabel>
+											<FormLabel>Alıcı Adresleri</FormLabel>
 
 											{fields.map((field, index) => (
 												<div
@@ -1290,7 +1290,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 															remove(index);
 														}}
 													>
-														Remove
+														Kaldır
 													</Button>
 												</div>
 											))}
@@ -1309,7 +1309,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 												append("");
 											}}
 										>
-											Add
+											Ekle
 										</Button>
 									</>
 								)}
@@ -1354,7 +1354,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 											defaultValue={5}
 											render={({ field }) => (
 												<FormItem className="w-full">
-													<FormLabel>Priority</FormLabel>
+													<FormLabel>Öncelik</FormLabel>
 													<FormControl>
 														<Input
 															placeholder="5"
@@ -1372,7 +1372,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 														/>
 													</FormControl>
 													<FormDescription>
-														Message priority (1-10, default: 5)
+														Mesaj önceliği (1-10, varsayılan: 5)
 													</FormDescription>
 													<FormMessage />
 												</FormItem>
@@ -1385,9 +1385,9 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 											render={({ field }) => (
 												<FormItem className="flex items-center justify-between rounded-lg border p-3 shadow-sm">
 													<div className="space-y-0.5">
-														<FormLabel>Decoration</FormLabel>
+														<FormLabel>Süsleme</FormLabel>
 														<FormDescription>
-															Decorate the notification with emojis.
+															Bildirimi emojilerle süsle.
 														</FormDescription>
 													</div>
 													<FormControl>
@@ -1444,7 +1444,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 														/>
 													</FormControl>
 													<FormDescription>
-														Optional. Leave blank for public topics.
+														İsteğe bağlı. Herkese açık konular için boş bırakın.
 													</FormDescription>
 													<FormMessage />
 												</FormItem>
@@ -1456,7 +1456,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 											defaultValue={3}
 											render={({ field }) => (
 												<FormItem className="w-full">
-													<FormLabel>Priority</FormLabel>
+													<FormLabel>Öncelik</FormLabel>
 													<FormControl>
 														<Input
 															placeholder="3"
@@ -1474,7 +1474,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 														/>
 													</FormControl>
 													<FormDescription>
-														Message priority (1-5, default: 3)
+														Mesaj önceliği (1-5, varsayılan: 3)
 													</FormDescription>
 													<FormMessage />
 												</FormItem>
@@ -1512,7 +1512,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 														<Input placeholder="deployments" {...field} />
 													</FormControl>
 													<FormDescription>
-														Optional. Channel to post to (without #).
+														İsteğe bağlı. Mesaj gönderilecek kanal (# olmadan).
 													</FormDescription>
 													<FormMessage />
 												</FormItem>
@@ -1529,7 +1529,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 														<Input placeholder="Yurt" {...field} />
 													</FormControl>
 													<FormDescription>
-														Optional. Display name for the webhook.
+														İsteğe bağlı. Webhook için görünen ad.
 													</FormDescription>
 													<FormMessage />
 												</FormItem>
@@ -1553,8 +1553,8 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 														/>
 													</FormControl>
 													<FormDescription>
-														The URL where POST requests will be sent with
-														notification data.
+														Bildirim verileriyle POST isteklerinin gönderileceği
+														URL.
 													</FormDescription>
 													<FormMessage />
 												</FormItem>
@@ -1563,9 +1563,9 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 
 										<div className="space-y-3">
 											<div>
-												<FormLabel>Headers</FormLabel>
+												<FormLabel>Başlıklar</FormLabel>
 												<FormDescription>
-													Optional. Custom headers for your POST request (e.g.,
+													İsteğe bağlı. POST isteğiniz için özel başlıklar (ör.
 													Authorization, Content-Type).
 												</FormDescription>
 											</div>
@@ -1619,7 +1619,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 												className="w-full"
 											>
 												<PlusIcon className="h-4 w-4 mr-2" />
-												Add header
+												Başlık ekle
 											</Button>
 										</div>
 									</div>
@@ -1661,9 +1661,8 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 														/>
 													</FormControl>
 													<FormDescription>
-														Incoming Webhook URL from a Teams channel. Add an
-														Incoming Webhook in your channel settings to get the
-														URL.
+														Bir Teams kanalından gelen Webhook URL'si. URL'yi almak
+														için kanal ayarlarınızda Gelen Webhook ekleyin.
 													</FormDescription>
 													<FormMessage />
 												</FormItem>
@@ -1705,7 +1704,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 											defaultValue={0}
 											render={({ field }) => (
 												<FormItem className="w-full">
-													<FormLabel>Priority</FormLabel>
+													<FormLabel>Öncelik</FormLabel>
 													<FormControl>
 														<Input
 															placeholder="0"
@@ -1731,7 +1730,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 														/>
 													</FormControl>
 													<FormDescription>
-														Message priority (-2 to 2, default: 0, emergency: 2)
+														Mesaj önceliği (-2 ile 2 arası, varsayılan: 0, acil: 2)
 													</FormDescription>
 													<FormMessage />
 												</FormItem>
@@ -1744,7 +1743,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 													name="retry"
 													render={({ field }) => (
 														<FormItem className="w-full">
-															<FormLabel>Retry (seconds)</FormLabel>
+															<FormLabel>Yeniden Deneme (saniye)</FormLabel>
 															<FormControl>
 																<Input
 																	placeholder="30"
@@ -1766,8 +1765,8 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 																/>
 															</FormControl>
 															<FormDescription>
-																How often (in seconds) to retry. Minimum 30
-																seconds.
+																Yeniden deneme sıklığı (saniye). Minimum 30
+																saniye.
 															</FormDescription>
 															<FormMessage />
 														</FormItem>
@@ -1778,7 +1777,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 													name="expire"
 													render={({ field }) => (
 														<FormItem className="w-full">
-															<FormLabel>Expire (seconds)</FormLabel>
+															<FormLabel>Süre Sonu (saniye)</FormLabel>
 															<FormControl>
 																<Input
 																	placeholder="3600"
@@ -1801,8 +1800,8 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 																/>
 															</FormControl>
 															<FormDescription>
-																How long to keep retrying (max 10800 seconds / 3
-																hours).
+																Yeniden denemeye ne kadar devam edilecek (maks. 10800
+																saniye / 3 saat).
 															</FormDescription>
 															<FormMessage />
 														</FormItem>
@@ -1816,7 +1815,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 						</div>
 						<div className="flex flex-col gap-4">
 							<FormLabel className="text-lg font-semibold leading-none tracking-tight">
-								Select the actions.
+								Eylemleri seçin.
 							</FormLabel>
 
 							<div className="grid md:grid-cols-2 gap-4">
@@ -1826,9 +1825,9 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm gap-2">
 											<div className="">
-												<FormLabel>App Deploy</FormLabel>
+												<FormLabel>Uygulama Dağıtımı</FormLabel>
 												<FormDescription>
-													Trigger the action when a app is deployed.
+													Bir uygulama dağıtıldığında eylemi tetikle.
 												</FormDescription>
 											</div>
 											<FormControl>
@@ -1846,9 +1845,9 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm gap-2">
 											<div className="space-y-0.5">
-												<FormLabel>App Build Error</FormLabel>
+												<FormLabel>Uygulama Derleme Hatası</FormLabel>
 												<FormDescription>
-													Trigger the action when the build fails.
+													Derleme başarısız olduğunda eylemi tetikle.
 												</FormDescription>
 											</div>
 											<FormControl>
@@ -1867,9 +1866,9 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm gap-2">
 											<div className="space-y-0.5">
-												<FormLabel>Database Backup</FormLabel>
+												<FormLabel>Veritabanı Yedeği</FormLabel>
 												<FormDescription>
-													Trigger the action when a database backup is created.
+													Veritabanı yedeği oluşturulduğunda eylemi tetikle.
 												</FormDescription>
 											</div>
 											<FormControl>
@@ -1888,9 +1887,9 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm gap-2">
 											<div className="space-y-0.5">
-												<FormLabel>Dokploy Backup</FormLabel>
+												<FormLabel>Dokploy Yedeği</FormLabel>
 												<FormDescription>
-													Trigger the action when a dokploy backup is created.
+													Dokploy yedeği oluşturulduğunda eylemi tetikle.
 												</FormDescription>
 											</div>
 											<FormControl>
@@ -1909,9 +1908,9 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm gap-2">
 											<div className="space-y-0.5">
-												<FormLabel>Volume Backup</FormLabel>
+												<FormLabel>Birim Yedeği</FormLabel>
 												<FormDescription>
-													Trigger the action when a volume backup is created.
+													Birim yedeği oluşturulduğunda eylemi tetikle.
 												</FormDescription>
 											</div>
 											<FormControl>
@@ -1930,10 +1929,9 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm gap-2">
 											<div className="space-y-0.5">
-												<FormLabel>Docker Cleanup</FormLabel>
+												<FormLabel>Docker Temizliği</FormLabel>
 												<FormDescription>
-													Trigger the action when the docker cleanup is
-													performed.
+													Docker temizliği yapıldığında eylemi tetikle.
 												</FormDescription>
 											</div>
 											<FormControl>
@@ -1953,9 +1951,9 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 										render={({ field }) => (
 											<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm gap-2">
 												<div className="space-y-0.5">
-													<FormLabel>Dokploy Restart</FormLabel>
+													<FormLabel>Dokploy Yeniden Başlatma</FormLabel>
 													<FormDescription>
-														Trigger the action when dokploy is restarted.
+														Dokploy yeniden başlatıldığında eylemi tetikle.
 													</FormDescription>
 												</div>
 												<FormControl>
@@ -1976,10 +1974,9 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 										render={({ field }) => (
 											<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm gap-2">
 												<div className="space-y-0.5">
-													<FormLabel>Server Threshold</FormLabel>
+													<FormLabel>Sunucu Eşiği</FormLabel>
 													<FormDescription>
-														Trigger the action when the server threshold is
-														reached.
+														Sunucu eşiğine ulaşıldığında eylemi tetikle.
 													</FormDescription>
 												</div>
 												<FormControl>
@@ -2101,7 +2098,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 											(data.retry == null || data.expire == null)
 										) {
 											throw new Error(
-												"Retry and expire are required for emergency priority (2)",
+												"Acil öncelik (2) için yeniden deneme ve süre sonu gereklidir",
 											);
 										}
 										await testPushoverConnection({
@@ -2112,22 +2109,22 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 											expire: data.priority === 2 ? data.expire : undefined,
 										});
 									}
-									toast.success("Connection Success");
+									toast.success("Bağlantı Başarılı");
 								} catch (error) {
 									toast.error(
-										`Error testing the provider: ${error instanceof Error ? error.message : "Unknown error"}`,
+										`Sağlayıcı test edilirken hata oluştu: ${error instanceof Error ? error.message : "Bilinmeyen hata"}`,
 									);
 								}
 							}}
 						>
-							Test Notification
+							Bildirimi Test Et
 						</Button>
 						<Button
 							isLoading={form.formState.isSubmitting}
 							form="hook-form"
 							type="submit"
 						>
-							{notificationId ? "Update" : "Create"}
+							{notificationId ? "Güncelle" : "Oluştur"}
 						</Button>
 					</DialogFooter>
 				</Form>

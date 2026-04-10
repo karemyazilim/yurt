@@ -93,12 +93,12 @@ export const EditGitlabProvider = ({ gitlabId }: Props) => {
 		})
 			.then(async () => {
 				await utils.gitProvider.getAll.invalidate();
-				toast.success("Gitlab updated successfully");
+				toast.success("Gitlab başarıyla güncellendi");
 				setIsOpen(false);
 				refetch();
 			})
 			.catch(() => {
-				toast.error("Error updating Gitlab");
+				toast.error("Gitlab güncellenirken hata oluştu");
 			});
 	};
 
@@ -116,7 +116,7 @@ export const EditGitlabProvider = ({ gitlabId }: Props) => {
 			<DialogContent className="sm:max-w-2xl ">
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">
-						Update GitLab <GitlabIcon className="size-5" />
+						GitLab'ı Güncelle <GitlabIcon className="size-5" />
 					</DialogTitle>
 				</DialogHeader>
 
@@ -134,7 +134,7 @@ export const EditGitlabProvider = ({ gitlabId }: Props) => {
 									name="name"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Name</FormLabel>
+											<FormLabel>Ad</FormLabel>
 											<FormControl>
 												<Input
 													placeholder="Random Name eg(my-personal-account)"
@@ -164,7 +164,7 @@ export const EditGitlabProvider = ({ gitlabId }: Props) => {
 									name="gitlabInternalUrl"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Internal URL (Optional)</FormLabel>
+											<FormLabel>Dahili URL (İsteğe Bağlı)</FormLabel>
 											<FormControl>
 												<Input
 													placeholder="http://gitlab:80"
@@ -173,9 +173,9 @@ export const EditGitlabProvider = ({ gitlabId }: Props) => {
 												/>
 											</FormControl>
 											<FormDescription>
-												Use when GitLab runs on the same instance as Dokploy.
-												Used for OAuth token exchange to reach GitLab via
-												internal network (e.g. Docker service name).
+												GitLab, Dokploy ile aynı sunucuda çalıştığında kullanın.
+												OAuth token değişimi için dahili ağ üzerinden GitLab'a
+												ulaşmak için kullanılır (ör. Docker servis adı).
 											</FormDescription>
 											<FormMessage />
 										</FormItem>
@@ -188,7 +188,7 @@ export const EditGitlabProvider = ({ gitlabId }: Props) => {
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel>
-												Group Name (Optional, Comma-Separated List)
+												Grup Adı (İsteğe Bağlı, Virgülle Ayrılmış Liste)
 											</FormLabel>
 											<FormControl>
 												<Input
@@ -219,10 +219,10 @@ export const EditGitlabProvider = ({ gitlabId }: Props) => {
 												});
 										}}
 									>
-										Test Connection
+										Bağlantıyı Test Et
 									</Button>
 									<Button type="submit" isLoading={form.formState.isSubmitting}>
-										Update
+										Güncelle
 									</Button>
 								</div>
 							</div>

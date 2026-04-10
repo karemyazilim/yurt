@@ -101,11 +101,11 @@ export const EditBitbucketProvider = ({ bitbucketId }: Props) => {
 		})
 			.then(async () => {
 				await utils.gitProvider.getAll.invalidate();
-				toast.success("Bitbucket updated successfully");
+				toast.success("Bitbucket başarıyla güncellendi");
 				setIsOpen(false);
 			})
 			.catch(() => {
-				toast.error("Error updating Bitbucket");
+				toast.error("Bitbucket güncellenirken hata oluştu");
 			});
 	};
 
@@ -123,7 +123,7 @@ export const EditBitbucketProvider = ({ bitbucketId }: Props) => {
 			<DialogContent className="sm:max-w-2xl ">
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">
-						Update Bitbucket <BitbucketIcon className="size-5" />
+						Bitbucket'ı Güncelle <BitbucketIcon className="size-5" />
 					</DialogTitle>
 				</DialogHeader>
 
@@ -137,9 +137,9 @@ export const EditBitbucketProvider = ({ bitbucketId }: Props) => {
 						<CardContent className="p-0">
 							<div className="flex flex-col gap-4">
 								<p className="text-muted-foreground text-sm">
-									Update your Bitbucket authentication. Use API Token for
-									enhanced security (recommended) or App Password for legacy
-									support.
+									Bitbucket kimlik doğrulamanızı güncelleyin. Gelişmiş güvenlik
+									için API Token (önerilen) veya eski destek için Uygulama Şifresi
+									kullanın.
 								</p>
 
 								<FormField
@@ -147,7 +147,7 @@ export const EditBitbucketProvider = ({ bitbucketId }: Props) => {
 									name="name"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Name</FormLabel>
+											<FormLabel>Ad</FormLabel>
 											<FormControl>
 												<Input
 													placeholder="Random Name eg(my-personal-account)"
@@ -163,7 +163,7 @@ export const EditBitbucketProvider = ({ bitbucketId }: Props) => {
 									name="username"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Bitbucket Username</FormLabel>
+											<FormLabel>Bitbucket Kullanıcı Adı</FormLabel>
 											<FormControl>
 												<Input
 													placeholder="Your Bitbucket username"
@@ -180,7 +180,7 @@ export const EditBitbucketProvider = ({ bitbucketId }: Props) => {
 									name="email"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Email (Required for API Tokens)</FormLabel>
+											<FormLabel>E-posta (API Token'ları İçin Gerekli)</FormLabel>
 											<FormControl>
 												<Input
 													type="email"
@@ -198,7 +198,7 @@ export const EditBitbucketProvider = ({ bitbucketId }: Props) => {
 									name="workspaceName"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Workspace Name (Optional)</FormLabel>
+											<FormLabel>Çalışma Alanı Adı (İsteğe Bağlı)</FormLabel>
 											<FormControl>
 												<Input
 													placeholder="For organization accounts"
@@ -212,14 +212,14 @@ export const EditBitbucketProvider = ({ bitbucketId }: Props) => {
 
 								<div className="flex flex-col gap-2 border-t pt-4">
 									<h3 className="text-sm font-medium mb-2">
-										Authentication (Update to use API Token)
+										Kimlik Doğrulama (API Token Kullanmak İçin Güncelleyin)
 									</h3>
 									<FormField
 										control={form.control}
 										name="apiToken"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>API Token (Recommended)</FormLabel>
+												<FormLabel>API Token (Önerilen)</FormLabel>
 												<FormControl>
 													<Input
 														type="password"
@@ -238,7 +238,7 @@ export const EditBitbucketProvider = ({ bitbucketId }: Props) => {
 										render={({ field }) => (
 											<FormItem>
 												<FormLabel>
-													App Password (Legacy - will be deprecated June 2026)
+													Uygulama Şifresi (Eski - Haziran 2026'da kullanımdan kaldırılacak)
 												</FormLabel>
 												<FormControl>
 													<Input
@@ -275,10 +275,10 @@ export const EditBitbucketProvider = ({ bitbucketId }: Props) => {
 												});
 										}}
 									>
-										Test Connection
+										Bağlantıyı Test Et
 									</Button>
 									<Button type="submit" isLoading={form.formState.isSubmitting}>
-										Update
+										Güncelle
 									</Button>
 								</div>
 							</div>

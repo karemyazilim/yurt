@@ -103,11 +103,11 @@ export const AddGitlabProvider = () => {
 		})
 			.then(async () => {
 				await utils.gitProvider.getAll.invalidate();
-				toast.success("GitLab created successfully");
+				toast.success("GitLab başarıyla oluşturuldu");
 				setIsOpen(false);
 			})
 			.catch(() => {
-				toast.error("Error configuring GitLab");
+				toast.error("GitLab yapılandırılırken hata oluştu");
 			});
 	};
 
@@ -125,7 +125,7 @@ export const AddGitlabProvider = () => {
 			<DialogContent className="sm:max-w-2xl  ">
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">
-						GitLab Provider <GitlabIcon className="size-5" />
+						GitLab Sağlayıcısı <GitlabIcon className="size-5" />
 					</DialogTitle>
 				</DialogHeader>
 
@@ -139,12 +139,12 @@ export const AddGitlabProvider = () => {
 						<CardContent className="p-0">
 							<div className="flex flex-col gap-4">
 								<p className="text-muted-foreground text-sm">
-									To integrate your GitLab account, you need to create a new
-									application in your GitLab settings. Follow these steps:
+									GitLab hesabınızı entegre etmek için GitLab ayarlarınızda yeni
+									bir uygulama oluşturmanız gerekir. Şu adımları izleyin:
 								</p>
 								<ol className="list-decimal list-inside text-sm text-muted-foreground">
 									<li className="flex flex-row gap-2 items-center">
-										Go to your GitLab profile settings{" "}
+										GitLab profil ayarlarınıza gidin{" "}
 										<Link
 											href={`${gitlabUrl}/-/profile/applications`}
 											target="_blank"
@@ -152,9 +152,9 @@ export const AddGitlabProvider = () => {
 											<ExternalLink className="w-fit text-primary size-4" />
 										</Link>
 									</li>
-									<li>Navigate to Applications</li>
+									<li>Uygulamalar bölümüne gidin</li>
 									<li>
-										Create a new application with the following details:
+										Aşağıdaki bilgilerle yeni bir uygulama oluşturun:
 										<ul className="list-disc list-inside ml-4">
 											<li>Name: Dokploy</li>
 											<li>
@@ -165,8 +165,8 @@ export const AddGitlabProvider = () => {
 										</ul>
 									</li>
 									<li>
-										After creating, you'll receive an Application ID and Secret,
-										copy them and paste them below.
+										Oluşturduktan sonra bir Uygulama Kimliği ve Gizli Anahtar
+										alacaksınız, bunları kopyalayıp aşağıya yapıştırın.
 									</li>
 								</ol>
 								<FormField
@@ -174,7 +174,7 @@ export const AddGitlabProvider = () => {
 									name="name"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Name</FormLabel>
+											<FormLabel>Ad</FormLabel>
 											<FormControl>
 												<Input
 													placeholder="Random Name eg(my-personal-account)"
@@ -205,7 +205,7 @@ export const AddGitlabProvider = () => {
 									name="gitlabInternalUrl"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Internal URL (Optional)</FormLabel>
+											<FormLabel>Dahili URL (İsteğe Bağlı)</FormLabel>
 											<FormControl>
 												<Input
 													placeholder="http://gitlab:80"
@@ -214,9 +214,9 @@ export const AddGitlabProvider = () => {
 												/>
 											</FormControl>
 											<FormDescription>
-												Use when GitLab runs on the same instance as Dokploy.
-												Used for OAuth token exchange to reach GitLab via
-												internal network (e.g. Docker service name).
+												GitLab, Dokploy ile aynı sunucuda çalıştığında kullanın.
+												OAuth token değişimi için dahili ağ üzerinden GitLab'a
+												ulaşmak için kullanılır (ör. Docker servis adı).
 											</FormDescription>
 											<FormMessage />
 										</FormItem>
@@ -228,7 +228,7 @@ export const AddGitlabProvider = () => {
 									name="redirectUri"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Redirect URI</FormLabel>
+											<FormLabel>Yönlendirme URI'si</FormLabel>
 											<FormControl>
 												<Input
 													disabled
@@ -246,7 +246,7 @@ export const AddGitlabProvider = () => {
 									name="applicationId"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Application ID</FormLabel>
+											<FormLabel>Uygulama Kimliği</FormLabel>
 											<FormControl>
 												<Input placeholder="Application ID" {...field} />
 											</FormControl>
@@ -260,7 +260,7 @@ export const AddGitlabProvider = () => {
 									name="applicationSecret"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Application Secret</FormLabel>
+											<FormLabel>Uygulama Gizli Anahtarı</FormLabel>
 											<FormControl>
 												<Input
 													type="password"
@@ -279,7 +279,7 @@ export const AddGitlabProvider = () => {
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel>
-												Group Name (Optional, Comma-Separated List)
+												Grup Adı (İsteğe Bağlı, Virgülle Ayrılmış Liste)
 											</FormLabel>
 											<FormControl>
 												<Input
@@ -293,7 +293,7 @@ export const AddGitlabProvider = () => {
 								/>
 
 								<Button isLoading={form.formState.isSubmitting}>
-									Configure GitLab App
+									GitLab Uygulamasını Yapılandır
 								</Button>
 							</div>
 						</CardContent>
