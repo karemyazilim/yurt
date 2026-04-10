@@ -26,7 +26,7 @@
     </a>
     <div class="header-links">
       <a href="kurulum.html" class="nav-desktop">Kurulum</a>
-      <a href="guvenlik.html" class="nav-desktop">Guvenlik</a>
+      <a href="güvenlik.html" class="nav-desktop">Güvenlik</a>
       <a href="https://github.com/karemyazilim/yurt" class="github-link" target="_blank" rel="noopener noreferrer">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
         GitHub
@@ -38,24 +38,24 @@
   <aside class="sidebar" role="navigation" aria-label="Ana gezinme">
     <nav>
       <div class="nav-section">
-        <div class="nav-section-title">Baslangic</div>
+        <div class="nav-section-title">Başlangıç</div>
         <a href="index.html" class="nav-link">Ana Sayfa</a>
         <a href="kurulum.html" class="nav-link active">Kurulum Rehberi</a>
       </div>
       <div class="nav-section">
-        <div class="nav-section-title">Guvenlik</div>
-        <a href="guvenlik.html" class="nav-link">Guvenlik Yamalari</a>
+        <div class="nav-section-title">Güvenlik</div>
+        <a href="güvenlik.html" class="nav-link">Güvenlik Yamaları</a>
       </div>
       <div class="nav-section">
         <div class="nav-section-title">Bu Sayfada</div>
         <a href="#gereksinimler" class="nav-link">Gereksinimler</a>
         <a href="#kurulum" class="nav-link">Kurulum Adimlari</a>
-        <a href="#ilk-giris" class="nav-link">Ilk Giris</a>
-        <a href="#guncelleme" class="nav-link">Guncelleme</a>
+        <a href="#ilk-giris" class="nav-link">İlk Giriş</a>
+        <a href="#güncelleme" class="nav-link">Güncelleme</a>
         <a href="#sorun-giderme" class="nav-link">Sorun Giderme</a>
       </div>
       <div class="nav-section">
-        <div class="nav-section-title">Baglantilar</div>
+        <div class="nav-section-title">Bağlantılar</div>
         <a href="https://github.com/karemyazilim/yurt" class="nav-link" target="_blank" rel="noopener noreferrer">GitHub Deposu</a>
         <a href="https://github.com/karemyazilim/yurt/issues" class="nav-link" target="_blank" rel="noopener noreferrer">Hata Bildirimi</a>
       </div>
@@ -76,15 +76,15 @@
 
       <h1>Kurulum Rehberi</h1>
       <p>
-        Yurt'u VPS sunucunuza kurmak sadece birkas dakika surer. Bu rehber, gereksinimleri,
-        adim adim kurulum islemini, ilk giris ayarlarini ve sorun giderme ipuclarini icerir.
+        Yurt'u VPS sunucunuza kurmak sadece birkaç dakika sürer. Bu rehber, gereksinimleri,
+        adım adım kurulum işlemini, ilk giriş ayarlarını ve sorun giderme ipuçlarını içerir.
       </p>
 
       <!-- Gereksinimler -->
       <section id="gereksinimler">
         <h2>Gereksinimler</h2>
 
-        <p>Yurt'u kurabilmek icin asagidaki gereksinimlere ihtiyaciniz vardir:</p>
+        <p>Yurt'u kurabilmek için aşağıdaki gereksinimlere ihtiyacınız vardır:</p>
 
         <table>
           <thead>
@@ -96,7 +96,7 @@
           </thead>
           <tbody>
             <tr>
-              <td>Isletim Sistemi</td>
+              <td>İşletim Sistemi</td>
               <td>Ubuntu 20.04 / Debian 11 / CentOS 8</td>
               <td>Ubuntu 22.04 LTS</td>
             </tr>
@@ -117,7 +117,7 @@
             </tr>
             <tr>
               <td>Erisim</td>
-              <td colspan="2">Root erisimi gerekli</td>
+              <td colspan="2">Root erişimi gerekli</td>
             </tr>
           </tbody>
         </table>
@@ -136,12 +136,12 @@
             <tr>
               <td><code>80</code></td>
               <td>TCP</td>
-              <td>HTTP trafigi ve Let's Encrypt dogrulamasi</td>
+              <td>HTTP trafiği ve Let's Encrypt doğrulaması</td>
             </tr>
             <tr>
               <td><code>443</code></td>
               <td>TCP</td>
-              <td>HTTPS trafigi (SSL/TLS)</td>
+              <td>HTTPS trafiği (SSL/TLS)</td>
             </tr>
             <tr>
               <td><code>3000</code></td>
@@ -165,7 +165,7 @@
         <ol class="steps">
           <li>
             <h4>VPS Sunucunuza Baglanin</h4>
-            <p>SSH ile sunucunuza root kullanicisi olarak baglanin:</p>
+            <p>SSH ile sunucunuza root kullanıcısi olarak bağlanın:</p>
             <div class="code-block">
               <pre><code>ssh root@SUNUCU_IP_ADRESINIZ</code></pre>
             </div>
@@ -191,21 +191,21 @@ iptables -A INPUT -p tcp --dport 3000 -j ACCEPT</code></pre>
           </li>
 
           <li>
-            <h4>Kurulum Scriptini Calistirin</h4>
-            <p>Asagidaki komutu root olarak calistirin:</p>
+            <h4>Kurulum Scriptini Çalıştırın</h4>
+            <p>Aşağıdaki komutu root olarak çalıştırın:</p>
             <div class="code-block">
               <pre><code>curl -sSL https://raw.githubusercontent.com/karemyazilim/yurt/main/install.sh | bash</code></pre>
             </div>
             <div class="info-box">
-              <p><strong>Kurulum scripti su islemleri yapar:</strong> Docker kurulumu (yoksa), Docker Swarm baslatma, guvenli parola uretimi, PostgreSQL ve Redis yapilandirmasi, Traefik kurulumu ve Yurt servisini baslatma.</p>
+              <p><strong>Kurulum scripti şu işlemleri yapar:</strong> Docker kurulumu (yoksa), Docker Swarm başlatma, güvenli parola üretimi, PostgreSQL ve Redis yapılandırması, Traefik kurulumu ve Yurt servisini başlatma.</p>
             </div>
           </li>
 
           <li>
             <h4>Kurulumun Tamamlanmasini Bekleyin</h4>
             <p>
-              Kurulum sunucu hizina bagli olarak 2-5 dakika surer. Islem tamamlandiginda
-              asagidaki gibi bir mesaj goreceksiniz:
+              Kurulum sunucu hızına bağlı olarak 2-5 dakika sürer. İşlem tamamlandığında
+              aşağıdaki gibi bir mesaj göreceksiniz:
             </p>
             <div class="code-block">
               <pre><code><span class="code-string">[OK]    Yurt basariyla kuruldu!</span>
@@ -217,32 +217,32 @@ iptables -A INPUT -p tcp --dport 3000 -j ACCEPT</code></pre>
 
       <hr class="divider">
 
-      <!-- Ilk Giris -->
+      <!-- İlk Giriş -->
       <section id="ilk-giris">
-        <h2>Ilk Giris ve Yonetici Hesabi Olusturma</h2>
+        <h2>İlk Giriş ve Yönetici Hesabı Oluşturma</h2>
 
         <ol class="steps">
           <li>
             <h4>Yonetim Paneline Erisin</h4>
             <p>
-              Tarayicinizda <code>http://SUNUCU_IP:3000</code> adresine gidin.
+              Tarayiçinizda <code>http://SUNUCU_IP:3000</code> adresine gidin.
               Karsiniza kayit sayfasi gelecektir.
             </p>
           </li>
 
           <li>
-            <h4>Yonetici Hesabi Olusturun</h4>
+            <h4>Yönetici Hesabı Oluşturun</h4>
             <p>
-              Ilk acilista bir yonetici (admin) hesabi olusturmaniz istenir.
-              Guclu bir parola secin. Bu hesap tam yetkilere sahip olacaktir.
+              Ilk acilista bir yönetici (admin) hesabı oluşturmaniz istenir.
+              Guclu bir parola secin. Bu hesap tam yetkilere sahip olacaktır.
             </p>
             <div class="info-box warning">
-              <p><strong>Onemli:</strong> Ilk kayit olan kullanici otomatik olarak yonetici olur. Kurulumdan hemen sonra hesabinizi olusturun, aksi halde baska biri yonetici olabilir.</p>
+              <p><strong>Onemli:</strong> Ilk kayit olan kullanıcı otomatik olarak yönetici olur. Kurulumdan hemen sonra hesabınizi oluşturun, aksi halde başka biri yönetici olabilir.</p>
             </div>
           </li>
 
           <li>
-            <h4>Alan Adi Yapilandirmasi (Istege Bagli)</h4>
+            <h4>Alan Adi Yapılandırmasi (Istege Bagli)</h4>
             <p>
               Yonetim panelinden <strong>Ayarlar &gt; Sunucu</strong> bolumune giderek alan adinizi yapilandirabilirsiniz.
               Traefik, Let's Encrypt sertifikanizi otomatik olarak alacaktir.
@@ -253,24 +253,24 @@ iptables -A INPUT -p tcp --dport 3000 -j ACCEPT</code></pre>
 
       <hr class="divider">
 
-      <!-- Guncelleme -->
-      <section id="guncelleme">
-        <h2>Guncelleme</h2>
+      <!-- Güncelleme -->
+      <section id="güncelleme">
+        <h2>Güncelleme</h2>
 
-        <p>Yurt'u en son surume guncellemek icin sunucunuzda asagidaki komutu calistirin:</p>
+        <p>Yurt'u en son sürüme güncellemek için sunucunuzda aşağıdaki komutu çalıştırın:</p>
 
         <div class="code-block">
           <pre><code>curl -sSL https://raw.githubusercontent.com/karemyazilim/yurt/main/install.sh | bash</code></pre>
         </div>
 
         <div class="info-box success">
-          <p><strong>Guvenli guncelleme:</strong> Kurulum scripti mevcut yapilandirmanizi ve verilerinizi korur. Yalnizca Yurt servis imajini gunceller.</p>
+          <p><strong>Guvenli güncelleme:</strong> Kurulum scripti mevcut yapılandırmanizi ve verilerinizi korur. Yalnizca Yurt servis imajini gunceller.</p>
         </div>
 
-        <p>Belirli bir surume guncellemek icin:</p>
+        <p>Belirli bir sürüme güncellemek için:</p>
 
         <div class="code-block">
-          <pre><code><span class="code-comment"># Belirli bir surum icin</span>
+          <pre><code><span class="code-comment"># Belirli bir sürüm için</span>
 <span class="code-keyword">DOKPLOY_VERSION</span>=<span class="code-string">"v0.x.x"</span> curl -sSL https://raw.githubusercontent.com/karemyazilim/yurt/main/install.sh | bash</code></pre>
         </div>
       </section>
@@ -284,8 +284,8 @@ iptables -A INPUT -p tcp --dport 3000 -j ACCEPT</code></pre>
         <h3>Port 3000'e erisilemiyor</h3>
         <ul>
           <li>Firewall kurallarinizi kontrol edin: <code>ufw status</code></li>
-          <li>Docker servisinin calistigini dogrulayin: <code>docker ps</code></li>
-          <li>Bulut saglayicinizin guvenlik grubunda portlarin acik oldugundan emin olun</li>
+          <li>Docker servisinin çalıştığını doğrulayın: <code>docker ps</code></li>
+          <li>Bulut saglayiçinizin güvenlik grubunda portlarin acik oldugundan emin olun</li>
         </ul>
 
         <h3>Docker bulunamadi hatasi</h3>
@@ -297,17 +297,17 @@ systemctl start docker
 systemctl enable docker</code></pre>
         </div>
 
-        <h3>Let's Encrypt sertifikasi alinmiyor</h3>
+        <h3>Let's Encrypt sertifikasi alınmiyor</h3>
         <ul>
-          <li>Alan adinizin DNS kayitlarinin sunucu IP'sine dogru yonlendirildigini kontrol edin</li>
+          <li>Alan adinizin DNS kayitlarinin sunucu IP'sine dogru yönlendirildigini kontrol edin</li>
           <li>80 ve 443 portlarinin acik oldugundan emin olun</li>
-          <li>DNS yayilimi icin 5-10 dakika bekleyin</li>
+          <li>DNS yayilimi için 5-10 dakika bekleyin</li>
         </ul>
 
-        <h3>Bellek yetersizligi</h3>
-        <p>1 GB RAM ile baslayabilirsiniz, ancak cok sayida uygulama icin swap alani eklemeyi dusunun:</p>
+        <h3>Bellek yetersizliği</h3>
+        <p>1 GB RAM ile başlayabilirsiniz, ancak çok sayıda uygulama için swap alanı eklemeyi düşünün:</p>
         <div class="code-block">
-          <pre><code><span class="code-comment"># 2 GB swap alani olusturma</span>
+          <pre><code><span class="code-comment"># 2 GB swap alanı oluşturma</span>
 fallocate -l 2G /swapfile
 chmod 600 /swapfile
 mkswap /swapfile
@@ -317,15 +317,15 @@ swapon /swapfile
 
         <h3>Loglari inceleme</h3>
         <div class="code-block">
-          <pre><code><span class="code-comment"># Yurt servis loglarini goruntulemek icin</span>
+          <pre><code><span class="code-comment"># Yurt servis loglarini goruntulemek için</span>
 docker service logs dokploy --follow
 
-<span class="code-comment"># Tum Docker servislerini listelemek icin</span>
+<span class="code-comment"># Tum Docker servislerini listelemek için</span>
 docker service ls</code></pre>
         </div>
 
         <div class="info-box">
-          <p><strong>Daha fazla yardim icin:</strong> <a href="https://github.com/karemyazilim/yurt/issues" target="_blank" rel="noopener noreferrer">GitHub Issues</a> sayfasindan hata bildiriminde bulunabilir veya soru sorabilirsiniz.</p>
+          <p><strong>Daha fazla yardim için:</strong> <a href="https://github.com/karemyazilim/yurt/issues" target="_blank" rel="noopener noreferrer">GitHub Issues</a> sayfasindan hata bildiriminde bulunabilir veya soru sorabilirsiniz.</p>
         </div>
       </section>
 
@@ -337,10 +337,10 @@ docker service ls</code></pre>
     <div class="footer-links">
       <a href="https://github.com/karemyazilim/yurt" target="_blank" rel="noopener noreferrer">GitHub</a>
       <a href="index.html">Ana Sayfa</a>
-      <a href="guvenlik.html">Guvenlik</a>
+      <a href="güvenlik.html">Güvenlik</a>
       <a href="https://github.com/karemyazilim/yurt/issues" target="_blank" rel="noopener noreferrer">Hata Bildir</a>
     </div>
-    <p>Yurt — Acik Kaynak PaaS Platformu. Apache 2.0 Lisansi.</p>
+    <p>Yurt — Açık Kaynak PaaS Platformu. Apache 2.0 Lisansı.</p>
   </footer>
 
 </body>

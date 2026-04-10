@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Yurt guvenlik yamalari. Orijinal Dokploy'a uygulanan 6 kritik guvenlik iyilestirmesi.">
+  <meta name="description" content="Yurt güvenlik yamaları. Orijinal Dokploy'a uygulanan 6 kritik güvenlik iyileştirmesi.">
   <meta name="theme-color" content="#E53935">
-  <title>Guvenlik Yamalari — Yurt</title>
+  <title>Güvenlik Yamaları — Yurt</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@
     </a>
     <div class="header-links">
       <a href="kurulum.html" class="nav-desktop">Kurulum</a>
-      <a href="guvenlik.html" class="nav-desktop">Guvenlik</a>
+      <a href="güvenlik.html" class="nav-desktop">Güvenlik</a>
       <a href="https://github.com/karemyazilim/yurt" class="github-link" target="_blank" rel="noopener noreferrer">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
         GitHub
@@ -38,22 +38,22 @@
   <aside class="sidebar" role="navigation" aria-label="Ana gezinme">
     <nav>
       <div class="nav-section">
-        <div class="nav-section-title">Baslangic</div>
+        <div class="nav-section-title">Başlangıç</div>
         <a href="index.html" class="nav-link">Ana Sayfa</a>
         <a href="kurulum.html" class="nav-link">Kurulum Rehberi</a>
       </div>
       <div class="nav-section">
-        <div class="nav-section-title">Guvenlik</div>
-        <a href="guvenlik.html" class="nav-link active">Guvenlik Yamalari</a>
+        <div class="nav-section-title">Güvenlik</div>
+        <a href="güvenlik.html" class="nav-link active">Güvenlik Yamaları</a>
       </div>
       <div class="nav-section">
         <div class="nav-section-title">Bu Sayfada</div>
         <a href="#yamalar" class="nav-link">Yama Detaylari</a>
         <a href="#neden-fork" class="nav-link">Neden Bu Fork?</a>
-        <a href="#bildirim" class="nav-link">Guvenlik Bildirimi</a>
+        <a href="#bildirim" class="nav-link">Güvenlik Bildirimi</a>
       </div>
       <div class="nav-section">
-        <div class="nav-section-title">Baglantilar</div>
+        <div class="nav-section-title">Bağlantılar</div>
         <a href="https://github.com/karemyazilim/yurt" class="nav-link" target="_blank" rel="noopener noreferrer">GitHub Deposu</a>
         <a href="https://github.com/karemyazilim/yurt/issues" class="nav-link" target="_blank" rel="noopener noreferrer">Hata Bildirimi</a>
       </div>
@@ -69,18 +69,18 @@
       <nav class="breadcrumb" aria-label="Konum">
         <a href="index.html">Ana Sayfa</a>
         <span class="separator">/</span>
-        <span>Guvenlik Yamalari</span>
+        <span>Güvenlik Yamaları</span>
       </nav>
 
-      <h1>Guvenlik Yamalari</h1>
+      <h1>Güvenlik Yamaları</h1>
       <p>
-        Yurt, orijinal Dokploy projesine ek olarak <strong>6 kritik guvenlik yamasi</strong> icerir.
-        Bu yamalar; kimlik dogrulama, sifreleme, komut enjeksiyonu ve erisim kontrolu alanlarindaki
+        Yurt, orijinal Dokploy projesine ek olarak <strong>6 kritik güvenlik yamasi</strong> içerir.
+        Bu yamalar; kimlik doğrulama, şifreleme, komut enjeksiyonu ve erişim kontrolü alanlarindaki
         aciklari kapatir.
       </p>
 
       <div class="info-box">
-        <p><strong>Guvenlik oncelikli yaklasim:</strong> Yurt'un her surumunde bu yamalar uygulanmistir. Yeni guvenlik aciklari tespit edildikce guncellemeler yayinlanir.</p>
+        <p><strong>Güvenlik oncelikli yaklasim:</strong> Yurt'un her sürümunde bu yamalar uygulanmistir. Yeni güvenlik aciklari tespit edildikce güncellemeler yayinlanir.</p>
       </div>
 
       <!-- Yama Detaylari -->
@@ -99,32 +99,32 @@
             <tr>
               <td><strong>Auth Secret Korumasi</strong></td>
               <td><span class="badge badge-critical">Kritik</span></td>
-              <td>Hardcoded <code>BETTER_AUTH_SECRET</code> fallback degeri kaldirildi</td>
+              <td>Hardcoded <code>BETTER_AUTH_SECRET</code> fallback değeri kaldırıldı</td>
             </tr>
             <tr>
               <td><strong>Kriptografik Parola Uretimi</strong></td>
-              <td><span class="badge badge-high">Yuksek</span></td>
+              <td><span class="badge badge-high">Yüksek</span></td>
               <td><code>Math.random()</code> yerine <code>crypto.randomBytes()</code> kullanildi</td>
             </tr>
             <tr>
               <td><strong>SSH Command Injection</strong></td>
-              <td><span class="badge badge-high">Yuksek</span></td>
-              <td>Shell-escape ile guvenli komut calistirma saglandi</td>
+              <td><span class="badge badge-high">Yüksek</span></td>
+              <td>Shell-escape ile güvenli komut çalıştırma sağlandı</td>
             </tr>
             <tr>
               <td><strong>WebSocket Tenant Isolation</strong></td>
               <td><span class="badge badge-medium">Orta</span></td>
-              <td>Organizasyon seviyesinde sunucu erisim kontrolu eklendi</td>
+              <td>Organizasyon seviyesinde sunucu erişim kontrolü eklendi</td>
             </tr>
             <tr>
               <td><strong>Guvenli Kurulum</strong></td>
               <td><span class="badge badge-medium">Orta</span></td>
-              <td><code>chmod 750</code>, Docker Secrets, Redis sifreli yapilandirma</td>
+              <td><code>chmod 750</code>, Docker Secrets, Redis şifreli yapılandırma</td>
             </tr>
             <tr>
-              <td><strong>Hardcoded Sifre Temizligi</strong></td>
+              <td><strong>Hardcoded Şifre Temizliği</strong></td>
               <td><span class="badge badge-medium">Orta</span></td>
-              <td><code>.env.example</code> dosyasindan varsayilan sifreler kaldirildi</td>
+              <td><code>.env.example</code> dosyasindan varsayılan şifreler kaldırıldı</td>
             </tr>
           </tbody>
         </table>
@@ -134,70 +134,70 @@
         <!-- Detayli Aciklamalar -->
         <h3>1. Auth Secret Korumasi <span class="badge badge-critical">Kritik</span></h3>
         <p>
-          Orijinal Dokploy'da, <code>BETTER_AUTH_SECRET</code> ortam degiskeni ayarlanmadigi durumlarda
-          hardcoded bir fallback degeri kullaniliyordu. Bu, saldirganlarin oturum tokenlerini
-          tahmin etmesine ve yetkisiz erisim elde etmesine olanak taniyordu.
+          Orijinal Dokploy'da, <code>BETTER_AUTH_SECRET</code> ortam değişkeni ayarlanmadigi durumlarda
+          hardcoded bir fallback değeri kullaniliyordu. Bu, saldirganlarin oturum tokenlerini
+          tahmin etmesine ve yetkisiz erişim elde etmesine olanak taniyordu.
         </p>
-        <p><strong>Cozum:</strong> Fallback degeri kaldirildi. Ortam degiskeni ayarlanmazsa uygulama baslatilmiyor ve hata mesaji gosteriliyor.</p>
+        <p><strong>Çözüm:</strong> Fallback değeri kaldırıldı. Ortam değişkeni ayarlanmazsa uygulama başlatılmıyor ve hata mesajı gösteriliyor.</p>
         <div class="code-block">
-          <pre><code><span class="code-comment">// Onceki (guvenli degil)</span>
+          <pre><code><span class="code-comment">// Onceki (güvenli degil)</span>
 <span class="code-keyword">const</span> secret = process.env.BETTER_AUTH_SECRET || <span class="code-string">"hardcoded-fallback-secret"</span>;
 
-<span class="code-comment">// Sonraki (guvenli)</span>
+<span class="code-comment">// Sonraki (güvenli)</span>
 <span class="code-keyword">const</span> secret = process.env.BETTER_AUTH_SECRET;
 <span class="code-keyword">if</span> (!secret) {
-  <span class="code-keyword">throw new</span> <span class="code-function">Error</span>(<span class="code-string">"BETTER_AUTH_SECRET ortam degiskeni zorunludur"</span>);
+  <span class="code-keyword">throw new</span> <span class="code-function">Error</span>(<span class="code-string">"BETTER_AUTH_SECRET ortam değişkeni zorunludur"</span>);
 }</code></pre>
         </div>
 
-        <h3>2. Kriptografik Parola Uretimi <span class="badge badge-high">Yuksek</span></h3>
+        <h3>2. Kriptografik Parola Uretimi <span class="badge badge-high">Yüksek</span></h3>
         <p>
-          <code>Math.random()</code> fonksiyonu kriptografik olarak guvenli degildir. Uretilen degerler
-          tahmin edilebilir olup parola, token ve anahtar uretimi icin uygun degildir.
+          <code>Math.random()</code> fonksiyonu kriptografik olarak güvenli degildir. Uretilen degerler
+          tahmin edilebilir olup parola, token ve anahtar üretimi için uygun degildir.
         </p>
-        <p><strong>Cozum:</strong> Tum parola ve token uretimi <code>crypto.randomBytes()</code> ile yapilmaktadir.</p>
+        <p><strong>Çözüm:</strong> Tum parola ve token üretimi <code>crypto.randomBytes()</code> ile yapilmaktadir.</p>
         <div class="code-block">
-          <pre><code><span class="code-comment">// Onceki (guvenli degil)</span>
+          <pre><code><span class="code-comment">// Onceki (güvenli degil)</span>
 <span class="code-keyword">const</span> password = Math.<span class="code-function">random</span>().<span class="code-function">toString</span>(<span class="code-number">36</span>).<span class="code-function">slice</span>(<span class="code-number">2</span>);
 
-<span class="code-comment">// Sonraki (guvenli)</span>
+<span class="code-comment">// Sonraki (güvenli)</span>
 <span class="code-keyword">const</span> password = crypto.<span class="code-function">randomBytes</span>(<span class="code-number">32</span>).<span class="code-function">toString</span>(<span class="code-string">"hex"</span>);</code></pre>
         </div>
 
-        <h3>3. SSH Command Injection <span class="badge badge-high">Yuksek</span></h3>
+        <h3>3. SSH Command Injection <span class="badge badge-high">Yüksek</span></h3>
         <p>
-          Uzak sunuculara gonderilen SSH komutlarinda kullanici girdileri yeterince temizlenmiyordu.
-          Bu, bir saldirgannin ozel karakterler kullanarak sunucuda keyfi komut calistirmasina
+          Uzak sunuculara gönderilen SSH komutlarında kullanıcı girdileri yeterince temizlenmiyordu.
+          Bu, bir saldırganın özel karakterler kullanarak sunucuda keyfi komut çalıştırmasina
           olanak taniyordu.
         </p>
-        <p><strong>Cozum:</strong> Shell-escape kutuphanesi kullanilarak tum kullanici girdileri guvenli sekilde kodlaniyor.</p>
+        <p><strong>Çözüm:</strong> Shell-escape kutuphanesi kullanilarak tüm kullanıcı girdileri güvenli sekilde kodlaniyor.</p>
 
         <h3>4. WebSocket Tenant Isolation <span class="badge badge-medium">Orta</span></h3>
         <p>
-          Cok kiracili (multi-tenant) ortamlarda, bir organizasyona ait WebSocket baglantilari
-          uzerinden baska organizasyonlarin sunucu bilgilerine erisilmesi mumkundi.
+          Cok kiracili (multi-tenant) ortamlarda, bir organizasyona ait WebSocket bağlantıları
+          üzerinden başka organizasyonların sunucu bilgilerine erişilmesi mümkündü.
         </p>
-        <p><strong>Cozum:</strong> WebSocket baglantilari organizasyon seviyesinde dogrulaniyor. Her kullanici yalnizca kendi organizasyonuna ait sunuculara erisebilir.</p>
+        <p><strong>Çözüm:</strong> WebSocket bağlantıları organizasyon seviyesinde doğrulanıyor. Her kullanıcı yalnızca kendi organizasyonuna ait sunuculara erişebilir.</p>
 
         <h3>5. Guvenli Kurulum <span class="badge badge-medium">Orta</span></h3>
         <p>
-          Orijinal kurulum scriptinde dosya izinleri gevsek ayarlanmis, Redis sifresiz ve hassas
-          bilgiler duz metin olarak saklaniyordu.
+          Orijinal kurulum scriptinde dosya izinleri gevsek ayarlanmis, Redis şifresiz ve hassas
+          bilgiler düz metin olarak saklanıyordu.
         </p>
-        <p><strong>Cozum:</strong></p>
+        <p><strong>Çözüm:</strong></p>
         <ul>
-          <li>Yapilandirma dosyalarina <code>chmod 750</code> uygulanir</li>
-          <li>Redis sifre korumasiyla baslatilir</li>
-          <li>Docker Secrets ile hassas bilgiler guvenli sekilde yonetilir</li>
-          <li>Kriptografik parola uretici ile tum sirlar benzersiz olusturulur</li>
+          <li>Yapılandırma dosyalarına <code>chmod 750</code> uygulanır</li>
+          <li>Redis şifre korumasiyla baslatilir</li>
+          <li>Docker Secrets ile hassas bilgiler güvenli sekilde yönetilir</li>
+          <li>Kriptografik parola üretici ile tüm sırlar benzersiz oluşturulur</li>
         </ul>
 
-        <h3>6. Hardcoded Sifre Temizligi <span class="badge badge-medium">Orta</span></h3>
+        <h3>6. Hardcoded Şifre Temizliği <span class="badge badge-medium">Orta</span></h3>
         <p>
-          <code>.env.example</code> dosyasinda varsayilan sifreler bulunuyordu. Bircok kullanici
-          bu degerleri degistirmeden kullanarak guvenlik acigi olusturuyordu.
+          <code>.env.example</code> dosyasinda varsayılan şifreler bulunuyordu. Bircok kullanıcı
+          bu değerleri değiştirmeden kullanarak güvenlik açığı oluşturuyordu.
         </p>
-        <p><strong>Cozum:</strong> Tum varsayilan sifreler kaldirildi. Kurulum scripti her kurulumda benzersiz, kriptografik olarak guvenli sifreler uretir.</p>
+        <p><strong>Çözüm:</strong> Tum varsayılan şifreler kaldırıldı. Kurulum scripti her kurulumda benzersiz, kriptografik olarak güvenli şifreler uretir.</p>
       </section>
 
       <hr class="divider">
@@ -208,29 +208,29 @@
 
         <p>
           Yurt, <a href="https://github.com/dokploy/dokploy" target="_blank" rel="noopener noreferrer">Dokploy</a> projesinin
-          bir fork'udur. Fork'un olusturulma nedenleri:
+          bir fork'udur. Fork'un oluşturulma nedenleri:
         </p>
 
         <ul>
-          <li><strong>Guvenlik yamalari:</strong> Yukarida aciklanan 6 guvenlik acigi, Yurt fork'unda duzeltilmistir.</li>
-          <li><strong>Turkce arayuz:</strong> Giris sayfasi, kayit, kontrol paneli, sidebar, ayarlar ve bildirim sablonlari Turkce'ye cevrilmistir.</li>
-          <li><strong>Turkiye'ye ozel entegrasyonlar:</strong> Netgsm SMS bildirimleri gibi Turkiye pazarina yonelik ozellikler eklenmistir.</li>
-          <li><strong>Topluluk ihtiyaclari:</strong> Turk gelistirici toplulugu icin erisim kolayligi ve yerellestirilmis deneyim saglar.</li>
+          <li><strong>Güvenlik yamalari:</strong> Yukarıda açıklanan 6 güvenlik açığı, Yurt fork'unda düzeltilmiştir.</li>
+          <li><strong>Türkçe arayüz:</strong> Giris sayfasi, kayit, kontrol paneli, sidebar, ayarlar ve bildirim şablonlari Türkçe'ye cevrilmistir.</li>
+          <li><strong>Türkiye'ye özel entegrasyonlar:</strong> Netgsm SMS bildirimleri gibi Türkiye pazarina yonelik özellikler eklenmistir.</li>
+          <li><strong>Topluluk ihtiyaclari:</strong> Turk gelistirici toplulugu için erişim kolayligi ve yerellestirilmis deneyim saglar.</li>
         </ul>
 
         <div class="info-box">
-          <p><strong>Acik kaynak:</strong> Yurt, orijinal Dokploy ile ayni Apache 2.0 lisansi altinda dagitilir. Tum degisiklikler seffaf ve incelenebilirdir.</p>
+          <p><strong>Açık kaynak:</strong> Yurt, orijinal Dokploy ile aynı Apache 2.0 lisansı altında dağıtılır. Tum değişiklikler şeffaf ve incelenebilirdir.</p>
         </div>
       </section>
 
       <hr class="divider">
 
-      <!-- Guvenlik Bildirimi -->
+      <!-- Güvenlik Bildirimi -->
       <section id="bildirim">
-        <h2>Guvenlik Bildirimi Nasil Yapilir?</h2>
+        <h2>Güvenlik Bildirimi Nasil Yapilir?</h2>
 
         <p>
-          Yurt'ta bir guvenlik acigi buldugununuz dusunuyorsaniz, asagidaki adimlari izleyerek
+          Yurt'ta bir güvenlik açığı bulduğunuzu düşünüyorsanız, aşağıdaki adımları izleyerek
           sorumlu bir sekilde bildirimde bulunabilirsiniz:
         </p>
 
@@ -239,16 +239,16 @@
             <h4>GitHub Issues Kullanin</h4>
             <p>
               <a href="https://github.com/karemyazilim/yurt/issues" target="_blank" rel="noopener noreferrer">GitHub Issues</a>
-              sayfasindan "Guvenlik Acigi" etiketi ile yeni bir issue olusturun. Hassas bilgiler iceriyorsa
-              lutfen ozel olarak iletiniz.
+              sayfasindan "Güvenlik Acigi" etiketi ile yeni bir issue oluşturun. Hassas bilgiler iceriyorsa
+              lutfen özel olarak iletiniz.
             </p>
           </li>
           <li>
             <h4>Detayli Bilgi Saglayiniz</h4>
-            <p>Bildiriminizde asagidaki bilgileri ekleyin:</p>
+            <p>Bildiriminizde aşağıdaki bilgileri ekleyin:</p>
             <ul>
               <li>Acigin net bir tanimi</li>
-              <li>Acigi yeniden uretmek icin adimlar</li>
+              <li>Acigi yeniden uretmek için adimlar</li>
               <li>Varsa ekran goruntusu veya video</li>
               <li>Potansiyel etki analizi</li>
             </ul>
@@ -257,13 +257,13 @@
             <h4>Kamuya Aciklamayiniz</h4>
             <p>
               Acigi kamuya aciklamadan once bizimle iletisime gecin. Kullanicilarimizi
-              korumak icin yamayi hazirlayip yayinlamamiza zaman taniyin.
+              korumak için yamayi hazirlayip yayinlamamiza zaman taniyin.
             </p>
           </li>
         </ol>
 
         <div class="info-box success">
-          <p><strong>Taahhudumuz:</strong> Guvenlik bildirimlerini ciddiye aliyoruz. Gecerli bildirimleri en kisa surede degerlendirir ve yamalariz. Katkiniz icin tesekkur ederiz.</p>
+          <p><strong>Taahhüdümüz:</strong> Güvenlik bildirimlerini ciddiye alıyoruz. Geçerli bildirimleri en kısa sürede değerlendirir ve yamalarız. Katkınız için teşekkür ederiz.</p>
         </div>
       </section>
 
@@ -278,7 +278,7 @@
       <a href="kurulum.html">Kurulum</a>
       <a href="https://github.com/karemyazilim/yurt/issues" target="_blank" rel="noopener noreferrer">Hata Bildir</a>
     </div>
-    <p>Yurt — Acik Kaynak PaaS Platformu. Apache 2.0 Lisansi.</p>
+    <p>Yurt — Açık Kaynak PaaS Platformu. Apache 2.0 Lisansı.</p>
   </footer>
 
 </body>
