@@ -99,11 +99,11 @@ export const ShowEnvironment = ({ id, type }: Props) => {
 			env: formData.environment,
 		})
 			.then(async () => {
-				toast.success("Environments Added");
+				toast.success("Ortam değişkenleri eklendi");
 				await refetch();
 			})
 			.catch(() => {
-				toast.error("Error adding environment");
+				toast.error("Ortam değişkenleri eklenirken hata oluştu");
 			});
 	};
 
@@ -133,19 +133,19 @@ export const ShowEnvironment = ({ id, type }: Props) => {
 			<Card className="bg-background">
 				<CardHeader className="flex flex-row w-full items-center justify-between">
 					<div>
-						<CardTitle className="text-xl">Environment Settings</CardTitle>
+						<CardTitle className="text-xl">Ortam Ayarları</CardTitle>
 						<CardDescription>
-							You can add environment variables to your resource.
+							Kaynağınıza ortam değişkenleri ekleyebilirsiniz.
 							{hasChanges && (
 								<span className="text-yellow-500 ml-2">
-									(You have unsaved changes)
+									(Kaydedilmemiş değişiklikleriniz var)
 								</span>
 							)}
 						</CardDescription>
 					</div>
 
 					<Toggle
-						aria-label="Toggle bold"
+						aria-label="Görünürlüğü değiştir"
 						pressed={isEnvVisible}
 						onPressedChange={setIsEnvVisible}
 					>
@@ -198,7 +198,7 @@ PORT=3000
 											variant="outline"
 											onClick={handleCancel}
 										>
-											Cancel
+											İptal
 										</Button>
 									)}
 									<Button
@@ -207,7 +207,7 @@ PORT=3000
 										type="submit"
 										disabled={!hasChanges}
 									>
-										Save
+										Kaydet
 									</Button>
 								</div>
 							)}

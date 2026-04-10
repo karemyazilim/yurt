@@ -17,7 +17,7 @@ import { api } from "@/utils/api";
 
 const DockerProviderSchema = z.object({
 	dockerImage: z.string().min(1, {
-		message: "Docker image is required",
+		message: "Docker imajı zorunludur",
 	}),
 	username: z.string().optional(),
 	password: z.string().optional(),
@@ -64,11 +64,11 @@ export const SaveDockerProvider = ({ applicationId }: Props) => {
 			registryUrl: values.registryURL || null,
 		})
 			.then(async () => {
-				toast.success("Docker Provider Saved");
+				toast.success("Docker Sağlayıcı Kaydedildi");
 				await refetch();
 			})
 			.catch(() => {
-				toast.error("Error saving the Docker provider");
+				toast.error("Docker sağlayıcı kaydedilirken hata oluştu");
 			});
 	};
 
@@ -85,7 +85,7 @@ export const SaveDockerProvider = ({ applicationId }: Props) => {
 							name="dockerImage"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Docker Image</FormLabel>
+									<FormLabel>Docker İmajı</FormLabel>
 									<FormControl>
 										<Input placeholder="node:16" {...field} />
 									</FormControl>
@@ -99,9 +99,9 @@ export const SaveDockerProvider = ({ applicationId }: Props) => {
 						name="registryURL"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Registry URL</FormLabel>
+								<FormLabel>Kayıt Defteri URL'si</FormLabel>
 								<FormControl>
-									<Input placeholder="Registry URL" {...field} />
+									<Input placeholder="Kayıt Defteri URL'si" {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -113,10 +113,10 @@ export const SaveDockerProvider = ({ applicationId }: Props) => {
 							name="username"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Username</FormLabel>
+									<FormLabel>Kullanıcı Adı</FormLabel>
 									<FormControl>
 										<Input
-											placeholder="Username"
+											placeholder="Kullanıcı Adı"
 											autoComplete="username"
 											{...field}
 										/>
@@ -132,10 +132,10 @@ export const SaveDockerProvider = ({ applicationId }: Props) => {
 							name="password"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Password</FormLabel>
+									<FormLabel>Şifre</FormLabel>
 									<FormControl>
 										<Input
-											placeholder="Password"
+											placeholder="Şifre"
 											autoComplete="one-time-code"
 											{...field}
 											type="password"
@@ -154,7 +154,7 @@ export const SaveDockerProvider = ({ applicationId }: Props) => {
 						className="w-fit"
 						isLoading={form.formState.isSubmitting}
 					>
-						Save{" "}
+						Kaydet{" "}
 					</Button>
 				</div>
 			</form>

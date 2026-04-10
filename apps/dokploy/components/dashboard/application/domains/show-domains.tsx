@@ -150,9 +150,9 @@ export const ShowDomains = ({ id, type }: Props) => {
 		try {
 			await deleteDomain({ domainId });
 			refetch();
-			toast.success("Domain deleted successfully");
+			toast.success("Alan adı başarıyla silindi");
 		} catch {
-			toast.error("Error deleting domain");
+			toast.error("Alan adı silinirken hata oluştu");
 		}
 	};
 
@@ -187,7 +187,7 @@ export const ShowDomains = ({ id, type }: Props) => {
 				[host]: {
 					isLoading: false,
 					isValid: false,
-					error: error.message || "Failed to validate domain",
+					error: error.message || "Alan adı doğrulanamadı",
 				},
 			}));
 		}
@@ -229,9 +229,9 @@ export const ShowDomains = ({ id, type }: Props) => {
 			<Card className="bg-background">
 				<CardHeader className="flex flex-row items-center flex-wrap gap-4 justify-between">
 					<div className="flex flex-col gap-1">
-						<CardTitle className="text-xl">Domains</CardTitle>
+						<CardTitle className="text-xl">Alan Adları</CardTitle>
 						<CardDescription>
-							Domains are used to access to the application
+							Alan adları uygulamaya erişmek için kullanılır
 						</CardDescription>
 					</div>
 
@@ -256,7 +256,7 @@ export const ShowDomains = ({ id, type }: Props) => {
 								{canCreateDomain && (
 									<AddDomain id={id} type={type}>
 										<Button>
-											<GlobeIcon className="size-4" /> Add Domain
+											<GlobeIcon className="size-4" /> Alan Adı Ekle
 										</Button>
 									</AddDomain>
 								)}
@@ -269,21 +269,21 @@ export const ShowDomains = ({ id, type }: Props) => {
 						<div className="flex w-full flex-row gap-4 min-h-[40vh] justify-center items-center">
 							<Loader2 className="size-5 animate-spin text-muted-foreground" />
 							<span className="text-base text-muted-foreground">
-								Loading domains...
+								Alan adları yükleniyor...
 							</span>
 						</div>
 					) : data?.length === 0 ? (
 						<div className="flex w-full flex-col items-center justify-center gap-3 min-h-[40vh]">
 							<GlobeIcon className="size-8 text-muted-foreground" />
 							<span className="text-base text-muted-foreground">
-								To access the application it is required to set at least 1
-								domain
+								Uygulamaya erişmek için en az 1 alan adı ayarlanması
+								gereklidir
 							</span>
 							{canCreateDomain && (
 								<div className="flex flex-row gap-4 flex-wrap">
 									<AddDomain id={id} type={type}>
 										<Button>
-											<GlobeIcon className="size-4" /> Add Domain
+											<GlobeIcon className="size-4" /> Alan Adı Ekle
 										</Button>
 									</AddDomain>
 								</div>
@@ -293,7 +293,7 @@ export const ShowDomains = ({ id, type }: Props) => {
 						<div className="flex flex-col gap-4 w-full">
 							<div className="flex items-center gap-2 max-sm:flex-wrap">
 								<Input
-									placeholder="Filter by host..."
+									placeholder="Host'a göre filtrele..."
 									value={
 										(table.getColumn("host")?.getFilterValue() as string) ?? ""
 									}
@@ -308,7 +308,7 @@ export const ShowDomains = ({ id, type }: Props) => {
 											variant="outline"
 											className="sm:ml-auto max-sm:w-full"
 										>
-											Columns <ChevronDown className="ml-2 h-4 w-4" />
+											Sütunlar <ChevronDown className="ml-2 h-4 w-4" />
 										</Button>
 									</DropdownMenuTrigger>
 									<DropdownMenuContent align="end">
@@ -375,7 +375,7 @@ export const ShowDomains = ({ id, type }: Props) => {
 													colSpan={columns.length}
 													className="h-24 text-center"
 												>
-													No results.
+													Sonuç bulunamadı.
 												</TableCell>
 											</TableRow>
 										)}
@@ -391,7 +391,7 @@ export const ShowDomains = ({ id, type }: Props) => {
 											onClick={() => table.previousPage()}
 											disabled={!table.getCanPreviousPage()}
 										>
-											Previous
+											Önceki
 										</Button>
 										<Button
 											variant="outline"
@@ -399,7 +399,7 @@ export const ShowDomains = ({ id, type }: Props) => {
 											onClick={() => table.nextPage()}
 											disabled={!table.getCanNextPage()}
 										>
-											Next
+											Sonraki
 										</Button>
 									</div>
 								</div>
@@ -455,8 +455,8 @@ export const ShowDomains = ({ id, type }: Props) => {
 														)}
 														{canDeleteDomain && (
 															<DialogAction
-																title="Delete Domain"
-																description="Are you sure you want to delete this domain?"
+																title="Alan Adını Sil"
+																description="Bu alan adını silmek istediğinizden emin misiniz?"
 																type="destructive"
 																onClick={async () => {
 																	await deleteDomain({
@@ -465,11 +465,11 @@ export const ShowDomains = ({ id, type }: Props) => {
 																		.then((_data) => {
 																			refetch();
 																			toast.success(
-																				"Domain deleted successfully",
+																				"Alan adı başarıyla silindi",
 																			);
 																		})
 																		.catch(() => {
-																			toast.error("Error deleting domain");
+																			toast.error("Alan adı silinirken hata oluştu");
 																		});
 																}}
 															>
@@ -503,11 +503,11 @@ export const ShowDomains = ({ id, type }: Props) => {
 															<TooltipTrigger asChild>
 																<Badge variant="secondary">
 																	<InfoIcon className="size-3 mr-1" />
-																	Path: {item.path || "/"}
+																	Yol: {item.path || "/"}
 																</Badge>
 															</TooltipTrigger>
 															<TooltipContent>
-																<p>URL path for this service</p>
+																<p>Bu servis için URL yolu</p>
 															</TooltipContent>
 														</Tooltip>
 													</TooltipProvider>
@@ -521,7 +521,7 @@ export const ShowDomains = ({ id, type }: Props) => {
 																</Badge>
 															</TooltipTrigger>
 															<TooltipContent>
-																<p>Container port exposed</p>
+																<p>Açığa çıkarılan konteyner portu</p>
 															</TooltipContent>
 														</Tooltip>
 													</TooltipProvider>
@@ -538,8 +538,8 @@ export const ShowDomains = ({ id, type }: Props) => {
 															<TooltipContent>
 																<p>
 																	{item.https
-																		? "Secure HTTPS connection"
-																		: "Standard HTTP connection"}
+																		? "Güvenli HTTPS bağlantısı"
+																		: "Standart HTTP bağlantısı"}
 																</p>
 															</TooltipContent>
 														</Tooltip>
@@ -550,11 +550,11 @@ export const ShowDomains = ({ id, type }: Props) => {
 															<Tooltip>
 																<TooltipTrigger asChild>
 																	<Badge variant="outline">
-																		Cert: {item.certificateType}
+																		Sertifika: {item.certificateType}
 																	</Badge>
 																</TooltipTrigger>
 																<TooltipContent>
-																	<p>SSL Certificate Provider</p>
+																	<p>SSL Sertifika Sağlayıcı</p>
 																</TooltipContent>
 															</Tooltip>
 														</TooltipProvider>
@@ -566,11 +566,11 @@ export const ShowDomains = ({ id, type }: Props) => {
 																<TooltipTrigger asChild>
 																	<Badge variant="secondary">
 																		<InfoIcon className="size-3 mr-1" />
-																		Middleware: {middleware}
+																		Ara Katman: {middleware}
 																	</Badge>
 																</TooltipTrigger>
 																<TooltipContent>
-																	<p>Traefik middleware reference</p>
+																	<p>Traefik ara katman referansı</p>
 																</TooltipContent>
 															</Tooltip>
 														</TooltipProvider>
@@ -595,15 +595,15 @@ export const ShowDomains = ({ id, type }: Props) => {
 																	{validationState?.isLoading ? (
 																		<>
 																			<Loader2 className="size-3 mr-1 animate-spin" />
-																			Checking DNS...
+																			DNS kontrol ediliyor...
 																		</>
 																	) : validationState?.isValid ? (
 																		<>
 																			<CheckCircle2 className="size-3 mr-1" />
 																			{validationState.message &&
 																			validationState.cdnProvider
-																				? `Behind ${validationState.cdnProvider}`
-																				: "DNS Valid"}
+																				? `${validationState.cdnProvider} arkasında`
+																				: "DNS Geçerli"}
 																		</>
 																	) : validationState?.error ? (
 																		<>
@@ -613,7 +613,7 @@ export const ShowDomains = ({ id, type }: Props) => {
 																	) : (
 																		<>
 																			<RefreshCw className="size-3 mr-1" />
-																			Validate DNS
+																			DNS Doğrula
 																		</>
 																	)}
 																</Badge>
@@ -622,12 +622,12 @@ export const ShowDomains = ({ id, type }: Props) => {
 																{validationState?.error ? (
 																	<div className="flex flex-col gap-1">
 																		<p className="font-medium text-red-500">
-																			Error:
+																			Hata:
 																		</p>
 																		<p>{validationState.error}</p>
 																	</div>
 																) : (
-																	"Click to validate DNS configuration"
+																	"DNS yapılandırmasını doğrulamak için tıklayın"
 																)}
 															</TooltipContent>
 														</Tooltip>

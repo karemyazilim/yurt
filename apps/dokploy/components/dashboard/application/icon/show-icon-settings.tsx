@@ -63,11 +63,11 @@ export const ShowIconSettings = ({
 				applicationId,
 				icon: dataUrl,
 			});
-			toast.success("Icon saved successfully");
+			toast.success("Simge başarıyla kaydedildi");
 			await utils.application.one.invalidate({ applicationId });
 			setOpen(false);
 		} catch (_error) {
-			toast.error("Error saving icon");
+			toast.error("Simge kaydedilirken hata oluştu");
 		}
 	};
 
@@ -77,10 +77,10 @@ export const ShowIconSettings = ({
 				applicationId,
 				icon: null,
 			});
-			toast.success("Icon removed");
+			toast.success("Simge kaldırıldı");
 			await utils.application.one.invalidate({ applicationId });
 		} catch (_error) {
-			toast.error("Error removing icon");
+			toast.error("Simge kaldırılırken hata oluştu");
 		}
 	};
 
@@ -111,12 +111,12 @@ export const ShowIconSettings = ({
 			!allowedTypes.includes(file.type) &&
 			!allowedExtensions.includes(fileExtension || "")
 		) {
-			toast.error("Only JPG, JPEG, PNG, and SVG files are allowed");
+			toast.error("Yalnızca JPG, JPEG, PNG ve SVG dosyalarına izin verilir");
 			return;
 		}
 
 		if (file.size > 2 * 1024 * 1024) {
-			toast.error("Image size must be less than 2MB");
+			toast.error("Görsel boyutu 2MB'den küçük olmalıdır");
 			return;
 		}
 
@@ -126,7 +126,7 @@ export const ShowIconSettings = ({
 			const text = await file.text();
 			const sanitizedDataUrl = sanitizeSvg(text);
 			if (!sanitizedDataUrl) {
-				toast.error("Invalid SVG file");
+				toast.error("Geçersiz SVG dosyası");
 				return;
 			}
 			try {
@@ -134,11 +134,11 @@ export const ShowIconSettings = ({
 					applicationId,
 					icon: sanitizedDataUrl,
 				});
-				toast.success("Icon saved!");
+				toast.success("Simge kaydedildi!");
 				await utils.application.one.invalidate({ applicationId });
 				setOpen(false);
 			} catch (_error) {
-				toast.error("Error saving icon");
+				toast.error("Simge kaydedilirken hata oluştu");
 			}
 			return;
 		}
@@ -151,11 +151,11 @@ export const ShowIconSettings = ({
 					applicationId,
 					icon: result,
 				});
-				toast.success("Icon saved!");
+				toast.success("Simge kaydedildi!");
 				await utils.application.one.invalidate({ applicationId });
 				setOpen(false);
 			} catch (_error) {
-				toast.error("Error saving icon");
+				toast.error("Simge kaydedilirken hata oluştu");
 			}
 		};
 		reader.readAsDataURL(file);
@@ -172,7 +172,7 @@ export const ShowIconSettings = ({
 						// biome-ignore lint/performance/noImgElement: icon is data URL or base64
 						<img
 							src={icon}
-							alt="Application icon"
+							alt="Uygulama simgesi"
 							className="h-8 w-8 object-contain"
 						/>
 					) : (
@@ -186,7 +186,7 @@ export const ShowIconSettings = ({
 			<DialogContent className="max-w-2xl">
 				<DialogHeader>
 					<DialogTitle className="flex items-center justify-between">
-						Change Icon
+						Simgeyi Değiştir
 						{icon && (
 							<Button
 								variant="ghost"
@@ -195,7 +195,7 @@ export const ShowIconSettings = ({
 								className="text-muted-foreground"
 							>
 								<X className="size-4 mr-1" />
-								Remove icon
+								Simgeyi kaldır
 							</Button>
 						)}
 					</DialogTitle>
@@ -205,7 +205,7 @@ export const ShowIconSettings = ({
 					<div className="relative">
 						<Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
 						<Input
-							placeholder="Search icons (e.g. react, vue, docker)..."
+							placeholder="Simge ara (örn. react, vue, docker)..."
 							value={iconSearchQuery}
 							onChange={(e) => setIconSearchQuery(e.target.value)}
 							className="pl-9"
@@ -215,7 +215,7 @@ export const ShowIconSettings = ({
 					<div className="max-h-[300px] overflow-y-auto border rounded-lg p-4">
 						{displayedIcons.length === 0 ? (
 							<div className="text-center py-8 text-sm text-muted-foreground">
-								No icons found
+								Simge bulunamadı
 							</div>
 						) : (
 							<>
@@ -248,7 +248,7 @@ export const ShowIconSettings = ({
 											size="sm"
 											onClick={() => setIconsToShow((prev) => prev + 24)}
 										>
-											Load More ({filteredIcons.length - iconsToShow} remaining)
+											Daha Fazla Yükle ({filteredIcons.length - iconsToShow} kalan)
 										</Button>
 									</div>
 								)}
@@ -258,16 +258,16 @@ export const ShowIconSettings = ({
 
 					<div className="relative pt-3 border-t">
 						<p className="text-sm text-muted-foreground text-center mb-3">
-							or upload a custom icon
+							veya özel bir simge yükleyin
 						</p>
 						<Dropzone
-							dropMessage="Drag & drop an icon or click to upload"
+							dropMessage="Bir simgeyi sürükleyip bırakın veya yüklemek için tıklayın"
 							accept=".jpg,.jpeg,.png,.svg,image/jpeg,image/png,image/svg+xml"
 							onChange={handleFileUpload}
 							classNameWrapper="border-2 border-dashed border-border hover:border-primary bg-muted/30 hover:bg-muted/50 transition-all rounded-lg"
 						/>
 						<div className="mt-2 text-center text-xs text-muted-foreground">
-							Supported formats: JPG, JPEG, PNG, SVG (max 2MB)
+							Desteklenen formatlar: JPG, JPEG, PNG, SVG (maks. 2MB)
 						</div>
 					</div>
 				</div>

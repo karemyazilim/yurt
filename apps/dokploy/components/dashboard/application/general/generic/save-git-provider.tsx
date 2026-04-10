@@ -37,11 +37,11 @@ import {
 import { api } from "@/utils/api";
 
 const GitProviderSchema = z.object({
-	buildPath: z.string().min(1, "Path is required").default("/"),
+	buildPath: z.string().min(1, "Yol zorunludur").default("/"),
 	repositoryURL: z.string().min(1, {
-		message: "Repository URL is required",
+		message: "Depo URL'si zorunludur",
 	}),
-	branch: z.string().min(1, "Branch required"),
+	branch: z.string().min(1, "Dal zorunludur"),
 	sshKey: z.string().optional(),
 	watchPaths: z.array(z.string()).optional(),
 	enableSubmodules: z.boolean().default(false),
@@ -97,11 +97,11 @@ export const SaveGitProvider = ({ applicationId }: Props) => {
 			enableSubmodules: values.enableSubmodules,
 		})
 			.then(async () => {
-				toast.success("Git Provider Saved");
+				toast.success("Git Sağlayıcı Kaydedildi");
 				await refetch();
 			})
 			.catch(() => {
-				toast.error("Error saving the Git provider");
+				toast.error("Git sağlayıcı kaydedilirken hata oluştu");
 			});
 	};
 
@@ -120,7 +120,7 @@ export const SaveGitProvider = ({ applicationId }: Props) => {
 								render={({ field }) => (
 									<FormItem>
 										<div className="flex items-center justify-between">
-											<FormLabel>Repository URL</FormLabel>
+											<FormLabel>Depo URL'si</FormLabel>
 											{field.value?.startsWith("https://") && (
 												<Link
 													href={field.value}
@@ -129,12 +129,12 @@ export const SaveGitProvider = ({ applicationId }: Props) => {
 													className="flex items-center gap-1 text-sm text-muted-foreground hover:text-primary"
 												>
 													<GitIcon className="h-4 w-4" />
-													<span>View Repository</span>
+													<span>Depoyu Görüntüle</span>
 												</Link>
 											)}
 										</div>
 										<FormControl>
-											<Input placeholder="Repository URL" {...field} />
+											<Input placeholder="Depo URL'si" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -148,7 +148,7 @@ export const SaveGitProvider = ({ applicationId }: Props) => {
 								render={({ field }) => (
 									<FormItem className="basis-40">
 										<FormLabel className="w-full inline-flex justify-between">
-											SSH Key
+											SSH Anahtarı
 											<LockIcon className="size-4 text-muted-foreground" />
 										</FormLabel>
 										<FormControl>
@@ -159,7 +159,7 @@ export const SaveGitProvider = ({ applicationId }: Props) => {
 												value={field.value}
 											>
 												<SelectTrigger>
-													<SelectValue placeholder="Select a key" />
+													<SelectValue placeholder="Bir anahtar seçin" />
 												</SelectTrigger>
 												<SelectContent>
 													<SelectGroup>
@@ -171,8 +171,8 @@ export const SaveGitProvider = ({ applicationId }: Props) => {
 																{sshKey.name}
 															</SelectItem>
 														))}
-														<SelectItem value="none">None</SelectItem>
-														<SelectLabel>Keys ({sshKeys?.length})</SelectLabel>
+														<SelectItem value="none">Yok</SelectItem>
+														<SelectLabel>Anahtarlar ({sshKeys?.length})</SelectLabel>
 													</SelectGroup>
 												</SelectContent>
 											</Select>
@@ -186,7 +186,7 @@ export const SaveGitProvider = ({ applicationId }: Props) => {
 								onClick={() => router.push("/dashboard/settings/ssh-keys")}
 								type="button"
 							>
-								<KeyRoundIcon className="size-4" /> Add SSH Key
+								<KeyRoundIcon className="size-4" /> SSH Anahtarı Ekle
 							</Button>
 						)}
 					</div>
@@ -196,9 +196,9 @@ export const SaveGitProvider = ({ applicationId }: Props) => {
 							name="branch"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Branch</FormLabel>
+									<FormLabel>Dal</FormLabel>
 									<FormControl>
-										<Input placeholder="Branch" {...field} />
+										<Input placeholder="Dal" {...field} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -211,7 +211,7 @@ export const SaveGitProvider = ({ applicationId }: Props) => {
 						name="buildPath"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Build Path</FormLabel>
+								<FormLabel>Derleme Yolu</FormLabel>
 								<FormControl>
 									<Input placeholder="/" {...field} />
 								</FormControl>
@@ -225,7 +225,7 @@ export const SaveGitProvider = ({ applicationId }: Props) => {
 						render={({ field }) => (
 							<FormItem className="md:col-span-2">
 								<div className="flex items-center gap-2">
-									<FormLabel>Watch Paths</FormLabel>
+									<FormLabel>İzleme Yolları</FormLabel>
 									<TooltipProvider>
 										<Tooltip>
 											<TooltipTrigger asChild>
@@ -233,9 +233,9 @@ export const SaveGitProvider = ({ applicationId }: Props) => {
 											</TooltipTrigger>
 											<TooltipContent className="max-w-[300px]">
 												<p>
-													Add paths to watch for changes. When files in these
-													paths change, a new deployment will be triggered. This
-													will work only when manual webhook is setup.
+													Değişiklikleri izlemek için yollar ekleyin. Bu yollardaki
+													dosyalar değiştiğinde yeni bir dağıtım tetiklenir. Bu
+													yalnızca manuel webhook kurulduğunda çalışır.
 												</p>
 											</TooltipContent>
 										</Tooltip>
@@ -259,7 +259,7 @@ export const SaveGitProvider = ({ applicationId }: Props) => {
 								<FormControl>
 									<div className="flex gap-2">
 										<Input
-											placeholder="Enter a path to watch (e.g., src/**, dist/*.js)"
+											placeholder="İzlenecek bir yol girin (örn. src/**, dist/*.js)"
 											onKeyDown={(e) => {
 												if (e.key === "Enter") {
 													e.preventDefault();
@@ -278,7 +278,7 @@ export const SaveGitProvider = ({ applicationId }: Props) => {
 											variant="secondary"
 											onClick={() => {
 												const input = document.querySelector(
-													'input[placeholder="Enter a path to watch (e.g., src/**, dist/*.js)"]',
+													'input[placeholder="İzlenecek bir yol girin (örn. src/**, dist/*.js)"]',
 												) as HTMLInputElement;
 												const value = input.value.trim();
 												if (value) {
@@ -288,7 +288,7 @@ export const SaveGitProvider = ({ applicationId }: Props) => {
 												}
 											}}
 										>
-											Add
+											Ekle
 										</Button>
 									</div>
 								</FormControl>
@@ -308,7 +308,7 @@ export const SaveGitProvider = ({ applicationId }: Props) => {
 										onCheckedChange={field.onChange}
 									/>
 								</FormControl>
-								<FormLabel className="!mt-0">Enable Submodules</FormLabel>
+								<FormLabel className="!mt-0">Alt Modülleri Etkinleştir</FormLabel>
 							</FormItem>
 						)}
 					/>
@@ -316,7 +316,7 @@ export const SaveGitProvider = ({ applicationId }: Props) => {
 
 				<div className="flex flex-row justify-end">
 					<Button type="submit" className="w-fit" isLoading={isPending}>
-						Save
+						Kaydet
 					</Button>
 				</div>
 			</form>

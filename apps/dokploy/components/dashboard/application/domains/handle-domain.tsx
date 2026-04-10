@@ -49,9 +49,9 @@ export const domain = z
 	.object({
 		host: z
 			.string()
-			.min(1, { message: "Add a hostname" })
+			.min(1, { message: "Bir host adı ekleyin" })
 			.refine((val) => val === val.trim(), {
-				message: "Domain name cannot have leading or trailing spaces",
+				message: "Alan adı başında veya sonunda boşluk içeremez",
 			})
 			.transform((val) => val.trim()),
 		path: z.string().min(1).optional(),
@@ -59,8 +59,8 @@ export const domain = z
 		stripPath: z.boolean().optional(),
 		port: z
 			.number()
-			.min(1, { message: "Port must be at least 1" })
-			.max(65535, { message: "Port must be 65535 or below" })
+			.min(1, { message: "Port en az 1 olmalıdır" })
+			.max(65535, { message: "Port 65535 veya altında olmalıdır" })
 			.optional(),
 		useCustomEntrypoint: z.boolean(),
 		customEntrypoint: z.string().optional(),
@@ -76,7 +76,7 @@ export const domain = z
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
 				path: ["certificateType"],
-				message: "Required",
+				message: "Zorunlu",
 			});
 		}
 
@@ -84,7 +84,7 @@ export const domain = z
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
 				path: ["customCertResolver"],
-				message: "Required",
+				message: "Zorunlu",
 			});
 		}
 
@@ -92,7 +92,7 @@ export const domain = z
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
 				path: ["serviceName"],
-				message: "Required",
+				message: "Zorunlu",
 			});
 		}
 
@@ -102,7 +102,7 @@ export const domain = z
 				code: z.ZodIssueCode.custom,
 				path: ["stripPath"],
 				message:
-					"Strip path can only be enabled when a path other than '/' is specified",
+					"Yol kaldırma yalnızca '/' dışında bir yol belirtildiğinde etkinleştirilebilir",
 			});
 		}
 
@@ -115,7 +115,7 @@ export const domain = z
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
 				path: ["internalPath"],
-				message: "Internal path must start with '/'",
+				message: "Dahili yol '/' ile başlamalıdır",
 			});
 		}
 
@@ -123,7 +123,7 @@ export const domain = z
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
 				path: ["customEntrypoint"],
-				message: "Custom entry point must be specified",
+				message: "Özel giriş noktası belirtilmelidir",
 			});
 		}
 	});
@@ -272,12 +272,12 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 	}, [certificateType, form]);
 
 	const dictionary = {
-		success: domainId ? "Domain Updated" : "Domain Created",
-		error: domainId ? "Error updating the domain" : "Error creating the domain",
-		submit: domainId ? "Update" : "Create",
+		success: domainId ? "Alan Adı Güncellendi" : "Alan Adı Oluşturuldu",
+		error: domainId ? "Alan adı güncellenirken hata oluştu" : "Alan adı oluşturulurken hata oluştu",
+		submit: domainId ? "Güncelle" : "Oluştur",
 		dialogDescription: domainId
-			? "In this section you can edit a domain"
-			: "In this section you can add domains",
+			? "Bu bölümde alan adını düzenleyebilirsiniz"
+			: "Bu bölümde alan adı ekleyebilirsiniz",
 	};
 
 	const onSubmit = async (data: Domain) => {
@@ -325,15 +325,15 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-2xl">
 				<DialogHeader>
-					<DialogTitle>Domain</DialogTitle>
+					<DialogTitle>Alan Adı</DialogTitle>
 					<DialogDescription>{dictionary.dialogDescription}</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
 
 				{type === "compose" && (
 					<AlertBlock type="info" className="mb-4">
-						Whenever you make changes to domains, remember to redeploy your
-						compose to apply the changes.
+						Alan adlarında değişiklik yaptığınızda, değişikliklerin uygulanması
+						için compose'unuzu yeniden dağıtmayı unutmayın.
 					</AlertBlock>
 				)}
 
@@ -361,12 +361,12 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 												name="serviceName"
 												render={({ field }) => (
 													<FormItem className="w-full">
-														<FormLabel>Service Name</FormLabel>
+														<FormLabel>Servis Adı</FormLabel>
 														<div className="flex gap-2">
 															{isManualInput ? (
 																<FormControl>
 																	<Input
-																		placeholder="Enter service name manually"
+																		placeholder="Servis adını manuel girin"
 																		{...field}
 																		className="w-full"
 																	/>
@@ -378,7 +378,7 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 																>
 																	<FormControl>
 																		<SelectTrigger>
-																			<SelectValue placeholder="Select a service name" />
+																			<SelectValue placeholder="Bir servis adı seçin" />
 																		</SelectTrigger>
 																	</FormControl>
 
@@ -392,7 +392,7 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 																			</SelectItem>
 																		))}
 																		<SelectItem value="none" disabled>
-																			Empty
+																			Boş
 																		</SelectItem>
 																	</SelectContent>
 																</Select>
@@ -423,8 +423,8 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 																				className="max-w-[10rem]"
 																			>
 																				<p>
-																					Fetch: Will clone the repository and
-																					load the services
+																					Getir: Depoyu klonlayarak servisleri
+																					yükler
 																				</p>
 																			</TooltipContent>
 																		</Tooltip>
@@ -453,10 +453,9 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 																				className="max-w-[10rem]"
 																			>
 																				<p>
-																					Cache: If you previously deployed this
-																					compose, it will read the services
-																					from the last deployment/fetch from
-																					the repository
+																					Önbellek: Daha önce bu compose'u dağıttıysanız,
+																					servisleri son dağıtımdan/depodan
+																					okuyacaktır
 																				</p>
 																			</TooltipContent>
 																		</Tooltip>
@@ -480,7 +479,7 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 																				<RefreshCw className="size-4 text-muted-foreground" />
 																			) : (
 																				<span className="text-xs text-muted-foreground">
-																					Manual
+																					Manuel
 																				</span>
 																			)}
 																		</Button>
@@ -492,8 +491,8 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 																	>
 																		<p>
 																			{isManualInput
-																				? "Switch to service selection"
-																				: "Enter service name manually"}
+																				? "Servis seçimine geç"
+																				: "Servis adını manuel girin"}
 																		</p>
 																	</TooltipContent>
 																</Tooltip>
@@ -515,23 +514,23 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 											{!canGenerateTraefikMeDomains &&
 												field.value.includes("traefik.me") && (
 													<AlertBlock type="warning">
-														You need to set an IP address in your{" "}
+														traefik.me alan adınızın çalışması için{" "}
 														<Link
 															href="/dashboard/settings/server"
 															className="text-primary"
 														>
 															{application?.serverId
-																? "Remote Servers -> Server -> Edit Server -> Update IP Address"
-																: "Web Server -> Server -> Update Server IP"}
+																? "Uzak Sunucular -> Sunucu -> Sunucuyu Düzenle -> IP Adresini Güncelle"
+																: "Web Sunucusu -> Sunucu -> Sunucu IP'sini Güncelle"}
 														</Link>{" "}
-														to make your traefik.me domain work.
+														bölümünde bir IP adresi ayarlamanız gerekir.
 													</AlertBlock>
 												)}
 											{isTraefikMeDomain && (
 												<AlertBlock type="info">
-													<strong>Note:</strong> traefik.me is a public HTTP
-													service and does not support SSL/HTTPS. HTTPS and
-													certificate options will not have any effect.
+													<strong>Not:</strong> traefik.me herkese açık bir HTTP
+													servisidir ve SSL/HTTPS desteklemez. HTTPS ve
+													sertifika seçeneklerinin herhangi bir etkisi olmayacaktır.
 												</AlertBlock>
 											)}
 											<FormLabel>Host</FormLabel>
@@ -567,7 +566,7 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 															sideOffset={5}
 															className="max-w-[10rem]"
 														>
-															<p>Generate traefik.me domain</p>
+															<p>traefik.me alan adı oluştur</p>
 														</TooltipContent>
 													</Tooltip>
 												</TooltipProvider>
@@ -584,7 +583,7 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 									render={({ field }) => {
 										return (
 											<FormItem>
-												<FormLabel>Path</FormLabel>
+												<FormLabel>Yol</FormLabel>
 												<FormControl>
 													<Input placeholder={"/"} {...field} />
 												</FormControl>
@@ -600,10 +599,10 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 									render={({ field }) => {
 										return (
 											<FormItem>
-												<FormLabel>Internal Path</FormLabel>
+												<FormLabel>Dahili Yol</FormLabel>
 												<FormDescription>
-													The path where your application expects to receive
-													requests internally (defaults to "/")
+													Uygulamanızın dahili olarak istekleri almayı beklediği
+													yol (varsayılan: "/")
 												</FormDescription>
 												<FormControl>
 													<Input placeholder={"/"} {...field} />
@@ -620,10 +619,10 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between p-3 border rounded-lg shadow-sm">
 											<div className="space-y-0.5">
-												<FormLabel>Strip Path</FormLabel>
+												<FormLabel>Yolu Kaldır</FormLabel>
 												<FormDescription>
-													Remove the external path from the request before
-													forwarding to the application
+													İsteği uygulamaya yönlendirmeden önce
+													harici yolu kaldır
 												</FormDescription>
 												<FormMessage />
 											</div>
@@ -643,11 +642,10 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 									render={({ field }) => {
 										return (
 											<FormItem>
-												<FormLabel>Container Port</FormLabel>
+												<FormLabel>Konteyner Portu</FormLabel>
 												<FormDescription>
-													The port where your application is running inside the
-													container (e.g., 3000 for Node.js, 80 for Nginx, 8080
-													for Java)
+													Uygulamanızın konteyner içinde çalıştığı port
+													(örn. Node.js için 3000, Nginx için 80, Java için 8080)
 												</FormDescription>
 												<FormControl>
 													<NumberInput placeholder={"3000"} {...field} />
@@ -664,11 +662,11 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between p-3 mt-4 border rounded-lg shadow-sm">
 											<div className="space-y-0.5">
-												<FormLabel>Custom Entrypoint</FormLabel>
+												<FormLabel>Özel Giriş Noktası</FormLabel>
 												<FormDescription>
-													Use custom entrypoint for domina
+													Alan adı için özel giriş noktası kullan
 													<br />
-													"web" and/or "websecure" is used by default.
+													Varsayılan olarak "web" ve/veya "websecure" kullanılır.
 												</FormDescription>
 												<FormMessage />
 											</div>
@@ -693,10 +691,10 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 										name="customEntrypoint"
 										render={({ field }) => (
 											<FormItem className="w-full">
-												<FormLabel>Entrypoint Name</FormLabel>
+												<FormLabel>Giriş Noktası Adı</FormLabel>
 												<FormControl>
 													<Input
-														placeholder="Enter entrypoint name manually"
+														placeholder="Giriş noktası adını manuel girin"
 														{...field}
 														className="w-full"
 													/>
@@ -715,7 +713,7 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 											<div className="space-y-0.5">
 												<FormLabel>HTTPS</FormLabel>
 												<FormDescription>
-													Automatically provision SSL Certificate.
+													SSL Sertifikasını otomatik olarak sağla.
 												</FormDescription>
 												<FormMessage />
 											</div>
@@ -737,7 +735,7 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 											render={({ field }) => {
 												return (
 													<FormItem>
-														<FormLabel>Certificate Provider</FormLabel>
+														<FormLabel>Sertifika Sağlayıcı</FormLabel>
 														<Select
 															onValueChange={(value) => {
 																field.onChange(value);
@@ -752,15 +750,15 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 														>
 															<FormControl>
 																<SelectTrigger>
-																	<SelectValue placeholder="Select a certificate provider" />
+																	<SelectValue placeholder="Bir sertifika sağlayıcı seçin" />
 																</SelectTrigger>
 															</FormControl>
 															<SelectContent>
-																<SelectItem value={"none"}>None</SelectItem>
+																<SelectItem value={"none"}>Yok</SelectItem>
 																<SelectItem value={"letsencrypt"}>
 																	Let's Encrypt
 																</SelectItem>
-																<SelectItem value={"custom"}>Custom</SelectItem>
+																<SelectItem value={"custom"}>Özel</SelectItem>
 															</SelectContent>
 														</Select>
 														<FormMessage />
@@ -776,11 +774,11 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 												render={({ field }) => {
 													return (
 														<FormItem>
-															<FormLabel>Custom Certificate Resolver</FormLabel>
+															<FormLabel>Özel Sertifika Çözümleyici</FormLabel>
 															<FormControl>
 																<Input
 																	className="w-full"
-																	placeholder="Enter your custom certificate resolver"
+																	placeholder="Özel sertifika çözümleyicinizi girin"
 																	{...field}
 																	value={field.value || ""}
 																	onChange={(e) => {
@@ -803,7 +801,7 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 									render={({ field }) => (
 										<FormItem>
 											<div className="flex items-center gap-2">
-												<FormLabel>Middlewares</FormLabel>
+												<FormLabel>Ara Katmanlar</FormLabel>
 												<TooltipProvider>
 													<Tooltip>
 														<TooltipTrigger>
@@ -813,8 +811,8 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 														</TooltipTrigger>
 														<TooltipContent className="max-w-[300px]">
 															<p>
-																Add Traefik middleware references. Middlewares
-																must be defined in your Traefik configuration.
+																Traefik ara katman referansları ekleyin. Ara katmanlar
+																Traefik yapılandırmanızda tanımlanmış olmalıdır.
 															</p>
 														</TooltipContent>
 													</Tooltip>
@@ -838,7 +836,7 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 											<FormControl>
 												<div className="flex gap-2">
 													<Input
-														placeholder="e.g., rate-limit@file, auth@file"
+														placeholder="örn. rate-limit@file, auth@file"
 														onKeyDown={(e) => {
 															if (e.key === "Enter") {
 																e.preventDefault();
@@ -859,7 +857,7 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 														variant="secondary"
 														onClick={() => {
 															const input = document.querySelector(
-																'input[placeholder="e.g., rate-limit@file, auth@file"]',
+																'input[placeholder="örn. rate-limit@file, auth@file"]',
 															) as HTMLInputElement;
 															const value = input.value.trim();
 															if (value && !field.value?.includes(value)) {
@@ -871,7 +869,7 @@ export const AddDomain = ({ id, type, domainId = "", children }: Props) => {
 															}
 														}}
 													>
-														Add
+														Ekle
 													</Button>
 												</div>
 											</FormControl>

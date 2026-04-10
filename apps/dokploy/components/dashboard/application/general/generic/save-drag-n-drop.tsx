@@ -52,11 +52,11 @@ export const SaveDragNDrop = ({ applicationId }: Props) => {
 
 		await mutateAsync(formData)
 			.then(async () => {
-				toast.success("Deployment saved");
+				toast.success("Dağıtım kaydedildi");
 				await refetch();
 			})
 			.catch(() => {
-				toast.error("Error saving the deployment");
+				toast.error("Dağıtım kaydedilirken hata oluştu");
 			});
 	};
 
@@ -73,9 +73,9 @@ export const SaveDragNDrop = ({ applicationId }: Props) => {
 							name="dropBuildPath"
 							render={({ field }) => (
 								<FormItem className="w-full ">
-									<FormLabel>Build Path</FormLabel>
+									<FormLabel>Derleme Yolu</FormLabel>
 									<FormControl>
-										<Input {...field} placeholder="Build Path" />
+										<Input {...field} placeholder="Derleme Yolu" />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -86,11 +86,11 @@ export const SaveDragNDrop = ({ applicationId }: Props) => {
 							name="zip"
 							render={({ field }) => (
 								<FormItem className="w-full ">
-									<FormLabel>Zip file</FormLabel>
+									<FormLabel>Zip dosyası</FormLabel>
 									<FormControl>
 										<Dropzone
 											{...field}
-											dropMessage="Drop files or click here"
+											dropMessage="Dosyaları sürükleyin veya buraya tıklayın"
 											accept=".zip"
 											onChange={(e) => {
 												if (e instanceof FileList) {
@@ -132,7 +132,7 @@ export const SaveDragNDrop = ({ applicationId }: Props) => {
 						isLoading={isPending}
 						disabled={!zip || isPending}
 					>
-						Deploy{" "}
+						Dağıt{" "}
 					</Button>
 				</div>
 			</form>

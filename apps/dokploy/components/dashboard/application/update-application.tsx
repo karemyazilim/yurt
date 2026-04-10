@@ -29,7 +29,7 @@ import { api } from "@/utils/api";
 
 const updateApplicationSchema = z.object({
 	name: z.string().min(1, {
-		message: "Name is required",
+		message: "Ad zorunludur",
 	}),
 	description: z.string().optional(),
 });
@@ -76,14 +76,14 @@ export const UpdateApplication = ({ applicationId }: Props) => {
 			description: formData.description || "",
 		})
 			.then(() => {
-				toast.success("Application updated successfully");
+				toast.success("Uygulama başarıyla güncellendi");
 				utils.application.one.invalidate({
 					applicationId: applicationId,
 				});
 				setIsOpen(false);
 			})
 			.catch(() => {
-				toast.error("Error updating the Application");
+				toast.error("Uygulama güncellenirken hata oluştu");
 			})
 			.finally(() => {});
 	};
@@ -101,8 +101,8 @@ export const UpdateApplication = ({ applicationId }: Props) => {
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-lg">
 				<DialogHeader>
-					<DialogTitle>Modify Application</DialogTitle>
-					<DialogDescription>Update the application data</DialogDescription>
+					<DialogTitle>Uygulamayı Düzenle</DialogTitle>
+					<DialogDescription>Uygulama verilerini güncelleyin</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
 
@@ -119,7 +119,7 @@ export const UpdateApplication = ({ applicationId }: Props) => {
 									name="name"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Name</FormLabel>
+											<FormLabel>Ad</FormLabel>
 											<FormControl>
 												<Input placeholder="Vandelay Industries" {...field} />
 											</FormControl>
@@ -133,10 +133,10 @@ export const UpdateApplication = ({ applicationId }: Props) => {
 									name="description"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Description</FormLabel>
+											<FormLabel>Açıklama</FormLabel>
 											<FormControl>
 												<Textarea
-													placeholder="Description about your project..."
+													placeholder="Projeniz hakkında açıklama..."
 													className="resize-none"
 													{...field}
 												/>
@@ -152,7 +152,7 @@ export const UpdateApplication = ({ applicationId }: Props) => {
 										form="hook-form-update-application"
 										type="submit"
 									>
-										Update
+										Güncelle
 									</Button>
 								</DialogFooter>
 							</form>

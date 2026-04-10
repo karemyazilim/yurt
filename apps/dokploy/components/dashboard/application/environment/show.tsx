@@ -86,11 +86,11 @@ export const ShowEnvironment = ({ applicationId }: Props) => {
 			applicationId,
 		})
 			.then(async () => {
-				toast.success("Environments Added");
+				toast.success("Ortam değişkenleri eklendi");
 				await refetch();
 			})
 			.catch(() => {
-				toast.error("Error adding environment");
+				toast.error("Ortam değişkenleri eklenirken hata oluştu");
 			});
 	};
 
@@ -127,13 +127,13 @@ export const ShowEnvironment = ({ applicationId }: Props) => {
 				>
 					<Secrets
 						name="env"
-						title="Environment Settings"
+						title="Ortam Ayarları"
 						description={
 							<span>
-								You can add environment variables to your resource.
+								Kaynağınıza ortam değişkenleri ekleyebilirsiniz.
 								{hasChanges && (
 									<span className="text-yellow-500 ml-2">
-										(You have unsaved changes)
+										(Kaydedilmemiş değişiklikleriniz var)
 									</span>
 								)}
 							</span>
@@ -143,20 +143,20 @@ export const ShowEnvironment = ({ applicationId }: Props) => {
 					{data?.buildType === "dockerfile" && (
 						<Secrets
 							name="buildArgs"
-							title="Build-time Arguments"
+							title="Derleme Zamanı Argümanları"
 							description={
 								<span>
-									Arguments are available only at build-time. See
-									documentation&nbsp;
+									Argümanlar yalnızca derleme zamanında kullanılabilir.
+									Belgelere&nbsp;
 									<a
 										className="text-primary"
 										href="https://docs.docker.com/build/building/variables/"
 										target="_blank"
 										rel="noopener noreferrer"
 									>
-										here
+										buradan
 									</a>
-									.
+									{" "}bakabilirsiniz.
 								</span>
 							}
 							placeholder="NPM_TOKEN=xyz"
@@ -165,20 +165,20 @@ export const ShowEnvironment = ({ applicationId }: Props) => {
 					{data?.buildType === "dockerfile" && (
 						<Secrets
 							name="buildSecrets"
-							title="Build-time Secrets"
+							title="Derleme Zamanı Gizli Anahtarları"
 							description={
 								<span>
-									Secrets are specially designed for sensitive information and
-									are only available at build-time. See documentation&nbsp;
+									Gizli anahtarlar hassas bilgiler için özel olarak tasarlanmıştır
+									ve yalnızca derleme zamanında kullanılabilir. Belgelere&nbsp;
 									<a
 										className="text-primary"
 										href="https://docs.docker.com/build/building/secrets/"
 										target="_blank"
 										rel="noopener noreferrer"
 									>
-										here
+										buradan
 									</a>
-									.
+									{" "}bakabilirsiniz.
 								</span>
 							}
 							placeholder="NPM_TOKEN=xyz"
@@ -191,12 +191,11 @@ export const ShowEnvironment = ({ applicationId }: Props) => {
 							render={({ field }) => (
 								<FormItem className="flex flex-row items-center justify-between p-3 border rounded-lg shadow-sm">
 									<div className="space-y-0.5">
-										<FormLabel>Create Environment File</FormLabel>
+										<FormLabel>Ortam Dosyası Oluştur</FormLabel>
 										<FormDescription>
-											When enabled, an .env file will be created in the same
-											directory as your Dockerfile during the build process.
-											Disable this if you don't want to generate an environment
-											file.
+											Etkinleştirildiğinde, derleme işlemi sırasında Dockerfile'ınızla
+											aynı dizinde bir .env dosyası oluşturulur. Ortam dosyası
+											oluşturmak istemiyorsanız bunu devre dışı bırakın.
 										</FormDescription>
 									</div>
 									<FormControl>
@@ -214,7 +213,7 @@ export const ShowEnvironment = ({ applicationId }: Props) => {
 						<div className="flex flex-row justify-end gap-2">
 							{hasChanges && (
 								<Button type="button" variant="outline" onClick={handleCancel}>
-									Cancel
+									İptal
 								</Button>
 							)}
 							<Button
@@ -223,7 +222,7 @@ export const ShowEnvironment = ({ applicationId }: Props) => {
 								type="submit"
 								disabled={!hasChanges}
 							>
-								Save
+								Kaydet
 							</Button>
 						</div>
 					)}

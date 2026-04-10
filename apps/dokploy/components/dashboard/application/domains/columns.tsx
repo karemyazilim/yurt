@@ -56,7 +56,7 @@ export const createColumns = ({
 		? [
 				{
 					accessorKey: "serviceName",
-					header: "Service",
+					header: "Servis",
 					cell: ({ row }: { row: { getValue: (key: string) => unknown } }) => {
 						const serviceName = row.getValue("serviceName") as string | null;
 						if (!serviceName) return null;
@@ -105,7 +105,7 @@ export const createColumns = ({
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Path
+					Yol
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			);
@@ -135,7 +135,7 @@ export const createColumns = ({
 	},
 	{
 		accessorKey: "customEntrypoint",
-		header: "Entrypoint",
+		header: "Giriş Noktası",
 		cell: ({ row }) => {
 			const entrypoint = row.getValue("customEntrypoint") as string | null;
 			if (!entrypoint) return <span className="text-muted-foreground">-</span>;
@@ -144,7 +144,7 @@ export const createColumns = ({
 	},
 	{
 		accessorKey: "https",
-		header: "Protocol",
+		header: "Protokol",
 		cell: ({ row }) => {
 			const https = row.getValue("https") as boolean;
 			return (
@@ -156,7 +156,7 @@ export const createColumns = ({
 	},
 	{
 		id: "certificate",
-		header: "Certificate",
+		header: "Sertifika",
 		cell: ({ row }) => {
 			const domain = row.original;
 			const validationState = validationStates[domain.host];
@@ -186,24 +186,24 @@ export const createColumns = ({
 										{validationState?.isLoading ? (
 											<>
 												<Loader2 className="size-3 mr-1 animate-spin" />
-												Checking...
+												Kontrol ediliyor...
 											</>
 										) : validationState?.isValid ? (
 											<>
 												<CheckCircle2 className="size-3 mr-1" />
 												{validationState.message && validationState.cdnProvider
 													? `${validationState.cdnProvider}`
-													: "Valid"}
+													: "Geçerli"}
 											</>
 										) : validationState?.error ? (
 											<>
 												<XCircle className="size-3 mr-1" />
-												Invalid
+												Geçersiz
 											</>
 										) : (
 											<>
 												<RefreshCw className="size-3 mr-1" />
-												Validate
+												Doğrula
 											</>
 										)}
 									</Badge>
@@ -211,11 +211,11 @@ export const createColumns = ({
 								<TooltipContent className="max-w-xs">
 									{validationState?.error ? (
 										<div className="flex flex-col gap-1">
-											<p className="font-medium text-red-500">Error:</p>
+											<p className="font-medium text-red-500">Hata:</p>
 											<p>{validationState.error}</p>
 										</div>
 									) : (
-										"Click to validate DNS configuration"
+										"DNS yapılandırmasını doğrulamak için tıklayın"
 									)}
 								</TooltipContent>
 							</Tooltip>
@@ -233,7 +233,7 @@ export const createColumns = ({
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Created
+					Oluşturulma
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			);
@@ -249,7 +249,7 @@ export const createColumns = ({
 	},
 	{
 		id: "actions",
-		header: "Actions",
+		header: "İşlemler",
 		enableHiding: false,
 		cell: ({ row }) => {
 			const domain = row.original;
@@ -279,8 +279,8 @@ export const createColumns = ({
 					)}
 					{canDeleteDomain && (
 						<DialogAction
-							title="Delete Domain"
-							description="Are you sure you want to delete this domain?"
+							title="Alan Adını Sil"
+							description="Bu alan adını silmek istediğinizden emin misiniz?"
 							type="destructive"
 							onClick={async () => {
 								await handleDeleteDomain(domain.domainId);

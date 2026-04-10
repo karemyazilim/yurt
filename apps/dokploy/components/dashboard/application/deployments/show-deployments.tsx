@@ -150,9 +150,9 @@ export const ShowDeployments = ({
 		<Card className="bg-background border-none">
 			<CardHeader className="flex flex-row items-center justify-between flex-wrap gap-2">
 				<div className="flex flex-col gap-2">
-					<CardTitle className="text-xl">Deployments</CardTitle>
+					<CardTitle className="text-xl">Dağıtımlar</CardTitle>
 					<CardDescription>
-						See the last 10 deployments for this {type}
+						Bu {type} için son 10 dağıtımı görüntüleyin
 					</CardDescription>
 				</div>
 				<div className="flex flex-row items-center flex-wrap gap-2">
@@ -168,7 +168,7 @@ export const ShowDeployments = ({
 					{type === "application" && (
 						<ShowRollbackSettings applicationId={id}>
 							<Button variant="outline">
-								Configure Rollbacks <Settings className="size-4" />
+								Geri Alma Ayarları <Settings className="size-4" />
 							</Button>
 						</ShowRollbackSettings>
 					)}
@@ -183,11 +183,11 @@ export const ShowDeployments = ({
 						<div className="flex flex-col gap-3">
 							<div>
 								<div className="font-medium text-sm mb-1">
-									Build appears to be stuck
+									Derleme takılmış görünüyor
 								</div>
 								<p className="text-sm">
-									Hey! Looks like the build has been running for more than 10
-									minutes. Would you like to cancel this deployment?
+									Hey! Derleme 10 dakikadan fazla süredir çalışıyor gibi
+									görünüyor. Bu dağıtımı iptal etmek ister misiniz?
 								</p>
 							</div>
 							<Button
@@ -208,17 +208,17 @@ export const ShowDeployments = ({
 												composeId: id,
 											});
 										}
-										toast.success("Deployment cancellation requested");
+										toast.success("Dağıtım iptali istendi");
 									} catch (error) {
 										toast.error(
 											error instanceof Error
 												? error.message
-												: "Failed to cancel deployment",
+												: "Dağıtım iptal edilemedi",
 										);
 									}
 								}}
 							>
-								Cancel Deployment
+								Dağıtımı İptal Et
 							</Button>
 						</div>
 					</AlertBlock>
@@ -226,28 +226,28 @@ export const ShowDeployments = ({
 				{refreshToken && (
 					<div className="flex flex-col gap-2 text-sm">
 						<span>
-							If you want to re-deploy this application use this URL in the
-							config of your git provider or docker
+							Bu uygulamayı yeniden dağıtmak istiyorsanız, git sağlayıcınızın
+							veya docker yapılandırmanızda bu URL'yi kullanın
 						</span>
 						<div className="flex flex-row items-center gap-2 flex-wrap">
-							<span>Webhook URL: </span>
+							<span>Webhook URL'si:</span>
 							<div className="flex flex-row items-center gap-2">
 								<Badge
 									role="button"
 									tabIndex={0}
-									aria-label="Copy webhook URL to clipboard"
+									aria-label="Webhook URL'sini panoya kopyala"
 									className="p-2 rounded-md ml-1 mr-1 hover:border-primary hover:text-primary-foreground hover:bg-primary hover:cursor-pointer whitespace-normal break-all"
 									variant="outline"
 									onKeyDown={(event) => {
 										if (event.key === "Enter" || event.key === " ") {
 											event.preventDefault();
 											copy(webhookUrl);
-											toast.success("Copied to clipboard.");
+											toast.success("Panoya kopyalandı.");
 										}
 									}}
 									onClick={() => {
 										copy(webhookUrl);
-										toast.success("Copied to clipboard.");
+										toast.success("Panoya kopyalandı.");
 									}}
 								>
 									{webhookUrl}
@@ -265,14 +265,14 @@ export const ShowDeployments = ({
 					<div className="flex w-full flex-row items-center justify-center gap-3 pt-10 min-h-[25vh]">
 						<Loader2 className="size-6 text-muted-foreground animate-spin" />
 						<span className="text-base text-muted-foreground">
-							Loading deployments...
+							Dağıtımlar yükleniyor...
 						</span>
 					</div>
 				) : deployments?.length === 0 ? (
 					<div className="flex w-full flex-col items-center justify-center gap-3 pt-10 min-h-[25vh]">
 						<RocketIcon className="size-8 text-muted-foreground" />
 						<span className="text-base text-muted-foreground">
-							No deployments found
+							Dağıtım bulunamadı
 						</span>
 					</div>
 				) : (
@@ -321,19 +321,19 @@ export const ShowDeployments = ({
 													className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors w-fit mt-1 cursor-pointer"
 													aria-label={
 														isExpanded
-															? "Collapse commit message"
-															: "Expand commit message"
+															? "Commit mesajını daralt"
+															: "Commit mesajını genişlet"
 													}
 												>
 													{isExpanded ? (
 														<>
 															<ChevronUp className="size-3" />
-															Show less
+															Daha az göster
 														</>
 													) : (
 														<>
 															<ChevronDown className="size-3" />
-															Show more
+															Daha fazla göster
 														</>
 													)}
 												</button>
@@ -369,18 +369,18 @@ export const ShowDeployments = ({
 										<div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center sm:justify-end">
 											{deployment.pid && deployment.status === "running" && (
 												<DialogAction
-													title="Kill Process"
-													description="Are you sure you want to kill the process?"
+													title="Süreci Sonlandır"
+													description="Bu süreci sonlandırmak istediğinizden emin misiniz?"
 													type="default"
 													onClick={async () => {
 														await killProcess({
 															deploymentId: deployment.deploymentId,
 														})
 															.then(() => {
-																toast.success("Process killed successfully");
+																toast.success("Süreç başarıyla sonlandırıldı");
 															})
 															.catch(() => {
-																toast.error("Error killing process");
+																toast.error("Süreç sonlandırılırken hata oluştu");
 															});
 													}}
 												>
@@ -390,7 +390,7 @@ export const ShowDeployments = ({
 														isLoading={isKillingProcess}
 														className="w-full sm:w-auto"
 													>
-														Kill Process
+														Süreci Sonlandır
 													</Button>
 												</DialogAction>
 											)}
@@ -400,22 +400,22 @@ export const ShowDeployments = ({
 												}}
 												className="w-full sm:w-auto"
 											>
-												View
+												Görüntüle
 											</Button>
 
 											{canDelete && (
 												<DialogAction
-													title="Delete Deployment"
-													description="Are you sure you want to delete this deployment? This action cannot be undone."
+													title="Dağıtımı Sil"
+													description="Bu dağıtımı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz."
 													type="default"
 													onClick={async () => {
 														try {
 															await removeDeployment({
 																deploymentId: deployment.deploymentId,
 															});
-															toast.success("Deployment deleted successfully");
+															toast.success("Dağıtım başarıyla silindi");
 														} catch (error) {
-															toast.error("Error deleting deployment");
+															toast.error("Dağıtım silinirken hata oluştu");
 														}
 													}}
 												>
@@ -424,7 +424,7 @@ export const ShowDeployments = ({
 														size="sm"
 														isLoading={isRemovingDeployment}
 													>
-														Delete
+														Sil
 														<Trash2 className="size-4" />
 													</Button>
 												</DialogAction>
@@ -434,17 +434,17 @@ export const ShowDeployments = ({
 												deployment.status === "done" &&
 												type === "application" && (
 													<DialogAction
-														title="Rollback to this deployment"
+														title="Bu dağıtıma geri al"
 														description={
 															<div className="flex flex-col gap-3">
 																<p>
-																	Are you sure you want to rollback to this
-																	deployment?
+																	Bu dağıtıma geri almak istediğinizden
+																	emin misiniz?
 																</p>
 																<AlertBlock type="info" className="text-sm">
-																	Please wait a few seconds while the image is
-																	pulled from the registry. Your application
-																	should be running shortly.
+																	İmaj kayıt defterinden çekilirken lütfen birkaç saniye
+																	bekleyin. Uygulamanız kısa süre içinde
+																	çalışıyor olacaktır.
 																</AlertBlock>
 															</div>
 														}
@@ -455,11 +455,11 @@ export const ShowDeployments = ({
 															})
 																.then(() => {
 																	toast.success(
-																		"Rollback initiated successfully",
+																		"Geri alma başarıyla başlatıldı",
 																	);
 																})
 																.catch(() => {
-																	toast.error("Error initiating rollback");
+																	toast.error("Geri alma başlatılırken hata oluştu");
 																});
 														}}
 													>
@@ -470,7 +470,7 @@ export const ShowDeployments = ({
 															className="w-full sm:w-auto"
 														>
 															<RefreshCcw className="size-4 text-primary group-hover:text-red-500" />
-															Rollback
+															Geri Al
 														</Button>
 													</DialogAction>
 												)}
