@@ -1,0 +1,61 @@
+# =============================================================================
+# Dokumantasyon sitesini GitHub Pages'e yayinlama
+# =============================================================================
+# Tetikleyici: main dalina docs/ klasorunde degisiklik push edildiginde
+#
+# Gerekli Ayarlar:
+#   Depo Ayarlari > Pages > Source: "GitHub Actions" secili olmali
+# =============================================================================
+
+name: Dokumantasyon Yayinla
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/**" # Sadece docs/ klasorundeki degisikliklerde calisir
+
+  # Elle tetikleme destegi (Actions sekmesinden calistirilabilir)
+  workflow_dispatch:
+
+# GitHub Pages yayinlama icin gerekli izinler
+permissions:
+  pages: write
+  id-token: write
+
+# Ayni anda sadece bir yayinlama islemi calissin
+concurrency:
+  group: "pages"
+  cancel-in-progress: false # Devam eden yayinlamayi iptal etme
+
+jobs:
+  deploy:
+    name: Dokumantasyonu Yayinla
+    runs-on: ubuntu-latest
+
+    # GitHub Pages ortamina yayinla
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      # Kaynak kodu indir
+      - name: Depoyu indir
+        uses: actions/checkout@v4
+
+      # GitHub Pages yapilandirmasini hazirla
+      - name: GitHub Pages yapilandirmasi
+        uses: actions/configure-pages@v5
+
+      # docs/ klasorunu Pages artifakti olarak yukle
+      - name: Dokumantasyon dosyalarini yukle
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Yayinlanacak kaynak dizin
+          path: "./docs"
+
+      # GitHub Pages'e yayinla
+      - name: GitHub Pages'e yayinla
+        id: deployment
+        uses: actions/deploy-pages@v4

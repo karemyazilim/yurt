@@ -1,0 +1,82 @@
+# =============================================================================
+# Docker Hub'a cok mimarili (multi-arch) Docker imaji yayinlama
+# =============================================================================
+# Tetikleyici: v* formatinda bir tag push edildiginde calisir
+# Ornek: git tag v0.1.0 && git push origin v0.1.0
+#
+# Gerekli GitHub Secrets:
+#   - DOCKER_USERNAME : Docker Hub kullanici adi
+#   - DOCKER_PASSWORD : Docker Hub erisim tokeni veya sifresi
+# =============================================================================
+
+name: Docker Publish
+
+on:
+  push:
+    tags:
+      - "v*" # Sadece v ile baslayan tagler tetikler (ornek: v0.1.0, v1.2.3)
+
+env:
+  # Docker Hub'daki hedef imaj adi
+  IMAGE_NAME: karemyazilim/yurt
+
+jobs:
+  build-and-push:
+    name: Cok Mimarili Derleme ve Yayinlama
+    runs-on: ubuntu-latest
+
+    steps:
+      # Kaynak kodu indir
+      - name: Depoyu indir
+        uses: actions/checkout@v4
+
+      # QEMU kurulumu - ARM64 emulasyonu icin gerekli
+      - name: QEMU kurulumu (coklu mimari destegi)
+        uses: docker/setup-qemu-action@v3
+
+      # Docker Buildx kurulumu - cok mimarili derleme motoru
+      - name: Docker Buildx kurulumu
+        uses: docker/setup-buildx-action@v3
+
+      # Docker Hub'a giris yap
+      - name: Docker Hub'a giris
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Tag'den versiyon bilgisini cikar (ornek: v0.1.0 -> 0.1.0)
+      - name: Versiyon bilgisini ayikla
+        id: version
+        run: |
+          # refs/tags/v0.1.0 formatindan "v0.1.0" kismini al
+          TAG="${GITHUB_REF#refs/tags/}"
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
+          echo "Tespit edilen tag: ${TAG}"
+
+      # Docker metadata olustur (etiketler ve aciklamalar)
+      - name: Docker metadata olustur
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_NAME }}
+          tags: |
+            # Her zaman latest etiketi ekle
+            type=raw,value=latest
+            # Tag'den versiyon etiketi olustur (ornek: v0.1.0)
+            type=raw,value=${{ steps.version.outputs.tag }}
+
+      # Cok mimarili imaji derle ve Docker Hub'a gonder
+      - name: Derle ve yayinla
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          # Hedef mimariler: AMD64 (x86) ve ARM64 (Apple Silicon, AWS Graviton)
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          # GitHub Actions katman onbellegi - sonraki derlemeleri hizlandirir
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
