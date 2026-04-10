@@ -52,14 +52,14 @@ const GitlabProviderSchema = z.object({
 	composePath: z.string().min(1),
 	repository: z
 		.object({
-			repo: z.string().min(1, "Repo is required"),
-			owner: z.string().min(1, "Owner is required"),
+			repo: z.string().min(1, "Depo gereklidir"),
+			owner: z.string().min(1, "Sahip gereklidir"),
 			id: z.number().nullable(),
 			gitlabPathNamespace: z.string().min(1),
 		})
 		.required(),
-	branch: z.string().min(1, "Branch is required"),
-	gitlabId: z.string().min(1, "Gitlab Provider is required"),
+	branch: z.string().min(1, "Dal gereklidir"),
+	gitlabId: z.string().min(1, "Gitlab Sağlayıcısı gereklidir"),
 	watchPaths: z.array(z.string()).optional(),
 	enableSubmodules: z.boolean().default(false),
 });
@@ -170,11 +170,11 @@ export const SaveGitlabProviderCompose = ({ composeId }: Props) => {
 			enableSubmodules: data.enableSubmodules,
 		})
 			.then(async () => {
-				toast.success("Service Provider Saved");
+				toast.success("Servis Sağlayıcısı Kaydedildi");
 				await refetch();
 			})
 			.catch(() => {
-				toast.error("Error saving the Gitlab provider");
+				toast.error("Gitlab sağlayıcısı kaydedilirken hata oluştu");
 			});
 	};
 
@@ -192,7 +192,7 @@ export const SaveGitlabProviderCompose = ({ composeId }: Props) => {
 							name="gitlabId"
 							render={({ field }) => (
 								<FormItem className="md:col-span-2 flex flex-col">
-									<FormLabel>Gitlab Account</FormLabel>
+									<FormLabel>Gitlab Hesabı</FormLabel>
 									<Select
 										onValueChange={(value) => {
 											field.onChange(value);
@@ -209,7 +209,7 @@ export const SaveGitlabProviderCompose = ({ composeId }: Props) => {
 									>
 										<FormControl>
 											<SelectTrigger>
-												<SelectValue placeholder="Select a Gitlab Account" />
+												<SelectValue placeholder="Bir Gitlab Hesabı Seçin" />
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
@@ -233,7 +233,7 @@ export const SaveGitlabProviderCompose = ({ composeId }: Props) => {
 							render={({ field }) => (
 								<FormItem className="md:col-span-2 flex flex-col">
 									<div className="flex items-center justify-between">
-										<FormLabel>Repository</FormLabel>
+										<FormLabel>Depo</FormLabel>
 										{field.value.gitlabPathNamespace && (
 											<Link
 												href={`${gitlabUrl}/${field.value.gitlabPathNamespace}`}
@@ -242,7 +242,7 @@ export const SaveGitlabProviderCompose = ({ composeId }: Props) => {
 												className="flex items-center gap-1 text-sm text-muted-foreground hover:text-primary"
 											>
 												<GitlabIcon className="h-4 w-4" />
-												<span>View Repository</span>
+												<span>Depoyu Görüntüle</span>
 											</Link>
 										)}
 									</div>
@@ -257,12 +257,12 @@ export const SaveGitlabProviderCompose = ({ composeId }: Props) => {
 													)}
 												>
 													{!field.value.owner
-														? "Select repository"
+														? "Depo seçin"
 														: isLoadingRepositories
-															? "Loading...."
+															? "Yükleniyor...."
 															: (repositories?.find(
 																	(repo) => repo.name === field.value.repo,
-																)?.name ?? "Select repository")}
+																)?.name ?? "Depo seçin")}
 
 													<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 												</Button>
@@ -271,24 +271,24 @@ export const SaveGitlabProviderCompose = ({ composeId }: Props) => {
 										<PopoverContent className="p-0" align="start">
 											<Command>
 												<CommandInput
-													placeholder="Search repository..."
+													placeholder="Depo ara..."
 													className="h-9"
 												/>
 												{!gitlabId ? (
 													<span className="py-6 text-center text-sm text-muted-foreground">
-														Select a GitLab account first
+														Önce bir GitLab hesabı seçin
 													</span>
 												) : isLoadingRepositories ? (
 													<span className="py-6 text-center text-sm">
-														Loading Repositories....
+														Depolar Yükleniyor....
 													</span>
 												) : null}
-												<CommandEmpty>No repositories found.</CommandEmpty>
+												<CommandEmpty>Depo bulunamadı.</CommandEmpty>
 												<ScrollArea className="h-96">
 													<CommandGroup>
 														{repositories && repositories.length === 0 && (
 															<CommandEmpty>
-																No repositories found.
+																Depo bulunamadı.
 															</CommandEmpty>
 														)}
 														{repositories?.map((repo) => {
@@ -331,7 +331,7 @@ export const SaveGitlabProviderCompose = ({ composeId }: Props) => {
 									</Popover>
 									{form.formState.errors.repository && (
 										<p className={cn("text-sm font-medium text-destructive")}>
-											Repository is required
+											Depo gereklidir
 										</p>
 									)}
 								</FormItem>
@@ -342,7 +342,7 @@ export const SaveGitlabProviderCompose = ({ composeId }: Props) => {
 							name="branch"
 							render={({ field }) => (
 								<FormItem className="block w-full">
-									<FormLabel>Branch</FormLabel>
+									<FormLabel>Dal</FormLabel>
 									<Popover>
 										<PopoverTrigger asChild>
 											<FormControl>
@@ -354,12 +354,12 @@ export const SaveGitlabProviderCompose = ({ composeId }: Props) => {
 													)}
 												>
 													{status === "pending" && fetchStatus === "fetching"
-														? "Loading...."
+														? "Yükleniyor...."
 														: field.value
 															? branches?.find(
 																	(branch) => branch.name === field.value,
 																)?.name
-															: "Select branch"}
+															: "Dal seçin"}
 													<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 												</Button>
 											</FormControl>
@@ -367,21 +367,21 @@ export const SaveGitlabProviderCompose = ({ composeId }: Props) => {
 										<PopoverContent className="p-0" align="start">
 											<Command>
 												<CommandInput
-													placeholder="Search branch..."
+													placeholder="Dal ara..."
 													className="h-9"
 												/>
 												{status === "pending" && fetchStatus === "fetching" && (
 													<span className="py-6 text-center text-sm text-muted-foreground">
-														Loading Branches....
+														Dallar Yükleniyor....
 													</span>
 												)}
 												{!repository?.owner && (
 													<span className="py-6 text-center text-sm text-muted-foreground">
-														Select a repository
+														Bir depo seçin
 													</span>
 												)}
 												<ScrollArea className="h-96">
-													<CommandEmpty>No branch found.</CommandEmpty>
+													<CommandEmpty>Dal bulunamadı.</CommandEmpty>
 
 													<CommandGroup>
 														{branches?.map((branch) => (
@@ -418,7 +418,7 @@ export const SaveGitlabProviderCompose = ({ composeId }: Props) => {
 							name="composePath"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Compose Path</FormLabel>
+									<FormLabel>Compose Yolu</FormLabel>
 									<FormControl>
 										<Input placeholder="docker-compose.yml" {...field} />
 									</FormControl>
@@ -433,7 +433,7 @@ export const SaveGitlabProviderCompose = ({ composeId }: Props) => {
 							render={({ field }) => (
 								<FormItem className="md:col-span-2">
 									<div className="flex items-center gap-2">
-										<FormLabel>Watch Paths</FormLabel>
+										<FormLabel>İzleme Yolları</FormLabel>
 										<TooltipProvider>
 											<Tooltip>
 												<TooltipTrigger>
@@ -443,8 +443,8 @@ export const SaveGitlabProviderCompose = ({ composeId }: Props) => {
 												</TooltipTrigger>
 												<TooltipContent>
 													<p>
-														Add paths to watch for changes. When files in these
-														paths change, a new deployment will be triggered.
+														Değişiklikleri izlemek için yollar ekleyin. Bu yollardaki
+														dosyalar değiştiğinde yeni bir dağıtım tetiklenir.
 													</p>
 												</TooltipContent>
 											</Tooltip>
@@ -468,7 +468,7 @@ export const SaveGitlabProviderCompose = ({ composeId }: Props) => {
 									<FormControl>
 										<div className="flex gap-2">
 											<Input
-												placeholder="Enter a path to watch (e.g., src/**, dist/*.js)"
+												placeholder="İzlenecek bir yol girin (örn., src/**, dist/*.js)"
 												onKeyDown={(e) => {
 													if (e.key === "Enter") {
 														e.preventDefault();
@@ -487,7 +487,7 @@ export const SaveGitlabProviderCompose = ({ composeId }: Props) => {
 												variant="secondary"
 												onClick={() => {
 													const input = document.querySelector(
-														'input[placeholder="Enter a path to watch (e.g., src/**, dist/*.js)"]',
+														'input[placeholder="İzlenecek bir yol girin (örn., src/**, dist/*.js)"]',
 													) as HTMLInputElement;
 													const value = input.value.trim();
 													if (value) {
@@ -497,7 +497,7 @@ export const SaveGitlabProviderCompose = ({ composeId }: Props) => {
 													}
 												}}
 											>
-												Add
+												Ekle
 											</Button>
 										</div>
 									</FormControl>
@@ -516,7 +516,7 @@ export const SaveGitlabProviderCompose = ({ composeId }: Props) => {
 											onCheckedChange={field.onChange}
 										/>
 									</FormControl>
-									<FormLabel className="!mt-0">Enable Submodules</FormLabel>
+									<FormLabel className="!mt-0">Alt Modülleri Etkinleştir</FormLabel>
 								</FormItem>
 							)}
 						/>
@@ -527,7 +527,7 @@ export const SaveGitlabProviderCompose = ({ composeId }: Props) => {
 							type="submit"
 							className="w-fit"
 						>
-							Save
+							Kaydet
 						</Button>
 					</div>
 				</form>
