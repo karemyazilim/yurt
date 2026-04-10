@@ -37,8 +37,8 @@ export default function Custom404({ statusCode, error }: Props) {
 							{errorTitle
 								? errorTitle
 								: statusCode === 404
-									? "Sorry, we couldn't find your page."
-									: "Oops, something went wrong."}
+									? "Üzgünüz, aradığınız sayfa bulunamadı."
+									: "Bir şeyler ters gitti."}
 						</p>
 						{errorDescription && (
 							<p className="mt-2 text-muted-foreground text-sm">
@@ -73,7 +73,7 @@ export default function Custom404({ statusCode, error }: Props) {
 								>
 									<path d="m15 18-6-6 6-6" />
 								</svg>
-								Go to homepage
+								Ana sayfaya dön
 							</Link>
 						</div>
 					</div>
@@ -86,11 +86,11 @@ export default function Custom404({ statusCode, error }: Props) {
 								whitelabeling.footerText
 							) : (
 								<Link
-									href="https://github.com/Dokploy/dokploy/issues"
+									href="https://github.com/karemyazilim/yurt/issues"
 									target="_blank"
 									className="underline hover:text-primary transition-colors"
 								>
-									Submit Log in issue on Github
+									GitHub'da hata bildirin
 								</Link>
 							)}
 						</p>

@@ -28,42 +28,42 @@ import { useWhitelabelingPublic } from "@/utils/hooks/use-whitelabeling";
 const registerSchema = z
 	.object({
 		name: z.string().min(1, {
-			message: "First name is required",
+			message: "Ad gereklidir",
 		}),
 		lastName: z.string().min(1, {
-			message: "Last name is required",
+			message: "Soyad gereklidir",
 		}),
 		email: z
 			.string()
 			.min(1, {
-				message: "Email is required",
+				message: "E-posta gereklidir",
 			})
 			.email({
-				message: "Email must be a valid email",
+				message: "Geçerli bir e-posta adresi girin",
 			}),
 		password: z
 			.string()
 			.min(1, {
-				message: "Password is required",
+				message: "Şifre gereklidir",
 			})
 			.refine((password) => password === "" || password.length >= 8, {
-				message: "Password must be at least 8 characters",
+				message: "Şifre en az 8 karakter olmalıdır",
 			}),
 		confirmPassword: z
 			.string()
 			.min(1, {
-				message: "Password is required",
+				message: "Şifre gereklidir",
 			})
 			.refine(
 				(confirmPassword) =>
 					confirmPassword === "" || confirmPassword.length >= 8,
 				{
-					message: "Password must be at least 8 characters",
+					message: "Şifre en az 8 karakter olmalıdır",
 				},
 			),
 	})
 	.refine((data) => data.password === data.confirmPassword, {
-		message: "Passwords do not match",
+		message: "Şifreler eşleşmiyor",
 		path: ["confirmPassword"],
 	});
 
@@ -138,10 +138,10 @@ const Invitation = ({
 				invitationId: token,
 			});
 
-			toast.success("Account created successfully");
+			toast.success("Hesap başarıyla oluşturuldu");
 			router.push("/dashboard/projects");
 		} catch {
-			toast.error("An error occurred while creating your account");
+			toast.error("Hesap oluşturulurken bir hata oluştu");
 		}
 	};
 
@@ -166,22 +166,22 @@ const Invitation = ({
 						<div className="flex flex-col gap-4 justify-center items-center">
 							<AlertBlock type="success">
 								<div className="flex flex-col gap-2">
-									<span className="font-medium">Valid Invitation!</span>
+									<span className="font-medium">Geçerli Davetiye!</span>
 									<span className="text-sm text-green-600 dark:text-green-400">
-										We detected that you already have an account with this
-										email. Please sign in to accept the invitation.
+										Bu e-posta ile zaten bir hesabınız olduğunu tespit ettik.
+										Daveti kabul etmek için giriş yapın.
 									</span>
 								</div>
 							</AlertBlock>
 
 							<Button asChild variant="default" className="w-full">
-								<Link href="/">Sign In</Link>
+								<Link href="/">Giriş Yap</Link>
 							</Button>
 						</div>
 					) : (
 						<>
 							<CardDescription>
-								Fill the form below to create your account
+								Hesabınızı oluşturmak için aşağıdaki formu doldurun
 							</CardDescription>
 							<div className="w-full">
 								<div className="p-3" />
@@ -207,9 +207,9 @@ const Invitation = ({
 													name="name"
 													render={({ field }) => (
 														<FormItem>
-															<FormLabel>First Name</FormLabel>
+															<FormLabel>Ad</FormLabel>
 															<FormControl>
-																<Input placeholder="John" {...field} />
+																<Input placeholder="Ahmet" {...field} />
 															</FormControl>
 															<FormMessage />
 														</FormItem>
@@ -220,9 +220,9 @@ const Invitation = ({
 													name="lastName"
 													render={({ field }) => (
 														<FormItem>
-															<FormLabel>Last Name</FormLabel>
+															<FormLabel>Soyad</FormLabel>
 															<FormControl>
-																<Input placeholder="Doe" {...field} />
+																<Input placeholder="Yılmaz" {...field} />
 															</FormControl>
 															<FormMessage />
 														</FormItem>
@@ -233,11 +233,11 @@ const Invitation = ({
 													name="email"
 													render={({ field }) => (
 														<FormItem>
-															<FormLabel>Email</FormLabel>
+															<FormLabel>E-posta</FormLabel>
 															<FormControl>
 																<Input
 																	disabled
-																	placeholder="Email"
+																	placeholder="E-posta"
 																	{...field}
 																/>
 															</FormControl>
@@ -250,11 +250,11 @@ const Invitation = ({
 													name="password"
 													render={({ field }) => (
 														<FormItem>
-															<FormLabel>Password</FormLabel>
+															<FormLabel>Şifre</FormLabel>
 															<FormControl>
 																<Input
 																	type="password"
-																	placeholder="Password"
+																	placeholder="Şifrenizi girin"
 																	{...field}
 																/>
 															</FormControl>
@@ -268,11 +268,11 @@ const Invitation = ({
 													name="confirmPassword"
 													render={({ field }) => (
 														<FormItem>
-															<FormLabel>Confirm Password</FormLabel>
+															<FormLabel>Şifre Tekrar</FormLabel>
 															<FormControl>
 																<Input
 																	type="password"
-																	placeholder="Confirm Password"
+																	placeholder="Şifrenizi tekrar girin"
 																	{...field}
 																/>
 															</FormControl>
@@ -303,7 +303,7 @@ const Invitation = ({
 															className="hover:underline text-muted-foreground"
 															href="/send-reset-password"
 														>
-															Lost your password?
+															Şifrenizi mi unuttunuz?
 														</Link>
 													</>
 												)}
