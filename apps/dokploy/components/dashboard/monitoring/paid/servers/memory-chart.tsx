@@ -19,7 +19,7 @@ interface MemoryChartProps {
 
 const chartConfig = {
 	Memory: {
-		label: "Memory",
+		label: "Bellek",
 		color: "hsl(var(--chart-2))",
 	},
 } satisfies ChartConfig;
@@ -30,9 +30,9 @@ export function MemoryChart({ data }: MemoryChartProps) {
 	return (
 		<Card className="bg-transparent">
 			<CardHeader className="border-b py-5">
-				<CardTitle>Memory</CardTitle>
+				<CardTitle>Bellek</CardTitle>
 				<CardDescription>
-					Memory Usage: {latestData.memUsedGB} GB of {latestData.memTotal} GB (
+					Bellek Kullanımı: {latestData.memUsedGB} GB / {latestData.memTotal} GB (
 					{latestData.memUsed}%)
 				</CardDescription>
 			</CardHeader>
@@ -90,7 +90,7 @@ export function MemoryChart({ data }: MemoryChartProps) {
 											<div className="grid grid-cols-2 gap-2">
 												<div className="flex flex-col">
 													<span className="text-[0.70rem] uppercase text-muted-foreground">
-														Time
+														Zaman
 													</span>
 													<span className="font-bold">
 														{formatTimestamp(label)}
@@ -98,7 +98,7 @@ export function MemoryChart({ data }: MemoryChartProps) {
 												</div>
 												<div className="flex flex-col">
 													<span className="text-[0.70rem] uppercase text-muted-foreground">
-														Memory
+														Bellek
 													</span>
 													<span className="font-bold">
 														{data.memUsed}% ({data.memUsedGB} GB)
@@ -118,7 +118,7 @@ export function MemoryChart({ data }: MemoryChartProps) {
 							fill="url(#fillMemory)"
 							stroke="hsl(var(--chart-2))"
 							strokeWidth={2}
-							name="Memory"
+							name="Bellek"
 						/>
 					</AreaChart>
 				</ChartContainer>

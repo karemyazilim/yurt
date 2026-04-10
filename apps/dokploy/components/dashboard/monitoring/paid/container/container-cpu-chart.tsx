@@ -46,7 +46,7 @@ export const ContainerCPUChart = ({ data }: Props) => {
 		<Card className="bg-transparent">
 			<CardHeader className="border-b py-5">
 				<CardTitle>CPU</CardTitle>
-				<CardDescription>CPU Usage: {latestData.cpu}%</CardDescription>
+				<CardDescription>CPU Kullanımı: {latestData.cpu}%</CardDescription>
 			</CardHeader>
 			<CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
 				<ChartContainer
@@ -88,7 +88,7 @@ export const ContainerCPUChart = ({ data }: Props) => {
 											<div className="grid grid-cols-2 gap-2">
 												<div className="flex flex-col">
 													<span className="text-[0.70rem] uppercase text-muted-foreground">
-														Time
+														Zaman
 													</span>
 													<span className="font-bold">
 														{formatTimestamp(label)}

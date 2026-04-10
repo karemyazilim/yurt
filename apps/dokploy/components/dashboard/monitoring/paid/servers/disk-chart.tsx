@@ -46,7 +46,7 @@ export function DiskChart({ data }: RadialChartProps) {
 		<Card className="flex flex-col bg-transparent">
 			<CardHeader className="items-center border-b pb-5">
 				<CardTitle>Disk</CardTitle>
-				<CardDescription>Storage Space</CardDescription>
+				<CardDescription>Depolama Alanı</CardDescription>
 			</CardHeader>
 			<CardContent className="flex-1 pb-0">
 				<ChartContainer
@@ -96,7 +96,7 @@ export function DiskChart({ data }: RadialChartProps) {
 													y={(viewBox.cy || 0) + 24}
 													className="fill-muted-foreground text-sm"
 												>
-													Used
+													Kullanılan
 												</tspan>
 											</text>
 										);
@@ -109,10 +109,10 @@ export function DiskChart({ data }: RadialChartProps) {
 			</CardContent>
 			<CardFooter className="flex-col gap-2 text-sm">
 				<div className="flex items-center gap-2 font-medium leading-none">
-					<HardDrive className="h-4 w-4" /> {usedDiskGB.toFixed(1)} GB used
+					<HardDrive className="h-4 w-4" /> {usedDiskGB.toFixed(1)} GB kullanılıyor
 				</div>
 				<div className="leading-none text-muted-foreground">
-					Of {totalDiskGB.toFixed(1)} GB total
+					Toplam {totalDiskGB.toFixed(1)} GB
 				</div>
 			</CardFooter>
 		</Card>

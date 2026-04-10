@@ -32,7 +32,7 @@ interface Props {
 
 const chartConfig = {
 	memory: {
-		label: "Memory",
+		label: "Bellek",
 		color: "hsl(var(--chart-2))",
 	},
 } satisfies ChartConfig;
@@ -60,8 +60,8 @@ export const ContainerMemoryChart = ({ data }: Props) => {
 	return (
 		<Card className="bg-transparent">
 			<CardHeader className="border-b py-5">
-				<CardTitle>Memory</CardTitle>
-				<CardDescription>Memory Usage: {latestData.usage}</CardDescription>
+				<CardTitle>Bellek</CardTitle>
+				<CardDescription>Bellek Kullanımı: {latestData.usage}</CardDescription>
 			</CardHeader>
 			<CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
 				<ChartContainer
@@ -103,7 +103,7 @@ export const ContainerMemoryChart = ({ data }: Props) => {
 											<div className="grid grid-cols-2 gap-2">
 												<div className="flex flex-col">
 													<span className="text-[0.70rem] uppercase text-muted-foreground">
-														Time
+														Zaman
 													</span>
 													<span className="font-bold">
 														{formatTimestamp(label)}
@@ -111,13 +111,13 @@ export const ContainerMemoryChart = ({ data }: Props) => {
 												</div>
 												<div className="flex flex-col">
 													<span className="text-[0.70rem] uppercase text-muted-foreground">
-														Memory
+														Bellek
 													</span>
 													<span className="font-bold">{data.memory}%</span>
 												</div>
 												<div className="flex flex-col col-span-2">
 													<span className="text-[0.70rem] uppercase text-muted-foreground">
-														Usage
+														Kullanım
 													</span>
 													<span className="font-bold">{data.usage}</span>
 												</div>
@@ -129,7 +129,7 @@ export const ContainerMemoryChart = ({ data }: Props) => {
 							}}
 						/>
 						<Area
-							name="Memory"
+							name="Bellek"
 							dataKey="memory"
 							type="monotone"
 							fill="url(#fillMemory)"

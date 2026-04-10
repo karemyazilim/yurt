@@ -15,7 +15,7 @@ export const ToggleVisibilityInput = ({ ...props }: InputProps) => {
 				variant={"secondary"}
 				onClick={() => {
 					copy(inputRef.current?.value || "");
-					toast.success("Value is copied to clipboard");
+					toast.success("Değer panoya kopyalandı");
 				}}
 			>
 				<Clipboard className="size-4 text-muted-foreground" />

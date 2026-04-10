@@ -21,11 +21,11 @@ interface NetworkChartProps {
 
 const chartConfig = {
 	networkIn: {
-		label: "Network In",
+		label: "Ağ Gelen",
 		color: "hsl(var(--chart-3))",
 	},
 	networkOut: {
-		label: "Network Out",
+		label: "Ağ Giden",
 		color: "hsl(var(--chart-4))",
 	},
 } satisfies ChartConfig;
@@ -36,9 +36,9 @@ export function NetworkChart({ data }: NetworkChartProps) {
 	return (
 		<Card className="bg-transparent">
 			<CardHeader className="border-b py-5">
-				<CardTitle>Network</CardTitle>
+				<CardTitle>Ağ</CardTitle>
 				<CardDescription>
-					Network Traffic: ↑ {latestData.networkOut} KB/s ↓{" "}
+					Ağ Trafiği: ↑ {latestData.networkOut} KB/s ↓{" "}
 					{latestData.networkIn} KB/s
 				</CardDescription>
 			</CardHeader>
@@ -94,7 +94,7 @@ export function NetworkChart({ data }: NetworkChartProps) {
 											<div className="grid grid-cols-2 gap-2">
 												<div className="flex flex-col">
 													<span className="text-[0.70rem] uppercase text-muted-foreground">
-														Time
+														Zaman
 													</span>
 													<span className="font-bold">
 														{formatTimestamp(label)}
@@ -102,7 +102,7 @@ export function NetworkChart({ data }: NetworkChartProps) {
 												</div>
 												<div className="flex flex-col">
 													<span className="text-[0.70rem] uppercase text-muted-foreground">
-														Network
+														Ağ
 													</span>
 													<span className="font-bold">
 														↑ {data.networkOut} KB/s
@@ -117,7 +117,7 @@ export function NetworkChart({ data }: NetworkChartProps) {
 							}}
 						/>
 						<Area
-							name="Network In"
+							name="Ağ Gelen"
 							dataKey="networkIn"
 							type="monotone"
 							fill="url(#fillNetworkIn)"
@@ -125,7 +125,7 @@ export function NetworkChart({ data }: NetworkChartProps) {
 							strokeWidth={2}
 						/>
 						<Area
-							name="Network Out"
+							name="Ağ Giden"
 							dataKey="networkOut"
 							type="monotone"
 							fill="url(#fillNetworkOut)"

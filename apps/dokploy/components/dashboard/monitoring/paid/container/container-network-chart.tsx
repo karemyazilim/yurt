@@ -39,11 +39,11 @@ interface FormattedMetric {
 
 const chartConfig = {
 	input: {
-		label: "Input",
+		label: "Gelen",
 		color: "hsl(var(--chart-3))",
 	},
 	output: {
-		label: "Output",
+		label: "Giden",
 		color: "hsl(var(--chart-4))",
 	},
 } satisfies ChartConfig;
@@ -67,10 +67,10 @@ export const ContainerNetworkChart = ({ data }: Props) => {
 	return (
 		<Card className="bg-transparent">
 			<CardHeader className="border-b py-5">
-				<CardTitle>Network I/O</CardTitle>
+				<CardTitle>Ağ G/Ç</CardTitle>
 				<CardDescription>
-					Input: {latestData.input}
-					{latestData.inputUnit} / Output: {latestData.output}
+					Gelen: {latestData.input}
+					{latestData.inputUnit} / Giden: {latestData.output}
 					{latestData.outputUnit}
 				</CardDescription>
 			</CardHeader>
@@ -126,7 +126,7 @@ export const ContainerNetworkChart = ({ data }: Props) => {
 											<div className="grid grid-cols-2 gap-2">
 												<div className="flex flex-col">
 													<span className="text-[0.70rem] uppercase text-muted-foreground">
-														Time
+														Zaman
 													</span>
 													<span className="font-bold">
 														{formatTimestamp(label)}
@@ -134,7 +134,7 @@ export const ContainerNetworkChart = ({ data }: Props) => {
 												</div>
 												<div className="flex flex-col">
 													<span className="text-[0.70rem] uppercase text-muted-foreground">
-														Input
+														Gelen
 													</span>
 													<span className="font-bold">
 														{data.input}
@@ -143,7 +143,7 @@ export const ContainerNetworkChart = ({ data }: Props) => {
 												</div>
 												<div className="flex flex-col">
 													<span className="text-[0.70rem] uppercase text-muted-foreground">
-														Output
+														Giden
 													</span>
 													<span className="font-bold">
 														{data.output}
@@ -158,7 +158,7 @@ export const ContainerNetworkChart = ({ data }: Props) => {
 							}}
 						/>
 						<Area
-							name="Input"
+							name="Gelen"
 							dataKey="input"
 							type="monotone"
 							fill="url(#fillInput)"
@@ -166,7 +166,7 @@ export const ContainerNetworkChart = ({ data }: Props) => {
 							strokeWidth={2}
 						/>
 						<Area
-							name="Output"
+							name="Giden"
 							dataKey="output"
 							type="monotone"
 							fill="url(#fillOutput)"

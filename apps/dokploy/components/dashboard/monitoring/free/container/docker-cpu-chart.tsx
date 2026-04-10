@@ -16,7 +16,7 @@ interface Props {
 
 const chartConfig = {
 	usage: {
-		label: "CPU Usage",
+		label: "CPU Kullanımı",
 		color: "hsl(var(--chart-1))",
 	},
 } satisfies ChartConfig;
@@ -63,7 +63,7 @@ export const DockerCpuChart = ({ accumulativeData }: Props) => {
 								const time = payload?.[0]?.payload?.time;
 								return time ? format(new Date(time), "PPpp") : "";
 							}}
-							formatter={(value) => [`${value}%`, "CPU Usage"]}
+							formatter={(value) => [`${value}%`, "CPU Kullanımı"]}
 						/>
 					}
 				/>

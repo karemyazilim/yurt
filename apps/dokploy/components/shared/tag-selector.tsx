@@ -38,7 +38,7 @@ export function TagSelector({
 	tags,
 	selectedTags,
 	onTagsChange,
-	placeholder = "Select tags...",
+	placeholder = "Etiket seçin...",
 	className,
 	disabled = false,
 }: TagSelectorProps) {
@@ -90,7 +90,7 @@ export function TagSelector({
 											disabled={disabled}
 										>
 											<X className="h-3 w-3 hover:opacity-70" />
-											<span className="sr-only">Remove {tag.name}</span>
+											<span className="sr-only">{tag.name} kaldır</span>
 										</button>
 									</TagBadge>
 								))
@@ -104,14 +104,14 @@ export function TagSelector({
 				<PopoverContent className="w-full p-0" align="start">
 					<Command>
 						<CommandInput
-							placeholder="Search tags..."
+							placeholder="Etiket ara..."
 							className="focus-visible:ring-0"
 						/>
 						<CommandList>
 							<CommandEmpty>
 								<div className="flex flex-col items-center gap-2 py-1">
 									<span className="text-sm text-muted-foreground">
-										No tags found.
+										Etiket bulunamadı.
 									</span>
 									<HandleTag />
 								</div>

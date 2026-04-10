@@ -57,11 +57,11 @@ export const StatusTooltip = ({ status, className }: Props) => {
 				</TooltipTrigger>
 				<TooltipContent align="center">
 					<span>
-						{status === "idle" && "Idle"}
-						{status === "error" && "Error"}
-						{status === "done" && "Done"}
-						{status === "running" && "Running"}
-						{status === "cancelled" && "Cancelled"}
+						{status === "idle" && "Boşta"}
+						{status === "error" && "Hata"}
+						{status === "done" && "Tamamlandı"}
+						{status === "running" && "Çalışıyor"}
+						{status === "cancelled" && "İptal Edildi"}
 					</span>
 				</TooltipContent>
 			</Tooltip>

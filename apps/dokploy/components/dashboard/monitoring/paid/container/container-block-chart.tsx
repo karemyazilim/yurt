@@ -31,12 +31,12 @@ interface Props {
 
 const chartConfig = {
 	read: {
-		label: "Read",
-		color: "hsl(217, 91%, 60%)", // Azul brillante
+		label: "Okuma",
+		color: "hsl(217, 91%, 60%)",
 	},
 	write: {
-		label: "Write",
-		color: "hsl(142, 71%, 45%)", // Verde brillante
+		label: "Yazma",
+		color: "hsl(142, 71%, 45%)",
 	},
 } satisfies ChartConfig;
 
@@ -60,10 +60,10 @@ export const ContainerBlockChart = ({ data }: Props) => {
 	return (
 		<Card className="bg-transparent">
 			<CardHeader className="border-b py-5">
-				<CardTitle>Block I/O</CardTitle>
+				<CardTitle>Blok G/Ç</CardTitle>
 				<CardDescription>
-					Read: {latestData.read}
-					{latestData.readUnit} / Write: {latestData.write}
+					Okuma: {latestData.read}
+					{latestData.readUnit} / Yazma: {latestData.write}
 					{latestData.writeUnit}
 				</CardDescription>
 			</CardHeader>
@@ -119,7 +119,7 @@ export const ContainerBlockChart = ({ data }: Props) => {
 											<div className="grid grid-cols-2 gap-2">
 												<div className="flex flex-col">
 													<span className="text-[0.70rem] uppercase text-muted-foreground">
-														Time
+														Zaman
 													</span>
 													<span className="font-bold">
 														{formatTimestamp(label)}
@@ -127,7 +127,7 @@ export const ContainerBlockChart = ({ data }: Props) => {
 												</div>
 												<div className="flex flex-col">
 													<span className="text-[0.70rem] uppercase text-muted-foreground">
-														Read
+														Okuma
 													</span>
 													<span className="font-bold">
 														{data.read}
@@ -136,7 +136,7 @@ export const ContainerBlockChart = ({ data }: Props) => {
 												</div>
 												<div className="flex flex-col">
 													<span className="text-[0.70rem] uppercase text-muted-foreground">
-														Write
+														Yazma
 													</span>
 													<span className="font-bold">
 														{data.write}
@@ -151,7 +151,7 @@ export const ContainerBlockChart = ({ data }: Props) => {
 							}}
 						/>
 						<Area
-							name="Write"
+							name="Yazma"
 							dataKey="write"
 							type="monotone"
 							fill="url(#fillWrite)"
@@ -160,7 +160,7 @@ export const ContainerBlockChart = ({ data }: Props) => {
 							fillOpacity={0.3}
 						/>
 						<Area
-							name="Read"
+							name="Okuma"
 							dataKey="read"
 							type="monotone"
 							fill="url(#fillRead)"

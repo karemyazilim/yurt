@@ -67,20 +67,20 @@ import type { CacheType } from "../domains/handle-domain";
 import { getTimezoneLabel, TIMEZONES } from "./timezones";
 
 export const commonCronExpressions = [
-	{ label: "Every minute", value: "* * * * *" },
-	{ label: "Every hour", value: "0 * * * *" },
-	{ label: "Every day at midnight", value: "0 0 * * *" },
-	{ label: "Every Sunday at midnight", value: "0 0 * * 0" },
-	{ label: "Every month on the 1st at midnight", value: "0 0 1 * *" },
-	{ label: "Every 15 minutes", value: "*/15 * * * *" },
-	{ label: "Every weekday at midnight", value: "0 0 * * 1-5" },
-	{ label: "Custom", value: "custom" },
+	{ label: "Her dakika", value: "* * * * *" },
+	{ label: "Her saat", value: "0 * * * *" },
+	{ label: "Her gün gece yarısı", value: "0 0 * * *" },
+	{ label: "Her Pazar gece yarısı", value: "0 0 * * 0" },
+	{ label: "Her ayın 1'inde gece yarısı", value: "0 0 1 * *" },
+	{ label: "Her 15 dakikada", value: "*/15 * * * *" },
+	{ label: "Her hafta içi gece yarısı", value: "0 0 * * 1-5" },
+	{ label: "Özel", value: "custom" },
 ];
 
 const formSchema = z
 	.object({
-		name: z.string().min(1, "Name is required"),
-		cronExpression: z.string().min(1, "Cron expression is required"),
+		name: z.string().min(1, "Ad gereklidir"),
+		cronExpression: z.string().min(1, "Cron ifadesi gereklidir"),
 		shellType: z.enum(["bash", "sh"]).default("bash"),
 		command: z.string(),
 		enabled: z.boolean().default(true),
@@ -98,7 +98,7 @@ const formSchema = z
 		if (data.scheduleType === "compose" && !data.serviceName) {
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
-				message: "Service name is required",
+				message: "Servis adı gereklidir",
 				path: ["serviceName"],
 			});
 		}
@@ -110,7 +110,7 @@ const formSchema = z
 		) {
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
-				message: "Script is required",
+				message: "Betik gereklidir",
 				path: ["script"],
 			});
 		}
@@ -122,7 +122,7 @@ const formSchema = z
 		) {
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
-				message: "Command is required",
+				message: "Komut gereklidir",
 				path: ["command"],
 			});
 		}
@@ -150,15 +150,15 @@ export const ScheduleFormField = ({
 			render={({ field }) => (
 				<FormItem>
 					<FormLabel className="flex items-center gap-2">
-						Schedule
+						Zamanlama
 						<TooltipProvider>
 							<Tooltip>
 								<TooltipTrigger asChild>
 									<Info className="w-4 h-4 text-muted-foreground cursor-help" />
 								</TooltipTrigger>
 								<TooltipContent>
-									<p>Cron expression format: minute hour day month weekday</p>
-									<p>Example: 0 0 * * * (daily at midnight)</p>
+									<p>Cron ifade formatı: dakika saat gün ay haftanın_günü</p>
+									<p>Örnek: 0 0 * * * (her gün gece yarısı)</p>
 								</TooltipContent>
 							</Tooltip>
 						</TooltipProvider>
@@ -173,7 +173,7 @@ export const ScheduleFormField = ({
 						>
 							<FormControl>
 								<SelectTrigger>
-									<SelectValue placeholder="Select a predefined schedule" />
+									<SelectValue placeholder="Önceden tanımlı bir zamanlama seçin" />
 								</SelectTrigger>
 							</FormControl>
 							<SelectContent>
@@ -188,7 +188,7 @@ export const ScheduleFormField = ({
 						<div className="relative">
 							<FormControl>
 								<Input
-									placeholder="Custom cron expression (e.g., 0 0 * * *)"
+									placeholder="Özel cron ifadesi (ör. 0 0 * * *)"
 									{...field}
 									onChange={(e) => {
 										const value = e.target.value;
@@ -207,7 +207,7 @@ export const ScheduleFormField = ({
 						</div>
 					</div>
 					<FormDescription>
-						Choose a predefined schedule or enter a custom cron expression
+						Önceden tanımlı bir zamanlama seçin veya özel bir cron ifadesi girin
 					</FormDescription>
 					<FormMessage />
 				</FormItem>
@@ -300,7 +300,7 @@ export const HandleSchedules = ({ id, scheduleId, scheduleType }: Props) => {
 		})
 			.then(() => {
 				toast.success(
-					`Schedule ${scheduleId ? "updated" : "created"} successfully`,
+					`Zamanlama başarıyla ${scheduleId ? "güncellendi" : "oluşturuldu"}`,
 				);
 				utils.schedule.list.invalidate({
 					id,
@@ -310,7 +310,7 @@ export const HandleSchedules = ({ id, scheduleId, scheduleType }: Props) => {
 			})
 			.catch((error) => {
 				toast.error(
-					error instanceof Error ? error.message : "An unknown error occurred",
+					error instanceof Error ? error.message : "Bilinmeyen bir hata oluştu",
 				);
 			});
 	};
@@ -329,7 +329,7 @@ export const HandleSchedules = ({ id, scheduleId, scheduleType }: Props) => {
 				) : (
 					<Button>
 						<PlusCircle className="w-4 h-4 mr-2" />
-						Add Schedule
+						Zamanlama Ekle
 					</Button>
 				)}
 			</DialogTrigger>
@@ -341,10 +341,10 @@ export const HandleSchedules = ({ id, scheduleId, scheduleType }: Props) => {
 				)}
 			>
 				<DialogHeader>
-					<DialogTitle>{scheduleId ? "Edit" : "Create"} Schedule</DialogTitle>
+					<DialogTitle>{scheduleId ? "Düzenle" : "Oluştur"}: Zamanlama</DialogTitle>
 					<DialogDescription>
-						{scheduleId ? "Manage" : "Create"} a schedule to run a task at a
-						specific time or interval.
+						Belirli bir zamanda veya aralıkta görev çalıştırmak için bir zamanlama
+						{scheduleId ? " yönetin" : " oluşturun"}.
 					</DialogDescription>
 				</DialogHeader>
 				<Form {...form}>
@@ -364,7 +364,7 @@ export const HandleSchedules = ({ id, scheduleId, scheduleType }: Props) => {
 									name="serviceName"
 									render={({ field }) => (
 										<FormItem className="w-full">
-											<FormLabel>Service Name</FormLabel>
+											<FormLabel>Servis Adı</FormLabel>
 											<div className="flex gap-2">
 												<Select
 													onValueChange={field.onChange}
@@ -372,7 +372,7 @@ export const HandleSchedules = ({ id, scheduleId, scheduleType }: Props) => {
 												>
 													<FormControl>
 														<SelectTrigger>
-															<SelectValue placeholder="Select a service name" />
+															<SelectValue placeholder="Bir servis adı seçin" />
 														</SelectTrigger>
 													</FormControl>
 
@@ -386,7 +386,7 @@ export const HandleSchedules = ({ id, scheduleId, scheduleType }: Props) => {
 															</SelectItem>
 														))}
 														<SelectItem value="none" disabled>
-															Empty
+															Boş
 														</SelectItem>
 													</SelectContent>
 												</Select>
@@ -414,8 +414,8 @@ export const HandleSchedules = ({ id, scheduleId, scheduleType }: Props) => {
 															className="max-w-[10rem]"
 														>
 															<p>
-																Fetch: Will clone the repository and load the
-																services
+																Getir: Depoyu klonlayarak servisleri
+																yükleyecektir
 															</p>
 														</TooltipContent>
 													</Tooltip>
@@ -444,9 +444,9 @@ export const HandleSchedules = ({ id, scheduleId, scheduleType }: Props) => {
 															className="max-w-[10rem]"
 														>
 															<p>
-																Cache: If you previously deployed this compose,
-																it will read the services from the last
-																deployment/fetch from the repository
+																Önbellek: Bu compose'u daha önce dağıttıysanız,
+																servisleri son dağıtımdan/depo getirmesinden
+																okuyacaktır
 															</p>
 														</TooltipContent>
 													</Tooltip>
@@ -466,13 +466,13 @@ export const HandleSchedules = ({ id, scheduleId, scheduleType }: Props) => {
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel className="flex items-center gap-2">
-										Task Name
+										Görev Adı
 									</FormLabel>
 									<FormControl>
-										<Input placeholder="Daily Database Backup" {...field} />
+										<Input placeholder="Günlük Veritabanı Yedeklemesi" {...field} />
 									</FormControl>
 									<FormDescription>
-										A descriptive name for your scheduled task
+										Zamanlanmış göreviniz için açıklayıcı bir ad
 									</FormDescription>
 									<FormMessage />
 								</FormItem>
@@ -490,7 +490,7 @@ export const HandleSchedules = ({ id, scheduleId, scheduleType }: Props) => {
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel className="flex items-center gap-2">
-										Timezone
+										Saat Dilimi
 										<TooltipProvider>
 											<Tooltip>
 												<TooltipTrigger asChild>
@@ -498,8 +498,8 @@ export const HandleSchedules = ({ id, scheduleId, scheduleType }: Props) => {
 												</TooltipTrigger>
 												<TooltipContent>
 													<p>
-														Select a timezone for the schedule. If not
-														specified, UTC will be used.
+														Zamanlama için bir saat dilimi seçin. Belirtilmezse
+														UTC kullanılır.
 													</p>
 												</TooltipContent>
 											</Tooltip>
@@ -523,11 +523,11 @@ export const HandleSchedules = ({ id, scheduleId, scheduleType }: Props) => {
 										<PopoverContent className="w-[400px] p-0" align="start">
 											<Command>
 												<CommandInput
-													placeholder="Search timezone..."
+													placeholder="Saat dilimi ara..."
 													className="h-9"
 												/>
 												<CommandList>
-													<CommandEmpty>No timezone found.</CommandEmpty>
+													<CommandEmpty>Saat dilimi bulunamadı.</CommandEmpty>
 													<ScrollArea className="h-72">
 														{Object.entries(TIMEZONES).map(
 															([region, zones]) => (
@@ -560,7 +560,7 @@ export const HandleSchedules = ({ id, scheduleId, scheduleType }: Props) => {
 										</PopoverContent>
 									</Popover>
 									<FormDescription>
-										Optional: Choose a timezone for the schedule execution time
+										İsteğe bağlı: Zamanlama çalışma saati için bir saat dilimi seçin
 									</FormDescription>
 									<FormMessage />
 								</FormItem>
@@ -576,7 +576,7 @@ export const HandleSchedules = ({ id, scheduleId, scheduleType }: Props) => {
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel className="flex items-center gap-2">
-												Shell Type
+												Kabuk Türü
 											</FormLabel>
 											<Select
 												onValueChange={field.onChange}
@@ -584,7 +584,7 @@ export const HandleSchedules = ({ id, scheduleId, scheduleType }: Props) => {
 											>
 												<FormControl>
 													<SelectTrigger>
-														<SelectValue placeholder="Select shell type" />
+														<SelectValue placeholder="Kabuk türü seçin" />
 													</SelectTrigger>
 												</FormControl>
 												<SelectContent>
@@ -593,7 +593,7 @@ export const HandleSchedules = ({ id, scheduleId, scheduleType }: Props) => {
 												</SelectContent>
 											</Select>
 											<FormDescription>
-												Choose the shell to execute your command
+												Komutunuzu çalıştırmak için kabuğu seçin
 											</FormDescription>
 											<FormMessage />
 										</FormItem>
@@ -605,13 +605,13 @@ export const HandleSchedules = ({ id, scheduleId, scheduleType }: Props) => {
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel className="flex items-center gap-2">
-												Command
+												Komut
 											</FormLabel>
 											<FormControl>
 												<Input placeholder="npm run backup" {...field} />
 											</FormControl>
 											<FormDescription>
-												The command to execute in your container
+												Konteynerde çalıştırılacak komut
 											</FormDescription>
 											<FormMessage />
 										</FormItem>
@@ -627,7 +627,7 @@ export const HandleSchedules = ({ id, scheduleId, scheduleType }: Props) => {
 								name="script"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Script</FormLabel>
+										<FormLabel>Betik</FormLabel>
 										<FormControl>
 											<FormControl>
 												<CodeEditor
@@ -656,14 +656,14 @@ echo "Hello, world!"
 											checked={field.value}
 											onCheckedChange={field.onChange}
 										/>
-										Enabled
+										Etkin
 									</FormLabel>
 								</FormItem>
 							)}
 						/>
 
 						<Button type="submit" isLoading={isPending} className="w-full">
-							{scheduleId ? "Update" : "Create"} Schedule
+							{scheduleId ? "Güncelle" : "Oluştur"}: Zamanlama
 						</Button>
 					</form>
 				</Form>

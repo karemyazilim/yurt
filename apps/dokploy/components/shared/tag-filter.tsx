@@ -64,7 +64,7 @@ export function TagFilter({
 						className={cn("gap-2", selectedTags.length > 0 && "border-primary")}
 					>
 						<Tags className="h-4 w-4" />
-						<span>Tags</span>
+						<span>Etiketler</span>
 						{selectedTags.length > 0 && (
 							<Badge variant="secondary" className="ml-1 px-1 py-0">
 								{selectedTags.length}
@@ -76,7 +76,7 @@ export function TagFilter({
 					<Command>
 						<div className="flex items-center border-b px-3">
 							<CommandInput
-								placeholder="Search tags..."
+								placeholder="Etiket ara..."
 								className="h-9 focus-visible:ring-0"
 							/>
 							{selectedTags.length > 0 && (
@@ -86,7 +86,7 @@ export function TagFilter({
 									onClick={handleClearAll}
 									className="h-8 px-2 text-xs"
 								>
-									Clear
+									Temizle
 								</Button>
 							)}
 						</div>
@@ -94,7 +94,7 @@ export function TagFilter({
 							<CommandEmpty>
 								<div className="flex flex-col items-center gap-2 py-1">
 									<span className="text-sm text-muted-foreground">
-										No tags found.
+										Etiket bulunamadı.
 									</span>
 									<HandleTag />
 								</div>

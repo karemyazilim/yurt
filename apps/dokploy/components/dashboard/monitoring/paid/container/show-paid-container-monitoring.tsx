@@ -15,21 +15,21 @@ import { ContainerMemoryChart } from "./container-memory-chart";
 import { ContainerNetworkChart } from "./container-network-chart";
 
 const REFRESH_INTERVALS = {
-	"5000": "5 Seconds",
-	"10000": "10 Seconds",
-	"20000": "20 Seconds",
-	"30000": "30 Seconds",
+	"5000": "5 Saniye",
+	"10000": "10 Saniye",
+	"20000": "20 Saniye",
+	"30000": "30 Saniye",
 } as const;
 
 const DATA_POINTS_OPTIONS = {
-	"50": "50 points",
-	"200": "200 points",
-	"500": "500 points",
-	"800": "800 points",
-	"1200": "1200 points",
-	"1600": "1600 points",
-	"2000": "2000 points",
-	all: "All points",
+	"50": "50 nokta",
+	"200": "200 nokta",
+	"500": "500 nokta",
+	"800": "800 nokta",
+	"1200": "1200 nokta",
+	"1600": "1600 nokta",
+	"2000": "2000 nokta",
+	all: "Tüm noktalar",
 } as const;
 
 interface ContainerMetric {
@@ -115,13 +115,13 @@ export const ContainerPaidMonitoring = ({ appName, baseUrl, token }: Props) => {
 			<div className="mt-5 flex min-h-[55vh] w-full items-center justify-center p-4">
 				<div className="max-w-xl text-center">
 					<p className="mb-2 text-base font-medium leading-none text-muted-foreground">
-						Error fetching metrics for{" "}
+						Metrikler alınırken hata oluştu:{" "}
 						<strong className="text-primary">{appName}</strong>
 					</p>
 					<p className="whitespace-pre-line text-sm text-destructive">
 						{queryError instanceof Error
 							? queryError.message
-							: "Failed to fetch metrics, Please check your monitoring Instance is Configured correctly."}
+							: "Metrikler alınamadı. Lütfen izleme örneğinizin doğru yapılandırıldığından emin olun."}
 					</p>
 					<p className="text-sm text-muted-foreground">URL: {baseUrl}</p>
 				</div>
@@ -133,11 +133,11 @@ export const ContainerPaidMonitoring = ({ appName, baseUrl, token }: Props) => {
 		<>
 			<div className="flex items-center justify-between flex-wrap	 gap-2">
 				<h2 className="text-2xl font-bold tracking-tight">
-					Container Monitoring
+					Konteyner İzleme
 				</h2>
 				<div className="flex items-center gap-4 flex-wrap">
 					<div>
-						<span className="text-sm text-muted-foreground">Data points:</span>
+						<span className="text-sm text-muted-foreground">Veri noktaları:</span>
 						<Select
 							value={dataPoints}
 							onValueChange={(value: keyof typeof DATA_POINTS_OPTIONS) =>
@@ -145,7 +145,7 @@ export const ContainerPaidMonitoring = ({ appName, baseUrl, token }: Props) => {
 							}
 						>
 							<SelectTrigger className="w-[180px]">
-								<SelectValue placeholder="Select points" />
+								<SelectValue placeholder="Nokta seçin" />
 							</SelectTrigger>
 							<SelectContent>
 								{Object.entries(DATA_POINTS_OPTIONS).map(([value, label]) => (
@@ -159,7 +159,7 @@ export const ContainerPaidMonitoring = ({ appName, baseUrl, token }: Props) => {
 
 					<div>
 						<span className="text-sm text-muted-foreground">
-							Refresh interval:
+							Yenileme aralığı:
 						</span>
 						<Select
 							value={refreshInterval}
@@ -168,7 +168,7 @@ export const ContainerPaidMonitoring = ({ appName, baseUrl, token }: Props) => {
 							}
 						>
 							<SelectTrigger className="w-[180px]">
-								<SelectValue placeholder="Select interval" />
+								<SelectValue placeholder="Aralık seçin" />
 							</SelectTrigger>
 							<SelectContent>
 								{Object.entries(REFRESH_INTERVALS).map(([value, label]) => (
@@ -187,7 +187,7 @@ export const ContainerPaidMonitoring = ({ appName, baseUrl, token }: Props) => {
 				<Card className="p-6 bg-transparent">
 					<div className="flex items-center gap-2">
 						<Cpu className="h-4 w-4 text-muted-foreground" />
-						<h3 className="text-sm font-medium">CPU Usage</h3>
+						<h3 className="text-sm font-medium">CPU Kullanımı</h3>
 					</div>
 					<p className="mt-2 text-2xl font-bold">{metrics.CPU}%</p>
 				</Card>
@@ -195,7 +195,7 @@ export const ContainerPaidMonitoring = ({ appName, baseUrl, token }: Props) => {
 				<Card className="p-6 bg-transparent">
 					<div className="flex items-center gap-2">
 						<MemoryStick className="h-4 w-4 text-muted-foreground" />
-						<h3 className="text-sm font-medium">Memory Usage</h3>
+						<h3 className="text-sm font-medium">Bellek Kullanımı</h3>
 					</div>
 					<p className="mt-2 text-2xl font-bold">
 						{metrics?.Memory?.percentage}%
@@ -209,7 +209,7 @@ export const ContainerPaidMonitoring = ({ appName, baseUrl, token }: Props) => {
 				<Card className="p-6 bg-transparent">
 					<div className="flex items-center gap-2">
 						<Network className="h-4 w-4 text-muted-foreground" />
-						<h3 className="text-sm font-medium">Network I/O</h3>
+						<h3 className="text-sm font-medium">Ağ G/Ç</h3>
 					</div>
 					<p className="mt-2 text-2xl font-bold">
 						{metrics?.Network?.input} {metrics?.Network?.inputUnit} /{" "}
@@ -220,7 +220,7 @@ export const ContainerPaidMonitoring = ({ appName, baseUrl, token }: Props) => {
 				<Card className="p-6 bg-transparent">
 					<div className="flex items-center gap-2">
 						<HardDrive className="h-4 w-4 text-muted-foreground" />
-						<h3 className="text-sm font-medium">Block I/O</h3>
+						<h3 className="text-sm font-medium">Blok G/Ç</h3>
 					</div>
 					<p className="mt-2 text-2xl font-bold">
 						{metrics?.BlockIO?.read} {metrics?.BlockIO?.readUnit} /{" "}
@@ -231,16 +231,16 @@ export const ContainerPaidMonitoring = ({ appName, baseUrl, token }: Props) => {
 
 			{/* Container Information */}
 			<Card className="p-6 bg-transparent">
-				<h3 className="text-lg font-medium mb-4">Container Information</h3>
+				<h3 className="text-lg font-medium mb-4">Konteyner Bilgileri</h3>
 				<div className="grid gap-4 md:grid-cols-2">
 					<div>
 						<h4 className="text-sm font-medium text-muted-foreground">
-							Container ID
+							Konteyner ID
 						</h4>
 						<p className="mt-1">{metrics.ID}</p>
 					</div>
 					<div>
-						<h4 className="text-sm font-medium text-muted-foreground">Name</h4>
+						<h4 className="text-sm font-medium text-muted-foreground">Ad</h4>
 						<p className="mt-1 truncate">{metrics.Name}</p>
 					</div>
 				</div>

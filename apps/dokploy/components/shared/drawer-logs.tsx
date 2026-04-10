@@ -49,8 +49,8 @@ export const DrawerLogs = ({ isOpen, onClose, filteredLogs }: Props) => {
 		>
 			<SheetContent className="sm:max-w-[740px] flex flex-col">
 				<SheetHeader>
-					<SheetTitle>Deployment Logs</SheetTitle>
-					<SheetDescription>Details of the request log entry.</SheetDescription>
+					<SheetTitle>Dağıtım Günlükleri</SheetTitle>
+					<SheetDescription>İstek günlük kaydının detayları.</SheetDescription>
 				</SheetHeader>
 				<div
 					ref={scrollRef}

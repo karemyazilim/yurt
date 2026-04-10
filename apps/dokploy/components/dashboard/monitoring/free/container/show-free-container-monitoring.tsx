@@ -205,9 +205,9 @@ export const ContainerFreeMonitoring = ({
 		<div className="rounded-xl bg-background flex flex-col gap-4">
 			<header className="flex items-center justify-between">
 				<div className="space-y-1">
-					<h1 className="text-2xl font-semibold tracking-tight">Monitoring</h1>
+					<h1 className="text-2xl font-semibold tracking-tight">İzleme</h1>
 					<p className="text-sm text-muted-foreground">
-						Watch the usage of your server in the current app
+						Mevcut uygulamada sunucunuzun kullanımını izleyin
 					</p>
 				</div>
 			</header>
@@ -215,12 +215,12 @@ export const ContainerFreeMonitoring = ({
 			<div className="grid gap-6 lg:grid-cols-2">
 				<Card className="bg-background">
 					<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-						<CardTitle className="text-sm font-medium">CPU Usage</CardTitle>
+						<CardTitle className="text-sm font-medium">CPU Kullanımı</CardTitle>
 					</CardHeader>
 					<CardContent>
 						<div className="flex flex-col gap-2 w-full">
 							<span className="text-sm text-muted-foreground">
-								Used: {currentData.cpu.value}
+								Kullanılan: {currentData.cpu.value}
 							</span>
 							<Progress
 								value={Number.parseInt(
@@ -235,12 +235,12 @@ export const ContainerFreeMonitoring = ({
 				</Card>
 				<Card className="bg-background">
 					<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-						<CardTitle className="text-sm font-medium">Memory Usage</CardTitle>
+						<CardTitle className="text-sm font-medium">Bellek Kullanımı</CardTitle>
 					</CardHeader>
 					<CardContent>
 						<div className="flex flex-col gap-2 w-full">
 							<span className="text-sm text-muted-foreground">
-								{`Used:  ${currentData.memory.value.used} / Limit: ${currentData.memory.value.total} `}
+								{`Kullanılan:  ${currentData.memory.value.used} / Sınır: ${currentData.memory.value.total} `}
 							</span>
 							<Progress
 								value={
@@ -266,12 +266,12 @@ export const ContainerFreeMonitoring = ({
 				{appName === "dokploy" && (
 					<Card className="bg-background">
 						<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-							<CardTitle className="text-sm font-medium">Disk Space</CardTitle>
+							<CardTitle className="text-sm font-medium">Disk Alanı</CardTitle>
 						</CardHeader>
 						<CardContent>
 							<div className="flex flex-col gap-2 w-full">
 								<span className="text-sm text-muted-foreground">
-									{`Used:  ${currentData.disk.value.diskUsage} GB / Limit: ${currentData.disk.value.diskTotal} GB`}
+									{`Kullanılan:  ${currentData.disk.value.diskUsage} GB / Sınır: ${currentData.disk.value.diskTotal} GB`}
 								</span>
 								<Progress
 									value={currentData.disk.value.diskUsedPercentage}
@@ -289,7 +289,7 @@ export const ContainerFreeMonitoring = ({
 					<Card className="bg-background">
 						<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 							<CardTitle className="text-sm font-medium">
-								Docker Disk Usage
+								Docker Disk Kullanımı
 							</CardTitle>
 						</CardHeader>
 						<CardContent>
@@ -300,12 +300,12 @@ export const ContainerFreeMonitoring = ({
 
 				<Card className="bg-background">
 					<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-						<CardTitle className="text-sm font-medium">Block I/O</CardTitle>
+						<CardTitle className="text-sm font-medium">Blok G/Ç</CardTitle>
 					</CardHeader>
 					<CardContent>
 						<div className="flex flex-col gap-2 w-full">
 							<span className="text-sm text-muted-foreground">
-								{`Read:  ${currentData.block.value.readMb}  / Write: ${currentData.block.value.writeMb} `}
+								{`Okuma:  ${currentData.block.value.readMb}  / Yazma: ${currentData.block.value.writeMb} `}
 							</span>
 							<DockerBlockChart accumulativeData={accumulativeData.block} />
 						</div>
@@ -313,12 +313,12 @@ export const ContainerFreeMonitoring = ({
 				</Card>
 				<Card className="bg-background">
 					<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-						<CardTitle className="text-sm font-medium">Network I/O</CardTitle>
+						<CardTitle className="text-sm font-medium">Ağ G/Ç</CardTitle>
 					</CardHeader>
 					<CardContent>
 						<div className="flex flex-col gap-2 w-full">
 							<span className="text-sm text-muted-foreground">
-								{`In MB: ${currentData.network.value.inputMb}  / Out MB: ${currentData.network.value.outputMb} `}
+								{`Gelen MB: ${currentData.network.value.inputMb}  / Giden MB: ${currentData.network.value.outputMb} `}
 							</span>
 							<DockerNetworkChart accumulativeData={accumulativeData.network} />
 						</div>

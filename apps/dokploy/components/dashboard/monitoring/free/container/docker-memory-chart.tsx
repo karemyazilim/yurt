@@ -18,7 +18,7 @@ interface Props {
 
 const chartConfig = {
 	usage: {
-		label: "Memory (GB)",
+		label: "Bellek (GB)",
 		color: "hsl(var(--chart-2))",
 	},
 } satisfies ChartConfig;
@@ -69,7 +69,7 @@ export const DockerMemoryChart = ({
 								const time = payload?.[0]?.payload?.time;
 								return time ? format(new Date(time), "PPpp") : "";
 							}}
-							formatter={(value) => [`${value} GB`, "Memory"]}
+							formatter={(value) => [`${value} GB`, "Bellek"]}
 						/>
 					}
 				/>

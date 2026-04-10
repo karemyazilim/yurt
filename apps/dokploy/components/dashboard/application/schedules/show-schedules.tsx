@@ -59,10 +59,10 @@ export const ShowSchedules = ({ id, scheduleType = "application" }: Props) => {
 		setRunningSchedules((prev) => new Set(prev).add(scheduleId));
 		try {
 			await runManually({ scheduleId });
-			toast.success("Schedule run successfully");
+			toast.success("Zamanlama başarıyla çalıştırıldı");
 			await refetchSchedules();
 		} catch {
-			toast.error("Error running schedule");
+			toast.error("Zamanlama çalıştırılırken hata oluştu");
 		} finally {
 			setRunningSchedules((prev) => {
 				const newSet = new Set(prev);
@@ -78,10 +78,10 @@ export const ShowSchedules = ({ id, scheduleType = "application" }: Props) => {
 				<div className="flex justify-between items-center gap-y-2 flex-wrap">
 					<div className="flex flex-col gap-2">
 						<CardTitle className="text-xl font-bold flex items-center gap-2">
-							Scheduled Tasks
+							Zamanlanmış Görevler
 						</CardTitle>
 						<CardDescription>
-							Schedule tasks to run automatically at specified intervals.
+							Belirtilen aralıklarla otomatik çalışacak görevleri zamanlayın.
 						</CardDescription>
 					</div>
 					{schedules && schedules.length > 0 && (
@@ -94,7 +94,7 @@ export const ShowSchedules = ({ id, scheduleType = "application" }: Props) => {
 					<div className="flex gap-4 w-full items-center justify-center text-center mx-auto min-h-[45vh]">
 						<Loader2 className="size-4 text-muted-foreground/70 transition-colors animate-spin self-center" />
 						<span className="text-sm text-muted-foreground/70">
-							Loading scheduled tasks...
+							Zamanlanmış görevler yükleniyor...
 						</span>
 					</div>
 				) : schedules && schedules.length > 0 ? (
@@ -122,7 +122,7 @@ export const ShowSchedules = ({ id, scheduleType = "application" }: Props) => {
 													variant={schedule.enabled ? "default" : "secondary"}
 													className="text-[10px] px-1 py-0"
 												>
-													{schedule.enabled ? "Enabled" : "Disabled"}
+													{schedule.enabled ? "Etkin" : "Devre Dışı"}
 												</Badge>
 											</div>
 											<div className="flex items-center gap-2 text-sm text-muted-foreground flex-wrap">
@@ -186,7 +186,7 @@ export const ShowSchedules = ({ id, scheduleType = "application" }: Props) => {
 														)}
 													</Button>
 												</TooltipTrigger>
-												<TooltipContent>Run Manual Schedule</TooltipContent>
+												<TooltipContent>Manuel Zamanlama Çalıştır</TooltipContent>
 											</Tooltip>
 										</TooltipProvider>
 										<HandleSchedules
@@ -195,8 +195,8 @@ export const ShowSchedules = ({ id, scheduleType = "application" }: Props) => {
 											scheduleType={scheduleType}
 										/>
 										<DialogAction
-											title="Delete Schedule"
-											description="Are you sure you want to delete this schedule?"
+											title="Zamanlamayı Sil"
+											description="Bu zamanlamayı silmek istediğinizden emin misiniz?"
 											type="destructive"
 											onClick={async () => {
 												await deleteSchedule({
@@ -207,10 +207,10 @@ export const ShowSchedules = ({ id, scheduleType = "application" }: Props) => {
 															id,
 															scheduleType,
 														});
-														toast.success("Schedule deleted successfully");
+														toast.success("Zamanlama başarıyla silindi");
 													})
 													.catch(() => {
-														toast.error("Error deleting schedule");
+														toast.error("Zamanlama silinirken hata oluştu");
 													});
 											}}
 										>
@@ -232,10 +232,10 @@ export const ShowSchedules = ({ id, scheduleType = "application" }: Props) => {
 					<div className="flex flex-col gap-2 items-center justify-center py-12 rounded-lg">
 						<Clock className="size-8 mb-4 text-muted-foreground" />
 						<p className="text-lg font-medium text-muted-foreground">
-							No scheduled tasks
+							Zamanlanmış görev yok
 						</p>
 						<p className="text-sm text-muted-foreground mt-1">
-							Create your first scheduled task to automate your workflows
+							İş akışlarınızı otomatikleştirmek için ilk zamanlanmış görevinizi oluşturun
 						</p>
 						<HandleSchedules id={id} scheduleType={scheduleType} />
 					</div>

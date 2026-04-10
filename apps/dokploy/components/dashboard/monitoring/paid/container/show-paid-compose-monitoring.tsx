@@ -70,11 +70,11 @@ export const ComposePaidMonitoring = ({
 		<div>
 			<Card className="bg-background border-0">
 				<CardHeader>
-					<CardTitle className="text-xl">Monitoring</CardTitle>
-					<CardDescription>Watch the usage of your compose</CardDescription>
+					<CardTitle className="text-xl">İzleme</CardTitle>
+					<CardDescription>Compose kullanımınızı izleyin</CardDescription>
 				</CardHeader>
 				<CardContent className="flex flex-col gap-4">
-					<Label>Select a container to watch the monitoring</Label>
+					<Label>İzleme için bir konteyner seçin</Label>
 					<div className="flex flex-row gap-4">
 						<Select
 							onValueChange={(value) => {
@@ -89,11 +89,11 @@ export const ComposePaidMonitoring = ({
 							<SelectTrigger>
 								{isPending ? (
 									<div className="flex flex-row gap-2 items-center justify-center text-sm text-muted-foreground">
-										<span>Loading...</span>
+										<span>Yükleniyor...</span>
 										<Loader2 className="animate-spin size-4" />
 									</div>
 								) : (
-									<SelectValue placeholder="Select a container" />
+									<SelectValue placeholder="Bir konteyner seçin" />
 								)}
 							</SelectTrigger>
 							<SelectContent>
@@ -109,7 +109,7 @@ export const ComposePaidMonitoring = ({
 											</Badge>
 										</SelectItem>
 									))}
-									<SelectLabel>Containers ({data?.length})</SelectLabel>
+									<SelectLabel>Konteynerler ({data?.length})</SelectLabel>
 								</SelectGroup>
 							</SelectContent>
 						</Select>
@@ -117,13 +117,13 @@ export const ComposePaidMonitoring = ({
 							isLoading={isRestarting}
 							onClick={async () => {
 								if (!containerId) return;
-								toast.success(`Restarting container ${containerAppName}`);
+								toast.success(`Konteyner yeniden başlatılıyor: ${containerAppName}`);
 								await restart({ containerId }).then(() => {
-									toast.success("Container restarted");
+									toast.success("Konteyner yeniden başlatıldı");
 								});
 							}}
 						>
-							Restart
+							Yeniden Başlat
 						</Button>
 					</div>
 					<div className="flex flex-col gap-4">

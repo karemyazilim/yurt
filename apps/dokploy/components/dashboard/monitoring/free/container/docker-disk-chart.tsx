@@ -15,7 +15,7 @@ interface Props {
 
 const chartConfig = {
 	usedGb: {
-		label: "Used (GB)",
+		label: "Kullanılan (GB)",
 		color: "hsl(var(--chart-3))",
 	},
 } satisfies ChartConfig;
@@ -64,7 +64,7 @@ export const DockerDiskChart = ({ accumulativeData, diskTotal }: Props) => {
 								return time ? format(new Date(time), "PPpp") : "";
 							}}
 							formatter={(value) => {
-								return [`${value} GB`, "Used"];
+								return [`${value} GB`, "Kullanılan"];
 							}}
 						/>
 					}

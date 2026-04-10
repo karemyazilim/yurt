@@ -16,11 +16,11 @@ interface Props {
 
 const chartConfig = {
 	inMB: {
-		label: "In (MB)",
+		label: "Gelen (MB)",
 		color: "hsl(var(--chart-1))",
 	},
 	outMB: {
-		label: "Out (MB)",
+		label: "Giden (MB)",
 		color: "hsl(var(--chart-2))",
 	},
 } satisfies ChartConfig;
@@ -72,7 +72,7 @@ export const DockerNetworkChart = ({ accumulativeData }: Props) => {
 								return time ? format(new Date(time), "PPpp") : "";
 							}}
 							formatter={(value, name) => {
-								const label = name === "inMB" ? "In" : "Out";
+								const label = name === "inMB" ? "Gelen" : "Giden";
 								return [`${value} MB`, label];
 							}}
 						/>

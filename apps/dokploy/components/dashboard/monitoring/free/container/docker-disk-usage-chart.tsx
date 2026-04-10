@@ -21,22 +21,22 @@ const TYPE_TO_KEY: Record<string, string> = {
 
 const chartConfig = {
 	value: {
-		label: "Size",
+		label: "Boyut",
 	},
 	images: {
-		label: "Images",
+		label: "İmajlar",
 		color: "hsl(var(--chart-1))",
 	},
 	containers: {
-		label: "Containers",
+		label: "Konteynerler",
 		color: "hsl(var(--chart-2))",
 	},
 	volumes: {
-		label: "Volumes",
+		label: "Birimler",
 		color: "hsl(var(--chart-3))",
 	},
 	buildCache: {
-		label: "Build Cache",
+		label: "Derleme Önbelleği",
 		color: "hsl(var(--chart-4))",
 	},
 } satisfies ChartConfig;
@@ -87,7 +87,7 @@ export const DockerDiskUsageChart = () => {
 	if (chartData.length === 0) {
 		return (
 			<p className="text-xs text-muted-foreground mt-4">
-				No Docker disk usage data available.
+				Docker disk kullanım verisi bulunamadı.
 			</p>
 		);
 	}
@@ -96,7 +96,7 @@ export const DockerDiskUsageChart = () => {
 		<div className="flex flex-col gap-2 w-full">
 			<div className="flex items-center justify-between">
 				<span className="text-sm text-muted-foreground">
-					Total: {formatSize(totalBytes)}
+					Toplam: {formatSize(totalBytes)}
 				</span>
 				<Button
 					variant="ghost"
@@ -166,7 +166,7 @@ export const DockerDiskUsageChart = () => {
 												y={(viewBox.cy || 0) + 14}
 												className="fill-muted-foreground text-xs"
 											>
-												Docker Usage
+												Docker Kullanımı
 											</tspan>
 										</text>
 									);

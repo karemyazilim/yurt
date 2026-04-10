@@ -33,20 +33,20 @@ export const DialogAction = ({
 			<AlertDialogContent>
 				<AlertDialogHeader>
 					<AlertDialogTitle>
-						{title ?? "Are you absolutely sure?"}
+						{title ?? "Kesinlikle emin misiniz?"}
 					</AlertDialogTitle>
 					<AlertDialogDescription>
-						{description ?? "This action cannot be undone."}
+						{description ?? "Bu işlem geri alınamaz."}
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter>
-					<AlertDialogCancel>Cancel</AlertDialogCancel>
+					<AlertDialogCancel>İptal</AlertDialogCancel>
 					<AlertDialogAction
 						disabled={disabled}
 						onClick={onClick}
 						variant={type ?? "destructive"}
 					>
-						Confirm
+						Onayla
 					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>

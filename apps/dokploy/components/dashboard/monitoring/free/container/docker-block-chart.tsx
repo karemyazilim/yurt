@@ -16,11 +16,11 @@ interface Props {
 
 const chartConfig = {
 	readMb: {
-		label: "Read (MB)",
+		label: "Okuma (MB)",
 		color: "hsl(var(--chart-1))",
 	},
 	writeMb: {
-		label: "Write (MB)",
+		label: "Yazma (MB)",
 		color: "hsl(var(--chart-2))",
 	},
 } satisfies ChartConfig;
@@ -76,7 +76,7 @@ export const DockerBlockChart = ({ accumulativeData }: Props) => {
 								return time ? format(new Date(time), "PPpp") : "";
 							}}
 							formatter={(value, name) => {
-								const label = name === "readMb" ? "Read" : "Write";
+								const label = name === "readMb" ? "Okuma" : "Yazma";
 								return [`${value} MB`, label];
 							}}
 						/>
