@@ -107,7 +107,7 @@ export const ModeForm = ({ id, type }: ModeFormProps) => {
 					libsqlId: id || "",
 					modeSwarm: null,
 				});
-				toast.success("Mode updated successfully");
+				toast.success("Mod başarıyla güncellendi");
 				refetch();
 				setIsLoading(false);
 				return;
@@ -136,10 +136,10 @@ export const ModeForm = ({ id, type }: ModeFormProps) => {
 				modeSwarm: modeData,
 			});
 
-			toast.success("Mode updated successfully");
+			toast.success("Mod başarıyla güncellendi");
 			refetch();
 		} catch {
-			toast.error("Error updating mode");
+			toast.error("Mod güncellenirken hata oluştu");
 		} finally {
 			setIsLoading(false);
 		}
@@ -153,18 +153,18 @@ export const ModeForm = ({ id, type }: ModeFormProps) => {
 					name="type"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Mode Type</FormLabel>
+							<FormLabel>Mod Türü</FormLabel>
 							<FormDescription>
-								Choose between replicated or global service mode
+								Kopyalanmış veya global servis modu arasında seçim yapın
 							</FormDescription>
 							<Select onValueChange={field.onChange} value={field.value}>
 								<FormControl>
 									<SelectTrigger>
-										<SelectValue placeholder="Select mode type" />
+										<SelectValue placeholder="Mod türünü seçin" />
 									</SelectTrigger>
 								</FormControl>
 								<SelectContent>
-									<SelectItem value="Replicated">Replicated</SelectItem>
+									<SelectItem value="Replicated">Kopyalanmış</SelectItem>
 									<SelectItem value="Global">Global</SelectItem>
 								</SelectContent>
 							</Select>
@@ -179,8 +179,8 @@ export const ModeForm = ({ id, type }: ModeFormProps) => {
 						name="Replicas"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Replicas</FormLabel>
-								<FormDescription>Number of replicas to run</FormDescription>
+								<FormLabel>Kopya Sayısı</FormLabel>
+								<FormDescription>Çalıştırılacak kopya sayısı</FormDescription>
 								<FormControl>
 									<Input type="number" placeholder="1" {...field} />
 								</FormControl>
@@ -201,10 +201,10 @@ export const ModeForm = ({ id, type }: ModeFormProps) => {
 							});
 						}}
 					>
-						Clear
+						Temizle
 					</Button>
 					<Button type="submit" isLoading={isLoading}>
-						Save Mode
+						Modu Kaydet
 					</Button>
 				</div>
 			</form>

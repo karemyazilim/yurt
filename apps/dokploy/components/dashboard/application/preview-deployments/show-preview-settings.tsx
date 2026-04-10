@@ -146,7 +146,7 @@ export const ShowPreviewSettings = ({ applicationId }: Props) => {
 				formData.previewRequireCollaboratorPermissions,
 		})
 			.then(() => {
-				toast.success("Preview Deployments settings updated");
+				toast.success("Önizleme Dağıtımları ayarları güncellendi");
 			})
 			.catch((error) => {
 				toast.error(error.message);
@@ -158,24 +158,23 @@ export const ShowPreviewSettings = ({ applicationId }: Props) => {
 				<DialogTrigger asChild>
 					<Button variant="outline">
 						<Settings2 className="size-4" />
-						Configure
+						Yapılandır
 					</Button>
 				</DialogTrigger>
 				<DialogContent className="sm:max-w-5xl w-full">
 					<DialogHeader>
-						<DialogTitle>Preview Deployment Settings</DialogTitle>
+						<DialogTitle>Önizleme Dağıtım Ayarları</DialogTitle>
 						<DialogDescription>
-							Adjust the settings for preview deployments of this application,
-							including environment variables, build options, and deployment
-							rules.
+							Ortam değişkenleri, derleme seçenekleri ve dağıtım kuralları dahil olmak üzere
+							bu uygulamanın önizleme dağıtımları için ayarları düzenleyin.
 						</DialogDescription>
 					</DialogHeader>
 					<div className="grid gap-4">
 						{isTraefikMeDomain && (
 							<AlertBlock type="info">
-								<strong>Note:</strong> traefik.me is a public HTTP service and
-								does not support SSL/HTTPS. HTTPS and certificate options will
-								not have any effect.
+								<strong>Not:</strong> traefik.me genel bir HTTP servisidir ve
+								SSL/HTTPS desteklemez. HTTPS ve sertifika seçeneklerinin
+								hiçbir etkisi olmayacaktır.
 							</AlertBlock>
 						)}
 						<Form {...form}>
@@ -190,7 +189,7 @@ export const ShowPreviewSettings = ({ applicationId }: Props) => {
 										name="wildcardDomain"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Wildcard Domain</FormLabel>
+												<FormLabel>Joker Alan Adı</FormLabel>
 												<FormControl>
 													<Input placeholder="*.traefik.me" {...field} />
 												</FormControl>
@@ -203,7 +202,7 @@ export const ShowPreviewSettings = ({ applicationId }: Props) => {
 										name="previewPath"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Preview Path</FormLabel>
+												<FormLabel>Önizleme Yolu</FormLabel>
 												<FormControl>
 													<Input placeholder="/" {...field} />
 												</FormControl>
@@ -230,7 +229,7 @@ export const ShowPreviewSettings = ({ applicationId }: Props) => {
 										render={({ field }) => (
 											<FormItem className="md:col-span-2">
 												<div className="flex items-center gap-2">
-													<FormLabel>Preview Labels</FormLabel>
+													<FormLabel>Önizleme Etiketleri</FormLabel>
 													<TooltipProvider>
 														<Tooltip>
 															<TooltipTrigger asChild>
@@ -238,10 +237,10 @@ export const ShowPreviewSettings = ({ applicationId }: Props) => {
 															</TooltipTrigger>
 															<TooltipContent>
 																<p>
-																	Add a labels that will trigger a preview
-																	deployment for a pull request. If no labels
-																	are specified, all pull requests will trigger
-																	a preview deployment.
+																	Bir pull request için önizleme dağıtımını
+																	tetikleyecek etiketler ekleyin. Etiket
+																	belirtilmezse, tüm pull request'ler bir
+																	önizleme dağıtımı tetikleyecektir.
 																</p>
 															</TooltipContent>
 														</Tooltip>
@@ -269,7 +268,7 @@ export const ShowPreviewSettings = ({ applicationId }: Props) => {
 												<div className="flex gap-2">
 													<FormControl>
 														<Input
-															placeholder="Enter a label (e.g. enhancements, needs-review)"
+															placeholder="Bir etiket girin (ör. geliştirmeler, inceleme-gerekli)"
 															onKeyDown={(e) => {
 																if (e.key === "Enter") {
 																	e.preventDefault();
@@ -313,7 +312,7 @@ export const ShowPreviewSettings = ({ applicationId }: Props) => {
 										name="previewLimit"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Preview Limit</FormLabel>
+												<FormLabel>Önizleme Limiti</FormLabel>
 												<FormControl>
 													<NumberInput placeholder="3000" {...field} />
 												</FormControl>
@@ -329,7 +328,7 @@ export const ShowPreviewSettings = ({ applicationId }: Props) => {
 												<div className="space-y-0.5">
 													<FormLabel>HTTPS</FormLabel>
 													<FormDescription>
-														Automatically provision SSL Certificate.
+														SSL Sertifikasını otomatik olarak sağlayın.
 													</FormDescription>
 													<FormMessage />
 												</div>
@@ -348,23 +347,23 @@ export const ShowPreviewSettings = ({ applicationId }: Props) => {
 											name="previewCertificateType"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>Certificate Provider</FormLabel>
+													<FormLabel>Sertifika Sağlayıcı</FormLabel>
 													<Select
 														onValueChange={field.onChange}
 														defaultValue={field.value || ""}
 													>
 														<FormControl>
 															<SelectTrigger>
-																<SelectValue placeholder="Select a certificate provider" />
+																<SelectValue placeholder="Bir sertifika sağlayıcı seçin" />
 															</SelectTrigger>
 														</FormControl>
 
 														<SelectContent>
-															<SelectItem value="none">None</SelectItem>
+															<SelectItem value="none">Hiçbiri</SelectItem>
 															<SelectItem value={"letsencrypt"}>
 																Let's Encrypt
 															</SelectItem>
-															<SelectItem value={"custom"}>Custom</SelectItem>
+															<SelectItem value={"custom"}>Özel</SelectItem>
 														</SelectContent>
 													</Select>
 													<FormMessage />
@@ -379,7 +378,7 @@ export const ShowPreviewSettings = ({ applicationId }: Props) => {
 											name="previewCustomCertResolver"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>Certificate Provider</FormLabel>
+													<FormLabel>Sertifika Sağlayıcı</FormLabel>
 													<FormControl>
 														<Input
 															placeholder="my-custom-resolver"
@@ -396,11 +395,11 @@ export const ShowPreviewSettings = ({ applicationId }: Props) => {
 									<div className="flex flex-row items-center justify-between rounded-lg border p-4 col-span-2">
 										<div className="space-y-0.5">
 											<FormLabel className="text-base">
-												Enable preview deployments
+												Önizleme dağıtımlarını etkinleştir
 											</FormLabel>
 											<FormDescription>
-												Enable or disable preview deployments for this
-												application.
+												Bu uygulama için önizleme dağıtımlarını etkinleştirin
+												veya devre dışı bırakın.
 											</FormDescription>
 										</div>
 										<Switch
@@ -414,8 +413,8 @@ export const ShowPreviewSettings = ({ applicationId }: Props) => {
 														refetch();
 														toast.success(
 															checked
-																? "Preview deployments enabled"
-																: "Preview deployments disabled",
+																? "Önizleme dağıtımları etkinleştirildi"
+																: "Önizleme dağıtımları devre dışı bırakıldı",
 														);
 													})
 													.catch((error) => {
@@ -434,11 +433,11 @@ export const ShowPreviewSettings = ({ applicationId }: Props) => {
 											<FormItem className="flex flex-row items-center justify-between p-3 mt-4 border rounded-lg shadow-sm col-span-2">
 												<div className="space-y-0.5">
 													<FormLabel>
-														Require Collaborator Permissions
+														İşbirlikçi İzinleri Gerektir
 													</FormLabel>
 													<FormDescription>
-														Require collaborator permissions to preview
-														deployments, valid roles are:
+														Önizleme dağıtımları için işbirlikçi izinleri
+														gerektir, geçerli roller:
 														<ul>
 															<li>Admin</li>
 															<li>Maintain</li>
@@ -465,8 +464,8 @@ export const ShowPreviewSettings = ({ applicationId }: Props) => {
 											<FormControl>
 												<Secrets
 													name="env"
-													title="Environment Settings"
-													description="You can add environment variables to your resource."
+													title="Ortam Ayarları"
+													description="Kaynağınıza ortam değişkenleri ekleyebilirsiniz."
 													placeholder={[
 														"NODE_ENV=production",
 														"PORT=3000",
@@ -480,18 +479,18 @@ export const ShowPreviewSettings = ({ applicationId }: Props) => {
 								{data?.buildType === "dockerfile" && (
 									<Secrets
 										name="buildArgs"
-										title="Build-time Arguments"
+										title="Derleme Zamanı Argümanları"
 										description={
 											<span>
-												Arguments are available only at build-time. See
-												documentation&nbsp;
+												Argümanlar yalnızca derleme zamanında kullanılabilir.
+												Belgelere&nbsp;
 												<a
 													className="text-primary"
 													href="https://docs.docker.com/build/building/variables/"
 													target="_blank"
 													rel="noopener noreferrer"
 												>
-													here
+													buradan
 												</a>
 												.
 											</span>
@@ -502,19 +501,19 @@ export const ShowPreviewSettings = ({ applicationId }: Props) => {
 								{data?.buildType === "dockerfile" && (
 									<Secrets
 										name="buildSecrets"
-										title="Build-time Secrets"
+										title="Derleme Zamanı Gizli Anahtarları"
 										description={
 											<span>
-												Secrets are specially designed for sensitive information
-												and are only available at build-time. See
-												documentation&nbsp;
+												Gizli anahtarlar hassas bilgiler için özel olarak tasarlanmıştır
+												ve yalnızca derleme zamanında kullanılabilir.
+												Belgelere&nbsp;
 												<a
 													className="text-primary"
 													href="https://docs.docker.com/build/building/secrets/"
 													target="_blank"
 													rel="noopener noreferrer"
 												>
-													here
+													buradan
 												</a>
 												.
 											</span>
@@ -532,14 +531,14 @@ export const ShowPreviewSettings = ({ applicationId }: Props) => {
 								setIsOpen(false);
 							}}
 						>
-							Cancel
+							İptal
 						</Button>
 						<Button
 							isLoading={isPending}
 							form="hook-form-delete-application"
 							type="submit"
 						>
-							Save
+							Kaydet
 						</Button>
 					</DialogFooter>
 				</DialogContent>

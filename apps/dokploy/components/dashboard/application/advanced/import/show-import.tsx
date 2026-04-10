@@ -93,7 +93,7 @@ export const ShowImport = ({ composeId }: Props) => {
 	const onSubmit = async () => {
 		const base64 = form.getValues("base64");
 		if (!base64) {
-			toast.error("Please enter a base64 template");
+			toast.error("Lütfen bir base64 şablonu girin");
 			return;
 		}
 
@@ -102,20 +102,20 @@ export const ShowImport = ({ composeId }: Props) => {
 				composeId,
 				base64,
 			});
-			toast.success("Template imported successfully");
+			toast.success("Şablon başarıyla içe aktarıldı");
 			await utils.compose.one.invalidate({
 				composeId,
 			});
 			setShowModal(false);
 		} catch {
-			toast.error("Error importing template");
+			toast.error("Şablon içe aktarılırken hata oluştu");
 		}
 	};
 
 	const handleLoadTemplate = async () => {
 		const base64 = form.getValues("base64");
 		if (!base64) {
-			toast.error("Please enter a base64 template");
+			toast.error("Lütfen bir base64 şablonu girin");
 			return;
 		}
 
@@ -127,7 +127,7 @@ export const ShowImport = ({ composeId }: Props) => {
 			setTemplateInfo(result);
 			setShowModal(true);
 		} catch {
-			toast.error("Error processing template");
+			toast.error("Şablon işlenirken hata oluştu");
 		}
 	};
 
@@ -143,13 +143,13 @@ export const ShowImport = ({ composeId }: Props) => {
 		<>
 			<Card className="bg-background">
 				<CardHeader>
-					<CardTitle className="text-xl">Import</CardTitle>
-					<CardDescription>Import your Template configuration</CardDescription>
+					<CardTitle className="text-xl">İçe Aktar</CardTitle>
+					<CardDescription>Şablon yapılandırmanızı içe aktarın</CardDescription>
 				</CardHeader>
 				<CardContent className="flex flex-col gap-4">
 					<AlertBlock type="warning">
-						Warning: Importing a template will remove all existing environment
-						variables, mounts, and domains from this service.
+						Uyarı: Bir şablonu içe aktarmak, bu servisteki tüm mevcut ortam
+						değişkenlerini, bağlama noktalarını ve alan adlarını kaldıracaktır.
 					</AlertBlock>
 					<Form {...form}>
 						<form
@@ -161,10 +161,10 @@ export const ShowImport = ({ composeId }: Props) => {
 								name="base64"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Configuration (Base64)</FormLabel>
+										<FormLabel>Yapılandırma (Base64)</FormLabel>
 										<FormControl>
 											<Textarea
-												placeholder="Enter your Base64 configuration here..."
+												placeholder="Base64 yapılandırmanızı buraya girin..."
 												className="font-mono min-h-[200px]"
 												{...field}
 											/>
@@ -181,20 +181,20 @@ export const ShowImport = ({ composeId }: Props) => {
 									isLoading={isLoadingTemplate}
 									onClick={handleLoadTemplate}
 								>
-									Load
+									Yükle
 								</Button>
 							</div>
 							<Dialog open={showModal} onOpenChange={setShowModal}>
 								<DialogContent className="max-w-[50vw]">
 									<DialogHeader>
 										<DialogTitle className="text-2xl font-bold">
-											Template Information
+											Şablon Bilgileri
 										</DialogTitle>
 										<DialogDescription className="space-y-2">
-											<p>Review the template information before importing</p>
+											<p>İçe aktarmadan önce şablon bilgilerini gözden geçirin</p>
 											<AlertBlock type="warning">
-												Warning: This will remove all existing environment
-												variables, mounts, and domains from this service.
+												Uyarı: Bu işlem, bu servisteki tüm mevcut ortam
+												değişkenlerini, bağlama noktalarını ve alan adlarını kaldıracaktır.
 											</AlertBlock>
 										</DialogDescription>
 									</DialogHeader>
@@ -222,7 +222,7 @@ export const ShowImport = ({ composeId }: Props) => {
 												<div className="space-y-4">
 													<div className="flex items-center gap-2">
 														<Globe2 className="h-5 w-5 text-primary" />
-														<h3 className="text-lg font-semibold">Domains</h3>
+														<h3 className="text-lg font-semibold">Alan Adları</h3>
 													</div>
 													<div className="grid grid-cols-1 gap-3">
 														{templateInfo.template.domains.map(
@@ -237,10 +237,10 @@ export const ShowImport = ({ composeId }: Props) => {
 																	<div className="text-sm text-muted-foreground space-y-1">
 																		<div>Port: {domain.port}</div>
 																		{domain.host && (
-																			<div>Host: {domain.host}</div>
+																			<div>Sunucu: {domain.host}</div>
 																		)}
 																		{domain.path && (
-																			<div>Path: {domain.path}</div>
+																			<div>Yol: {domain.path}</div>
 																		)}
 																	</div>
 																</div>
@@ -256,7 +256,7 @@ export const ShowImport = ({ composeId }: Props) => {
 													<div className="flex items-center gap-2">
 														<Code2 className="h-5 w-5 text-primary" />
 														<h3 className="text-lg font-semibold">
-															Environment Variables
+															Ortam Değişkenleri
 														</h3>
 													</div>
 													<div className="grid grid-cols-1 gap-2">
@@ -277,7 +277,7 @@ export const ShowImport = ({ composeId }: Props) => {
 												<div className="space-y-4">
 													<div className="flex items-center gap-2">
 														<HardDrive className="h-5 w-5 text-primary" />
-														<h3 className="text-lg font-semibold">Mounts</h3>
+														<h3 className="text-lg font-semibold">Bağlama Noktaları</h3>
 													</div>
 													<div className="grid grid-cols-1 gap-2">
 														{templateInfo.template.mounts.map(
@@ -301,7 +301,7 @@ export const ShowImport = ({ composeId }: Props) => {
 											variant="outline"
 											onClick={() => setShowModal(false)}
 										>
-											Cancel
+											İptal
 										</Button>
 										<Button
 											isLoading={isImporting}
@@ -309,7 +309,7 @@ export const ShowImport = ({ composeId }: Props) => {
 											onClick={form.handleSubmit(onSubmit)}
 											className="w-fit"
 										>
-											Import
+											İçe Aktar
 										</Button>
 									</div>
 								</DialogContent>
@@ -325,7 +325,7 @@ export const ShowImport = ({ composeId }: Props) => {
 						<DialogTitle className="text-xl font-bold">
 							{selectedMount?.filePath}
 						</DialogTitle>
-						<DialogDescription>Mount File Content</DialogDescription>
+						<DialogDescription>Bağlama Dosyası İçeriği</DialogDescription>
 					</DialogHeader>
 
 					<ScrollArea className="h-[45vh] pr-4">
@@ -338,7 +338,7 @@ export const ShowImport = ({ composeId }: Props) => {
 					</ScrollArea>
 
 					<div className="flex justify-end gap-2 pt-4">
-						<Button onClick={() => setShowMountContent(false)}>Close</Button>
+						<Button onClick={() => setShowMountContent(false)}>Kapat</Button>
 					</div>
 				</DialogContent>
 			</Dialog>

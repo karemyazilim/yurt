@@ -54,7 +54,7 @@ export const validateAndFormatYAML = (yamlText: string) => {
 		return {
 			valid: false,
 			formattedYaml: yamlText,
-			error: "An unexpected error occurred while processing the YAML.",
+			error: "YAML işlenirken beklenmeyen bir hata oluştu.",
 		};
 	}
 };
@@ -95,7 +95,7 @@ export const UpdateTraefikConfig = ({ applicationId }: Props) => {
 			if (!valid) {
 				form.setError("traefikConfig", {
 					type: "manual",
-					message: (error as string) || "Invalid YAML",
+					message: (error as string) || "Geçersiz YAML",
 				});
 				return;
 			}
@@ -106,13 +106,13 @@ export const UpdateTraefikConfig = ({ applicationId }: Props) => {
 			traefikConfig: data.traefikConfig,
 		})
 			.then(async () => {
-				toast.success("Traefik config Updated");
+				toast.success("Traefik yapılandırması güncellendi");
 				refetch();
 				setOpen(false);
 				form.reset();
 			})
 			.catch(() => {
-				toast.error("Error updating the Traefik config");
+				toast.error("Traefik yapılandırması güncellenirken hata oluştu");
 			});
 	};
 
@@ -129,13 +129,13 @@ export const UpdateTraefikConfig = ({ applicationId }: Props) => {
 		>
 			{canWrite && (
 				<DialogTrigger asChild>
-					<Button isLoading={isPending}>Modify</Button>
+					<Button isLoading={isPending}>Düzenle</Button>
 				</DialogTrigger>
 			)}
 			<DialogContent className="sm:max-w-4xl">
 				<DialogHeader>
-					<DialogTitle>Update traefik config</DialogTitle>
-					<DialogDescription>Update the traefik config</DialogDescription>
+					<DialogTitle>Traefik yapılandırmasını güncelle</DialogTitle>
+					<DialogDescription>Traefik yapılandırmasını güncelleyin</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
 
@@ -151,7 +151,7 @@ export const UpdateTraefikConfig = ({ applicationId }: Props) => {
 								name="traefikConfig"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Traefik config</FormLabel>
+										<FormLabel>Traefik yapılandırması</FormLabel>
 										<FormControl>
 											<CodeEditor
 												lineWrapping
@@ -193,11 +193,11 @@ routers:
 									htmlFor="skip-yaml-validation-app"
 									className="text-sm font-normal cursor-pointer"
 								>
-									Skip YAML validation (for Go templating)
+									YAML doğrulamasını atla (Go şablonlama için)
 								</Label>
 							</div>
 							<p className="text-sm text-muted-foreground">
-								Check to save configs with Go templating (e.g.{" "}
+								Go şablonlama ile yapılandırmaları kaydetmek için işaretleyin (ör.{" "}
 								<code className="text-xs">{"{{range}}"}</code>).
 							</p>
 						</div>
@@ -206,7 +206,7 @@ routers:
 							form="hook-form-update-traefik-config"
 							type="submit"
 						>
-							Update
+							Güncelle
 						</Button>
 					</DialogFooter>
 				</Form>

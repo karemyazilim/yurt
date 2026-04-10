@@ -40,73 +40,73 @@ type MenuItem = {
 const menuItems: MenuItem[] = [
 	{
 		id: "health-check",
-		label: "Health Check",
-		description: "Configure health check settings",
+		label: "Sağlık Kontrolü",
+		description: "Sağlık kontrolü ayarlarını yapılandır",
 		docDescription:
-			"Configure HEALTHCHECK to test a container's health. Determines if a container is healthy by running a command inside the container. Test, Interval, Timeout, StartPeriod, and Retries control health monitoring.",
+			"Konteynerin sağlığını test etmek için HEALTHCHECK yapılandırın. Konteyner içinde bir komut çalıştırarak sağlıklı olup olmadığını belirler. Test, Aralık, Zaman Aşımı, Başlangıç Süresi ve Yeniden Deneme sayısı sağlık izlemeyi kontrol eder.",
 	},
 	{
 		id: "restart-policy",
-		label: "Restart Policy",
-		description: "Configure restart policy",
+		label: "Yeniden Başlatma Politikası",
+		description: "Yeniden başlatma politikasını yapılandır",
 		docDescription:
-			"Configure the restart policy for containers in the service. Condition (none, on-failure, any), Delay (nanoseconds between restarts), MaxAttempts, and Window control restart behavior.",
+			"Servisteki konteynerler için yeniden başlatma politikasını yapılandırın. Koşul (yok, hata durumunda, herhangi biri), Gecikme (yeniden başlatmalar arasında nanosaniye), Maksimum Deneme ve Pencere yeniden başlatma davranışını kontrol eder.",
 	},
 	{
 		id: "placement",
-		label: "Placement",
-		description: "Configure placement constraints",
+		label: "Yerleşim",
+		description: "Yerleşim kısıtlamalarını yapılandır",
 		docDescription:
-			"Control which nodes service tasks can be scheduled on. Constraints (node.id==xyz), Preferences (spread.node.labels.zone), MaxReplicas, and Platforms specify task placement rules.",
+			"Servis görevlerinin hangi düğümlerde zamanlanabileceğini kontrol edin. Kısıtlamalar (node.id==xyz), Tercihler (spread.node.labels.zone), Maksimum Kopya Sayısı ve Platformlar görev yerleşim kurallarını belirler.",
 	},
 	{
 		id: "update-config",
-		label: "Update Config",
-		description: "Configure update strategy",
+		label: "Güncelleme Yapılandırması",
+		description: "Güncelleme stratejisini yapılandır",
 		docDescription:
-			"Configure how the service should be updated. Parallelism (tasks updated simultaneously), Delay, FailureAction (pause, continue, rollback), Monitor, MaxFailureRatio, and Order (stop-first, start-first) control updates.",
+			"Servisin nasıl güncelleneceğini yapılandırın. Paralellik (aynı anda güncellenen görevler), Gecikme, Hata Eylemi (duraklat, devam et, geri al), İzleme, Maksimum Hata Oranı ve Sıra (önce durdur, önce başlat) güncellemeleri kontrol eder.",
 	},
 	{
 		id: "rollback-config",
-		label: "Rollback Config",
-		description: "Configure rollback strategy",
+		label: "Geri Alma Yapılandırması",
+		description: "Geri alma stratejisini yapılandır",
 		docDescription:
-			"Configure automated rollback on update failure. Uses same parameters as UpdateConfig: Parallelism, Delay, FailureAction, Monitor, MaxFailureRatio, and Order.",
+			"Güncelleme hatası durumunda otomatik geri almayı yapılandırın. Güncelleme Yapılandırması ile aynı parametreleri kullanır: Paralellik, Gecikme, Hata Eylemi, İzleme, Maksimum Hata Oranı ve Sıra.",
 	},
 	{
 		id: "mode",
-		label: "Mode",
-		description: "Configure service mode",
+		label: "Mod",
+		description: "Servis modunu yapılandır",
 		docDescription:
-			"Set service mode to either 'Replicated' with a specified number of tasks (Replicas), or 'Global' (one task per node).",
+			"Servis modunu belirli sayıda görevle (Kopya Sayısı) 'Kopyalanmış' veya 'Global' (düğüm başına bir görev) olarak ayarlayın.",
 	},
 	{
 		id: "network",
-		label: "Network",
-		description: "Configure network attachments",
+		label: "Ağ",
+		description: "Ağ bağlantılarını yapılandır",
 		docDescription:
-			"Attach the service to one or more networks. Specify the network name (Target) and optional network aliases for service discovery.",
+			"Servisi bir veya daha fazla ağa bağlayın. Ağ adını (Hedef) ve servis keşfi için isteğe bağlı ağ takma adlarını belirtin.",
 	},
 	{
 		id: "labels",
-		label: "Labels",
-		description: "Configure service labels",
+		label: "Etiketler",
+		description: "Servis etiketlerini yapılandır",
 		docDescription:
-			"Add metadata to services using labels. Labels are key-value pairs (e.g., com.example.foo=bar) for organizing and filtering services.",
+			"Etiketler kullanarak servislere meta veri ekleyin. Etiketler, servisleri düzenlemek ve filtrelemek için anahtar-değer çiftleridir (ör. com.example.foo=bar).",
 	},
 	{
 		id: "stop-grace-period",
-		label: "Stop Grace Period",
-		description: "Configure stop grace period",
+		label: "Durdurma Bekleme Süresi",
+		description: "Durdurma bekleme süresini yapılandır",
 		docDescription:
-			"Time to wait before forcefully killing a container. Specified in nanoseconds (e.g., 10000000000 = 10 seconds). Allows containers to shutdown gracefully.",
+			"Bir konteyneri zorla sonlandırmadan önce bekleme süresi. Nanosaniye cinsinden belirtilir (ör. 10000000000 = 10 saniye). Konteynerlerin düzgün bir şekilde kapanmasını sağlar.",
 	},
 	{
 		id: "endpoint-spec",
-		label: "Endpoint Spec",
-		description: "Configure endpoint specification",
+		label: "Uç Nokta Tanımı",
+		description: "Uç nokta tanımını yapılandır",
 		docDescription:
-			"Configure endpoint mode for service discovery. Mode 'vip' (virtual IP - default) uses a single virtual IP. Mode 'dnsrr' (DNS round-robin) returns DNS entries for all tasks.",
+			"Servis keşfi için uç nokta modunu yapılandırın. 'vip' modu (sanal IP - varsayılan) tek bir sanal IP kullanır. 'dnsrr' modu (DNS round-robin) tüm görevler için DNS kayıtları döndürür.",
 	},
 ];
 
@@ -137,20 +137,20 @@ export const AddSwarmSettings = ({ id, type }: Props) => {
 			<DialogTrigger asChild>
 				<Button variant="secondary" className="cursor-pointer w-fit">
 					<Settings className="size-4 text-muted-foreground" />
-					Swarm Settings
+					Swarm Ayarları
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-6xl max-h-[85vh]">
 				<DialogHeader>
-					<DialogTitle>Swarm Settings</DialogTitle>
+					<DialogTitle>Swarm Ayarları</DialogTitle>
 					<DialogDescription>
-						Configure swarm settings for your service.
+						Servisiniz için swarm ayarlarını yapılandırın.
 					</DialogDescription>
 				</DialogHeader>
 				<div>
 					<AlertBlock type="info">
-						Changing settings such as placements may cause the logs/monitoring,
-						backups and other features to be unavailable.
+						Yerleşim gibi ayarları değiştirmek, günlüklerin/izlemenin,
+						yedeklemelerin ve diğer özelliklerin kullanılamaz olmasına neden olabilir.
 					</AlertBlock>
 				</div>
 

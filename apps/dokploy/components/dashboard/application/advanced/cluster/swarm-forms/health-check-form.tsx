@@ -117,10 +117,10 @@ export const HealthCheckForm = ({ id, type }: HealthCheckFormProps) => {
 				healthCheckSwarm: hasAnyValue ? formData : null,
 			});
 
-			toast.success("Health check updated successfully");
+			toast.success("Sağlık kontrolü başarıyla güncellendi");
 			refetch();
 		} catch {
-			toast.error("Error updating health check");
+			toast.error("Sağlık kontrolü güncellenirken hata oluştu");
 		} finally {
 			setIsLoading(false);
 		}
@@ -147,9 +147,9 @@ export const HealthCheckForm = ({ id, type }: HealthCheckFormProps) => {
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
 				<div>
-					<FormLabel>Test Commands</FormLabel>
+					<FormLabel>Test Komutları</FormLabel>
 					<FormDescription>
-						Command to run for health check (e.g., ["CMD-SHELL", "curl -f
+						Sağlık kontrolü için çalıştırılacak komut (ör. ["CMD-SHELL", "curl -f
 						http://localhost:3000/health"])
 					</FormDescription>
 					<div className="space-y-2 mt-2">
@@ -170,7 +170,7 @@ export const HealthCheckForm = ({ id, type }: HealthCheckFormProps) => {
 									size="sm"
 									onClick={() => removeTestCommand(index)}
 								>
-									Remove
+									Kaldır
 								</Button>
 							</div>
 						))}
@@ -180,7 +180,7 @@ export const HealthCheckForm = ({ id, type }: HealthCheckFormProps) => {
 							size="sm"
 							onClick={addTestCommand}
 						>
-							Add Command
+							Komut Ekle
 						</Button>
 					</div>
 				</div>
@@ -190,9 +190,9 @@ export const HealthCheckForm = ({ id, type }: HealthCheckFormProps) => {
 					name="Interval"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Interval (nanoseconds)</FormLabel>
+							<FormLabel>Aralık (nanosaniye)</FormLabel>
 							<FormDescription>
-								Time between health checks (e.g., 10000000000 for 10 seconds)
+								Sağlık kontrolleri arasındaki süre (ör. 10 saniye için 10000000000)
 							</FormDescription>
 							<FormControl>
 								<Input type="number" placeholder="10000000000" {...field} />
@@ -207,9 +207,9 @@ export const HealthCheckForm = ({ id, type }: HealthCheckFormProps) => {
 					name="Timeout"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Timeout (nanoseconds)</FormLabel>
+							<FormLabel>Zaman Aşımı (nanosaniye)</FormLabel>
 							<FormDescription>
-								Maximum time to wait for health check response
+								Sağlık kontrolü yanıtı için beklenecek maksimum süre
 							</FormDescription>
 							<FormControl>
 								<Input type="number" placeholder="10000000000" {...field} />
@@ -224,9 +224,9 @@ export const HealthCheckForm = ({ id, type }: HealthCheckFormProps) => {
 					name="StartPeriod"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Start Period (nanoseconds)</FormLabel>
+							<FormLabel>Başlangıç Süresi (nanosaniye)</FormLabel>
 							<FormDescription>
-								Initial grace period before health checks begin
+								Sağlık kontrolleri başlamadan önceki ilk bekleme süresi
 							</FormDescription>
 							<FormControl>
 								<Input type="number" placeholder="10000000000" {...field} />
@@ -241,10 +241,10 @@ export const HealthCheckForm = ({ id, type }: HealthCheckFormProps) => {
 					name="Retries"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Retries</FormLabel>
+							<FormLabel>Yeniden Deneme Sayısı</FormLabel>
 							<FormDescription>
-								Number of consecutive failures needed to consider container
-								unhealthy
+								Konteynerin sağlıksız kabul edilmesi için gereken ardışık
+								başarısızlık sayısı
 							</FormDescription>
 							<FormControl>
 								<Input type="number" placeholder="3" {...field} />
@@ -268,10 +268,10 @@ export const HealthCheckForm = ({ id, type }: HealthCheckFormProps) => {
 							});
 						}}
 					>
-						Clear
+						Temizle
 					</Button>
 					<Button type="submit" isLoading={isLoading}>
-						Save Health Check
+						Sağlık Kontrolünü Kaydet
 					</Button>
 				</div>
 			</form>

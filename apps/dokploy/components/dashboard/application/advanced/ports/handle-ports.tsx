@@ -97,7 +97,7 @@ export const HandlePorts = ({
 			portId: portId || "",
 		})
 			.then(async () => {
-				toast.success(portId ? "Port Updated" : "Port Created");
+				toast.success(portId ? "Port Güncellendi" : "Port Oluşturuldu");
 				await utils.application.one.invalidate({
 					applicationId,
 				});
@@ -105,7 +105,7 @@ export const HandlePorts = ({
 			})
 			.catch(() => {
 				toast.error(
-					portId ? "Error updating the port" : "Error creating the port",
+					portId ? "Port güncellenirken hata oluştu" : "Port oluşturulurken hata oluştu",
 				);
 			});
 	};
@@ -127,9 +127,9 @@ export const HandlePorts = ({
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-lg">
 				<DialogHeader>
-					<DialogTitle>Ports</DialogTitle>
+					<DialogTitle>Portlar</DialogTitle>
 					<DialogDescription>
-						Ports are used to expose your application to the internet.
+						Portlar, uygulamanızı internete açmak için kullanılır.
 					</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}
@@ -146,7 +146,7 @@ export const HandlePorts = ({
 								name="publishedPort"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Published Port</FormLabel>
+										<FormLabel>Yayınlanan Port</FormLabel>
 										<FormControl>
 											<Input
 												placeholder="1-65535"
@@ -176,14 +176,14 @@ export const HandlePorts = ({
 								render={({ field }) => {
 									return (
 										<FormItem className="md:col-span-2">
-											<FormLabel>Published Port Mode</FormLabel>
+											<FormLabel>Yayınlanan Port Modu</FormLabel>
 											<Select
 												onValueChange={field.onChange}
 												value={field.value}
 											>
 												<FormControl>
 													<SelectTrigger>
-														<SelectValue placeholder="Select a publish mode for the port" />
+														<SelectValue placeholder="Port için bir yayınlama modu seçin" />
 													</SelectTrigger>
 												</FormControl>
 												<SelectContent>
@@ -201,7 +201,7 @@ export const HandlePorts = ({
 								name="targetPort"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Target Port</FormLabel>
+										<FormLabel>Hedef Port</FormLabel>
 										<FormControl>
 											<Input
 												placeholder="1-65535"
@@ -231,14 +231,14 @@ export const HandlePorts = ({
 								render={({ field }) => {
 									return (
 										<FormItem className="md:col-span-2">
-											<FormLabel>Protocol</FormLabel>
+											<FormLabel>Protokol</FormLabel>
 											<Select
 												onValueChange={field.onChange}
 												value={field.value}
 											>
 												<FormControl>
 													<SelectTrigger>
-														<SelectValue placeholder="Select a protocol" />
+														<SelectValue placeholder="Bir protokol seçin" />
 													</SelectTrigger>
 												</FormControl>
 												<SelectContent>
@@ -256,11 +256,11 @@ export const HandlePorts = ({
 
 					{publishMode === "host" && (
 						<AlertBlock type="warning" className="mt-4">
-							<strong>Host Mode Limitation:</strong> When using Host publish
-							mode, Docker Swarm has limitations that prevent proper container
-							updates during deployments. Old containers may not be replaced
-							automatically. Consider using Ingress mode instead, or be prepared
-							to manually stop/start the application after deployments.
+							<strong>Host Modu Sınırlaması:</strong> Host yayınlama modunu
+							kullanırken, Docker Swarm'ın dağıtımlar sırasında düzgün konteyner
+							güncellemelerini engelleyen sınırlamaları vardır. Eski konteynerler
+							otomatik olarak değiştirilmeyebilir. Bunun yerine Ingress modunu kullanmayı
+							düşünün veya dağıtımlardan sonra uygulamayı manuel olarak durdurup/başlatmaya hazır olun.
 						</AlertBlock>
 					)}
 
@@ -270,7 +270,7 @@ export const HandlePorts = ({
 							form="hook-form-add-port"
 							type="submit"
 						>
-							{portId ? "Update" : "Create"}
+							{portId ? "Güncelle" : "Oluştur"}
 						</Button>
 					</DialogFooter>
 				</Form>

@@ -117,10 +117,10 @@ export const RestartPolicyForm = ({ id, type }: RestartPolicyFormProps) => {
 				restartPolicySwarm: hasAnyValue ? formData : null,
 			});
 
-			toast.success("Restart policy updated successfully");
+			toast.success("Yeniden başlatma politikası başarıyla güncellendi");
 			refetch();
 		} catch {
-			toast.error("Error updating restart policy");
+			toast.error("Yeniden başlatma politikası güncellenirken hata oluştu");
 		} finally {
 			setIsLoading(false);
 		}
@@ -134,18 +134,18 @@ export const RestartPolicyForm = ({ id, type }: RestartPolicyFormProps) => {
 					name="Condition"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Condition</FormLabel>
-							<FormDescription>When to restart the container</FormDescription>
+							<FormLabel>Koşul</FormLabel>
+							<FormDescription>Konteynerin ne zaman yeniden başlatılacağı</FormDescription>
 							<Select onValueChange={field.onChange} value={field.value}>
 								<FormControl>
 									<SelectTrigger>
-										<SelectValue placeholder="Select restart condition" />
+										<SelectValue placeholder="Yeniden başlatma koşulunu seçin" />
 									</SelectTrigger>
 								</FormControl>
 								<SelectContent>
-									<SelectItem value="none">None</SelectItem>
-									<SelectItem value="on-failure">On Failure</SelectItem>
-									<SelectItem value="any">Any</SelectItem>
+									<SelectItem value="none">Hiçbiri</SelectItem>
+									<SelectItem value="on-failure">Hata Durumunda</SelectItem>
+									<SelectItem value="any">Herhangi Biri</SelectItem>
 								</SelectContent>
 							</Select>
 							<FormMessage />
@@ -158,9 +158,9 @@ export const RestartPolicyForm = ({ id, type }: RestartPolicyFormProps) => {
 					name="Delay"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Delay (nanoseconds)</FormLabel>
+							<FormLabel>Gecikme (nanosaniye)</FormLabel>
 							<FormDescription>
-								Wait time between restart attempts
+								Yeniden başlatma denemeleri arasındaki bekleme süresi
 							</FormDescription>
 							<FormControl>
 								<Input type="number" placeholder="10000000000" {...field} />
@@ -175,9 +175,9 @@ export const RestartPolicyForm = ({ id, type }: RestartPolicyFormProps) => {
 					name="MaxAttempts"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Max Attempts</FormLabel>
+							<FormLabel>Maksimum Deneme Sayısı</FormLabel>
 							<FormDescription>
-								Maximum number of restart attempts
+								Maksimum yeniden başlatma deneme sayısı
 							</FormDescription>
 							<FormControl>
 								<Input type="number" placeholder="3" {...field} />
@@ -192,9 +192,9 @@ export const RestartPolicyForm = ({ id, type }: RestartPolicyFormProps) => {
 					name="Window"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Window (nanoseconds)</FormLabel>
+							<FormLabel>Pencere (nanosaniye)</FormLabel>
 							<FormDescription>
-								Time window to evaluate restart policy
+								Yeniden başlatma politikasını değerlendirmek için zaman penceresi
 							</FormDescription>
 							<FormControl>
 								<Input type="number" placeholder="10000000000" {...field} />
@@ -217,10 +217,10 @@ export const RestartPolicyForm = ({ id, type }: RestartPolicyFormProps) => {
 							});
 						}}
 					>
-						Clear
+						Temizle
 					</Button>
 					<Button type="submit" isLoading={isLoading}>
-						Save Restart Policy
+						Yeniden Başlatma Politikasını Kaydet
 					</Button>
 				</div>
 			</form>

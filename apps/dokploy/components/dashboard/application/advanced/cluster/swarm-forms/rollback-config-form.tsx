@@ -116,10 +116,10 @@ export const RollbackConfigForm = ({ id, type }: RollbackConfigFormProps) => {
 				rollbackConfigSwarm: (hasAnyValue ? formData : null) as any,
 			});
 
-			toast.success("Rollback config updated successfully");
+			toast.success("Geri alma yapılandırması başarıyla güncellendi");
 			refetch();
 		} catch {
-			toast.error("Error updating rollback config");
+			toast.error("Geri alma yapılandırması güncellenirken hata oluştu");
 		} finally {
 			setIsLoading(false);
 		}
@@ -133,9 +133,9 @@ export const RollbackConfigForm = ({ id, type }: RollbackConfigFormProps) => {
 					name="Parallelism"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Parallelism</FormLabel>
+							<FormLabel>Paralellik</FormLabel>
 							<FormDescription>
-								Number of tasks to rollback simultaneously
+								Aynı anda geri alınacak görev sayısı
 							</FormDescription>
 							<FormControl>
 								<Input type="number" placeholder="1" {...field} />
@@ -150,8 +150,8 @@ export const RollbackConfigForm = ({ id, type }: RollbackConfigFormProps) => {
 					name="Delay"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Delay (nanoseconds)</FormLabel>
-							<FormDescription>Delay between task rollbacks</FormDescription>
+							<FormLabel>Gecikme (nanosaniye)</FormLabel>
+							<FormDescription>Görev geri almaları arasındaki gecikme</FormDescription>
 							<FormControl>
 								<Input type="number" placeholder="10000000000" {...field} />
 							</FormControl>
@@ -165,17 +165,17 @@ export const RollbackConfigForm = ({ id, type }: RollbackConfigFormProps) => {
 					name="FailureAction"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Failure Action</FormLabel>
-							<FormDescription>Action on rollback failure</FormDescription>
+							<FormLabel>Hata Eylemi</FormLabel>
+							<FormDescription>Geri alma hatası durumunda eylem</FormDescription>
 							<Select onValueChange={field.onChange} value={field.value}>
 								<FormControl>
 									<SelectTrigger>
-										<SelectValue placeholder="Select failure action" />
+										<SelectValue placeholder="Hata eylemini seçin" />
 									</SelectTrigger>
 								</FormControl>
 								<SelectContent>
-									<SelectItem value="pause">Pause</SelectItem>
-									<SelectItem value="continue">Continue</SelectItem>
+									<SelectItem value="pause">Duraklat</SelectItem>
+									<SelectItem value="continue">Devam Et</SelectItem>
 								</SelectContent>
 							</Select>
 							<FormMessage />
@@ -188,9 +188,9 @@ export const RollbackConfigForm = ({ id, type }: RollbackConfigFormProps) => {
 					name="Monitor"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Monitor (nanoseconds)</FormLabel>
+							<FormLabel>İzleme (nanosaniye)</FormLabel>
 							<FormDescription>
-								Duration to monitor for failure after rollback
+								Geri alma sonrası hata izleme süresi
 							</FormDescription>
 							<FormControl>
 								<Input type="number" placeholder="10000000000" {...field} />
@@ -205,9 +205,9 @@ export const RollbackConfigForm = ({ id, type }: RollbackConfigFormProps) => {
 					name="MaxFailureRatio"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Max Failure Ratio</FormLabel>
+							<FormLabel>Maksimum Hata Oranı</FormLabel>
 							<FormDescription>
-								Maximum failure ratio tolerated (0-1)
+								Tolere edilen maksimum hata oranı (0-1)
 							</FormDescription>
 							<FormControl>
 								<Input type="number" step="0.01" placeholder="0.1" {...field} />
@@ -222,17 +222,17 @@ export const RollbackConfigForm = ({ id, type }: RollbackConfigFormProps) => {
 					name="Order"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Order</FormLabel>
-							<FormDescription>Rollback order strategy</FormDescription>
+							<FormLabel>Sıra</FormLabel>
+							<FormDescription>Geri alma sıralama stratejisi</FormDescription>
 							<Select onValueChange={field.onChange} value={field.value}>
 								<FormControl>
 									<SelectTrigger>
-										<SelectValue placeholder="Select order" />
+										<SelectValue placeholder="Sıra seçin" />
 									</SelectTrigger>
 								</FormControl>
 								<SelectContent>
-									<SelectItem value="stop-first">Stop First</SelectItem>
-									<SelectItem value="start-first">Start First</SelectItem>
+									<SelectItem value="stop-first">Önce Durdur</SelectItem>
+									<SelectItem value="start-first">Önce Başlat</SelectItem>
 								</SelectContent>
 							</Select>
 							<FormMessage />
@@ -255,10 +255,10 @@ export const RollbackConfigForm = ({ id, type }: RollbackConfigFormProps) => {
 							});
 						}}
 					>
-						Clear
+						Temizle
 					</Button>
 					<Button type="submit" isLoading={isLoading}>
-						Save Rollback Config
+						Geri Alma Yapılandırmasını Kaydet
 					</Button>
 				</div>
 			</form>

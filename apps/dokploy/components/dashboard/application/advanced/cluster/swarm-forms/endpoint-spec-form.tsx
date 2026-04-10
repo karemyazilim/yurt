@@ -107,10 +107,10 @@ export const EndpointSpecForm = ({ id, type }: EndpointSpecFormProps) => {
 				endpointSpecSwarm: hasAnyValue ? formData : null,
 			});
 
-			toast.success("Endpoint spec updated successfully");
+			toast.success("Uç nokta tanımı başarıyla güncellendi");
 			refetch();
 		} catch {
-			toast.error("Error updating endpoint spec");
+			toast.error("Uç nokta tanımı güncellenirken hata oluştu");
 		} finally {
 			setIsLoading(false);
 		}
@@ -124,16 +124,16 @@ export const EndpointSpecForm = ({ id, type }: EndpointSpecFormProps) => {
 					name="Mode"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Mode</FormLabel>
-							<FormDescription>Endpoint mode (vip or dnsrr)</FormDescription>
+							<FormLabel>Mod</FormLabel>
+							<FormDescription>Uç nokta modu (vip veya dnsrr)</FormDescription>
 							<Select onValueChange={field.onChange} value={field.value}>
 								<FormControl>
 									<SelectTrigger>
-										<SelectValue placeholder="Select endpoint mode" />
+										<SelectValue placeholder="Uç nokta modunu seçin" />
 									</SelectTrigger>
 								</FormControl>
 								<SelectContent>
-									<SelectItem value="vip">VIP (Virtual IP)</SelectItem>
+									<SelectItem value="vip">VIP (Sanal IP)</SelectItem>
 									<SelectItem value="dnsrr">DNS Round Robin</SelectItem>
 								</SelectContent>
 							</Select>
@@ -152,10 +152,10 @@ export const EndpointSpecForm = ({ id, type }: EndpointSpecFormProps) => {
 							});
 						}}
 					>
-						Clear
+						Temizle
 					</Button>
 					<Button type="submit" isLoading={isLoading}>
-						Save Endpoint Spec
+						Uç Nokta Tanımını Kaydet
 					</Button>
 				</div>
 			</form>

@@ -48,7 +48,7 @@ const formSchema = z
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
 				path: ["rollbackRegistryId"],
-				message: "Registry is required when rollbacks are enabled",
+				message: "Geri almalar etkinleştirildiğinde kayıt defteri gereklidir",
 			});
 		}
 	});
@@ -103,12 +103,12 @@ export const ShowRollbackSettings = ({ applicationId, children }: Props) => {
 					: data.rollbackRegistryId,
 		})
 			.then(() => {
-				toast.success("Rollback settings updated");
+				toast.success("Geri alma ayarları güncellendi");
 				setIsOpen(false);
 				refetch();
 			})
 			.catch(() => {
-				toast.error("Failed to update rollback settings");
+				toast.error("Geri alma ayarları güncellenemedi");
 			});
 	};
 
@@ -117,14 +117,15 @@ export const ShowRollbackSettings = ({ applicationId, children }: Props) => {
 			<DialogTrigger asChild>{children}</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Rollback Settings</DialogTitle>
+					<DialogTitle>Geri Alma Ayarları</DialogTitle>
 					<DialogDescription>
-						Configure how rollbacks work for this application
+						Bu uygulama için geri almaların nasıl çalışacağını yapılandırın
 					</DialogDescription>
 					<AlertBlock>
-						Having rollbacks enabled increases storage usage. Be careful with
-						this option. Note that manually cleaning the cache may delete
-						rollback images, making them unavailable for future rollbacks.
+						Geri almaların etkinleştirilmesi depolama kullanımını artırır. Bu
+						seçenekle dikkatli olun. Önbelleği manuel olarak temizlemenin geri alma
+						görüntülerini silebileceğini ve gelecekteki geri almalar için kullanılamaz
+						hale getirebileceğini unutmayın.
 					</AlertBlock>
 				</DialogHeader>
 
@@ -137,10 +138,10 @@ export const ShowRollbackSettings = ({ applicationId, children }: Props) => {
 								<FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
 									<div className="space-y-0.5">
 										<FormLabel className="text-base">
-											Enable Rollbacks
+											Geri Almaları Etkinleştir
 										</FormLabel>
 										<FormDescription>
-											Allow rolling back to previous deployments
+											Önceki dağıtımlara geri dönmeye izin ver
 										</FormDescription>
 									</div>
 									<FormControl>
@@ -159,21 +160,21 @@ export const ShowRollbackSettings = ({ applicationId, children }: Props) => {
 								name="rollbackRegistryId"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Rollback Registry</FormLabel>
+										<FormLabel>Geri Alma Kayıt Defteri</FormLabel>
 										<Select
 											onValueChange={field.onChange}
 											value={field.value || "none"}
 										>
 											<FormControl>
 												<SelectTrigger>
-													<SelectValue placeholder="Select a registry" />
+													<SelectValue placeholder="Bir kayıt defteri seçin" />
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
 												<SelectGroup>
 													<SelectItem value="none">
 														<span className="flex items-center gap-2">
-															<span>None</span>
+															<span>Hiçbiri</span>
 														</span>
 													</SelectItem>
 													{registries?.map((registry) => (
@@ -185,25 +186,26 @@ export const ShowRollbackSettings = ({ applicationId, children }: Props) => {
 														</SelectItem>
 													))}
 													<SelectLabel>
-														Registries ({registries?.length || 0})
+														Kayıt Defterleri ({registries?.length || 0})
 													</SelectLabel>
 												</SelectGroup>
 											</SelectContent>
 										</Select>
 										{!registries || registries.length === 0 ? (
 											<FormDescription className="text-amber-600 dark:text-amber-500">
-												No registries available. Please{" "}
+												Kullanılabilir kayıt defteri yok. Geri almaları etkinleştirmek
+												için lütfen önce bir{" "}
 												<Link
 													href="/dashboard/settings/registry"
 													className="underline font-medium hover:text-amber-700 dark:hover:text-amber-400"
 												>
-													configure a registry
-												</Link>{" "}
-												first to enable rollbacks.
+													kayıt defteri yapılandırın
+												</Link>
+												.
 											</FormDescription>
 										) : (
 											<FormDescription>
-												Select a registry where rollback images will be stored.
+												Geri alma görüntülerinin depolanacağı bir kayıt defteri seçin.
 											</FormDescription>
 										)}
 										<FormMessage />
@@ -213,7 +215,7 @@ export const ShowRollbackSettings = ({ applicationId, children }: Props) => {
 						)}
 
 						<Button type="submit" className="w-full" isLoading={isPending}>
-							Save Settings
+							Ayarları Kaydet
 						</Button>
 					</form>
 				</Form>

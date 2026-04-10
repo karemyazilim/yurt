@@ -122,10 +122,10 @@ export const UpdateConfigForm = ({ id, type }: UpdateConfigFormProps) => {
 				updateConfigSwarm: (hasAnyValue ? formData : null) as any,
 			});
 
-			toast.success("Update config updated successfully");
+			toast.success("Güncelleme yapılandırması başarıyla güncellendi");
 			refetch();
 		} catch {
-			toast.error("Error updating update config");
+			toast.error("Güncelleme yapılandırması güncellenirken hata oluştu");
 		} finally {
 			setIsLoading(false);
 		}
@@ -139,9 +139,9 @@ export const UpdateConfigForm = ({ id, type }: UpdateConfigFormProps) => {
 					name="Parallelism"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Parallelism</FormLabel>
+							<FormLabel>Paralellik</FormLabel>
 							<FormDescription>
-								Number of tasks to update simultaneously
+								Aynı anda güncellenecek görev sayısı
 							</FormDescription>
 							<FormControl>
 								<Input type="number" placeholder="1" {...field} />
@@ -156,8 +156,8 @@ export const UpdateConfigForm = ({ id, type }: UpdateConfigFormProps) => {
 					name="Delay"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Delay (nanoseconds)</FormLabel>
-							<FormDescription>Delay between task updates</FormDescription>
+							<FormLabel>Gecikme (nanosaniye)</FormLabel>
+							<FormDescription>Görev güncellemeleri arasındaki gecikme</FormDescription>
 							<FormControl>
 								<Input type="number" placeholder="10000000000" {...field} />
 							</FormControl>
@@ -171,18 +171,18 @@ export const UpdateConfigForm = ({ id, type }: UpdateConfigFormProps) => {
 					name="FailureAction"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Failure Action</FormLabel>
-							<FormDescription>Action on update failure</FormDescription>
+							<FormLabel>Hata Eylemi</FormLabel>
+							<FormDescription>Güncelleme hatası durumunda eylem</FormDescription>
 							<Select onValueChange={field.onChange} value={field.value}>
 								<FormControl>
 									<SelectTrigger>
-										<SelectValue placeholder="Select failure action" />
+										<SelectValue placeholder="Hata eylemini seçin" />
 									</SelectTrigger>
 								</FormControl>
 								<SelectContent>
-									<SelectItem value="pause">Pause</SelectItem>
-									<SelectItem value="continue">Continue</SelectItem>
-									<SelectItem value="rollback">Rollback</SelectItem>
+									<SelectItem value="pause">Duraklat</SelectItem>
+									<SelectItem value="continue">Devam Et</SelectItem>
+									<SelectItem value="rollback">Geri Al</SelectItem>
 								</SelectContent>
 							</Select>
 							<FormMessage />
@@ -195,9 +195,9 @@ export const UpdateConfigForm = ({ id, type }: UpdateConfigFormProps) => {
 					name="Monitor"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Monitor (nanoseconds)</FormLabel>
+							<FormLabel>İzleme (nanosaniye)</FormLabel>
 							<FormDescription>
-								Duration to monitor for failure after update
+								Güncelleme sonrası hata izleme süresi
 							</FormDescription>
 							<FormControl>
 								<Input type="number" placeholder="10000000000" {...field} />
@@ -212,9 +212,9 @@ export const UpdateConfigForm = ({ id, type }: UpdateConfigFormProps) => {
 					name="MaxFailureRatio"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Max Failure Ratio</FormLabel>
+							<FormLabel>Maksimum Hata Oranı</FormLabel>
 							<FormDescription>
-								Maximum failure ratio tolerated (0-1)
+								Tolere edilen maksimum hata oranı (0-1)
 							</FormDescription>
 							<FormControl>
 								<Input type="number" step="0.01" placeholder="0.1" {...field} />
@@ -229,17 +229,17 @@ export const UpdateConfigForm = ({ id, type }: UpdateConfigFormProps) => {
 					name="Order"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Order</FormLabel>
-							<FormDescription>Update order strategy</FormDescription>
+							<FormLabel>Sıra</FormLabel>
+							<FormDescription>Güncelleme sıralama stratejisi</FormDescription>
 							<Select onValueChange={field.onChange} value={field.value}>
 								<FormControl>
 									<SelectTrigger>
-										<SelectValue placeholder="Select order" />
+										<SelectValue placeholder="Sıra seçin" />
 									</SelectTrigger>
 								</FormControl>
 								<SelectContent>
-									<SelectItem value="stop-first">Stop First</SelectItem>
-									<SelectItem value="start-first">Start First</SelectItem>
+									<SelectItem value="stop-first">Önce Durdur</SelectItem>
+									<SelectItem value="start-first">Önce Başlat</SelectItem>
 								</SelectContent>
 							</Select>
 							<FormMessage />
@@ -262,10 +262,10 @@ export const UpdateConfigForm = ({ id, type }: UpdateConfigFormProps) => {
 							});
 						}}
 					>
-						Clear
+						Temizle
 					</Button>
 					<Button type="submit" isLoading={isLoading}>
-						Save Update Config
+						Güncelleme Yapılandırmasını Kaydet
 					</Button>
 				</div>
 			</form>

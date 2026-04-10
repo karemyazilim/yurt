@@ -41,7 +41,7 @@ interface Props {
 }
 
 const AddRedirectSchema = z.object({
-	replicas: z.number().min(1, "Replicas must be at least 1"),
+	replicas: z.number().min(1, "Kopya sayısı en az 1 olmalıdır"),
 	registryId: z.string().optional(),
 });
 
@@ -122,11 +122,11 @@ export const ShowClusterSettings = ({ id, type }: Props) => {
 			replicas: data?.replicas,
 		})
 			.then(async () => {
-				toast.success("Command Updated");
+				toast.success("Komut Güncellendi");
 				await refetch();
 			})
 			.catch(() => {
-				toast.error("Error updating the command");
+				toast.error("Komut güncellenirken hata oluştu");
 			});
 	};
 
@@ -134,17 +134,17 @@ export const ShowClusterSettings = ({ id, type }: Props) => {
 		<Card className="bg-background">
 			<CardHeader className="flex flex-row justify-between">
 				<div>
-					<CardTitle className="text-xl">Cluster Settings</CardTitle>
+					<CardTitle className="text-xl">Küme Ayarları</CardTitle>
 					<CardDescription>
-						Modify swarm settings for the service.
+						Servis için swarm ayarlarını değiştirin.
 					</CardDescription>
 				</div>
 				<AddSwarmSettings id={id} type={type} />
 			</CardHeader>
 			<CardContent className="flex flex-col gap-4">
 				<AlertBlock type="info">
-					Please remember to click Redeploy after modify the cluster settings to
-					apply the changes.
+					Değişiklikleri uygulamak için küme ayarlarını değiştirdikten sonra
+					Yeniden Dağıt butonuna tıklamayı unutmayın.
 				</AlertBlock>
 				<Form {...form}>
 					<form
@@ -157,7 +157,7 @@ export const ShowClusterSettings = ({ id, type }: Props) => {
 								name="replicas"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Replicas</FormLabel>
+										<FormLabel>Kopya Sayısı</FormLabel>
 										<FormControl>
 											<Input
 												placeholder="1"
@@ -184,15 +184,15 @@ export const ShowClusterSettings = ({ id, type }: Props) => {
 										<div className="flex flex-col items-center gap-3">
 											<Server className="size-8 text-muted-foreground" />
 											<span className="text-base text-muted-foreground">
-												To use a cluster feature, you need to configure at least
-												a registry first. Please, go to{" "}
+												Küme özelliğini kullanmak için önce en az bir kayıt defteri
+												yapılandırmanız gerekir. Lütfen bunu yapmak için{" "}
 												<Link
 													href="/dashboard/settings/cluster"
 													className="text-foreground"
 												>
-													Settings
+													Ayarlar
 												</Link>{" "}
-												to do so.
+												sayfasına gidin.
 											</span>
 										</div>
 									</div>
@@ -203,13 +203,13 @@ export const ShowClusterSettings = ({ id, type }: Props) => {
 											name="registryId"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>Select a registry</FormLabel>
+													<FormLabel>Bir kayıt defteri seçin</FormLabel>
 													<Select
 														onValueChange={field.onChange}
 														defaultValue={field.value}
 													>
 														<SelectTrigger>
-															<SelectValue placeholder="Select a registry" />
+															<SelectValue placeholder="Bir kayıt defteri seçin" />
 														</SelectTrigger>
 														<SelectContent>
 															<SelectGroup>
@@ -221,9 +221,9 @@ export const ShowClusterSettings = ({ id, type }: Props) => {
 																		{registry.registryName}
 																	</SelectItem>
 																))}
-																<SelectItem value={"none"}>None</SelectItem>
+																<SelectItem value={"none"}>Hiçbiri</SelectItem>
 																<SelectLabel>
-																	Registries ({registries?.length})
+																	Kayıt Defterleri ({registries?.length})
 																</SelectLabel>
 															</SelectGroup>
 														</SelectContent>
@@ -238,7 +238,7 @@ export const ShowClusterSettings = ({ id, type }: Props) => {
 
 						<div className="flex justify-end">
 							<Button isLoading={isPending} type="submit" className="w-fit">
-								Save
+								Kaydet
 							</Button>
 						</div>
 					</form>

@@ -108,11 +108,11 @@ export const PatchEditor = ({ id, type, repoPath, onClose }: Props) => {
 			patchType: "update",
 		})
 			.then(() => {
-				toast.success("Patch saved");
+				toast.success("Yama kaydedildi");
 				utils.patch.byEntityId.invalidate({ id, type });
 			})
 			.catch(() => {
-				toast.error("Failed to save patch");
+				toast.error("Yama kaydedilemedi");
 			});
 	};
 
@@ -120,11 +120,11 @@ export const PatchEditor = ({ id, type, repoPath, onClose }: Props) => {
 		if (!selectedFile) return;
 		markForDeletion({ id, type, filePath: selectedFile })
 			.then(() => {
-				toast.success("File marked for deletion");
+				toast.success("Dosya silinmek üzere işaretlendi");
 				utils.patch.byEntityId.invalidate({ id, type });
 			})
 			.catch(() => {
-				toast.error("Failed to mark file for deletion");
+				toast.error("Dosya silinmek üzere işaretlenemedi");
 			});
 	};
 
@@ -139,11 +139,11 @@ export const PatchEditor = ({ id, type, repoPath, onClose }: Props) => {
 				patchType: "create",
 			})
 				.then(() => {
-					toast.success("File created");
+					toast.success("Dosya oluşturuldu");
 					utils.patch.byEntityId.invalidate({ id, type });
 				})
 				.catch(() => {
-					toast.error("Failed to create file");
+					toast.error("Dosya oluşturulamadı");
 				});
 		},
 		[id, type, saveAsPatch, utils],
@@ -162,11 +162,11 @@ export const PatchEditor = ({ id, type, repoPath, onClose }: Props) => {
 				content: fileData || "",
 			})
 			.then(() => {
-				toast.success("Deletion unmarked");
+				toast.success("Silme işareti kaldırıldı");
 				utils.patch.byEntityId.invalidate({ id, type });
 			})
 			.catch(() => {
-				toast.error("Failed to unmark deletion");
+				toast.error("Silme işareti kaldırılamadı");
 			});
 	};
 
@@ -257,11 +257,11 @@ export const PatchEditor = ({ id, type, repoPath, onClose }: Props) => {
 						<ArrowLeft className="h-4 w-4" />
 					</Button>
 					<div>
-						<CardTitle>Edit File</CardTitle>
+						<CardTitle>Dosya Düzenle</CardTitle>
 						<CardDescription>
 							{selectedFile
-								? `Editing: ${selectedFile}`
-								: "Select a file from the tree to edit"}
+								? `Düzenleniyor: ${selectedFile}`
+								: "Düzenlemek için ağaçtan bir dosya seçin"}
 						</CardDescription>
 					</div>
 				</div>
@@ -277,7 +277,7 @@ export const PatchEditor = ({ id, type, repoPath, onClose }: Props) => {
 								{updatePatch.isPending && (
 									<Loader2 className="mr-2 h-4 w-4 animate-spin" />
 								)}
-								Unmark deletion
+								Silme işaretini kaldır
 							</Button>
 						) : (
 							<>
@@ -291,7 +291,7 @@ export const PatchEditor = ({ id, type, repoPath, onClose }: Props) => {
 										<Loader2 className="mr-2 h-4 w-4 animate-spin" />
 									)}
 									<Trash2 className="mr-2 h-4 w-4" />
-									Mark for deletion
+									Silinmek üzere işaretle
 								</Button>
 								<Button
 									onClick={handleSave}
@@ -301,7 +301,7 @@ export const PatchEditor = ({ id, type, repoPath, onClose }: Props) => {
 										<Loader2 className="mr-2 h-4 w-4 animate-spin" />
 									)}
 									<Save className="mr-2 h-4 w-4" />
-									Save Patch
+									Yamayı Kaydet
 								</Button>
 							</>
 						)}
@@ -325,7 +325,7 @@ export const PatchEditor = ({ id, type, repoPath, onClose }: Props) => {
 										}
 									/>
 									<span className="text-xs text-muted-foreground">
-										New file in root
+										Kök dizinde yeni dosya
 									</span>
 								</div>
 								{isDirLoading ? (
@@ -336,7 +336,7 @@ export const PatchEditor = ({ id, type, repoPath, onClose }: Props) => {
 									renderTree(directories)
 								) : (
 									<div className="text-sm text-muted-foreground p-4">
-										No files found
+										Dosya bulunamadı
 									</div>
 								)}
 							</div>
@@ -357,7 +357,7 @@ export const PatchEditor = ({ id, type, repoPath, onClose }: Props) => {
 							/>
 						) : (
 							<div className="flex items-center justify-center h-full text-muted-foreground">
-								Select a file to edit
+								Düzenlemek için bir dosya seçin
 							</div>
 						)}
 					</div>

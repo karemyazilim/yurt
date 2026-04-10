@@ -134,10 +134,10 @@ export const PlacementForm = ({ id, type }: PlacementFormProps) => {
 					: null,
 			});
 
-			toast.success("Placement updated successfully");
+			toast.success("Yerleşim başarıyla güncellendi");
 			refetch();
 		} catch {
-			toast.error("Error updating placement");
+			toast.error("Yerleşim güncellenirken hata oluştu");
 		} finally {
 			setIsLoading(false);
 		}
@@ -206,9 +206,9 @@ export const PlacementForm = ({ id, type }: PlacementFormProps) => {
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
 				<div>
-					<FormLabel>Constraints</FormLabel>
+					<FormLabel>Kısıtlamalar</FormLabel>
 					<FormDescription>
-						Placement constraints (e.g., "node.role==manager")
+						Yerleşim kısıtlamaları (ör. "node.role==manager")
 					</FormDescription>
 					<div className="space-y-2 mt-2">
 						{constraints.map((constraint: string, index: number) => (
@@ -224,7 +224,7 @@ export const PlacementForm = ({ id, type }: PlacementFormProps) => {
 									size="sm"
 									onClick={() => removeConstraint(index)}
 								>
-									Remove
+									Kaldır
 								</Button>
 							</div>
 						))}
@@ -234,15 +234,15 @@ export const PlacementForm = ({ id, type }: PlacementFormProps) => {
 							size="sm"
 							onClick={addConstraint}
 						>
-							Add Constraint
+							Kısıtlama Ekle
 						</Button>
 					</div>
 				</div>
 
 				<div>
-					<FormLabel>Preferences</FormLabel>
+					<FormLabel>Tercihler</FormLabel>
 					<FormDescription>
-						Spread preferences for task distribution (e.g.,
+						Görev dağılımı için yayılma tercihleri (ör.
 						"node.labels.region")
 					</FormDescription>
 					<div className="space-y-2 mt-2">
@@ -259,7 +259,7 @@ export const PlacementForm = ({ id, type }: PlacementFormProps) => {
 									size="sm"
 									onClick={() => removePreference(index)}
 								>
-									Remove
+									Kaldır
 								</Button>
 							</div>
 						))}
@@ -269,7 +269,7 @@ export const PlacementForm = ({ id, type }: PlacementFormProps) => {
 							size="sm"
 							onClick={addPreference}
 						>
-							Add Preference
+							Tercih Ekle
 						</Button>
 					</div>
 				</div>
@@ -279,9 +279,9 @@ export const PlacementForm = ({ id, type }: PlacementFormProps) => {
 					name="MaxReplicas"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Max Replicas</FormLabel>
+							<FormLabel>Maksimum Kopya Sayısı</FormLabel>
 							<FormDescription>
-								Maximum number of replicas per node
+								Düğüm başına maksimum kopya sayısı
 							</FormDescription>
 							<FormControl>
 								<Input type="number" placeholder="10" {...field} />
@@ -292,9 +292,9 @@ export const PlacementForm = ({ id, type }: PlacementFormProps) => {
 				/>
 
 				<div>
-					<FormLabel>Platforms</FormLabel>
+					<FormLabel>Platformlar</FormLabel>
 					<FormDescription>
-						Target platforms for task scheduling
+						Görev zamanlaması için hedef platformlar
 					</FormDescription>
 					<div className="space-y-2 mt-2">
 						{platforms.map((platform: any, index: number) => (
@@ -317,7 +317,7 @@ export const PlacementForm = ({ id, type }: PlacementFormProps) => {
 									size="sm"
 									onClick={() => removePlatform(index)}
 								>
-									Remove
+									Kaldır
 								</Button>
 							</div>
 						))}
@@ -327,7 +327,7 @@ export const PlacementForm = ({ id, type }: PlacementFormProps) => {
 							size="sm"
 							onClick={addPlatform}
 						>
-							Add Platform
+							Platform Ekle
 						</Button>
 					</div>
 				</div>
@@ -345,10 +345,10 @@ export const PlacementForm = ({ id, type }: PlacementFormProps) => {
 							});
 						}}
 					>
-						Clear
+						Temizle
 					</Button>
 					<Button type="submit" isLoading={isLoading}>
-						Save Placement
+						Yerleşimi Kaydet
 					</Button>
 				</div>
 			</form>

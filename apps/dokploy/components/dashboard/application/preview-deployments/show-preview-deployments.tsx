@@ -67,7 +67,7 @@ export const ShowPreviewDeployments = ({ applicationId }: Props) => {
 		})
 			.then(() => {
 				refetchPreviewDeployments();
-				toast.success("Preview deployment deleted");
+				toast.success("Önizleme dağıtımı silindi");
 			})
 			.catch((error) => {
 				toast.error(error.message);
@@ -78,8 +78,8 @@ export const ShowPreviewDeployments = ({ applicationId }: Props) => {
 		<Card className="bg-background">
 			<CardHeader className="flex flex-row items-center justify-between flex-wrap gap-2">
 				<div className="flex flex-col gap-2">
-					<CardTitle className="text-xl">Preview Deployments</CardTitle>
-					<CardDescription>See all the preview deployments</CardDescription>
+					<CardTitle className="text-xl">Önizleme Dağıtımları</CardTitle>
+					<CardDescription>Tüm önizleme dağıtımlarını görüntüleyin</CardDescription>
 				</div>
 				{data?.isPreviewDeploymentsActive && (
 					<ShowPreviewSettings applicationId={applicationId} />
@@ -90,23 +90,23 @@ export const ShowPreviewDeployments = ({ applicationId }: Props) => {
 					<>
 						<div className="flex flex-col gap-2 text-sm">
 							<span>
-								Preview deployments are a way to test your application before it
-								is deployed to production. It will create a new deployment for
-								each pull request you create.
+								Önizleme dağıtımları, uygulamanızı üretime dağıtmadan önce test
+								etmenin bir yoludur. Oluşturduğunuz her pull request için yeni bir
+								dağıtım oluşturacaktır.
 							</span>
 						</div>
 						{isLoadingPreviewDeployments ? (
 							<div className="flex w-full flex-row items-center justify-center gap-3 min-h-[35vh]">
 								<Loader2 className="size-5 text-muted-foreground animate-spin" />
 								<span className="text-base text-muted-foreground">
-									Loading preview deployments...
+									Önizleme dağıtımları yükleniyor...
 								</span>
 							</div>
 						) : !previewDeployments?.length ? (
 							<div className="flex w-full flex-col items-center justify-center gap-3 min-h-[35vh]">
 								<RocketIcon className="size-8 text-muted-foreground" />
 								<span className="text-base text-muted-foreground">
-									No preview deployments found
+									Önizleme dağıtımı bulunamadı
 								</span>
 							</div>
 						) : (
@@ -186,7 +186,7 @@ export const ShowPreviewDeployments = ({ applicationId }: Props) => {
 																className="gap-2"
 															>
 																<FileText className="size-4" />
-																Logs
+																Günlükler
 															</Button>
 														</ShowModalLogs>
 
@@ -201,13 +201,13 @@ export const ShowPreviewDeployments = ({ applicationId }: Props) => {
 																className="gap-2"
 															>
 																<RocketIcon className="size-4" />
-																Deployments
+																Dağıtımlar
 															</Button>
 														</ShowDeploymentsModal>
 
 														<DialogAction
-															title="Rebuild Preview Deployment"
-															description="Are you sure you want to rebuild this preview deployment?"
+															title="Önizleme Dağıtımını Yeniden Oluştur"
+															description="Bu önizleme dağıtımını yeniden oluşturmak istediğinizden emin misiniz?"
 															type="default"
 															onClick={async () => {
 																await redeployPreviewDeployment({
@@ -216,13 +216,13 @@ export const ShowPreviewDeployments = ({ applicationId }: Props) => {
 																})
 																	.then(() => {
 																		toast.success(
-																			"Preview deployment rebuild started",
+																			"Önizleme dağıtımı yeniden oluşturma başlatıldı",
 																		);
 																		refetchPreviewDeployments();
 																	})
 																	.catch(() => {
 																		toast.error(
-																			"Error rebuilding preview deployment",
+																			"Önizleme dağıtımı yeniden oluşturulurken hata oluştu",
 																		);
 																	});
 															}}
@@ -238,7 +238,7 @@ export const ShowPreviewDeployments = ({ applicationId }: Props) => {
 																		<TooltipTrigger asChild>
 																			<div className="flex items-center gap-2">
 																				<Hammer className="size-4" />
-																				Rebuild
+																				Yeniden Oluştur
 																			</div>
 																		</TooltipTrigger>
 																		<TooltipPrimitive.Portal>
@@ -247,8 +247,8 @@ export const ShowPreviewDeployments = ({ applicationId }: Props) => {
 																				className="z-[60]"
 																			>
 																				<p>
-																					Rebuild the preview deployment without
-																					downloading new code
+																					Yeni kod indirmeden önizleme dağıtımını
+																					yeniden oluştur
 																				</p>
 																			</TooltipContent>
 																		</TooltipPrimitive.Portal>
@@ -270,8 +270,8 @@ export const ShowPreviewDeployments = ({ applicationId }: Props) => {
 															</Button>
 														</AddPreviewDomain>
 														<DialogAction
-															title="Delete Preview"
-															description="Are you sure you want to delete this preview?"
+															title="Önizlemeyi Sil"
+															description="Bu önizlemeyi silmek istediğinizden emin misiniz?"
 															onClick={() =>
 																handleDeletePreviewDeployment(
 																	deployment.previewDeploymentId,
@@ -300,8 +300,8 @@ export const ShowPreviewDeployments = ({ applicationId }: Props) => {
 					<div className="flex w-full flex-col items-center justify-center gap-3 pt-10">
 						<RocketIcon className="size-8 text-muted-foreground" />
 						<span className="text-base text-muted-foreground">
-							Preview deployments are disabled for this application, please
-							enable it
+							Bu uygulama için önizleme dağıtımları devre dışı, lütfen
+							etkinleştirin
 						</span>
 						<ShowPreviewSettings applicationId={applicationId} />
 					</div>

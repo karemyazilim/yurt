@@ -45,20 +45,20 @@ import { ScheduleFormField } from "../schedules/handle-schedules";
 
 const formSchema = z
 	.object({
-		name: z.string().min(1, "Name is required"),
-		cronExpression: z.string().min(1, "Cron expression is required"),
+		name: z.string().min(1, "Ad gereklidir"),
+		cronExpression: z.string().min(1, "Cron ifadesi gereklidir"),
 		volumeName: z
 			.string()
-			.min(1, "Volume name is required")
+			.min(1, "Birim adı gereklidir")
 			.regex(
 				/^[a-zA-Z0-9][a-zA-Z0-9_.-]*$/,
-				"Invalid volume name. Use letters, numbers, '._-' and start with a letter/number.",
+				"Geçersiz birim adı. Harf, rakam, '._-' kullanın ve harf/rakam ile başlayın.",
 			),
 		prefix: z.string(),
 		keepLatestCount: z.coerce
 			.number()
 			.int()
-			.gte(1, "Must be at least 1")
+			.gte(1, "En az 1 olmalıdır")
 			.optional()
 			.nullable(),
 		turnOff: z.boolean().default(false),
@@ -74,13 +74,13 @@ const formSchema = z
 			"libsql",
 		]),
 		serviceName: z.string(),
-		destinationId: z.string().min(1, "Destination required"),
+		destinationId: z.string().min(1, "Hedef gereklidir"),
 	})
 	.superRefine((data, ctx) => {
 		if (data.serviceType === "compose" && !data.serviceName) {
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
-				message: "Service name is required",
+				message: "Servis adı gereklidir",
 				path: ["serviceName"],
 			});
 		}
@@ -88,7 +88,7 @@ const formSchema = z
 		if (data.serviceType === "compose" && !data.serviceName) {
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
-				message: "Service name is required",
+				message: "Servis adı gereklidir",
 				path: ["serviceName"],
 			});
 		}
@@ -239,7 +239,7 @@ export const HandleVolumeBackups = ({
 		})
 			.then(() => {
 				toast.success(
-					`Volume backup ${volumeBackupId ? "updated" : "created"} successfully`,
+					`Birim yedeklemesi başarıyla ${volumeBackupId ? "güncellendi" : "oluşturuldu"}`,
 				);
 				utils.volumeBackups.list.invalidate({
 					id,
@@ -249,7 +249,7 @@ export const HandleVolumeBackups = ({
 			})
 			.catch((error) => {
 				toast.error(
-					error instanceof Error ? error.message : "An unknown error occurred",
+					error instanceof Error ? error.message : "Bilinmeyen bir hata oluştu",
 				);
 			});
 	};
@@ -268,7 +268,7 @@ export const HandleVolumeBackups = ({
 				) : (
 					<Button>
 						<PlusCircle className="w-4 h-4 mr-2" />
-						Add Volume Backup
+						Birim Yedeklemesi Ekle
 					</Button>
 				)}
 			</DialogTrigger>
@@ -281,10 +281,10 @@ export const HandleVolumeBackups = ({
 			>
 				<DialogHeader>
 					<DialogTitle>
-						{volumeBackupId ? "Edit" : "Create"} Volume Backup
+						{volumeBackupId ? "Düzenle" : "Oluştur"} Birim Yedeklemesi
 					</DialogTitle>
 					<DialogDescription>
-						Create a volume backup to backup your volume to a destination
+						Biriminizi bir hedefe yedeklemek için birim yedeklemesi oluşturun
 					</DialogDescription>
 				</DialogHeader>
 				<Form {...form}>
@@ -295,13 +295,13 @@ export const HandleVolumeBackups = ({
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel className="flex items-center gap-2">
-										Task Name
+										Görev Adı
 									</FormLabel>
 									<FormControl>
-										<Input placeholder="Daily Database Backup" {...field} />
+										<Input placeholder="Günlük Veritabanı Yedeklemesi" {...field} />
 									</FormControl>
 									<FormDescription>
-										A descriptive name for your scheduled task
+										Zamanlanmış göreviniz için açıklayıcı bir ad
 									</FormDescription>
 									<FormMessage />
 								</FormItem>
@@ -317,14 +317,14 @@ export const HandleVolumeBackups = ({
 							name="destinationId"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Destination</FormLabel>
+									<FormLabel>Hedef</FormLabel>
 									<Select
 										onValueChange={field.onChange}
 										defaultValue={field.value}
 									>
 										<FormControl>
 											<SelectTrigger>
-												<SelectValue placeholder="Select a destination" />
+												<SelectValue placeholder="Bir hedef seçin" />
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
@@ -339,7 +339,7 @@ export const HandleVolumeBackups = ({
 										</SelectContent>
 									</Select>
 									<FormDescription>
-										Choose the backup destination where files will be stored
+										Dosyaların depolanacağı yedekleme hedefini seçin
 									</FormDescription>
 									<FormMessage />
 								</FormItem>
@@ -361,7 +361,7 @@ export const HandleVolumeBackups = ({
 										name="serviceName"
 										render={({ field }) => (
 											<FormItem className="w-full">
-												<FormLabel>Service Name</FormLabel>
+												<FormLabel>Servis Adı</FormLabel>
 												<div className="flex gap-2">
 													<Select
 														onValueChange={field.onChange}
@@ -369,7 +369,7 @@ export const HandleVolumeBackups = ({
 													>
 														<FormControl>
 															<SelectTrigger>
-																<SelectValue placeholder="Select a service name" />
+																<SelectValue placeholder="Bir servis adı seçin" />
 															</SelectTrigger>
 														</FormControl>
 
@@ -383,7 +383,7 @@ export const HandleVolumeBackups = ({
 																</SelectItem>
 															))}
 															<SelectItem value="none" disabled>
-																Empty
+																Boş
 															</SelectItem>
 														</SelectContent>
 													</Select>
@@ -411,8 +411,8 @@ export const HandleVolumeBackups = ({
 																className="max-w-[10rem]"
 															>
 																<p>
-																	Fetch: Will clone the repository and load the
-																	services
+																	Getir: Depoyu klonlayıp servisleri
+																	yükleyecektir
 																</p>
 															</TooltipContent>
 														</Tooltip>
@@ -441,9 +441,9 @@ export const HandleVolumeBackups = ({
 																className="max-w-[10rem]"
 															>
 																<p>
-																	Cache: If you previously deployed this
-																	compose, it will read the services from the
-																	last deployment/fetch from the repository
+																	Önbellek: Daha önce bu compose'u dağıttıysanız,
+																	servisleri son dağıtımdan/depodan
+																	getirmeden okuyacaktır
 																</p>
 															</TooltipContent>
 														</Tooltip>
@@ -461,14 +461,14 @@ export const HandleVolumeBackups = ({
 										name="volumeName"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Volumes</FormLabel>
+												<FormLabel>Birimler</FormLabel>
 												<Select
 													onValueChange={field.onChange}
 													defaultValue={field.value || ""}
 												>
 													<FormControl>
 														<SelectTrigger>
-															<SelectValue placeholder="Select a volume name" />
+															<SelectValue placeholder="Bir birim adı seçin" />
 														</SelectTrigger>
 													</FormControl>
 													<SelectContent>
@@ -483,8 +483,8 @@ export const HandleVolumeBackups = ({
 													</SelectContent>
 												</Select>
 												<FormDescription>
-													Choose the volume to backup. If you do not see the
-													volume here, you can type the volume name manually
+													Yedeklenecek birimi seçin. Birimi burada görmüyorsanız,
+													birim adını manuel olarak yazabilirsiniz
 												</FormDescription>
 												<FormMessage />
 											</FormItem>
@@ -499,14 +499,14 @@ export const HandleVolumeBackups = ({
 								name="volumeName"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Volumes</FormLabel>
+										<FormLabel>Birimler</FormLabel>
 										<Select
 											onValueChange={field.onChange}
 											defaultValue={field.value || ""}
 										>
 											<FormControl>
 												<SelectTrigger>
-													<SelectValue placeholder="Select a volume name" />
+													<SelectValue placeholder="Bir birim adı seçin" />
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
@@ -518,8 +518,8 @@ export const HandleVolumeBackups = ({
 											</SelectContent>
 										</Select>
 										<FormDescription>
-											Choose the volume to backup. If you do not see the volume
-											here, you can type the volume name manually
+											Yedeklenecek birimi seçin. Birimi burada görmüyorsanız,
+											birim adını manuel olarak yazabilirsiniz
 										</FormDescription>
 										<FormMessage />
 									</FormItem>
@@ -532,12 +532,12 @@ export const HandleVolumeBackups = ({
 							name="volumeName"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Volume Name</FormLabel>
+									<FormLabel>Birim Adı</FormLabel>
 									<FormControl>
 										<Input placeholder="my-volume-name" {...field} />
 									</FormControl>
 									<FormDescription>
-										The name of the Docker volume to backup
+										Yedeklenecek Docker biriminin adı
 									</FormDescription>
 									<FormMessage />
 								</FormItem>
@@ -549,12 +549,12 @@ export const HandleVolumeBackups = ({
 							name="prefix"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Backup Prefix</FormLabel>
+									<FormLabel>Yedekleme Öneki</FormLabel>
 									<FormControl>
 										<Input placeholder="backup-" {...field} />
 									</FormControl>
 									<FormDescription>
-										Prefix for backup files (optional)
+										Yedekleme dosyaları için önek (isteğe bağlı)
 									</FormDescription>
 									<FormMessage />
 								</FormItem>
@@ -566,14 +566,14 @@ export const HandleVolumeBackups = ({
 							name="keepLatestCount"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Keep Latest Backups</FormLabel>
+									<FormLabel>Son Yedeklemeleri Tut</FormLabel>
 									<FormControl>
 										<Input
 											{...field}
 											type="number"
 											min={1}
 											autoComplete="off"
-											placeholder="Leave empty to keep all"
+											placeholder="Tümünü tutmak için boş bırakın"
 											value={keepLatestCountInput}
 											onChange={(e) => {
 												const raw = e.target.value;
@@ -587,7 +587,7 @@ export const HandleVolumeBackups = ({
 										/>
 									</FormControl>
 									<FormDescription>
-										How many recent backups to keep. Empty means no cleanup.
+										Kaç adet son yedeklemenin tutulacağı. Boş bırakmak temizlik yapılmayacağı anlamına gelir.
 									</FormDescription>
 									<FormMessage />
 								</FormItem>
@@ -604,12 +604,12 @@ export const HandleVolumeBackups = ({
 											checked={field.value}
 											onCheckedChange={field.onChange}
 										/>
-										Turn Off Container During Backup
+										Yedekleme Sırasında Konteyneri Kapat
 									</FormLabel>
 									<FormDescription className="text-amber-600 dark:text-amber-400">
-										⚠️ The container will be temporarily stopped during backup to
-										prevent file corruption. This ensures data integrity but may
-										cause temporary service interruption.
+										⚠️ Dosya bozulmasını önlemek için konteyner yedekleme sırasında
+										geçici olarak durdurulacaktır. Bu, veri bütünlüğünü sağlar ancak
+										geçici hizmet kesintisine neden olabilir.
 									</FormDescription>
 								</FormItem>
 							)}
@@ -625,14 +625,14 @@ export const HandleVolumeBackups = ({
 											checked={field.value}
 											onCheckedChange={field.onChange}
 										/>
-										Enabled
+										Etkin
 									</FormLabel>
 								</FormItem>
 							)}
 						/>
 
 						<Button type="submit" isLoading={isPending} className="w-full">
-							{volumeBackupId ? "Update" : "Create"} Volume Backup
+							{volumeBackupId ? "Güncelle" : "Oluştur"} Birim Yedeklemesi
 						</Button>
 					</form>
 				</Form>
