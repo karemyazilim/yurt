@@ -1,95 +1,72 @@
-name: Bug Report
-description: Create a bug report
-labels: ["needs-triage🔍"]
+name: Hata Bildirimi
+description: Bir hata veya beklenmeyen davranış bildirin
+labels: ["hata", "incelenmeli"]
 body:
   - type: markdown
     attributes:
       value: |
-        Before opening a new issue, please do a search of existing issues.
+        Hata bildirimi için teşekkürler! Lütfen mümkün olduğunca detaylı doldurun.
 
-        If you need help with your own project, you can start a discussion in the [Q&A Section](https://github.com/Dokploy/dokploy/discussions).
   - type: textarea
     attributes:
-      label: To Reproduce
-      description: |
-        A detailed, step-by-step description of how to reproduce the issue is required. 
-        Please ensure your report includes clear instructions using numbered lists. 
-
-        If possible, provide a link to a repository or project where the issue can be reproduced.
+      label: Yeniden Üretme Adımları
+      description: Hatayı yeniden oluşturmak için adımları listeleyin.
       placeholder: |
-        1. Create a application
-        2. Click X
-        3. Y will happen
+        1. Bir uygulama oluşturun
+        2. X butonuna tıklayın
+        3. Y hatası oluşuyor
+    validations:
+      required: true
 
-        Make sure to:
-        - Use numbered lists to outline steps clearly.
-        - Include all relevant commands and configurations.
-        - Provide a link to a reproducible repository if applicable.
-    validations:
-      required: true
   - type: textarea
     attributes:
-      label: Current vs. Expected behavior
-      description: A clear and concise description of what the bug is, and what you expected to happen.
-      placeholder: "Following the steps from the previous section, I expected A to happen, but I observed B instead"
+      label: Beklenen ve Gerçekleşen Davranış
+      description: Ne olmasını bekliyordunuz ve ne oldu?
+      placeholder: "Yukarıdaki adımları takip ettiğimde A olmasını bekliyordum, ancak B gerçekleşti"
     validations:
       required: true
+
   - type: textarea
     attributes:
-      label: Provide environment information
-      description: Please provide the following information about your environment.
+      label: Ortam Bilgisi
+      description: Lütfen ortam bilgilerinizi paylaşın.
       render: bash
       placeholder: |
-        Operating System:
-          OS: Ubuntu 20.04
-          Arch: arm64
-        Dokploy version: 0.2.2'
-        VPS Provider: DigitalOcean, Hetzner, Linode, etc.
-        What applications/services are you tying to deploy?
-         eg - Database, Nextjs App, laravel, etc.
+        İşletim Sistemi: Ubuntu 22.04
+        Mimari: arm64
+        Yurt Sürümü: v0.1.0
+        VPS Sağlayıcısı: DigitalOcean, Hetzner, vb.
+        Dağıtılan uygulama/servis: Veritabanı, Next.js, Laravel, vb.
     validations:
       required: true
+
   - type: dropdown
     attributes:
-      label: Which area(s) are affected? (Select all that apply)
+      label: Etkilenen alan(lar)
       multiple: true
       options:
-        - "Installation"
-        - "Application"
-        - "Databases"
+        - "Kurulum"
+        - "Uygulama"
+        - "Veritabanları"
         - "Docker Compose"
         - "Traefik"
         - "Docker"
-        - "Remote server"
-        - "Local Development"
-        - "Cloud Version"
+        - "Uzak Sunucu"
+        - "Yerel Geliştirme"
     validations:
       required: true
-  - type: dropdown
-    attributes:
-      label: Are you deploying the applications where Dokploy is installed or on a remote server?
-      options:
-        - "Same server where Dokploy is installed"
-        - "Remote server"
-        - "Both"
-    validations:
-      required: true
+
   - type: textarea
     attributes:
-      label: Additional context
-      description: |
-        Any extra information that might help us investigate.
-      placeholder: |
-        I tested on a DigitalOcean VPS with Ubuntu 20.04 and Docker version 20.10.12.
+      label: Ek Bilgi
+      description: Günlükler, ekran görüntüleri veya yardımcı olabilecek ek bilgiler.
 
   - type: dropdown
     attributes:
-      label: Will you send a PR to fix it?
-      description: Let us know if you are planning to submit a pull request to address this issue.
-
+      label: Düzeltmek için PR gönderecek misiniz?
       options:
-        - "Yes"
-        - "No"
-        - "Maybe, need help"
+        - "Evet"
+        - "Hayır"
+        - "Belki, yardım lazım"
     validations:
       required: true

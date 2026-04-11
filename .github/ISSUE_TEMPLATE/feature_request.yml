@@ -1,0 +1,52 @@
+name: Özellik İsteği
+description: Yeni bir özellik veya iyileştirme önerin
+title: "[Özellik]: "
+labels: ["özellik", "değerlendirilecek"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Özellik öneriniz için teşekkürler! Lütfen aşağıdaki bilgileri doldurun.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Hangi Sorunu Çözüyor?
+      description: Bu özellik hangi ihtiyacı karşılıyor veya hangi sorunu çözüyor?
+      placeholder: "Şu anda ... yapamıyorum ve bu yüzden ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Önerilen Çözüm
+      description: Özelliğin nasıl çalışmasını istediğinizi açıklayın.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatifler
+      description: Değerlendirdiğiniz alternatif çözümler varsa belirtin.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: İlgili Alan
+      options:
+        - Arayüz (UI)
+        - Dağıtım / Deploy
+        - Veritabanı
+        - Bildirimler
+        - Güvenlik
+        - Docker / Swarm
+        - İzleme / Monitoring
+        - API / CLI
+        - Dokümantasyon
+        - Diğer
+    validations:
+      required: true

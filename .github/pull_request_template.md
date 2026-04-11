@@ -1,18 +1,31 @@
-## What is this PR about?
+## Açıklama
 
-Please describe in a short paragraph what this PR is about.
+<!-- Bu PR ne yapıyor? Neden gerekli? -->
 
-## Checklist
+## Değişiklik Türü
 
-Before submitting this PR, please make sure that:
+- [ ] Hata düzeltme
+- [ ] Yeni özellik
+- [ ] Türkçeleştirme
+- [ ] Güvenlik yaması
+- [ ] Dokümantasyon
+- [ ] Refactoring (işlevsellik değişikliği yok)
 
-- [ ] You created a dedicated branch based on the `canary` branch.
-- [ ] You have read the suggestions in the CONTRIBUTING.md file https://github.com/Dokploy/dokploy/blob/canary/CONTRIBUTING.md#pull-request
-- [ ] You have tested this PR in your local instance. If you have not tested it yet, please do so before submitting. This helps avoid wasting maintainers' time reviewing code that has not been verified by you.
+## Test
 
-## Issues related (if applicable)
+- [ ] Yerel ortamda test edildi
+- [ ] Mevcut testler geçiyor
 
-closes #123
+## Ekran Görüntüsü
 
-## Screenshots (if applicable)
+<!-- Arayüz değişikliği varsa ekran görüntüsü ekleyin -->
 
+## Kontrol Listesi
+
+- [ ] Türkçe karakterler doğru kullanıldı (ş, ç, ğ, ı, ö, ü)
+- [ ] Değişken/fonksiyon adları değiştirilmedi
+- [ ] Commit mesajı açıklayıcı
+
+## İlgili Issue
+
+closes #

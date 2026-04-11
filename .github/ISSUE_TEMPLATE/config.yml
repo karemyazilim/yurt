@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Questions?
-    url: https://github.com/Dokploy/dokploy/discussions
-    about: Ask your questions here.
+  - name: Soru Sorun
+    url: https://github.com/karemyazilim/yurt/discussions
+    about: Genel sorularınız için GitHub Discussions kullanın.
+  - name: Güvenlik Açığı Bildirin
+    url: https://github.com/karemyazilim/yurt/security/policy
+    about: Güvenlik açıklarını lütfen gizli olarak bildirin.
