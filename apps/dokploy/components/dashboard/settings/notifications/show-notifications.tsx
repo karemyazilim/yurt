@@ -5,6 +5,7 @@ import {
 	GotifyIcon,
 	LarkIcon,
 	MattermostIcon,
+	NetgsmIcon,
 	NtfyIcon,
 	ResendIcon,
 	SlackIcon,
@@ -126,6 +127,11 @@ export const ShowNotifications = () => {
 																"mattermost" && (
 																<div className="flex  items-center justify-center rounded-lg">
 																	<MattermostIcon className="size-7" />
+																</div>
+															)}
+															{notification.notificationType === "netgsm" && (
+																<div className="flex  items-center justify-center rounded-lg">
+																	<NetgsmIcon className="size-7" />
 																</div>
 															)}
 

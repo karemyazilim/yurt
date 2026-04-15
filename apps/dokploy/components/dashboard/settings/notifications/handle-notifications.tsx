@@ -15,6 +15,7 @@ import {
 	GotifyIcon,
 	LarkIcon,
 	MattermostIcon,
+	NetgsmIcon,
 	NtfyIcon,
 	PushoverIcon,
 	ResendIcon,
@@ -181,6 +182,21 @@ export const notificationSchema = z.discriminatedUnion("type", [
 			webhookUrl: z.string().min(1, { message: "Webhook URL is required" }),
 		})
 		.merge(notificationBaseSchema),
+	z
+		.object({
+			type: z.literal("netgsm"),
+			usercode: z
+				.string()
+				.min(1, { message: "Kullanıcı kodu gereklidir" }),
+			password: z.string().min(1, { message: "Şifre gereklidir" }),
+			msgheader: z
+				.string()
+				.min(1, { message: "Mesaj başlığı gereklidir" }),
+			phone: z
+				.string()
+				.min(1, { message: "Telefon numarası gereklidir" }),
+		})
+		.merge(notificationBaseSchema),
 ]);
 
 export const notificationsMap = {
@@ -227,6 +243,10 @@ export const notificationsMap = {
 	pushover: {
 		icon: <PushoverIcon />,
 		label: "Pushover",
+	},
+	netgsm: {
+		icon: <NetgsmIcon />,
+		label: "Netgsm SMS",
 	},
 	custom: {
 		icon: <PenBoxIcon size={29} className="text-muted-foreground" />,
@@ -279,6 +299,8 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 		api.notification.testCustomConnection.useMutation();
 	const { mutateAsync: testPushoverConnection, isPending: isLoadingPushover } =
 		api.notification.testPushoverConnection.useMutation();
+	const { mutateAsync: testNetgsmConnection, isPending: isLoadingNetgsm } =
+		api.notification.testNetgsmConnection.useMutation();
 
 	const customMutation = notificationId
 		? api.notification.updateCustom.useMutation()
@@ -316,6 +338,9 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 	const pushoverMutation = notificationId
 		? api.notification.updatePushover.useMutation()
 		: api.notification.createPushover.useMutation();
+	const netgsmMutation = notificationId
+		? api.notification.updateNetgsm.useMutation()
+		: api.notification.createNetgsm.useMutation();
 
 	const form = useForm({
 		defaultValues: {
@@ -548,6 +573,23 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 					dockerCleanup: notification.dockerCleanup,
 					serverThreshold: notification.serverThreshold,
 				});
+			} else if (notification.notificationType === "netgsm") {
+				form.reset({
+					appBuildError: notification.appBuildError,
+					appDeploy: notification.appDeploy,
+					dokployRestart: notification.dokployRestart,
+					databaseBackup: notification.databaseBackup,
+					dokployBackup: notification.dokployBackup,
+					volumeBackup: notification.volumeBackup,
+					type: notification.notificationType,
+					usercode: notification.netgsm?.usercode,
+					password: notification.netgsm?.password,
+					msgheader: notification.netgsm?.msgheader,
+					phone: notification.netgsm?.phone,
+					name: notification.name,
+					dockerCleanup: notification.dockerCleanup,
+					serverThreshold: notification.serverThreshold,
+				});
 			}
 		} else {
 			form.reset();
@@ -567,6 +609,7 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 		teams: teamsMutation,
 		custom: customMutation,
 		pushover: pushoverMutation,
+		netgsm: netgsmMutation,
 	};
 
 	const onSubmit = async (data: NotificationSchema) => {
@@ -798,6 +841,24 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 				serverThreshold: serverThreshold,
 				notificationId: notificationId || "",
 				pushoverId: notification?.pushoverId || "",
+			});
+		} else if (data.type === "netgsm") {
+			promise = netgsmMutation.mutateAsync({
+				appBuildError: appBuildError,
+				appDeploy: appDeploy,
+				dokployRestart: dokployRestart,
+				databaseBackup: databaseBackup,
+				dokployBackup: dokployBackup,
+				volumeBackup: volumeBackup,
+				usercode: data.usercode,
+				password: data.password,
+				msgheader: data.msgheader,
+				phone: data.phone,
+				name: data.name,
+				dockerCleanup: dockerCleanup,
+				serverThreshold: serverThreshold,
+				notificationId: notificationId || "",
+				netgsmId: notification?.netgsmId || "",
 			});
 		}
 
@@ -1670,6 +1731,81 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 										/>
 									</>
 								)}
+								{type === "netgsm" && (
+									<>
+										<FormField
+											control={form.control}
+											name="usercode"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel>Kullanıcı Kodu</FormLabel>
+													<FormControl>
+														<Input
+															placeholder="Netgsm kullanıcı kodunuz"
+															{...field}
+														/>
+													</FormControl>
+													<FormMessage />
+												</FormItem>
+											)}
+										/>
+										<FormField
+											control={form.control}
+											name="password"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel>Şifre</FormLabel>
+													<FormControl>
+														<Input
+															type="password"
+															placeholder="******************"
+															{...field}
+														/>
+													</FormControl>
+													<FormMessage />
+												</FormItem>
+											)}
+										/>
+										<FormField
+											control={form.control}
+											name="msgheader"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel>Mesaj Başlığı</FormLabel>
+													<FormControl>
+														<Input
+															placeholder="SMS gönderici adı"
+															{...field}
+														/>
+													</FormControl>
+													<FormDescription>
+														Netgsm panelinde tanımlı SMS başlık bilginiz.
+													</FormDescription>
+													<FormMessage />
+												</FormItem>
+											)}
+										/>
+										<FormField
+											control={form.control}
+											name="phone"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel>Telefon Numarası</FormLabel>
+													<FormControl>
+														<Input
+															placeholder="+905XXXXXXXXX"
+															{...field}
+														/>
+													</FormControl>
+													<FormDescription>
+														SMS gönderilecek telefon numarası.
+													</FormDescription>
+													<FormMessage />
+												</FormItem>
+											)}
+										/>
+									</>
+								)}
 								{type === "pushover" && (
 									<>
 										<FormField
@@ -2007,7 +2143,8 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 								isLoadingLark ||
 								isLoadingTeams ||
 								isLoadingCustom ||
-								isLoadingPushover
+								isLoadingPushover ||
+								isLoadingNetgsm
 							}
 							variant="secondary"
 							type="button"
@@ -2107,6 +2244,13 @@ export const HandleNotifications = ({ notificationId }: Props) => {
 											priority: data.priority ?? 0,
 											retry: data.priority === 2 ? data.retry : undefined,
 											expire: data.priority === 2 ? data.expire : undefined,
+										});
+									} else if (data.type === "netgsm") {
+										await testNetgsmConnection({
+											usercode: data.usercode,
+											password: data.password,
+											msgheader: data.msgheader,
+											phone: data.phone,
 										});
 									}
 									toast.success("Bağlantı Başarılı");

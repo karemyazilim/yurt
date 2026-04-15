@@ -302,6 +302,30 @@ export const PushoverIcon = ({ className }: Props) => {
 	);
 };
 
+export const NetgsmIcon = ({ className }: Props) => {
+	return (
+		<svg
+			viewBox="0 0 48 48"
+			className={cn("size-8", className)}
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<rect x="4" y="10" width="40" height="28" rx="6" fill="#E85D2A" />
+			<text
+				x="24"
+				y="28"
+				fill="#fff"
+				fontFamily="Arial, sans-serif"
+				fontSize="12"
+				fontWeight="bold"
+				textAnchor="middle"
+				dominantBaseline="central"
+			>
+				SMS
+			</text>
+		</svg>
+	);
+};
+
 export const ResendIcon = ({ className }: Props) => {
 	return (
 		<svg
