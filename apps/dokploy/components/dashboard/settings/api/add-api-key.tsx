@@ -35,10 +35,10 @@ import { Switch } from "@/components/ui/switch";
 import { api } from "@/utils/api";
 
 const formSchema = z.object({
-	name: z.string().min(1, "Name is required"),
+	name: z.string().min(1, "Ad gereklidir"),
 	prefix: z.string().optional(),
 	expiresIn: z.number().nullable(),
-	organizationId: z.string().min(1, "Organization is required"),
+	organizationId: z.string().min(1, "Organizasyon gereklidir"),
 	// Rate limiting fields
 	rateLimitEnabled: z.boolean().optional(),
 	rateLimitTimeWindow: z.number().nullable(),
@@ -52,30 +52,30 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const EXPIRATION_OPTIONS = [
-	{ label: "Never", value: "0" },
-	{ label: "1 day", value: String(60 * 60 * 24) },
-	{ label: "7 days", value: String(60 * 60 * 24 * 7) },
-	{ label: "30 days", value: String(60 * 60 * 24 * 30) },
-	{ label: "90 days", value: String(60 * 60 * 24 * 90) },
-	{ label: "1 year", value: String(60 * 60 * 24 * 365) },
+	{ label: "Asla", value: "0" },
+	{ label: "1 gün", value: String(60 * 60 * 24) },
+	{ label: "7 gün", value: String(60 * 60 * 24 * 7) },
+	{ label: "30 gün", value: String(60 * 60 * 24 * 30) },
+	{ label: "90 gün", value: String(60 * 60 * 24 * 90) },
+	{ label: "1 yıl", value: String(60 * 60 * 24 * 365) },
 ];
 
 const TIME_WINDOW_OPTIONS = [
-	{ label: "1 minute", value: String(60 * 1000) },
-	{ label: "5 minutes", value: String(5 * 60 * 1000) },
-	{ label: "15 minutes", value: String(15 * 60 * 1000) },
-	{ label: "30 minutes", value: String(30 * 60 * 1000) },
-	{ label: "1 hour", value: String(60 * 60 * 1000) },
-	{ label: "1 day", value: String(24 * 60 * 60 * 1000) },
+	{ label: "1 dakika", value: String(60 * 1000) },
+	{ label: "5 dakika", value: String(5 * 60 * 1000) },
+	{ label: "15 dakika", value: String(15 * 60 * 1000) },
+	{ label: "30 dakika", value: String(30 * 60 * 1000) },
+	{ label: "1 saat", value: String(60 * 60 * 1000) },
+	{ label: "1 gün", value: String(24 * 60 * 60 * 1000) },
 ];
 
 const REFILL_INTERVAL_OPTIONS = [
-	{ label: "1 hour", value: String(60 * 60 * 1000) },
-	{ label: "6 hours", value: String(6 * 60 * 60 * 1000) },
-	{ label: "12 hours", value: String(12 * 60 * 60 * 1000) },
-	{ label: "1 day", value: String(24 * 60 * 60 * 1000) },
-	{ label: "7 days", value: String(7 * 24 * 60 * 60 * 1000) },
-	{ label: "30 days", value: String(30 * 24 * 60 * 60 * 1000) },
+	{ label: "1 saat", value: String(60 * 60 * 1000) },
+	{ label: "6 saat", value: String(6 * 60 * 60 * 1000) },
+	{ label: "12 saat", value: String(12 * 60 * 60 * 1000) },
+	{ label: "1 gün", value: String(24 * 60 * 60 * 1000) },
+	{ label: "7 gün", value: String(7 * 24 * 60 * 60 * 1000) },
+	{ label: "30 gün", value: String(30 * 24 * 60 * 60 * 1000) },
 ];
 
 export const AddApiKey = () => {
@@ -95,7 +95,7 @@ export const AddApiKey = () => {
 			void refetch();
 		},
 		onError: () => {
-			toast.error("Failed to generate API key");
+			toast.error("API anahtarı oluşturulamadı");
 		},
 	});
 
@@ -140,14 +140,14 @@ export const AddApiKey = () => {
 		<>
 			<Dialog open={open} onOpenChange={setOpen}>
 				<DialogTrigger asChild>
-					<Button>Generate New Key</Button>
+					<Button>Yeni Anahtar Oluştur</Button>
 				</DialogTrigger>
 				<DialogContent className="sm:max-w-xl max-h-[90vh]">
 					<DialogHeader>
-						<DialogTitle>Generate API Key</DialogTitle>
+						<DialogTitle>API Anahtarı Oluştur</DialogTitle>
 						<DialogDescription>
-							Create a new API key for accessing the API. You can set an
-							expiration date and a custom prefix for better organization.
+							API'ye erişim için yeni bir API anahtarı oluşturun. Daha iyi
+							düzenleme için bir son kullanma tarihi ve özel bir önek belirleyebilirsiniz.
 						</DialogDescription>
 					</DialogHeader>
 					<Form {...form}>
@@ -157,9 +157,9 @@ export const AddApiKey = () => {
 								name="name"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Name</FormLabel>
+										<FormLabel>Ad</FormLabel>
 										<FormControl>
-											<Input placeholder="My API Key" {...field} />
+											<Input placeholder="API Anahtarım" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -170,7 +170,7 @@ export const AddApiKey = () => {
 								name="prefix"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Prefix</FormLabel>
+										<FormLabel>Önek</FormLabel>
 										<FormControl>
 											<Input placeholder="my_app" {...field} />
 										</FormControl>
@@ -183,7 +183,7 @@ export const AddApiKey = () => {
 								name="expiresIn"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Expiration</FormLabel>
+										<FormLabel>Son Kullanma</FormLabel>
 										<Select
 											value={field.value?.toString() || "0"}
 											onValueChange={(value) =>
@@ -192,7 +192,7 @@ export const AddApiKey = () => {
 										>
 											<FormControl>
 												<SelectTrigger>
-													<SelectValue placeholder="Select expiration time" />
+													<SelectValue placeholder="Son kullanma süresini seçin" />
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
@@ -212,11 +212,11 @@ export const AddApiKey = () => {
 								name="organizationId"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Organization</FormLabel>
+										<FormLabel>Organizasyon</FormLabel>
 										<Select value={field.value} onValueChange={field.onChange}>
 											<FormControl>
 												<SelectTrigger>
-													<SelectValue placeholder="Select organization" />
+													<SelectValue placeholder="Organizasyon seçin" />
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
@@ -234,16 +234,16 @@ export const AddApiKey = () => {
 
 							{/* Rate Limiting Section */}
 							<div className="space-y-4 rounded-lg border p-4">
-								<h3 className="text-lg font-medium">Rate Limiting</h3>
+								<h3 className="text-lg font-medium">Hız Sınırlama</h3>
 								<FormField
 									control={form.control}
 									name="rateLimitEnabled"
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
 											<div className="space-y-0.5">
-												<FormLabel>Enable Rate Limiting</FormLabel>
+												<FormLabel>Hız Sınırlamayı Etkinleştir</FormLabel>
 												<FormDescription>
-													Limit the number of requests within a time window
+													Bir zaman penceresi içindeki istek sayısını sınırlayın
 												</FormDescription>
 											</div>
 											<FormControl>
@@ -263,7 +263,7 @@ export const AddApiKey = () => {
 											name="rateLimitTimeWindow"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>Time Window</FormLabel>
+													<FormLabel>Zaman Penceresi</FormLabel>
 													<Select
 														value={field.value?.toString()}
 														onValueChange={(value) =>
@@ -272,7 +272,7 @@ export const AddApiKey = () => {
 													>
 														<FormControl>
 															<SelectTrigger>
-																<SelectValue placeholder="Select time window" />
+																<SelectValue placeholder="Zaman penceresi seçin" />
 															</SelectTrigger>
 														</FormControl>
 														<SelectContent>
@@ -287,7 +287,7 @@ export const AddApiKey = () => {
 														</SelectContent>
 													</Select>
 													<FormDescription>
-														The duration in which requests are counted
+														İsteklerin sayıldığı süre
 													</FormDescription>
 													<FormMessage />
 												</FormItem>
@@ -298,7 +298,7 @@ export const AddApiKey = () => {
 											name="rateLimitMax"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>Maximum Requests</FormLabel>
+													<FormLabel>Maksimum İstek Sayısı</FormLabel>
 													<FormControl>
 														<Input
 															type="number"
@@ -314,8 +314,7 @@ export const AddApiKey = () => {
 														/>
 													</FormControl>
 													<FormDescription>
-														Maximum number of requests allowed within the time
-														window
+														Zaman penceresi içinde izin verilen maksimum istek sayısı
 													</FormDescription>
 													<FormMessage />
 												</FormItem>
@@ -327,17 +326,17 @@ export const AddApiKey = () => {
 
 							{/* Request Limiting Section */}
 							<div className="space-y-4 rounded-lg border p-4">
-								<h3 className="text-lg font-medium">Request Limiting</h3>
+								<h3 className="text-lg font-medium">İstek Sınırlama</h3>
 								<FormField
 									control={form.control}
 									name="remaining"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Total Request Limit</FormLabel>
+											<FormLabel>Toplam İstek Limiti</FormLabel>
 											<FormControl>
 												<Input
 													type="number"
-													placeholder="Leave empty for unlimited"
+													placeholder="Sınırsız için boş bırakın"
 													value={field.value?.toString() ?? ""}
 													onChange={(e) =>
 														field.onChange(
@@ -349,8 +348,7 @@ export const AddApiKey = () => {
 												/>
 											</FormControl>
 											<FormDescription>
-												Total number of requests allowed (leave empty for
-												unlimited)
+												İzin verilen toplam istek sayısı (sınırsız için boş bırakın)
 											</FormDescription>
 											<FormMessage />
 										</FormItem>
@@ -362,11 +360,11 @@ export const AddApiKey = () => {
 									name="refillAmount"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Refill Amount</FormLabel>
+											<FormLabel>Yenileme Miktarı</FormLabel>
 											<FormControl>
 												<Input
 													type="number"
-													placeholder="Amount to refill"
+													placeholder="Yenilenecek miktar"
 													value={field.value?.toString() ?? ""}
 													onChange={(e) =>
 														field.onChange(
@@ -378,7 +376,7 @@ export const AddApiKey = () => {
 												/>
 											</FormControl>
 											<FormDescription>
-												Number of requests to add on each refill
+												Her yenilemede eklenecek istek sayısı
 											</FormDescription>
 											<FormMessage />
 										</FormItem>
@@ -390,7 +388,7 @@ export const AddApiKey = () => {
 									name="refillInterval"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Refill Interval</FormLabel>
+											<FormLabel>Yenileme Aralığı</FormLabel>
 											<Select
 												value={field.value?.toString()}
 												onValueChange={(value) =>
@@ -399,7 +397,7 @@ export const AddApiKey = () => {
 											>
 												<FormControl>
 													<SelectTrigger>
-														<SelectValue placeholder="Select refill interval" />
+														<SelectValue placeholder="Yenileme aralığı seçin" />
 													</SelectTrigger>
 												</FormControl>
 												<SelectContent>
@@ -411,7 +409,7 @@ export const AddApiKey = () => {
 												</SelectContent>
 											</Select>
 											<FormDescription>
-												How often to refill the request limit
+												İstek limitinin ne sıklıkla yenileneceği
 											</FormDescription>
 											<FormMessage />
 										</FormItem>
@@ -425,9 +423,9 @@ export const AddApiKey = () => {
 									variant="outline"
 									onClick={() => setOpen(false)}
 								>
-									Cancel
+									İptal
 								</Button>
-								<Button type="submit">Generate</Button>
+								<Button type="submit">Oluştur</Button>
 							</div>
 						</form>
 					</Form>
@@ -437,9 +435,9 @@ export const AddApiKey = () => {
 			<Dialog open={showSuccessModal} onOpenChange={setShowSuccessModal}>
 				<DialogContent className="sm:max-w-xl">
 					<DialogHeader>
-						<DialogTitle>API Key Generated Successfully</DialogTitle>
+						<DialogTitle>API Anahtarı Başarıyla Oluşturuldu</DialogTitle>
 						<DialogDescription>
-							Please copy your API key now. You won't be able to see it again!
+							Lütfen API anahtarınızı şimdi kopyalayın. Tekrar göremeyeceksiniz!
 						</DialogDescription>
 					</DialogHeader>
 					<div className="mt-4 space-y-4">
@@ -453,16 +451,16 @@ export const AddApiKey = () => {
 							<Button
 								onClick={() => {
 									copy(newApiKey);
-									toast.success("API key copied to clipboard");
+									toast.success("API anahtarı panoya kopyalandı");
 								}}
 							>
-								Copy to Clipboard
+								Panoya Kopyala
 							</Button>
 							<Button
 								variant="outline"
 								onClick={() => setShowSuccessModal(false)}
 							>
-								Close
+								Kapat
 							</Button>
 						</div>
 					</div>

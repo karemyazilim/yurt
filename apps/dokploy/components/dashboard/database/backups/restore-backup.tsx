@@ -79,13 +79,13 @@ interface Props {
 const RestoreBackupSchema = z
 	.object({
 		destinationId: z.string().min(1, {
-			message: "Destination is required",
+			message: "Hedef gereklidir",
 		}),
 		backupFile: z.string().min(1, {
-			message: "Backup file is required",
+			message: "Yedekleme dosyası gereklidir",
 		}),
 		databaseName: z.string().min(1, {
-			message: "Database name is required",
+			message: "Veritabanı adı gereklidir",
 		}),
 		databaseType: z
 			.enum(["postgres", "mariadb", "mysql", "mongo", "web-server", "libsql"])
@@ -285,7 +285,7 @@ export const RestoreBackup = ({
 
 	const onSubmit = async (data: z.infer<typeof RestoreBackupSchema>) => {
 		if (backupType === "compose" && !data.databaseType) {
-			toast.error("Please select a database type");
+			toast.error("Lütfen bir veritabanı türü seçin");
 			return;
 		}
 		console.log({ data });
@@ -314,17 +314,17 @@ export const RestoreBackup = ({
 			<DialogTrigger asChild>
 				<Button variant="outline">
 					<RotateCcw className="mr-2 size-4" />
-					Restore Backup
+					Yedeği Geri Yükle
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-lg">
 				<DialogHeader>
 					<DialogTitle className="flex items-center">
 						<RotateCcw className="mr-2 size-4" />
-						Restore Backup
+						Yedeği Geri Yükle
 					</DialogTitle>
 					<DialogDescription>
-						Select a destination and search for backup files
+						Bir hedef seçin ve yedekleme dosyalarını arayın
 					</DialogDescription>
 				</DialogHeader>
 
@@ -339,7 +339,7 @@ export const RestoreBackup = ({
 							name="destinationId"
 							render={({ field }) => (
 								<FormItem className="">
-									<FormLabel>Destination</FormLabel>
+									<FormLabel>Hedef</FormLabel>
 									<Popover>
 										<PopoverTrigger asChild>
 											<FormControl>
@@ -354,7 +354,7 @@ export const RestoreBackup = ({
 														? destinations.find(
 																(d) => d.destinationId === field.value,
 															)?.name
-														: "Select Destination"}
+														: "Hedef Seçin"}
 													<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 												</Button>
 											</FormControl>
@@ -362,10 +362,10 @@ export const RestoreBackup = ({
 										<PopoverContent className="p-0" align="start">
 											<Command>
 												<CommandInput
-													placeholder="Search destinations..."
+													placeholder="Hedef ara..."
 													className="h-9"
 												/>
-												<CommandEmpty>No destinations found.</CommandEmpty>
+												<CommandEmpty>Hedef bulunamadı.</CommandEmpty>
 												<ScrollArea className="h-64">
 													<CommandGroup>
 														{destinations.map((destination) => (
@@ -406,7 +406,7 @@ export const RestoreBackup = ({
 							render={({ field }) => (
 								<FormItem className="">
 									<FormLabel className="flex items-center justify-between">
-										Search Backup Files
+										Yedekleme Dosyalarını Ara
 										{field.value && (
 											<Badge variant="outline" className="truncate">
 												{field.value}
@@ -416,7 +416,7 @@ export const RestoreBackup = ({
 														e.stopPropagation();
 														e.preventDefault();
 														copy(field.value);
-														toast.success("Backup file copied to clipboard");
+														toast.success("Yedekleme dosyası panoya kopyalandı");
 													}}
 												/>
 											</Badge>
@@ -433,7 +433,7 @@ export const RestoreBackup = ({
 													)}
 												>
 													<span className="truncate text-left flex-1 w-52">
-														{field.value || "Search and select a backup file"}
+														{field.value || "Yedekleme dosyası arayın ve seçin"}
 													</span>
 													<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 												</Button>
@@ -442,22 +442,22 @@ export const RestoreBackup = ({
 										<PopoverContent className="p-0" align="start">
 											<Command>
 												<CommandInput
-													placeholder="Search backup files..."
+													placeholder="Yedekleme dosyalarını ara..."
 													value={search}
 													onValueChange={handleSearchChange}
 													className="h-9"
 												/>
 												{isPending ? (
 													<div className="py-6 text-center text-sm">
-														Loading backup files...
+														Yedekleme dosyaları yükleniyor...
 													</div>
 												) : files.length === 0 && search ? (
 													<div className="py-6 text-center text-sm text-muted-foreground">
-														No backup files found for "{search}"
+														"{search}" için yedekleme dosyası bulunamadı
 													</div>
 												) : files.length === 0 ? (
 													<div className="py-6 text-center text-sm text-muted-foreground">
-														No backup files available
+														Kullanılabilir yedekleme dosyası yok
 													</div>
 												) : (
 													<ScrollArea className="h-64">
@@ -494,11 +494,11 @@ export const RestoreBackup = ({
 																		</div>
 																		<div className="flex items-center gap-4 text-xs text-muted-foreground">
 																			<span>
-																				Size: {formatBytes(file.Size)}
+																				Boyut: {formatBytes(file.Size)}
 																			</span>
 																			{file.IsDir && (
 																				<span className="text-blue-500">
-																					Directory
+																					Dizin
 																				</span>
 																			)}
 																			{file.Hashes?.MD5 && (
@@ -523,10 +523,10 @@ export const RestoreBackup = ({
 							name="databaseName"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Database Name</FormLabel>
+									<FormLabel>Veritabanı Adı</FormLabel>
 									<FormControl>
 										<Input
-											placeholder="Enter database name"
+											placeholder="Veritabanı adını girin"
 											{...field}
 											disabled={
 												databaseType === "web-server" ||
@@ -546,7 +546,7 @@ export const RestoreBackup = ({
 									name="databaseType"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Database Type</FormLabel>
+											<FormLabel>Veritabanı Türü</FormLabel>
 											<Select
 												value={field.value}
 												onValueChange={(value: DatabaseType) => {
@@ -555,7 +555,7 @@ export const RestoreBackup = ({
 												}}
 											>
 												<SelectTrigger>
-													<SelectValue placeholder="Select database type" />
+													<SelectValue placeholder="Veritabanı türü seçin" />
 												</SelectTrigger>
 												<SelectContent>
 													<SelectItem value="postgres">PostgreSQL</SelectItem>
@@ -574,7 +574,7 @@ export const RestoreBackup = ({
 									name="metadata.serviceName"
 									render={({ field }) => (
 										<FormItem className="w-full">
-											<FormLabel>Service Name</FormLabel>
+											<FormLabel>Servis Adı</FormLabel>
 											<div className="flex gap-2">
 												<Select
 													onValueChange={field.onChange}
@@ -582,7 +582,7 @@ export const RestoreBackup = ({
 												>
 													<FormControl>
 														<SelectTrigger>
-															<SelectValue placeholder="Select a service name" />
+															<SelectValue placeholder="Servis adı seçin" />
 														</SelectTrigger>
 													</FormControl>
 
@@ -597,7 +597,7 @@ export const RestoreBackup = ({
 														))}
 														{(!services || services.length === 0) && (
 															<SelectItem value="none" disabled>
-																Empty
+																Boş
 															</SelectItem>
 														)}
 													</SelectContent>
@@ -626,8 +626,8 @@ export const RestoreBackup = ({
 															className="max-w-[10rem]"
 														>
 															<p>
-																Fetch: Will clone the repository and load the
-																services
+																Getir: Depoyu klonlayacak ve servisleri
+																yükleyecektir
 															</p>
 														</TooltipContent>
 													</Tooltip>
@@ -656,9 +656,9 @@ export const RestoreBackup = ({
 															className="max-w-[10rem]"
 														>
 															<p>
-																Cache: If you previously deployed this compose,
-																it will read the services from the last
-																deployment/fetch from the repository
+																Önbellek: Daha önce bu compose'u dağıttıysanız,
+																servisleri son dağıtım/depodan getirmeden
+																okuyacaktır
 															</p>
 														</TooltipContent>
 													</Tooltip>
@@ -676,9 +676,9 @@ export const RestoreBackup = ({
 										name="metadata.postgres.databaseUser"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Database User</FormLabel>
+												<FormLabel>Veritabanı Kullanıcısı</FormLabel>
 												<FormControl>
-													<Input placeholder="Enter database user" {...field} />
+													<Input placeholder="Veritabanı kullanıcısını girin" {...field} />
 												</FormControl>
 												<FormMessage />
 											</FormItem>
@@ -693,10 +693,10 @@ export const RestoreBackup = ({
 											name="metadata.mariadb.databaseUser"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>Database User</FormLabel>
+													<FormLabel>Veritabanı Kullanıcısı</FormLabel>
 													<FormControl>
 														<Input
-															placeholder="Enter database user"
+															placeholder="Veritabanı kullanıcısını girin"
 															{...field}
 														/>
 													</FormControl>
@@ -709,11 +709,11 @@ export const RestoreBackup = ({
 											name="metadata.mariadb.databasePassword"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>Database Password</FormLabel>
+													<FormLabel>Veritabanı Şifresi</FormLabel>
 													<FormControl>
 														<Input
 															type="password"
-															placeholder="Enter database password"
+															placeholder="Veritabanı şifresini girin"
 															{...field}
 														/>
 													</FormControl>
@@ -731,10 +731,10 @@ export const RestoreBackup = ({
 											name="metadata.mongo.databaseUser"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>Database User</FormLabel>
+													<FormLabel>Veritabanı Kullanıcısı</FormLabel>
 													<FormControl>
 														<Input
-															placeholder="Enter database user"
+															placeholder="Veritabanı kullanıcısını girin"
 															{...field}
 														/>
 													</FormControl>
@@ -747,11 +747,11 @@ export const RestoreBackup = ({
 											name="metadata.mongo.databasePassword"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>Database Password</FormLabel>
+													<FormLabel>Veritabanı Şifresi</FormLabel>
 													<FormControl>
 														<Input
 															type="password"
-															placeholder="Enter database password"
+															placeholder="Veritabanı şifresini girin"
 															{...field}
 														/>
 													</FormControl>
@@ -768,11 +768,11 @@ export const RestoreBackup = ({
 										name="metadata.mysql.databaseRootPassword"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Root Password</FormLabel>
+												<FormLabel>Root Şifresi</FormLabel>
 												<FormControl>
 													<Input
 														type="password"
-														placeholder="Enter root password"
+														placeholder="Root şifresini girin"
 														{...field}
 													/>
 												</FormControl>
@@ -794,7 +794,7 @@ export const RestoreBackup = ({
 								// 	(backupType === "compose" && !form.watch("databaseType"))
 								// }
 							>
-								Restore
+								Geri Yükle
 							</Button>
 						</DialogFooter>
 					</form>

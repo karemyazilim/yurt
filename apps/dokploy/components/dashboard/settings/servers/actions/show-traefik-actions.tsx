@@ -38,7 +38,7 @@ export const ShowTraefikActions = ({ serverId }: Props) => {
 	} = useHealthCheckAfterMutation({
 		initialDelay: 5000,
 		pollInterval: 4000,
-		successMessage: "Traefik dashboard updated successfully",
+		successMessage: "Traefik panosu başarıyla güncellendi",
 		onSuccess: () => {
 			refetchDashboard();
 		},
@@ -50,7 +50,7 @@ export const ShowTraefikActions = ({ serverId }: Props) => {
 	} = useHealthCheckAfterMutation({
 		initialDelay: 5000,
 		pollInterval: 4000,
-		successMessage: "Traefik Reloaded",
+		successMessage: "Traefik Yeniden Yüklendi",
 	});
 
 	return (
@@ -77,7 +77,7 @@ export const ShowTraefikActions = ({ serverId }: Props) => {
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56" align="start">
-				<DropdownMenuLabel>Actions</DropdownMenuLabel>
+				<DropdownMenuLabel>İşlemler</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
 					<DropdownMenuItem
@@ -89,14 +89,14 @@ export const ShowTraefikActions = ({ serverId }: Props) => {
 							} catch (error) {
 								const errorMessage =
 									(error as Error)?.message ||
-									"Failed to reload Traefik. Please try again.";
+									"Traefik yeniden yüklenemedi. Lütfen tekrar deneyin.";
 								toast.error(errorMessage);
 							}
 						}}
 						className="cursor-pointer"
 						disabled={isReloadHealthCheckExecuting}
 					>
-						<span>Reload</span>
+						<span>Yeniden Yükle</span>
 					</DropdownMenuItem>
 					<ShowModalLogs
 						appName="dokploy-traefik"
@@ -107,7 +107,7 @@ export const ShowTraefikActions = ({ serverId }: Props) => {
 							onSelect={(e) => e.preventDefault()}
 							className="cursor-pointer"
 						>
-							View Logs
+							Günlükleri Görüntüle
 						</DropdownMenuItem>
 					</ShowModalLogs>
 					<EditTraefikEnv serverId={serverId}>
@@ -115,27 +115,27 @@ export const ShowTraefikActions = ({ serverId }: Props) => {
 							onSelect={(e) => e.preventDefault()}
 							className="cursor-pointer"
 						>
-							<span>Modify Environment</span>
+							<span>Ortam Değişkenlerini Düzenle</span>
 						</DropdownMenuItem>
 					</EditTraefikEnv>
 
 					<DialogAction
 						title={
 							haveTraefikDashboardPortEnabled
-								? "Disable Traefik Dashboard"
-								: "Enable Traefik Dashboard"
+								? "Traefik Panosunu Devre Dışı Bırak"
+								: "Traefik Panosunu Etkinleştir"
 						}
 						description={
 							<div className="space-y-4">
 								<AlertBlock type="warning">
-									The Traefik container will be recreated from scratch. This
-									means the container will be deleted and created again, which
-									may cause downtime in your applications.
+									Traefik konteyneri sıfırdan yeniden oluşturulacaktır. Bu,
+									konteynerin silinip tekrar oluşturulacağı anlamına gelir ve
+									uygulamalarınızda kesintiye neden olabilir.
 								</AlertBlock>
 								<p>
-									Are you sure you want to{" "}
-									{haveTraefikDashboardPortEnabled ? "disable" : "enable"} the
-									Traefik dashboard?
+									Traefik panosunu{" "}
+									{haveTraefikDashboardPortEnabled ? "devre dışı bırakmak" : "etkinleştirmek"}
+									istediğinizden emin misiniz?
 								</p>
 							</div>
 						}
@@ -150,7 +150,7 @@ export const ShowTraefikActions = ({ serverId }: Props) => {
 							} catch (error) {
 								const errorMessage =
 									(error as Error)?.message ||
-									"Failed to toggle dashboard. Please check if port 8080 is available.";
+									"Pano değiştirilemedi. Lütfen 8080 portunun kullanılabilir olduğunu kontrol edin.";
 								toast.error(errorMessage);
 							}
 						}}
@@ -162,8 +162,8 @@ export const ShowTraefikActions = ({ serverId }: Props) => {
 							className="w-full cursor-pointer space-x-3"
 						>
 							<span>
-								{haveTraefikDashboardPortEnabled ? "Disable" : "Enable"}{" "}
-								Dashboard
+								{haveTraefikDashboardPortEnabled ? "Devre Dışı Bırak" : "Etkinleştir"}{" "}
+								Pano
 							</span>
 						</DropdownMenuItem>
 					</DialogAction>
@@ -172,7 +172,7 @@ export const ShowTraefikActions = ({ serverId }: Props) => {
 							onSelect={(e) => e.preventDefault()}
 							className="cursor-pointer"
 						>
-							<span>Additional Port Mappings</span>
+							<span>Ek Port Eşlemeleri</span>
 						</DropdownMenuItem>
 					</ManageTraefikPorts>
 				</DropdownMenuGroup>

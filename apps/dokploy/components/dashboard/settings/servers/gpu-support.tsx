@@ -38,14 +38,14 @@ export function GPUSupport({ serverId }: GPUSupportProps) {
 			setIsLoading(true);
 		},
 		onSuccess: async () => {
-			toast.success("GPU support enabled successfully");
+			toast.success("GPU desteği başarıyla etkinleştirildi");
 			setIsLoading(false);
 			await utils.settings.checkGPUStatus.invalidate({ serverId });
 		},
 		onError: (error) => {
 			toast.error(
 				error.message ||
-					"Failed to enable GPU support. Please check server logs.",
+					"GPU desteği etkinleştirilemedi. Lütfen sunucu günlüklerini kontrol edin.",
 			);
 			setIsLoading(false);
 		},
@@ -57,7 +57,7 @@ export function GPUSupport({ serverId }: GPUSupportProps) {
 			await utils.settings.checkGPUStatus.invalidate({ serverId });
 			await refetch();
 		} catch {
-			toast.error("Failed to refresh GPU status");
+			toast.error("GPU durumu yenilenemedi");
 		} finally {
 			setIsRefreshing(false);
 		}
@@ -68,7 +68,7 @@ export function GPUSupport({ serverId }: GPUSupportProps) {
 
 	const handleEnableGPU = async () => {
 		if (serverId === undefined) {
-			toast.error("No server selected");
+			toast.error("Sunucu seçilmedi");
 			return;
 		}
 
@@ -88,16 +88,16 @@ export function GPUSupport({ serverId }: GPUSupportProps) {
 							<div className="flex flex-col gap-1">
 								<div className="flex items-center gap-2">
 									<Cpu className="size-5" />
-									<CardTitle className="text-xl">GPU Configuration</CardTitle>
+									<CardTitle className="text-xl">GPU Yapılandırması</CardTitle>
 								</div>
 								<CardDescription>
-									Configure and monitor GPU support
+									GPU desteğini yapılandırın ve izleyin
 								</CardDescription>
 							</div>
 							<div className="flex items-center gap-2">
 								<DialogAction
-									title="Enable GPU Support?"
-									description="This will enable GPU support for Docker Swarm on this server. Make sure you have the required hardware and drivers installed."
+									title="GPU Desteği Etkinleştirilsin mi?"
+									description="Bu işlem bu sunucuda Docker Swarm için GPU desteğini etkinleştirecektir. Gerekli donanım ve sürücülerin kurulu olduğundan emin olun."
 									onClick={handleEnableGPU}
 								>
 									<Button
@@ -105,10 +105,10 @@ export function GPUSupport({ serverId }: GPUSupportProps) {
 										disabled={isLoading || serverId === undefined || isChecking}
 									>
 										{isLoading
-											? "Loading..."
+											? "Yükleniyor..."
 											: gpuStatus?.swarmEnabled
-												? "Reconfigure GPU"
-												: "Enable GPU"}
+												? "GPU'yu Yeniden Yapılandır"
+												: "GPU'yu Etkinleştir"}
 									</Button>
 								</DialogAction>
 								<Button
@@ -126,67 +126,67 @@ export function GPUSupport({ serverId }: GPUSupportProps) {
 
 					<CardContent className="flex flex-col gap-4">
 						<AlertBlock type="info">
-							<div className="font-medium mb-2">System Requirements:</div>
+							<div className="font-medium mb-2">Sistem Gereksinimleri:</div>
 							<ul className="list-disc list-inside text-sm space-y-1">
-								<li>NVIDIA GPU hardware must be physically installed</li>
+								<li>NVIDIA GPU donanımı fiziksel olarak kurulu olmalıdır</li>
 								<li>
-									NVIDIA drivers must be installed and running (check with
-									nvidia-smi)
+									NVIDIA sürücüleri kurulu ve çalışır durumda olmalıdır (nvidia-smi
+									ile kontrol edin)
 								</li>
 								<li>
-									NVIDIA Container Runtime must be installed
+									NVIDIA Container Runtime kurulu olmalıdır
 									(nvidia-container-runtime)
 								</li>
-								<li>User must have sudo/administrative privileges</li>
-								<li>System must support CUDA for GPU acceleration</li>
+								<li>Kullanıcının sudo/yönetici ayrıcalıkları olmalıdır</li>
+								<li>Sistem GPU hızlandırma için CUDA desteklemelidir</li>
 							</ul>
 						</AlertBlock>
 
 						{isChecking ? (
 							<div className="flex items-center justify-center text-muted-foreground py-4">
 								<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-								<span>Checking GPU status...</span>
+								<span>GPU durumu kontrol ediliyor...</span>
 							</div>
 						) : (
 							<div className="grid gap-4">
 								{/* Prerequisites Section */}
 								<div className="border rounded-lg p-4">
-									<h3 className="text-lg font-semibold mb-1">Prerequisites</h3>
+									<h3 className="text-lg font-semibold mb-1">Ön Koşullar</h3>
 									<p className="text-sm text-muted-foreground mb-4">
-										Shows all software checks and available hardware
+										Tüm yazılım kontrollerini ve mevcut donanımı gösterir
 									</p>
 									<div className="grid gap-2.5">
 										<StatusRow
-											label="NVIDIA Driver"
+											label="NVIDIA Sürücüsü"
 											isEnabled={gpuStatus?.driverInstalled}
 											description={
 												gpuStatus?.driverVersion
-													? `Installed (v${gpuStatus.driverVersion})`
-													: "Not Installed"
+													? `Kurulu (v${gpuStatus.driverVersion})`
+													: "Kurulu Değil"
 											}
 										/>
 										<StatusRow
-											label="GPU Model"
-											value={gpuStatus?.gpuModel || "Not Detected"}
+											label="GPU Modeli"
+											value={gpuStatus?.gpuModel || "Algılanmadı"}
 											showIcon={false}
 										/>
 										<StatusRow
-											label="GPU Memory"
-											value={gpuStatus?.memoryInfo || "Not Available"}
+											label="GPU Belleği"
+											value={gpuStatus?.memoryInfo || "Mevcut Değil"}
 											showIcon={false}
 										/>
 										<StatusRow
-											label="Available GPUs"
+											label="Kullanılabilir GPU'lar"
 											value={gpuStatus?.availableGPUs || 0}
 											showIcon={false}
 										/>
 										<StatusRow
-											label="CUDA Support"
+											label="CUDA Desteği"
 											isEnabled={gpuStatus?.cudaSupport}
 											description={
 												gpuStatus?.cudaVersion
-													? `Available (v${gpuStatus.cudaVersion})`
-													: "Not Available"
+													? `Mevcut (v${gpuStatus.cudaVersion})`
+													: "Mevcut Değil"
 											}
 										/>
 										<StatusRow
@@ -194,8 +194,8 @@ export function GPUSupport({ serverId }: GPUSupportProps) {
 											isEnabled={gpuStatus?.runtimeInstalled}
 											description={
 												gpuStatus?.runtimeInstalled
-													? "Installed"
-													: "Not Installed"
+													? "Kurulu"
+													: "Kurulu Değil"
 											}
 										/>
 									</div>
@@ -204,29 +204,29 @@ export function GPUSupport({ serverId }: GPUSupportProps) {
 								{/* Configuration Status */}
 								<div className="border rounded-lg p-4">
 									<h3 className="text-lg font-semibold mb-1">
-										Docker Swarm GPU Status
+										Docker Swarm GPU Durumu
 									</h3>
 									<p className="text-sm text-muted-foreground mb-4">
-										Shows the configuration state that changes with the Enable
-										GPU
+										GPU Etkinleştir ile değişen yapılandırma durumunu
+										gösterir
 									</p>
 									<div className="grid gap-2.5">
 										<StatusRow
-											label="Runtime Configuration"
+											label="Runtime Yapılandırması"
 											isEnabled={gpuStatus?.runtimeConfigured}
 											description={
 												gpuStatus?.runtimeConfigured
-													? "Default Runtime"
-													: "Not Default Runtime"
+													? "Varsayılan Runtime"
+													: "Varsayılan Runtime Değil"
 											}
 										/>
 										<StatusRow
-											label="Swarm GPU Support"
+											label="Swarm GPU Desteği"
 											isEnabled={gpuStatus?.swarmEnabled}
 											description={
 												gpuStatus?.swarmEnabled
-													? `Enabled (${gpuStatus.gpuResources} GPU${gpuStatus.gpuResources !== 1 ? "s" : ""})`
-													: "Not Enabled"
+													? `Etkin (${gpuStatus.gpuResources} GPU)`
+													: "Etkin Değil"
 											}
 										/>
 									</div>
@@ -264,7 +264,7 @@ export function StatusRow({
 						<span
 							className={`text-sm ${isEnabled ? "text-green-500" : "text-red-500"}`}
 						>
-							{description || (isEnabled ? "Installed" : "Not Installed")}
+							{description || (isEnabled ? "Kurulu" : "Kurulu Değil")}
 						</span>
 						{isEnabled ? (
 							<CheckCircle2 className="size-4 text-green-500" />

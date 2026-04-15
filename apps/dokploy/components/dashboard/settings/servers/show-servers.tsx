@@ -69,10 +69,10 @@ export const ShowServers = () => {
 					<CardHeader className="">
 						<CardTitle className="text-xl flex flex-row gap-2">
 							<ServerIcon className="size-6 text-muted-foreground self-center" />
-							Servers
+							Sunucular
 						</CardTitle>
 						<CardDescription>
-							Add servers to deploy your applications remotely.
+							Uygulamalarınızı uzaktan dağıtmak için sunucu ekleyin.
 						</CardDescription>
 
 						{isCloud && (
@@ -82,14 +82,14 @@ export const ShowServers = () => {
 									router.push("/dashboard/settings/servers?success=true");
 								}}
 							>
-								Reset Onboarding
+								Başlangıcı Sıfırla
 							</span>
 						)}
 					</CardHeader>
 					<CardContent className="space-y-2 py-8 border-t">
 						{isPending ? (
 							<div className="flex flex-row gap-2 items-center justify-center text-sm text-muted-foreground min-h-[25vh]">
-								<span>Loading...</span>
+								<span>Yükleniyor...</span>
 								<Loader2 className="animate-spin size-4" />
 							</div>
 						) : (
@@ -98,12 +98,12 @@ export const ShowServers = () => {
 									<div className="flex flex-col items-center gap-3 min-h-[25vh] justify-center">
 										<KeyIcon className="size-8" />
 										<span className="text-base text-muted-foreground">
-											No SSH Keys found. Add a SSH Key to start adding servers.{" "}
+											SSH Anahtarı bulunamadı. Sunucu eklemeye başlamak için bir SSH Anahtarı ekleyin.{" "}
 											<Link
 												href="/dashboard/settings/ssh-keys"
 												className="text-primary"
 											>
-												Add SSH Key
+												SSH Anahtarı Ekle
 											</Link>
 										</span>
 									</div>
@@ -113,8 +113,7 @@ export const ShowServers = () => {
 											<div className="flex flex-col items-center gap-3  min-h-[25vh] justify-center">
 												<ServerIcon className="size-8 self-center text-muted-foreground" />
 												<span className="text-base text-muted-foreground">
-													Start adding servers to deploy your applications
-													remotely.
+													Uygulamalarınızı uzaktan dağıtmak için sunucu eklemeye başlayın.
 												</span>
 												{permissions?.server.create && <HandleServers />}
 											</div>
@@ -148,14 +147,14 @@ export const ShowServers = () => {
 																							className="h-8 w-8 p-0"
 																						>
 																							<span className="sr-only">
-																								More options
+																								Daha fazla seçenek
 																							</span>
 																							<MoreHorizontal className="h-4 w-4" />
 																						</Button>
 																					</DropdownMenuTrigger>
 																					<DropdownMenuContent align="end">
 																						<DropdownMenuLabel>
-																							Advanced
+																							Gelişmiş
 																						</DropdownMenuLabel>
 																						<ShowTraefikFileSystemModal
 																							serverId={server.serverId}
@@ -210,11 +209,11 @@ export const ShowServers = () => {
 																								side="bottom"
 																							>
 																								<p className="text-sm">
-																									This server is deactivated due
-																									to lack of payment. Please pay
-																									your invoice to reactivate it.
-																									If you think this is an error,
-																									please contact support.
+																									Bu sunucu ödeme yapılmadığı için
+																									devre dışı bırakıldı. Yeniden etkinleştirmek
+																									için lütfen faturanızı ödeyin.
+																									Bunun bir hata olduğunu düşünüyorsanız,
+																									lütfen destek ile iletişime geçin.
 																								</p>
 																							</TooltipContent>
 																						</Tooltip>
@@ -252,7 +251,7 @@ export const ShowServers = () => {
 																	<div className="flex items-center gap-2 text-sm">
 																		<User className="size-4 text-muted-foreground" />
 																		<span className="text-muted-foreground">
-																			User:
+																			Kullanıcı:
 																		</span>
 																		<span className="font-medium">
 																			{server.username}
@@ -261,16 +260,16 @@ export const ShowServers = () => {
 																	<div className="flex items-center gap-2 text-sm">
 																		<Key className="size-4 text-muted-foreground" />
 																		<span className="text-muted-foreground">
-																			SSH Key:
+																			SSH Anahtarı:
 																		</span>
 																		<span className="font-medium">
-																			{server.sshKeyId ? "Yes" : "No"}
+																			{server.sshKeyId ? "Evet" : "Hayır"}
 																		</span>
 																	</div>
 																	<div className="flex items-center gap-2 text-sm pt-2 border-t">
 																		<Clock className="size-4 text-muted-foreground" />
 																		<span className="text-xs text-muted-foreground">
-																			Created{" "}
+																			Oluşturulma{" "}
 																			{format(
 																				new Date(server.createdAt),
 																				"PPp",
@@ -294,12 +293,12 @@ export const ShowServers = () => {
 																					>
 																						<div className="space-y-1">
 																							<p className="font-semibold">
-																								Setup Server
+																								Sunucu Kurulumu
 																							</p>
 																							<p className="text-xs text-muted-foreground">
-																								Configure and initialize your
-																								server with Docker, Traefik, and
-																								other essential services
+																								Sunucunuzu Docker, Traefik ve
+																								diğer temel hizmetlerle yapılandırın
+																								ve başlatın
 																							</p>
 																						</div>
 																					</TooltipContent>
@@ -341,7 +340,7 @@ export const ShowServers = () => {
 																						</div>
 																					</TooltipTrigger>
 																					<TooltipContent>
-																						<p>Edit Server</p>
+																						<p>Sunucuyu Düzenle</p>
 																					</TooltipContent>
 																				</Tooltip>
 
@@ -356,7 +355,7 @@ export const ShowServers = () => {
 																							</div>
 																						</TooltipTrigger>
 																						<TooltipContent>
-																							<p>Web Server Actions</p>
+																							<p>Web Sunucusu İşlemleri</p>
 																						</TooltipContent>
 																					</Tooltip>
 																				)}
@@ -371,23 +370,22 @@ export const ShowServers = () => {
 																									disabled={!canDelete}
 																									title={
 																										canDelete
-																											? "Delete Server"
-																											: "Server has active services"
+																											? "Sunucuyu Sil"
+																											: "Sunucuda aktif hizmetler var"
 																									}
 																									description={
 																										canDelete ? (
-																											"This will delete the server and all associated data"
+																											"Bu işlem sunucuyu ve ilişkili tüm verileri silecektir"
 																										) : (
 																											<div className="flex flex-col gap-2">
-																												You can not delete this
-																												server because it has
-																												active services.
+																												Bu sunucuyu silemezsiniz
+																												çünkü aktif hizmetleri
+																												bulunmaktadır.
 																												<AlertBlock type="warning">
-																													You have active
-																													services associated
-																													with this server,
-																													please delete them
-																													first.
+																													Bu sunucuyla ilişkili
+																													aktif hizmetleriniz var,
+																													lütfen önce onları
+																													silin.
 																												</AlertBlock>
 																											</div>
 																										)
@@ -399,7 +397,7 @@ export const ShowServers = () => {
 																											.then(() => {
 																												refetch();
 																												toast.success(
-																													`Server ${server.name} deleted successfully`,
+																													`${server.name} sunucusu başarıyla silindi`,
 																												);
 																											})
 																											.catch((err) => {
@@ -422,8 +420,8 @@ export const ShowServers = () => {
 																						<TooltipContent>
 																							<p>
 																								{canDelete
-																									? "Delete Server"
-																									: "Cannot delete - has active services"}
+																									? "Sunucuyu Sil"
+																									: "Silinemez - aktif hizmetler var"}
 																							</p>
 																						</TooltipContent>
 																					</Tooltip>

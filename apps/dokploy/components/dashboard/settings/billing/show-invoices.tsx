@@ -14,7 +14,7 @@ import { api } from "@/utils/api";
 
 const formatDate = (timestamp: number | null) => {
 	if (!timestamp) return "-";
-	return new Date(timestamp * 1000).toLocaleDateString("en-US", {
+	return new Date(timestamp * 1000).toLocaleDateString("tr-TR", {
 		year: "numeric",
 		month: "short",
 		day: "numeric",
@@ -22,7 +22,7 @@ const formatDate = (timestamp: number | null) => {
 };
 
 const formatAmount = (amount: number, currency: string) => {
-	return new Intl.NumberFormat("en-US", {
+	return new Intl.NumberFormat("tr-TR", {
 		style: "currency",
 		currency: currency.toUpperCase(),
 	}).format(amount / 100);
@@ -33,15 +33,15 @@ const getStatusBadge = (status: Stripe.Invoice.Status | null) => {
 		Stripe.Invoice.Status,
 		{ label: string; variant: "default" | "secondary" | "destructive" }
 	> = {
-		paid: { label: "Paid", variant: "default" },
-		open: { label: "Open", variant: "secondary" },
-		draft: { label: "Draft", variant: "secondary" },
-		void: { label: "Void", variant: "destructive" },
-		uncollectible: { label: "Uncollectible", variant: "destructive" },
+		paid: { label: "Ödendi", variant: "default" },
+		open: { label: "Açık", variant: "secondary" },
+		draft: { label: "Taslak", variant: "secondary" },
+		void: { label: "Geçersiz", variant: "destructive" },
+		uncollectible: { label: "Tahsil Edilemez", variant: "destructive" },
 	};
 
 	if (!status) {
-		return <Badge variant="secondary">Unknown</Badge>;
+		return <Badge variant="secondary">Bilinmiyor</Badge>;
 	}
 
 	const config = statusConfig[status] || {
@@ -60,7 +60,7 @@ export const ShowInvoices = () => {
 			{isPending ? (
 				<div className="flex items-center justify-center min-h-[20vh]">
 					<span className="text-base text-muted-foreground flex flex-row gap-3 items-center">
-						Loading invoices...
+						Faturalar yükleniyor...
 						<Loader2 className="animate-spin" />
 					</span>
 				</div>
@@ -69,12 +69,12 @@ export const ShowInvoices = () => {
 					<Table>
 						<TableHeader>
 							<TableRow>
-								<TableHead>Invoice</TableHead>
-								<TableHead>Date</TableHead>
-								<TableHead>Due Date</TableHead>
-								<TableHead>Amount</TableHead>
-								<TableHead>Status</TableHead>
-								<TableHead className="text-right">Actions</TableHead>
+								<TableHead>Fatura</TableHead>
+								<TableHead>Tarih</TableHead>
+								<TableHead>Vade Tarihi</TableHead>
+								<TableHead>Tutar</TableHead>
+								<TableHead>Durum</TableHead>
+								<TableHead className="text-right">İşlemler</TableHead>
 							</TableRow>
 						</TableHeader>
 						<TableBody>
@@ -126,9 +126,9 @@ export const ShowInvoices = () => {
 			) : (
 				<div className="flex flex-col items-center justify-center min-h-[20vh] gap-2">
 					<FileText className="size-12 text-muted-foreground" />
-					<p className="text-base text-muted-foreground">No invoices found</p>
+					<p className="text-base text-muted-foreground">Fatura bulunamadı</p>
 					<p className="text-sm text-muted-foreground">
-						Your invoices will appear here once you have a subscription
+						Bir aboneliğiniz olduğunda faturalarınız burada görünecektir
 					</p>
 				</div>
 			)}

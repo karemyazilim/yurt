@@ -67,11 +67,11 @@ export const ShowStorageActions = ({ serverId }: Props) => {
 					}
 					variant="outline"
 				>
-					Space
+					Depolama
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-64" align="start">
-				<DropdownMenuLabel>Actions</DropdownMenuLabel>
+				<DropdownMenuLabel>İşlemler</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
 					<DropdownMenuItem
@@ -81,14 +81,14 @@ export const ShowStorageActions = ({ serverId }: Props) => {
 								serverId: serverId,
 							})
 								.then(async () => {
-									toast.success("Cleaned images");
+									toast.success("İmajlar temizlendi");
 								})
 								.catch(() => {
-									toast.error("Error cleaning images");
+									toast.error("İmajlar temizlenirken hata oluştu");
 								});
 						}}
 					>
-						<span>Clean unused images</span>
+						<span>Kullanılmayan imajları temizle</span>
 					</DropdownMenuItem>
 					<DropdownMenuItem
 						className="w-full cursor-pointer"
@@ -97,14 +97,14 @@ export const ShowStorageActions = ({ serverId }: Props) => {
 								serverId: serverId,
 							})
 								.then(async () => {
-									toast.success("Cleaned volumes");
+									toast.success("Birimler temizlendi");
 								})
 								.catch(() => {
-									toast.error("Error cleaning volumes");
+									toast.error("Birimler temizlenirken hata oluştu");
 								});
 						}}
 					>
-						<span>Clean unused volumes</span>
+						<span>Kullanılmayan birimleri temizle</span>
 					</DropdownMenuItem>
 
 					<DropdownMenuItem
@@ -114,14 +114,14 @@ export const ShowStorageActions = ({ serverId }: Props) => {
 								serverId: serverId,
 							})
 								.then(async () => {
-									toast.success("Stopped containers cleaned");
+									toast.success("Durdurulan konteynerler temizlendi");
 								})
 								.catch(() => {
-									toast.error("Error cleaning stopped containers");
+									toast.error("Durdurulan konteynerler temizlenirken hata oluştu");
 								});
 						}}
 					>
-						<span>Clean stopped containers</span>
+						<span>Durdurulan konteynerleri temizle</span>
 					</DropdownMenuItem>
 
 					<DropdownMenuItem
@@ -131,14 +131,14 @@ export const ShowStorageActions = ({ serverId }: Props) => {
 								serverId: serverId,
 							})
 								.then(async () => {
-									toast.success("Cleaned Patch Caches");
+									toast.success("Yama Önbellekleri temizlendi");
 								})
 								.catch(() => {
-									toast.error("Error cleaning Patch Caches");
+									toast.error("Yama Önbellekleri temizlenirken hata oluştu");
 								});
 						}}
 					>
-						<span>Clean Patch Caches</span>
+						<span>Yama Önbelleklerini Temizle</span>
 					</DropdownMenuItem>
 
 					<DropdownMenuItem
@@ -148,14 +148,14 @@ export const ShowStorageActions = ({ serverId }: Props) => {
 								serverId: serverId,
 							})
 								.then(async () => {
-									toast.success("Cleaned Docker Builder");
+									toast.success("Docker Builder temizlendi");
 								})
 								.catch(() => {
-									toast.error("Error cleaning Docker Builder");
+									toast.error("Docker Builder temizlenirken hata oluştu");
 								});
 						}}
 					>
-						<span>Clean Docker Builder & System</span>
+						<span>Docker Builder ve Sistemi Temizle</span>
 					</DropdownMenuItem>
 					{!serverId && (
 						<DropdownMenuItem
@@ -163,14 +163,14 @@ export const ShowStorageActions = ({ serverId }: Props) => {
 							onClick={async () => {
 								await cleanMonitoring()
 									.then(async () => {
-										toast.success("Cleaned Monitoring");
+										toast.success("İzleme verileri temizlendi");
 									})
 									.catch(() => {
-										toast.error("Error cleaning Monitoring");
+										toast.error("İzleme verileri temizlenirken hata oluştu");
 									});
 							}}
 						>
-							<span>Clean Monitoring</span>
+							<span>İzleme Verilerini Temizle</span>
 						</DropdownMenuItem>
 					)}
 
@@ -181,14 +181,14 @@ export const ShowStorageActions = ({ serverId }: Props) => {
 								serverId: serverId,
 							})
 								.then(async () => {
-									toast.success("Cleaning in progress... Please wait");
+									toast.success("Temizleme devam ediyor... Lütfen bekleyin");
 								})
 								.catch(() => {
-									toast.error("Error cleaning all");
+									toast.error("Tümü temizlenirken hata oluştu");
 								});
 						}}
 					>
-						<span>Clean all</span>
+						<span>Tümünü temizle</span>
 					</DropdownMenuItem>
 				</DropdownMenuGroup>
 			</DropdownMenuContent>

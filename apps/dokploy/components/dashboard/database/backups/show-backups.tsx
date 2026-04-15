@@ -105,11 +105,11 @@ export const ShowBackups = ({
 				<div className="flex flex-col gap-0.5">
 					<CardTitle className="text-xl flex flex-row gap-2">
 						<Database className="size-6 text-muted-foreground" />
-						Backups
+						Yedeklemeler
 					</CardTitle>
 					<CardDescription>
-						Add backups to your database to save the data to a different
-						provider.
+						Verileri farklı bir sağlayıcıya kaydetmek için veritabanınıza
+						yedeklemeler ekleyin.
 					</CardDescription>
 				</div>
 
@@ -137,15 +137,15 @@ export const ShowBackups = ({
 					<div className="flex flex-col items-center gap-3 min-h-[35vh] justify-center">
 						<DatabaseBackup className="size-8 text-muted-foreground" />
 						<span className="text-base text-muted-foreground text-center">
-							To create a backup it is required to set at least 1 provider.
-							Please, go to{" "}
+							Yedekleme oluşturmak için en az 1 sağlayıcı ayarlanması
+							gereklidir. Lütfen bunu yapmak için{" "}
 							<Link
 								href="/dashboard/settings/destinations"
 								className="text-foreground"
 							>
-								S3 Destinations
+								S3 Hedefleri
 							</Link>{" "}
-							to do so.
+							sayfasına gidin.
 						</span>
 					</div>
 				) : (
@@ -154,7 +154,7 @@ export const ShowBackups = ({
 							<div className="flex w-full flex-col items-center justify-center gap-3 pt-10">
 								<DatabaseBackup className="size-8 text-muted-foreground" />
 								<span className="text-base text-muted-foreground">
-									No backups configured
+									Yapılandırılmış yedekleme yok
 								</span>
 								<div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
 									<HandleBackup
@@ -176,8 +176,8 @@ export const ShowBackups = ({
 						) : (
 							<div className="flex flex-col pt-2 gap-4">
 								{backupType === "compose" && (
-									<AlertBlock title="Compose Backups">
-										Make sure the compose is running before creating a backup.
+									<AlertBlock title="Compose Yedeklemeleri">
+										Yedekleme oluşturmadan önce compose'un çalıştığından emin olun.
 									</AlertBlock>
 								)}
 								<div className="flex flex-col gap-6">
@@ -227,7 +227,7 @@ export const ShowBackups = ({
 																		)}
 																	/>
 																	<span className="text-xs text-muted-foreground">
-																		{backup.enabled ? "Active" : "Inactive"}
+																		{backup.enabled ? "Aktif" : "Pasif"}
 																	</span>
 																</div>
 															</div>
@@ -236,7 +236,7 @@ export const ShowBackups = ({
 														<div className="flex flex-wrap gap-x-8 gap-y-2">
 															<div className="min-w-[200px]">
 																<span className="text-sm font-medium text-muted-foreground">
-																	Destination
+																	Hedef
 																</span>
 																<p className="font-medium text-sm mt-0.5">
 																	{backup.destination.name}
@@ -245,7 +245,7 @@ export const ShowBackups = ({
 
 															<div className="min-w-[150px]">
 																<span className="text-sm font-medium text-muted-foreground">
-																	Database
+																	Veritabanı
 																</span>
 																<p className="font-medium text-sm mt-0.5">
 																	{backup.database}
@@ -254,7 +254,7 @@ export const ShowBackups = ({
 
 															<div className="min-w-[120px]">
 																<span className="text-sm font-medium text-muted-foreground">
-																	Schedule
+																	Zamanlama
 																</span>
 																<p className="font-medium text-sm mt-0.5">
 																	{backup.schedule}
@@ -263,7 +263,7 @@ export const ShowBackups = ({
 
 															<div className="min-w-[150px]">
 																<span className="text-sm font-medium text-muted-foreground">
-																	Prefix Storage
+																	Ön Ek Depolama
 																</span>
 																<p className="font-medium text-sm mt-0.5">
 																	{backup.prefix}
@@ -272,10 +272,10 @@ export const ShowBackups = ({
 
 															<div className="min-w-[100px]">
 																<span className="text-sm font-medium text-muted-foreground">
-																	Keep Latest
+																	En Son Tut
 																</span>
 																<p className="font-medium text-sm mt-0.5">
-																	{backup.keepLatestCount || "All"}
+																	{backup.keepLatestCount || "Tümü"}
 																</p>
 															</div>
 														</div>
@@ -314,12 +314,12 @@ export const ShowBackups = ({
 																			})
 																				.then(async () => {
 																					toast.success(
-																						"Manual Backup Successful",
+																						"Manuel Yedekleme Başarılı",
 																					);
 																				})
 																				.catch(() => {
 																					toast.error(
-																						"Error creating the manual backup",
+																						"Manuel yedekleme oluşturulurken hata oluştu",
 																					);
 																				});
 																			setActiveManualBackup(undefined);
@@ -329,7 +329,7 @@ export const ShowBackups = ({
 																	</Button>
 																</TooltipTrigger>
 																<TooltipContent>
-																	Run Manual Backup
+																	Manuel Yedekleme Çalıştır
 																</TooltipContent>
 															</Tooltip>
 														</TooltipProvider>
@@ -341,8 +341,8 @@ export const ShowBackups = ({
 															refetch={refetch}
 														/>
 														<DialogAction
-															title="Delete Backup"
-															description="Are you sure you want to delete this backup?"
+															title="Yedeklemeyi Sil"
+															description="Bu yedeklemeyi silmek istediğinizden emin misiniz?"
 															type="destructive"
 															onClick={async () => {
 																await deleteBackup({
@@ -351,11 +351,11 @@ export const ShowBackups = ({
 																	.then(() => {
 																		refetch();
 																		toast.success(
-																			"Backup deleted successfully",
+																			"Yedekleme başarıyla silindi",
 																		);
 																	})
 																	.catch(() => {
-																		toast.error("Error deleting backup");
+																		toast.error("Yedekleme silinirken hata oluştu");
 																	});
 															}}
 														>

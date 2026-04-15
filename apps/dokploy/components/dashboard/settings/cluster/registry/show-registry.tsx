@@ -25,16 +25,16 @@ export const ShowRegistry = () => {
 					<CardHeader className="">
 						<CardTitle className="text-xl flex flex-row gap-2">
 							<Package className="size-6 text-muted-foreground self-center" />
-							Docker Registry
+							Docker Kayıt Defteri
 						</CardTitle>
 						<CardDescription>
-							Manage your Docker Registry configurations
+							Docker Kayıt Defteri yapılandırmalarınızı yönetin
 						</CardDescription>
 					</CardHeader>
 					<CardContent className="space-y-2 py-8 border-t">
 						{isPending ? (
 							<div className="flex flex-row gap-2 items-center justify-center text-sm text-muted-foreground min-h-[25vh]">
-								<span>Loading...</span>
+								<span>Yükleniyor...</span>
 								<Loader2 className="animate-spin size-4" />
 							</div>
 						) : (
@@ -43,7 +43,7 @@ export const ShowRegistry = () => {
 									<div className="flex flex-col items-center gap-3  min-h-[25vh] justify-center">
 										<Package className="size-8 self-center text-muted-foreground" />
 										<span className="text-base text-muted-foreground text-center">
-											You don't have any registry configurations
+											Henüz kayıt defteri yapılandırmanız yok
 										</span>
 										{permissions?.registry.create && <HandleRegistry />}
 									</div>
@@ -76,8 +76,8 @@ export const ShowRegistry = () => {
 
 															{permissions?.registry.delete && (
 																<DialogAction
-																	title="Delete Registry"
-																	description="Are you sure you want to delete this registry configuration?"
+																	title="Kayıt Defterini Sil"
+																	description="Bu kayıt defteri yapılandırmasını silmek istediğinizden emin misiniz?"
 																	type="destructive"
 																	onClick={async () => {
 																		await mutateAsync({
@@ -85,13 +85,13 @@ export const ShowRegistry = () => {
 																		})
 																			.then(() => {
 																				toast.success(
-																					"Registry configuration deleted successfully",
+																					"Kayıt defteri yapılandırması başarıyla silindi",
 																				);
 																				refetch();
 																			})
 																			.catch(() => {
 																				toast.error(
-																					"Error deleting registry configuration",
+																					"Kayıt defteri yapılandırması silinirken hata oluştu",
 																				);
 																			});
 																	}}

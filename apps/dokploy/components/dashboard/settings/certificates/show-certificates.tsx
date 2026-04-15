@@ -43,23 +43,20 @@ export const ShowCertificates = () => {
 					<CardHeader className="">
 						<CardTitle className="text-xl flex flex-row gap-2">
 							<ShieldCheck className="size-6 text-muted-foreground self-center" />
-							Certificates
+							Sertifikalar
 						</CardTitle>
 						<CardDescription>
-							Create certificates in the Traefik directory
+							Traefik dizininde sertifikalar oluşturun
 						</CardDescription>
 
 						<AlertBlock type="warning">
-							Certificates are created in the Traefik directory. Traefik uses
-							these certificates to secure your applications. Using invalid
-							certificates can break your Traefik instance, preventing access to
-							your applications.
+							Sertifikalar Traefik dizininde oluşturulur. Traefik bu sertifikaları uygulamalarınızı güvence altına almak için kullanır. Geçersiz sertifikalar kullanmak Traefik örneğinizi bozabilir ve uygulamalarınıza erişimi engelleyebilir.
 						</AlertBlock>
 					</CardHeader>
 					<CardContent className="space-y-2 py-8 border-t">
 						{isPending ? (
 							<div className="flex flex-row gap-2 items-center justify-center text-sm text-muted-foreground min-h-[25vh]">
-								<span>Loading...</span>
+								<span>Yükleniyor...</span>
 								<Loader2 className="animate-spin size-4" />
 							</div>
 						) : (
@@ -68,7 +65,7 @@ export const ShowCertificates = () => {
 									<div className="flex flex-col items-center gap-3  min-h-[25vh] justify-center">
 										<ShieldCheck className="size-8 self-center text-muted-foreground" />
 										<span className="text-base text-muted-foreground text-center">
-											You don't have any certificates created
+											Henüz oluşturulmuş sertifikanız yok
 										</span>
 										{permissions?.certificate.create && <HandleCertificate />}
 									</div>
@@ -142,7 +139,7 @@ export const ShowCertificates = () => {
 																				)}
 																				<Link className="size-3 text-muted-foreground" />
 																				<span className="text-xs text-muted-foreground">
-																					Chain ({chainInfo.count} certificates)
+																					Zincir ({chainInfo.count} sertifika)
 																				</span>
 																			</button>
 																			{isExpanded && (
@@ -181,7 +178,7 @@ export const ShowCertificates = () => {
 																		{certificate.autoRenew &&
 																			expiration.status !== "valid" && (
 																				<span className="text-xs text-emerald-500 ml-1">
-																					(Auto-renewal enabled)
+																					(Otomatik yenileme etkin)
 																				</span>
 																			)}
 																	</div>
@@ -197,8 +194,8 @@ export const ShowCertificates = () => {
 
 																{permissions?.certificate.delete && (
 																	<DialogAction
-																		title="Delete Certificate"
-																		description="Are you sure you want to delete this certificate?"
+																		title="Sertifikayı Sil"
+																		description="Bu sertifikayı silmek istediğinizden emin misiniz?"
 																		type="destructive"
 																		onClick={async () => {
 																			await mutateAsync({
@@ -207,13 +204,13 @@ export const ShowCertificates = () => {
 																			})
 																				.then(() => {
 																					toast.success(
-																						"Certificate deleted successfully",
+																						"Sertifika başarıyla silindi",
 																					);
 																					refetch();
 																				})
 																				.catch(() => {
 																					toast.error(
-																						"Error deleting certificate",
+																						"Sertifika silinirken hata oluştu",
 																					);
 																				});
 																		}}

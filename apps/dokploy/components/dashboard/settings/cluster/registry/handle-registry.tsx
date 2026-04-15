@@ -37,10 +37,10 @@ import { api } from "@/utils/api";
 
 const AddRegistrySchema = z.object({
 	registryName: z.string().min(1, {
-		message: "Registry name is required",
+		message: "Kayıt defteri adı gereklidir",
 	}),
 	username: z.string().min(1, {
-		message: "Username is required",
+		message: "Kullanıcı adı gereklidir",
 	}),
 	password: z.string(),
 	registryUrl: z
@@ -68,7 +68,7 @@ const AddRegistrySchema = z.object({
 			},
 			{
 				message:
-					"Invalid registry URL. Please enter only the hostname (e.g., example.com or registry.example.com). Do not include protocol (https://) or paths.",
+					"Geçersiz kayıt defteri URL'si. Lütfen yalnızca sunucu adını girin (ör. example.com veya registry.example.com). Protokol (https://) veya yol eklemeyin.",
 			},
 		),
 	imagePrefix: z.string(),
@@ -138,7 +138,7 @@ export const HandleRegistry = ({ registryId }: Props) => {
 					return true;
 				},
 				{
-					message: "Password is required",
+					message: "Şifre gereklidir",
 					path: ["password"],
 				},
 			),
@@ -197,12 +197,12 @@ export const HandleRegistry = ({ registryId }: Props) => {
 		await mutateAsync(payload)
 			.then(async (_data) => {
 				await utils.registry.all.invalidate();
-				toast.success(registryId ? "Registry updated" : "Registry added");
+				toast.success(registryId ? "Kayıt defteri güncellendi" : "Kayıt defteri eklendi");
 				setIsOpen(false);
 			})
 			.catch(() => {
 				toast.error(
-					registryId ? "Error updating a registry" : "Error adding a registry",
+					registryId ? "Kayıt defteri güncellenirken hata oluştu" : "Kayıt defteri eklenirken hata oluştu",
 				);
 			});
 	};
@@ -221,15 +221,15 @@ export const HandleRegistry = ({ registryId }: Props) => {
 				) : (
 					<Button className="cursor-pointer space-x-3">
 						<PlusIcon className="h-4 w-4" />
-						Add Registry
+						Kayıt Defteri Ekle
 					</Button>
 				)}
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-2xl">
 				<DialogHeader>
-					<DialogTitle>Add a external registry</DialogTitle>
+					<DialogTitle>Harici kayıt defteri ekle</DialogTitle>
 					<DialogDescription>
-						Fill the next fields to add a external registry.
+						Harici bir kayıt defteri eklemek için aşağıdaki alanları doldurun.
 					</DialogDescription>
 				</DialogHeader>
 				{(isError || testRegistryIsError || testRegistryByIdIsError) && (
@@ -254,9 +254,9 @@ export const HandleRegistry = ({ registryId }: Props) => {
 								name="registryName"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Registry Name</FormLabel>
+										<FormLabel>Kayıt Defteri Adı</FormLabel>
 										<FormControl>
-											<Input placeholder="Registry Name" {...field} />
+											<Input placeholder="Kayıt Defteri Adı" {...field} />
 										</FormControl>
 
 										<FormMessage />
@@ -270,10 +270,10 @@ export const HandleRegistry = ({ registryId }: Props) => {
 								name="username"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Username</FormLabel>
+										<FormLabel>Kullanıcı Adı</FormLabel>
 										<FormControl>
 											<Input
-												placeholder="Username"
+												placeholder="Kullanıcı Adı"
 												autoComplete="username"
 												{...field}
 											/>
@@ -290,19 +290,18 @@ export const HandleRegistry = ({ registryId }: Props) => {
 								name="password"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Password{registryId && " (Optional)"}</FormLabel>
+										<FormLabel>Şifre{registryId && " (İsteğe bağlı)"}</FormLabel>
 										{registryId && (
 											<FormDescription>
-												Leave blank to keep existing password. Enter new
-												password to test or update it.
+												Mevcut şifreyi korumak için boş bırakın. Test etmek veya güncellemek için yeni şifre girin.
 											</FormDescription>
 										)}
 										<FormControl>
 											<Input
 												placeholder={
 													registryId
-														? "Leave blank to keep existing"
-														: "Password"
+														? "Mevcut şifreyi korumak için boş bırakın"
+														: "Şifre"
 												}
 												autoComplete="one-time-code"
 												{...field}
@@ -321,9 +320,9 @@ export const HandleRegistry = ({ registryId }: Props) => {
 								name="imagePrefix"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Image Prefix</FormLabel>
+										<FormLabel>İmaj Öneki</FormLabel>
 										<FormControl>
-											<Input {...field} placeholder="Image Prefix" />
+											<Input {...field} placeholder="İmaj Öneki" />
 										</FormControl>
 
 										<FormMessage />
@@ -337,9 +336,9 @@ export const HandleRegistry = ({ registryId }: Props) => {
 								name="registryUrl"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Registry URL</FormLabel>
+										<FormLabel>Kayıt Defteri URL'si</FormLabel>
 										<FormDescription>
-											Enter only the hostname (e.g.,
+											Yalnızca sunucu adını girin (ör.
 											aws_account_id.dkr.ecr.us-west-2.amazonaws.com).
 										</FormDescription>
 										<FormControl>
@@ -361,22 +360,18 @@ export const HandleRegistry = ({ registryId }: Props) => {
 								name="serverId"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Server {!isCloud && "(Optional)"}</FormLabel>
+										<FormLabel>Sunucu {!isCloud && "(İsteğe bağlı)"}</FormLabel>
 										<FormDescription>
 											{!isCloud ? (
 												<>
 													{serverId && serverId !== "none" && selectedServer ? (
 														<>
-															Authentication will be performed on{" "}
-															<strong>{selectedServer.name}</strong>. This
-															registry will be available on this server.
+															Kimlik doğrulama şu sunucuda yapılacaktır:{" "}
+															<strong>{selectedServer.name}</strong>. Bu kayıt defteri bu sunucuda kullanılabilir olacaktır.
 														</>
 													) : (
 														<>
-															Choose where to authenticate with the registry. By
-															default, authentication occurs on the Dokploy
-															server. Select a specific server to authenticate
-															from that server instead.
+															Kayıt defteri ile kimlik doğrulamanın yapılacağı yeri seçin. Varsayılan olarak kimlik doğrulama Yurt sunucusunda yapılır. Bunun yerine belirli bir sunucudan kimlik doğrulamak için bir sunucu seçin.
 														</>
 													)}
 												</>
@@ -384,15 +379,12 @@ export const HandleRegistry = ({ registryId }: Props) => {
 												<>
 													{serverId && serverId !== "none" && selectedServer ? (
 														<>
-															Authentication will be performed on{" "}
-															<strong>{selectedServer.name}</strong>. This
-															registry will be available on this server.
+															Kimlik doğrulama şu sunucuda yapılacaktır:{" "}
+															<strong>{selectedServer.name}</strong>. Bu kayıt defteri bu sunucuda kullanılabilir olacaktır.
 														</>
 													) : (
 														<>
-															Select a server to authenticate with the registry.
-															The authentication will be performed from the
-															selected server.
+															Kayıt defteri ile kimlik doğrulama yapılacak sunucuyu seçin. Kimlik doğrulama seçilen sunucudan yapılacaktır.
 														</>
 													)}
 												</>
@@ -404,12 +396,12 @@ export const HandleRegistry = ({ registryId }: Props) => {
 												defaultValue={field.value}
 											>
 												<SelectTrigger className="w-full">
-													<SelectValue placeholder="Select a server" />
+													<SelectValue placeholder="Bir sunucu seçin" />
 												</SelectTrigger>
 												<SelectContent>
 													{deployServers && deployServers.length > 0 && (
 														<SelectGroup>
-															<SelectLabel>Deploy Servers</SelectLabel>
+															<SelectLabel>Dağıtım Sunucuları</SelectLabel>
 															{deployServers.map((server) => (
 																<SelectItem
 																	key={server.serverId}
@@ -422,7 +414,7 @@ export const HandleRegistry = ({ registryId }: Props) => {
 													)}
 													{buildServers && buildServers.length > 0 && (
 														<SelectGroup>
-															<SelectLabel>Build Servers</SelectLabel>
+															<SelectLabel>Derleme Sunucuları</SelectLabel>
 															{buildServers.map((server) => (
 																<SelectItem
 																	key={server.serverId}
@@ -434,7 +426,7 @@ export const HandleRegistry = ({ registryId }: Props) => {
 														</SelectGroup>
 													)}
 													<SelectGroup>
-														<SelectItem value={"none"}>None</SelectItem>
+														<SelectItem value={"none"}>Hiçbiri</SelectItem>
 													</SelectGroup>
 												</SelectContent>
 											</Select>
@@ -461,13 +453,13 @@ export const HandleRegistry = ({ registryId }: Props) => {
 											})
 												.then((data) => {
 													if (data) {
-														toast.success("Registry Tested Successfully");
+														toast.success("Kayıt defteri testi başarılı");
 													} else {
-														toast.error("Registry Test Failed");
+														toast.error("Kayıt defteri testi başarısız");
 													}
 												})
 												.catch(() => {
-													toast.error("Error testing the registry");
+													toast.error("Kayıt defteri test edilirken hata oluştu");
 												});
 											return;
 										}
@@ -476,7 +468,7 @@ export const HandleRegistry = ({ registryId }: Props) => {
 										if (!registryId && (!password || password.length === 0)) {
 											form.setError("password", {
 												type: "manual",
-												message: "Password is required",
+												message: "Şifre gereklidir",
 											});
 											return;
 										}
@@ -513,20 +505,20 @@ export const HandleRegistry = ({ registryId }: Props) => {
 										})
 											.then((data) => {
 												if (data) {
-													toast.success("Registry Tested Successfully");
+													toast.success("Kayıt defteri testi başarılı");
 												} else {
-													toast.error("Registry Test Failed");
+													toast.error("Kayıt defteri testi başarısız");
 												}
 											})
 											.catch(() => {
-												toast.error("Error testing the registry");
+												toast.error("Kayıt defteri test edilirken hata oluştu");
 											});
 									}}
 								>
-									Test Registry
+									Kayıt Defterini Test Et
 								</Button>
 								<Button isLoading={form.formState.isSubmitting} type="submit">
-									{registryId ? "Update" : "Create"}
+									{registryId ? "Güncelle" : "Oluştur"}
 								</Button>
 							</div>
 						</DialogFooter>

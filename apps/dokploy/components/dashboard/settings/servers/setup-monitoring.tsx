@@ -47,27 +47,27 @@ const Schema = z.object({
 	metricsConfig: z.object({
 		server: z.object({
 			refreshRate: z.number().min(2, {
-				message: "Server Refresh Rate is required",
+				message: "Sunucu Yenileme Hızı gereklidir",
 			}),
 			port: z.number().min(1, {
-				message: "Port is required",
+				message: "Port gereklidir",
 			}),
 			token: z.string(),
 			urlCallback: z.string(),
 			retentionDays: z.number().min(1, {
-				message: "Retention days must be at least 1",
+				message: "Saklama süresi en az 1 gün olmalıdır",
 			}),
 			thresholds: z.object({
 				cpu: z.number().min(0),
 				memory: z.number().min(0),
 			}),
 			cronJob: z.string().min(1, {
-				message: "Cron Job is required",
+				message: "Zamanlanmış Görev gereklidir",
 			}),
 		}),
 		containers: z.object({
 			refreshRate: z.number().min(2, {
-				message: "Container Refresh Rate is required",
+				message: "Konteyner Yenileme Hızı gereklidir",
 			}),
 			services: z.object({
 				include: z.array(z.string()).optional(),
@@ -227,10 +227,10 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 			metricsConfig: values.metricsConfig,
 		})
 			.then(() => {
-				toast.success("Server updated successfully");
+				toast.success("Sunucu başarıyla güncellendi");
 			})
 			.catch(() => {
-				toast.error("Error updating the server");
+				toast.error("Sunucu güncellenirken hata oluştu");
 			});
 	};
 
@@ -239,11 +239,11 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 			<CardHeader className="">
 				<CardTitle className="text-xl flex flex-row gap-2">
 					<LayoutDashboardIcon className="size-6 text-muted-foreground self-center" />
-					Monitoring
+					İzleme
 				</CardTitle>
 				<CardDescription>
-					Monitor your servers and containers in realtime with notifications
-					when they reach their thresholds.
+					Sunucularınızı ve konteynerlerinizi gerçek zamanlı olarak izleyin,
+					eşik değerlerine ulaştıklarında bildirim alın.
 				</CardDescription>
 			</CardHeader>
 			<CardContent className="space-y-6 py-6 border-t">
@@ -253,8 +253,8 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 						className="flex w-full flex-col gap-4"
 					>
 						<AlertBlock>
-							Using a lower refresh rate will make your CPU and memory usage
-							higher, we recommend 30-60 seconds
+							Daha düşük bir yenileme hızı CPU ve bellek kullanımınızı
+							artırır, 30-60 saniye öneriyoruz
 						</AlertBlock>
 						<div className="flex flex-col gap-4">
 							<FormField
@@ -262,12 +262,12 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 								name="metricsConfig.server.refreshRate"
 								render={({ field }) => (
 									<FormItem className="flex flex-col justify-center max-sm:items-center">
-										<FormLabel>Server Refresh Rate</FormLabel>
+										<FormLabel>Sunucu Yenileme Hızı</FormLabel>
 										<FormControl>
 											<NumberInput placeholder="10" {...field} />
 										</FormControl>
 										<FormDescription>
-											Please set the refresh rate for the server in seconds
+											Lütfen sunucu için yenileme hızını saniye cinsinden ayarlayın
 										</FormDescription>
 										<FormMessage />
 									</FormItem>
@@ -279,12 +279,12 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 								name="metricsConfig.containers.refreshRate"
 								render={({ field }) => (
 									<FormItem className="flex flex-col justify-center max-sm:items-center">
-										<FormLabel>Container Refresh Rate</FormLabel>
+										<FormLabel>Konteyner Yenileme Hızı</FormLabel>
 										<FormControl>
 											<NumberInput placeholder="10" {...field} />
 										</FormControl>
 										<FormDescription>
-											Please set the refresh rate for the containers in seconds
+											Lütfen konteynerler için yenileme hızını saniye cinsinden ayarlayın
 										</FormDescription>
 										<FormMessage />
 									</FormItem>
@@ -296,12 +296,12 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 								name="metricsConfig.server.cronJob"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Cron Job</FormLabel>
+										<FormLabel>Zamanlanmış Görev</FormLabel>
 										<FormControl>
 											<Input {...field} placeholder="0 0 * * *" />
 										</FormControl>
 										<FormDescription>
-											Cron job for cleaning up metrics
+											Metrikleri temizlemek için zamanlanmış görev
 										</FormDescription>
 										<FormMessage />
 									</FormItem>
@@ -313,12 +313,12 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 								name="metricsConfig.server.retentionDays"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Server Retention Days</FormLabel>
+										<FormLabel>Sunucu Saklama Süresi (Gün)</FormLabel>
 										<FormControl>
 											<NumberInput {...field} />
 										</FormControl>
 										<FormDescription>
-											Number of days to retain server metrics data
+											Sunucu metrik verilerinin saklanacağı gün sayısı
 										</FormDescription>
 										<FormMessage />
 									</FormItem>
@@ -334,7 +334,7 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 											<NumberInput placeholder="4500" {...field} />
 										</FormControl>
 										<FormDescription>
-											Please set the port for the metrics server
+											Lütfen metrik sunucusu için portu ayarlayın
 										</FormDescription>
 										<FormMessage />
 									</FormItem>
@@ -345,13 +345,13 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 								name="metricsConfig.containers.services.include"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Include Services</FormLabel>
+										<FormLabel>Dahil Edilecek Hizmetler</FormLabel>
 										<FormControl>
 											<div className="flex flex-col gap-4">
 												<div className="flex gap-2">
 													<Popover>
 														<PopoverTrigger asChild>
-															<Button variant="outline">Add Service</Button>
+															<Button variant="outline">Hizmet Ekle</Button>
 														</PopoverTrigger>
 														<PopoverContent
 															className="w-[300px] p-0"
@@ -359,18 +359,18 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 														>
 															<Command>
 																<CommandInput
-																	placeholder="Search service..."
+																	placeholder="Hizmet ara..."
 																	value={search}
 																	onValueChange={setSearch}
 																/>
 																{availableServices?.length === 0 ? (
 																	<div className="p-4 text-sm text-muted-foreground">
-																		No services available.
+																		Kullanılabilir hizmet yok.
 																	</div>
 																) : (
 																	<>
 																		<CommandEmpty>
-																			No service found.
+																			Hizmet bulunamadı.
 																		</CommandEmpty>
 																		<CommandGroup>
 																			{availableServices?.map((service) => (
@@ -419,7 +419,7 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 														</Badge>
 													))}
 													<FormDescription>
-														Services to monitor.
+														İzlenecek hizmetler.
 													</FormDescription>
 												</div>
 											</div>
@@ -434,13 +434,13 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 								name="metricsConfig.containers.services.exclude"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Exclude Services</FormLabel>
+										<FormLabel>Hariç Tutulacak Hizmetler</FormLabel>
 										<FormControl>
 											<div className="flex flex-col gap-4">
 												<div className="flex gap-2">
 													<Popover>
 														<PopoverTrigger asChild>
-															<Button variant="outline">Add Service</Button>
+															<Button variant="outline">Hizmet Ekle</Button>
 														</PopoverTrigger>
 														<PopoverContent
 															className="w-[300px] p-0"
@@ -448,18 +448,18 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 														>
 															<Command>
 																<CommandInput
-																	placeholder="Search service..."
+																	placeholder="Hizmet ara..."
 																	value={searchExclude}
 																	onValueChange={setSearchExclude}
 																/>
 																{availableServicesToExclude?.length === 0 ? (
 																	<div className="p-4 text-sm text-muted-foreground">
-																		No services available.
+																		Kullanılabilir hizmet yok.
 																	</div>
 																) : (
 																	<>
 																		<CommandEmpty>
-																			No service found.
+																			Hizmet bulunamadı.
 																		</CommandEmpty>
 																		<CommandGroup>
 																			{availableServicesToExclude.map(
@@ -510,7 +510,7 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 														</Badge>
 													))}
 													<FormDescription>
-														Services to exclude from monitoring
+														İzlemeden hariç tutulacak hizmetler
 													</FormDescription>
 												</div>
 											</div>
@@ -526,12 +526,12 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 								name="metricsConfig.server.thresholds.cpu"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>CPU Threshold (%)</FormLabel>
+										<FormLabel>CPU Eşik Değeri (%)</FormLabel>
 										<FormControl>
 											<NumberInput {...field} />
 										</FormControl>
 										<FormDescription>
-											Alert when CPU usage exceeds this percentage
+											CPU kullanımı bu yüzdeyi aştığında uyar
 										</FormDescription>
 										<FormMessage />
 									</FormItem>
@@ -543,12 +543,12 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 								name="metricsConfig.server.thresholds.memory"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Memory Threshold (%)</FormLabel>
+										<FormLabel>Bellek Eşik Değeri (%)</FormLabel>
 										<FormControl>
 											<NumberInput {...field} />
 										</FormControl>
 										<FormDescription>
-											Alert when memory usage exceeds this percentage
+											Bellek kullanımı bu yüzdeyi aştığında uyar
 										</FormDescription>
 										<FormMessage />
 									</FormItem>
@@ -560,13 +560,13 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 								name="metricsConfig.server.token"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Metrics Token</FormLabel>
+										<FormLabel>Metrik Anahtarı</FormLabel>
 										<FormControl>
 											<div className="flex gap-2">
 												<div className="relative flex-1">
 													<Input
 														type={showToken ? "text" : "password"}
-														placeholder="Enter your metrics token"
+														placeholder="Metrik anahtarınızı girin"
 														{...field}
 													/>
 													<Button
@@ -575,7 +575,7 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 														size="icon"
 														className="absolute right-0 top-1/2 -translate-y-1/2"
 														onClick={() => setShowToken(!showToken)}
-														title={showToken ? "Hide token" : "Show token"}
+														title={showToken ? "Anahtarı gizle" : "Anahtarı göster"}
 													>
 														{showToken ? (
 															<EyeOff className="h-4 w-4" />
@@ -594,16 +594,16 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 															"metricsConfig.server.token",
 															newToken,
 														);
-														toast.success("Token generated successfully");
+														toast.success("Anahtar başarıyla oluşturuldu");
 													}}
-													title="Generate new token"
+													title="Yeni anahtar oluştur"
 												>
 													<RefreshCw className="h-4 w-4" />
 												</Button>
 											</div>
 										</FormControl>
 										<FormDescription>
-											Token for authenticating metrics requests
+											Metrik isteklerini doğrulamak için anahtar
 										</FormDescription>
 										<FormMessage />
 									</FormItem>
@@ -615,7 +615,7 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 								name="metricsConfig.server.urlCallback"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Metrics Callback URL</FormLabel>
+										<FormLabel>Metrik Geri Çağırma URL'si</FormLabel>
 										<FormControl>
 											<Input
 												placeholder="https://your-callback-url.com"
@@ -623,7 +623,7 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 											/>
 										</FormControl>
 										<FormDescription>
-											URL where metrics will be sent
+											Metriklerin gönderileceği URL
 										</FormDescription>
 										<FormMessage />
 									</FormItem>
@@ -632,7 +632,7 @@ export const SetupMonitoring = ({ serverId }: Props) => {
 						</div>
 						<div className="flex items-center justify-end gap-2">
 							<Button type="submit" isLoading={form.formState.isSubmitting}>
-								Save changes
+								Değişiklikleri Kaydet
 							</Button>
 						</div>
 					</form>

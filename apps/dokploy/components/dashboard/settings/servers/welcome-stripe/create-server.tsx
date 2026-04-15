@@ -31,16 +31,16 @@ import { api } from "@/utils/api";
 
 const Schema = z.object({
 	name: z.string().min(1, {
-		message: "Name is required",
+		message: "Ad gereklidir",
 	}),
 	description: z.string().optional(),
 	ipAddress: z.string().min(1, {
-		message: "IP Address is required",
+		message: "IP Adresi gereklidir",
 	}),
 	port: z.number().optional(),
 	username: z.string().optional(),
 	sshKeyId: z.string().min(1, {
-		message: "SSH Key is required",
+		message: "SSH Anahtarı gereklidir",
 	}),
 });
 
@@ -62,8 +62,8 @@ export const CreateServer = ({ stepper }: Props) => {
 
 	const form = useForm<Schema>({
 		defaultValues: {
-			description: "Dokploy Cloud Server",
-			name: "My First Server",
+			description: "Yurt Cloud Sunucusu",
+			name: "İlk Sunucum",
 			ipAddress: "",
 			port: 22,
 			username: "root",
@@ -74,8 +74,8 @@ export const CreateServer = ({ stepper }: Props) => {
 
 	useEffect(() => {
 		form.reset({
-			description: "Dokploy Cloud Server",
-			name: "My First Server",
+			description: "Yurt Cloud Sunucusu",
+			name: "İlk Sunucum",
 			ipAddress: "",
 			port: 22,
 			username: "root",
@@ -98,11 +98,11 @@ export const CreateServer = ({ stepper }: Props) => {
 			serverType: "deploy",
 		})
 			.then(async (_data) => {
-				toast.success("Server Created");
+				toast.success("Sunucu Oluşturuldu");
 				stepper.next();
 			})
 			.catch(() => {
-				toast.error("Error creating a server");
+				toast.error("Sunucu oluşturulurken hata oluştu");
 			});
 	};
 	return (
@@ -110,9 +110,9 @@ export const CreateServer = ({ stepper }: Props) => {
 			<div className="flex flex-col gap-2 pt-5 px-4">
 				{!canCreateMoreServers && (
 					<AlertBlock type="warning" className="mt-2">
-						You cannot create more servers,{" "}
+						Daha fazla sunucu oluşturamazsınız,{" "}
 						<Link href="/dashboard/settings/billing" className="text-primary">
-							Please upgrade your plan
+							Lütfen planınızı yükseltin
 						</Link>
 					</AlertBlock>
 				)}
@@ -131,9 +131,9 @@ export const CreateServer = ({ stepper }: Props) => {
 								name="name"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Name</FormLabel>
+										<FormLabel>Ad</FormLabel>
 										<FormControl>
-											<Input placeholder="Hostinger Server" {...field} />
+											<Input placeholder="Hostinger Sunucusu" {...field} />
 										</FormControl>
 
 										<FormMessage />
@@ -146,10 +146,10 @@ export const CreateServer = ({ stepper }: Props) => {
 							name="description"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Description</FormLabel>
+									<FormLabel>Açıklama</FormLabel>
 									<FormControl>
 										<Textarea
-											placeholder="This server is for databases..."
+											placeholder="Bu sunucu veritabanları için..."
 											className="resize-none"
 											{...field}
 										/>
@@ -164,16 +164,15 @@ export const CreateServer = ({ stepper }: Props) => {
 							name="sshKeyId"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Select a SSH Key</FormLabel>
+									<FormLabel>SSH Anahtarı Seçin</FormLabel>
 									{!cloudSSHKey && (
 										<AlertBlock>
-											Looks like you didn't have the SSH Key yet, you can create
-											one{" "}
+											Henüz SSH Anahtarınız yok gibi görünüyor, bir tane oluşturabilirsiniz{" "}
 											<Link
 												href="/dashboard/settings/ssh-keys"
 												className="text-primary"
 											>
-												here
+												buradan
 											</Link>
 										</AlertBlock>
 									)}
@@ -183,7 +182,7 @@ export const CreateServer = ({ stepper }: Props) => {
 										defaultValue={field.value}
 									>
 										<SelectTrigger>
-											<SelectValue placeholder="Select a SSH Key" />
+											<SelectValue placeholder="SSH Anahtarı Seçin" />
 										</SelectTrigger>
 										<SelectContent>
 											<SelectGroup>
@@ -196,7 +195,7 @@ export const CreateServer = ({ stepper }: Props) => {
 													</SelectItem>
 												))}
 												<SelectLabel>
-													Registries ({sshKeys?.length})
+													SSH Anahtarları ({sshKeys?.length})
 												</SelectLabel>
 											</SelectGroup>
 										</SelectContent>
@@ -211,7 +210,7 @@ export const CreateServer = ({ stepper }: Props) => {
 								name="ipAddress"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>IP Address</FormLabel>
+										<FormLabel>IP Adresi</FormLabel>
 										<FormControl>
 											<Input placeholder="192.168.1.100" {...field} />
 										</FormControl>
@@ -255,7 +254,7 @@ export const CreateServer = ({ stepper }: Props) => {
 							name="username"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Username</FormLabel>
+									<FormLabel>Kullanıcı Adı</FormLabel>
 									<FormControl>
 										<Input placeholder="root" {...field} />
 									</FormControl>
@@ -273,7 +272,7 @@ export const CreateServer = ({ stepper }: Props) => {
 							form="hook-form-add-server"
 							type="submit"
 						>
-							Create
+							Oluştur
 						</Button>
 					</DialogFooter>
 				</Form>

@@ -88,7 +88,7 @@ export const ImpersonationBar = () => {
 			}
 		} catch (error) {
 			console.error("Error fetching users:", error);
-			toast.error("Error loading users");
+			toast.error("Kullanıcılar yüklenirken hata oluştu");
 		} finally {
 			setIsLoading(false);
 		}
@@ -104,13 +104,13 @@ export const ImpersonationBar = () => {
 			setIsImpersonating(true);
 			setOpen(false);
 
-			toast.success("Successfully impersonating user", {
-				description: `You are now viewing as ${`${selectedUser.name} ${selectedUser.lastName}`.trim() || selectedUser.email}`,
+			toast.success("Kullanıcı kimliğine başarıyla bürünüldü", {
+				description: `Şu anda ${`${selectedUser.name} ${selectedUser.lastName}`.trim() || selectedUser.email} olarak görüntülüyorsunuz`,
 			});
 			window.location.reload();
 		} catch (error) {
 			console.error("Error impersonating user:", error);
-			toast.error("Error impersonating user");
+			toast.error("Kullanıcı kimliğine bürünürken hata oluştu");
 		}
 	};
 
@@ -120,11 +120,11 @@ export const ImpersonationBar = () => {
 			setIsImpersonating(false);
 			setSelectedUser(null);
 			setShowBar(false);
-			toast.success("Stopped impersonating user");
+			toast.success("Kimliğe bürünme durduruldu");
 			window.location.reload();
 		} catch (error) {
 			console.error("Error stopping impersonation:", error);
-			toast.error("Error stopping impersonation");
+			toast.error("Kimliğe bürünme durdurulurken hata oluştu");
 		}
 	};
 
@@ -171,7 +171,7 @@ export const ImpersonationBar = () => {
 						</Button>
 					</TooltipTrigger>
 					<TooltipContent>
-						{isImpersonating ? "Impersonation Controls" : "User Impersonation"}
+						{isImpersonating ? "Kimliğe Bürünme Kontrolleri" : "Kullanıcı Kimliğine Bürünme"}
 					</TooltipContent>
 				</Tooltip>
 
@@ -211,7 +211,7 @@ export const ImpersonationBar = () => {
 											) : (
 												<>
 													<UserIcon className="mr-2 h-4 w-4" />
-													<span>Select user to impersonate</span>
+													<span>Kimliğine bürünülecek kullanıcıyı seçin</span>
 												</>
 											)}
 											<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -220,7 +220,7 @@ export const ImpersonationBar = () => {
 									<PopoverContent className="w-[300px] p-0" align="start">
 										<Command>
 											<CommandInput
-												placeholder="Search users by email or name..."
+												placeholder="E-posta veya ada göre kullanıcı ara..."
 												onValueChange={(search) => {
 													fetchUsers(search);
 												}}
@@ -228,13 +228,13 @@ export const ImpersonationBar = () => {
 											/>
 											{isLoading ? (
 												<div className="py-6 text-center text-sm">
-													Loading users...
+													Kullanıcılar yükleniyor...
 												</div>
 											) : (
 												<>
-													<CommandEmpty>No users found.</CommandEmpty>
+													<CommandEmpty>Kullanıcı bulunamadı.</CommandEmpty>
 													<CommandList>
-														<CommandGroup heading="All Users">
+														<CommandGroup heading="Tüm Kullanıcılar">
 															{users.map((user) => (
 																<CommandItem
 																	key={user.id}
@@ -280,7 +280,7 @@ export const ImpersonationBar = () => {
 									className="gap-2"
 								>
 									<Shield className="h-4 w-4" />
-									Impersonate
+									Kimliğine Bürün
 								</Button>
 							</div>
 						) : (
@@ -307,7 +307,7 @@ export const ImpersonationBar = () => {
 												className="gap-1 py-1 text-yellow-500 bg-yellow-50/20"
 											>
 												<Shield className="h-3 w-3" />
-												Impersonating
+												Kimliğe Bürünülüyor
 											</Badge>
 											<span className="font-medium">
 												{`${data?.user?.firstName} ${data?.user?.lastName}`.trim() ||
@@ -330,7 +330,7 @@ export const ImpersonationBar = () => {
 														onClick={() => {
 															if (data?.id) {
 																copy(data.id);
-																toast.success("ID copied to clipboard");
+																toast.success("ID panoya kopyalandı");
 															}
 														}}
 													>
@@ -341,7 +341,7 @@ export const ImpersonationBar = () => {
 											<span className="flex items-center gap-1">
 												<Building2 className="h-3 w-3" />
 												<span className="flex items-center gap-1">
-													Org: {data?.organizationId?.slice(0, 8)}
+													Org.: {data?.organizationId?.slice(0, 8)}
 													<Button
 														variant="ghost"
 														size="icon"
@@ -350,7 +350,7 @@ export const ImpersonationBar = () => {
 															if (data?.organizationId) {
 																copy(data.organizationId);
 																toast.success(
-																	"Organization ID copied to clipboard",
+																	"Organizasyon ID panoya kopyalandı",
 																);
 															}
 														}}
@@ -363,7 +363,7 @@ export const ImpersonationBar = () => {
 												<span className="flex items-center gap-1">
 													<CreditCard className="h-3 w-3" />
 													<span className="flex items-center gap-1">
-														Customer:
+														Müşteri:
 														{data?.user?.stripeCustomerId?.slice(0, 8)}
 														<Button
 															variant="ghost"
@@ -372,7 +372,7 @@ export const ImpersonationBar = () => {
 															onClick={() => {
 																copy(data?.user?.stripeCustomerId || "");
 																toast.success(
-																	"Stripe Customer ID copied to clipboard",
+																	"Stripe Müşteri ID panoya kopyalandı",
 																);
 															}}
 														>
@@ -385,7 +385,7 @@ export const ImpersonationBar = () => {
 												<span className="flex items-center gap-1">
 													<CreditCard className="h-3 w-3" />
 													<span className="flex items-center gap-1">
-														Sub: {data?.user?.stripeSubscriptionId?.slice(0, 8)}
+														Abonelik: {data?.user?.stripeSubscriptionId?.slice(0, 8)}
 														<Button
 															variant="ghost"
 															size="icon"
@@ -393,7 +393,7 @@ export const ImpersonationBar = () => {
 															onClick={() => {
 																copy(data.user.stripeSubscriptionId || "");
 																toast.success(
-																	"Stripe Subscription ID copied to clipboard",
+																	"Stripe Abonelik ID panoya kopyalandı",
 																);
 															}}
 														>
@@ -405,13 +405,13 @@ export const ImpersonationBar = () => {
 											{data?.user?.serversQuantity !== undefined && (
 												<span className="flex items-center gap-1">
 													<Server className="h-3 w-3" />
-													<span>Servers: {data.user.serversQuantity}</span>
+													<span>Sunucular: {data.user.serversQuantity}</span>
 												</span>
 											)}
 											{data?.createdAt && (
 												<span className="flex items-center gap-1">
 													<Calendar className="h-3 w-3" />
-													Created:{" "}
+													Oluşturulma:{" "}
 													{format(new Date(data.createdAt), "MMM d, yyyy")}
 												</span>
 											)}
@@ -436,13 +436,13 @@ export const ImpersonationBar = () => {
 														>
 															2FA{" "}
 															{data?.user?.twoFactorEnabled
-																? "Enabled"
-																: "Disabled"}
+																? "Etkin"
+																: "Devre Dışı"}
 														</Badge>
 													</span>
 												</TooltipTrigger>
 												<TooltipContent>
-													Two-Factor Authentication Status
+													İki Faktörlü Kimlik Doğrulama Durumu
 												</TooltipContent>
 											</Tooltip>
 										</div>
@@ -455,7 +455,7 @@ export const ImpersonationBar = () => {
 									size="sm"
 								>
 									<XIcon className="w-4 h-4" />
-									Stop Impersonating
+									Kimliğe Bürünmeyi Durdur
 								</Button>
 							</div>
 						)}

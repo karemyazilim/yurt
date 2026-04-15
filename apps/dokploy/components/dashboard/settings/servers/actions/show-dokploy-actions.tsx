@@ -28,26 +28,26 @@ export const ShowDokployActions = () => {
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild disabled={isPending}>
 				<Button isLoading={isPending} variant="outline">
-					Server
+					Sunucu
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56" align="start">
-				<DropdownMenuLabel>Actions</DropdownMenuLabel>
+				<DropdownMenuLabel>İşlemler</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
 					<DropdownMenuItem
 						onClick={async () => {
 							await reloadServer()
 								.then(async () => {
-									toast.success("Server Reloaded");
+									toast.success("Sunucu Yeniden Yüklendi");
 								})
 								.catch(() => {
-									toast.success("Server Reloaded");
+									toast.success("Sunucu Yeniden Yüklendi");
 								});
 						}}
 						className="cursor-pointer"
 					>
-						<span>Reload</span>
+						<span>Yeniden Yükle</span>
 					</DropdownMenuItem>
 					<TerminalModal serverId="local">
 						<span>Terminal</span>
@@ -57,7 +57,7 @@ export const ShowDokployActions = () => {
 							className="cursor-pointer"
 							onSelect={(e) => e.preventDefault()}
 						>
-							View Logs
+							Günlükleri Görüntüle
 						</DropdownMenuItem>
 					</ShowModalLogs>
 					<GPUSupportModal />
@@ -66,7 +66,7 @@ export const ShowDokployActions = () => {
 							className="cursor-pointer"
 							onSelect={(e) => e.preventDefault()}
 						>
-							Update Server IP
+							Sunucu IP'sini Güncelle
 						</DropdownMenuItem>
 					</UpdateServerIp>
 
@@ -75,14 +75,14 @@ export const ShowDokployActions = () => {
 						onClick={async () => {
 							await cleanRedis()
 								.then(async () => {
-									toast.success("Redis cleaned");
+									toast.success("Redis temizlendi");
 								})
 								.catch(() => {
-									toast.error("Error cleaning Redis");
+									toast.error("Redis temizlenirken hata oluştu");
 								});
 						}}
 					>
-						Clean Redis
+						Redis'i Temizle
 					</DropdownMenuItem>
 
 					<DropdownMenuItem
@@ -90,14 +90,14 @@ export const ShowDokployActions = () => {
 						onClick={async () => {
 							await cleanAllDeploymentQueue()
 								.then(() => {
-									toast.success("Deployment queue cleaned");
+									toast.success("Dağıtım kuyruğu temizlendi");
 								})
 								.catch(() => {
-									toast.error("Error cleaning deployment queue");
+									toast.error("Dağıtım kuyruğu temizlenirken hata oluştu");
 								});
 						}}
 					>
-						Clean all deployment queue
+						Tüm dağıtım kuyruğunu temizle
 					</DropdownMenuItem>
 
 					<DropdownMenuItem
@@ -105,14 +105,14 @@ export const ShowDokployActions = () => {
 						onClick={async () => {
 							await reloadRedis()
 								.then(async () => {
-									toast.success("Redis reloaded");
+									toast.success("Redis yeniden yüklendi");
 								})
 								.catch(() => {
-									toast.error("Error reloading Redis");
+									toast.error("Redis yeniden yüklenirken hata oluştu");
 								});
 						}}
 					>
-						Reload Redis
+						Redis'i Yeniden Yükle
 					</DropdownMenuItem>
 				</DropdownMenuGroup>
 			</DropdownMenuContent>

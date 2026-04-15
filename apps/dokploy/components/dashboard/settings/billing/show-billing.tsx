@@ -44,35 +44,35 @@ export const calculatePrice = (count: number, isAnnual = false) => {
 	return count * 3.5;
 };
 
-/** Hobby: $4.50/mo per server; annual 20% off = $43.20/yr per server (4.5 * 12 * 0.8). */
+/** Hobby: $4.50/mo per server; annual %20 indirim = $43.20/yr per server (4.5 * 12 * 0.8). */
 export const calculatePriceHobby = (count: number, isAnnual = false) => {
-	const perServerMonthly = 4.5;
+	const perServerAylık = 4.5;
 	const perServerAnnual = 43.2; // 4.5 * 12 * 0.8
-	return isAnnual ? count * perServerAnnual : count * perServerMonthly;
+	return isAnnual ? count * perServerAnnual : count * perServerAylık;
 };
 
-/** Startup: 3 servers included ($15/mo); extra servers $4.50/mo each. Annual 20% off. */
+/** Startup: 3 servers included ($15/mo); extra servers $4.50/mo each. Annual %20 indirim. */
 export const STARTUP_SERVERS_INCLUDED = 3;
 export const calculatePriceStartup = (count: number, isAnnual = false) => {
-	const baseMonthly = 15;
-	const extraMonthly = 4.5;
+	const baseAylık = 15;
+	const extraAylık = 4.5;
 	const baseAnnual = 144; // 15 * 12 * 0.8
 	const extraAnnual = 43.2; // 4.5 * 12 * 0.8, consistent with Hobby annual
 	if (count <= STARTUP_SERVERS_INCLUDED)
-		return isAnnual ? baseAnnual : baseMonthly;
+		return isAnnual ? baseAnnual : baseAylık;
 	return isAnnual
 		? baseAnnual + (count - STARTUP_SERVERS_INCLUDED) * extraAnnual
-		: baseMonthly + (count - STARTUP_SERVERS_INCLUDED) * extraMonthly;
+		: baseAylık + (count - STARTUP_SERVERS_INCLUDED) * extraAylık;
 };
 
 const navigationItems = [
 	{
-		name: "Subscription",
+		name: "Abonelik",
 		href: "/dashboard/settings/billing",
 		icon: CreditCard,
 	},
 	{
-		name: "Invoices",
+		name: "Faturalar",
 		href: "/dashboard/settings/invoices",
 		icon: FileText,
 	},
@@ -101,7 +101,7 @@ export const ShowBilling = () => {
 		null,
 	);
 	const [upgradeServerQty, setUpgradeServerQty] = useState(3);
-	/** Billing interval in the upgrade/update form; synced to current when data loads. */
+	/** Faturalandırma aralığı in the upgrade/update form; synced to current when data loads. */
 	const [updateFormAnnual, setUpdateFormAnnual] = useState(false);
 
 	useEffect(() => {
@@ -154,10 +154,10 @@ export const ShowBilling = () => {
 					<CardHeader>
 						<CardTitle className="text-xl flex flex-row gap-2">
 							<CreditCard className="size-6 text-muted-foreground self-center" />
-							Billing
+							Faturalandırma
 						</CardTitle>
 						<CardDescription>
-							Manage your subscription and invoices
+							Aboneliğinizi ve faturalarınızı yönetin
 						</CardDescription>
 					</CardHeader>
 					<CardContent className="space-y-4 py-4 border-t">
@@ -186,10 +186,9 @@ export const ShowBilling = () => {
 						<div className="flex flex-col gap-4 w-full mt-6">
 							{(admin?.user.stripeSubscriptionId || isEnterpriseCloud) && (
 								<div className="space-y-2 flex flex-col">
-									<h3 className="text-lg font-medium">Servers Plan</h3>
+									<h3 className="text-lg font-medium">Sunucu Planı</h3>
 									<p className="text-sm text-muted-foreground">
-										You have {servers} server on your plan of{" "}
-										{admin?.user.serversQuantity} servers
+										Planınızda {admin?.user.serversQuantity} sunucu hakkınız var, {servers} sunucu kullanıyorsunuz
 									</p>
 									<div>
 										<Progress value={safePercentage} className="max-w-lg" />
@@ -198,8 +197,7 @@ export const ShowBilling = () => {
 										<div className="flex flex-row gap-4 p-2 bg-yellow-50 dark:bg-yellow-950 rounded-lg items-center">
 											<AlertTriangle className="text-yellow-600 dark:text-yellow-400" />
 											<span className="text-sm text-yellow-600 dark:text-yellow-400">
-												You have reached the maximum number of servers you can
-												create, please upgrade your plan to add more servers.
+												Oluşturabileceğiniz maksimum sunucu sayısına ulaştınız, daha fazla sunucu eklemek için lütfen planınızı yükseltin.
 											</span>
 										</div>
 									)}
@@ -210,12 +208,10 @@ export const ShowBilling = () => {
 									<ShieldCheck className="h-6 w-6 text-primary shrink-0 mt-0.5" />
 									<div className="flex flex-col gap-1">
 										<h3 className="text-base font-semibold text-foreground">
-											Enterprise Cloud Plan
+											Kurumsal Bulut Planı
 										</h3>
 										<p className="text-sm text-muted-foreground">
-											Your organization is on a managed Enterprise plan. Billing
-											is handled separately — contact your account manager for
-											any changes.
+											Organizasyonunuz yönetilen bir Kurumsal planda. Faturalandırma ayrı olarak yönetilmektedir — herhangi bir değişiklik için hesap yöneticinizle iletişime geçin.
 										</p>
 										{admin?.user.stripeCustomerId && (
 											<Button
@@ -226,7 +222,7 @@ export const ShowBilling = () => {
 													window.open(session.url);
 												}}
 											>
-												Manage Subscription
+												Aboneliği Yönet
 											</Button>
 										)}
 									</div>
@@ -238,15 +234,13 @@ export const ShowBilling = () => {
 								data?.currentPlan === "legacy" &&
 								data?.subscriptions?.length > 0 && (
 									<div className="rounded-xl border border-border bg-primary/5 p-4 space-y-4 max-w-2xl">
-										<h3 className="text-lg font-medium">Upgrade your plan</h3>
+										<h3 className="text-lg font-medium">Planınızı yükseltin</h3>
 										<p className="text-sm text-muted-foreground">
-											You’re on the legacy plan. Switch to Hobby or Startup
-											(same benefits). You can also choose annual billing (20%
-											off). Stripe will prorate the change.
+											Eski plandansınız. Hobby veya Startup’a geçin (aynı avantajlar). Ayrıca yıllık faturalandırma da seçebilirsiniz (%20 indirim). Stripe değişikliği orantılı olarak hesaplayacaktır.
 										</p>
 
 										<span className="text-sm font-medium block">
-											Billing interval
+											Faturalandırma aralığı
 										</span>
 										<div className="flex gap-2 flex-wrap">
 											<Button
@@ -255,7 +249,7 @@ export const ShowBilling = () => {
 												className="min-w-[6rem]"
 												onClick={() => setUpdateFormAnnual(false)}
 											>
-												Monthly
+												Aylık
 											</Button>
 											<Button
 												variant={updateFormAnnual ? "default" : "outline"}
@@ -263,11 +257,11 @@ export const ShowBilling = () => {
 												className="min-w-[6rem]"
 												onClick={() => setUpdateFormAnnual(true)}
 											>
-												Annual (20% off)
+												Yıllık (%20 indirim)
 											</Button>
 										</div>
 
-										<span className="text-sm font-medium block">New plan</span>
+										<span className="text-sm font-medium block">Yeni plan</span>
 										<div className="flex gap-2 flex-wrap">
 											<Button
 												variant={
@@ -294,7 +288,7 @@ export const ShowBilling = () => {
 										{upgradeTier && (
 											<div className="flex flex-col gap-3 pt-1">
 												<span className="text-sm font-medium">
-													Servers
+													Sunucular
 													{upgradeTier === "startup" &&
 														` (min. ${STARTUP_SERVERS_INCLUDED})`}
 												</span>
@@ -349,23 +343,22 @@ export const ShowBilling = () => {
 												</div>
 												<p className="text-sm text-muted-foreground">
 													{upgradeTier === "hobby"
-														? `$${calculatePriceHobby(upgradeServerQty, updateFormAnnual).toFixed(2)} per ${updateFormAnnual ? "year" : "month"}`
-														: `$${calculatePriceStartup(upgradeServerQty, updateFormAnnual).toFixed(2)} per ${updateFormAnnual ? "year" : "month"}`}
+														? `$${calculatePriceHobby(upgradeServerQty, updateFormAnnual).toFixed(2)} / ${updateFormAnnual ? "yıl" : "ay"}`
+														: `$${calculatePriceStartup(upgradeServerQty, updateFormAnnual).toFixed(2)} / ${updateFormAnnual ? "yıl" : "ay"}`}
 												</p>
 												<DialogAction
-													title="Confirm upgrade"
+													title="Yükseltmeyi onayla"
 													description={
 														<div className="space-y-2">
 															<p className="font-medium text-foreground">
-																Current plan: Legacy
+																Mevcut plan: Legacy
 															</p>
 															<p className="font-medium text-foreground">
-																New plan:{" "}
+																Yeni plan:{" "}
 																{upgradeTier === "startup"
 																	? "Startup"
 																	: "Hobby"}{" "}
-																· {upgradeServerQty} server
-																{upgradeServerQty !== 1 ? "s" : ""} · $
+																· {upgradeServerQty} sunucu · $
 																{upgradeTier === "hobby"
 																	? calculatePriceHobby(
 																			upgradeServerQty,
@@ -375,11 +368,11 @@ export const ShowBilling = () => {
 																			upgradeServerQty,
 																			updateFormAnnual,
 																		).toFixed(2)}
-																/{updateFormAnnual ? "yr" : "mo"} (
-																{updateFormAnnual ? "annual" : "monthly"})
+																/{updateFormAnnual ? "yıl" : "ay"} (
+																{updateFormAnnual ? "yıllık" : "aylık"})
 															</p>
 															<p className="text-sm text-muted-foreground">
-																Stripe will prorate the change.
+																Stripe değişikliği orantılı olarak hesaplayacaktır.
 															</p>
 														</div>
 													}
@@ -395,9 +388,9 @@ export const ShowBilling = () => {
 															await utils.stripe.getProducts.invalidate();
 															await utils.user.get.invalidate();
 															setUpgradeTier(null);
-															toast.success("Plan upgraded successfully");
+															toast.success("Plan başarıyla yükseltildi");
 														} catch {
-															toast.error("Error upgrading plan");
+															toast.error("Plan yükseltilirken hata oluştu");
 														}
 													}}
 												>
@@ -412,10 +405,10 @@ export const ShowBilling = () => {
 														{isUpgrading ? (
 															<>
 																<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-																Upgrading…
+																Yükseltiliyor…
 															</>
 														) : (
-															"Upgrade plan"
+															"Planı yükselt"
 														)}
 													</Button>
 												</DialogAction>
@@ -431,37 +424,34 @@ export const ShowBilling = () => {
 								data?.subscriptions?.length > 0 && (
 									<div className="rounded-xl border border-border bg-primary/5 p-4 space-y-4 max-w-2xl">
 										<h3 className="text-lg font-medium">
-											Change plan or number of servers
+											Planı veya sunucu sayısını değiştir
 										</h3>
 										<p className="text-sm text-muted-foreground">
-											Your current plan:{" "}
+											Mevcut planınız:{" "}
 											<span className="font-medium text-foreground">
 												{data?.currentPlan === "startup" ? "Startup" : "Hobby"}
 											</span>
 											{" · "}
 											<span className="font-medium text-foreground">
-												{admin?.user.serversQuantity ?? 0} server
-												{(admin?.user.serversQuantity ?? 0) !== 1 ? "s" : ""}
+												{admin?.user.serversQuantity ?? 0} sunucu
 											</span>
 											{data?.currentPriceAmount != null && (
 												<>
 													{" · "}
 													<span className="font-medium text-foreground">
 														${data.currentPriceAmount.toFixed(2)}/
-														{data?.isAnnualCurrent ? "yr" : "mo"}
+														{data?.isAnnualCurrent ? "yıl" : "ay"}
 													</span>
 												</>
 											)}{" "}
-											({data?.isAnnualCurrent ? "annual" : "monthly"} billing).
+											({data?.isAnnualCurrent ? "yıllık" : "aylık"} faturalandırma).
 										</p>
 										<p className="text-sm text-muted-foreground">
-											Add more servers, switch between Hobby and Startup, or
-											change to annual billing (20% off). Stripe will prorate
-											the change.
+											Daha fazla sunucu ekleyin, Hobby ve Startup arasında geçiş yapın veya yıllık faturalandırmaya geçin (%20 indirim). Stripe değişikliği orantılı olarak hesaplayacaktır.
 										</p>
 
 										<span className="text-sm font-medium block">
-											Billing interval
+											Faturalandırma aralığı
 										</span>
 										<div className="flex gap-2 flex-wrap">
 											<Button
@@ -470,7 +460,7 @@ export const ShowBilling = () => {
 												className="min-w-[6rem]"
 												onClick={() => setUpdateFormAnnual(false)}
 											>
-												Monthly
+												Aylık
 											</Button>
 											<Button
 												variant={updateFormAnnual ? "default" : "outline"}
@@ -478,7 +468,7 @@ export const ShowBilling = () => {
 												className="min-w-[6rem]"
 												onClick={() => setUpdateFormAnnual(true)}
 											>
-												Annual (20% off)
+												Yıllık (%20 indirim)
 											</Button>
 										</div>
 
@@ -509,7 +499,7 @@ export const ShowBilling = () => {
 										{upgradeTier && (
 											<div className="flex flex-col gap-3 pt-1">
 												<span className="text-sm font-medium">
-													Servers
+													Sunucular
 													{upgradeTier === "startup" &&
 														` (min. ${STARTUP_SERVERS_INCLUDED})`}
 												</span>
@@ -564,35 +554,31 @@ export const ShowBilling = () => {
 												</div>
 												<p className="text-sm text-muted-foreground">
 													{upgradeTier === "hobby"
-														? `$${calculatePriceHobby(upgradeServerQty, updateFormAnnual).toFixed(2)} per ${updateFormAnnual ? "year" : "month"}`
-														: `$${calculatePriceStartup(upgradeServerQty, updateFormAnnual).toFixed(2)} per ${updateFormAnnual ? "year" : "month"}`}
+														? `$${calculatePriceHobby(upgradeServerQty, updateFormAnnual).toFixed(2)} / ${updateFormAnnual ? "yıl" : "ay"}`
+														: `$${calculatePriceStartup(upgradeServerQty, updateFormAnnual).toFixed(2)} / ${updateFormAnnual ? "yıl" : "ay"}`}
 												</p>
 												<DialogAction
-													title="Confirm plan change"
+													title="Plan değişikliğini onayla"
 													description={
 														<div className="space-y-2">
 															<p className="font-medium text-foreground">
-																Current plan:{" "}
+																Mevcut plan:{" "}
 																{data?.currentPlan === "startup"
 																	? "Startup"
 																	: "Hobby"}{" "}
-																· {admin?.user.serversQuantity ?? 0} server
-																{(admin?.user.serversQuantity ?? 0) !== 1
-																	? "s"
-																	: ""}{" "}
+																· {admin?.user.serversQuantity ?? 0} sunucu
 																·{" "}
 																{data?.currentPriceAmount != null
-																	? `$${data.currentPriceAmount.toFixed(2)}/${data?.isAnnualCurrent ? "yr" : "mo"}`
+																	? `$${data.currentPriceAmount.toFixed(2)}/${data?.isAnnualCurrent ? "yıl" : "ay"}`
 																	: ""}{" "}
-																({data?.isAnnualCurrent ? "annual" : "monthly"})
+																({data?.isAnnualCurrent ? "yıllık" : "aylık"})
 															</p>
 															<p className="font-medium text-foreground">
-																New plan:{" "}
+																Yeni plan:{" "}
 																{upgradeTier === "startup"
 																	? "Startup"
 																	: "Hobby"}{" "}
-																· {upgradeServerQty} server
-																{upgradeServerQty !== 1 ? "s" : ""} · $
+																· {upgradeServerQty} sunucu · $
 																{upgradeTier === "hobby"
 																	? calculatePriceHobby(
 																			upgradeServerQty,
@@ -602,11 +588,11 @@ export const ShowBilling = () => {
 																			upgradeServerQty,
 																			updateFormAnnual,
 																		).toFixed(2)}
-																/{updateFormAnnual ? "yr" : "mo"} (
-																{updateFormAnnual ? "annual" : "monthly"})
+																/{updateFormAnnual ? "yıl" : "ay"} (
+																{updateFormAnnual ? "yıllık" : "aylık"})
 															</p>
 															<p className="text-sm text-muted-foreground">
-																Stripe will prorate the change.
+																Stripe değişikliği orantılı olarak hesaplayacaktır.
 															</p>
 														</div>
 													}
@@ -628,10 +614,10 @@ export const ShowBilling = () => {
 															await utils.user.get.invalidate();
 															setUpgradeTier(null);
 															toast.success(
-																"Subscription updated successfully",
+																"Abonelik başarıyla güncellendi",
 															);
 														} catch {
-															toast.error("Error updating subscription");
+															toast.error("Abonelik güncellenirken hata oluştu");
 														}
 													}}
 												>
@@ -646,10 +632,10 @@ export const ShowBilling = () => {
 														{isUpgrading ? (
 															<>
 																<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-																Updating…
+																Güncelleniyor…
 															</>
 														) : (
-															"Update subscription"
+															"Aboneliği güncelle"
 														)}
 													</Button>
 												</DialogAction>
@@ -659,10 +645,10 @@ export const ShowBilling = () => {
 								)}
 							<div className="flex flex-col gap-1.5 mt-4">
 								<span className="text-base text-primary">
-									Need Help? We are here to help you.
+									Yardıma mı ihtiyacınız var? Size yardımcı olmak için buradayız.
 								</span>
 								<span className="text-sm text-muted-foreground">
-									Join to our Discord server and we will help you.
+									Discord sunucumuza katılın, size yardımcı olacağız.
 								</span>
 								<Button className="rounded-full bg-[#5965F2] hover:bg-[#4A55E0] w-fit">
 									<Link
@@ -679,13 +665,13 @@ export const ShowBilling = () => {
 										>
 											<path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z" />
 										</svg>
-										Join Discord
+										Discord'a Katıl
 									</Link>
 								</Button>
 							</div>
 							{isPending ? (
 								<span className="text-base text-muted-foreground flex flex-row gap-3 items-center justify-center min-h-[10vh]">
-									Loading...
+									Yükleniyor...
 									<Loader2 className="animate-spin" />
 								</span>
 							) : useNewPricing ? (
@@ -697,8 +683,8 @@ export const ShowBilling = () => {
 										onValueChange={(e) => setIsAnnual(e === "annual")}
 									>
 										<TabsList className="">
-											<TabsTrigger value="monthly">Monthly</TabsTrigger>
-											<TabsTrigger value="annual">Annual (20% off)</TabsTrigger>
+											<TabsTrigger value="monthly">Aylık</TabsTrigger>
+											<TabsTrigger value="annual">Yıllık (%20 indirim)</TabsTrigger>
 										</TabsList>
 									</Tabs>
 									<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -706,14 +692,14 @@ export const ShowBilling = () => {
 										<section className="flex flex-col rounded-2xl border border-border px-5 py-6 shadow-sm">
 											{isAnnual && (
 												<Badge className="mb-3 w-fit" variant="secondary">
-													20% off
+													%20 indirim
 												</Badge>
 											)}
 											<h3 className="text-xl font-bold tracking-tight text-foreground">
 												Hobby
 											</h3>
 											<p className="mt-1 text-sm text-muted-foreground">
-												Everything an individual developer needs
+												Bireysel bir geliştiricinin ihtiyaç duyduğu her şey
 											</p>
 											<div className="mt-4">
 												<p className="text-2xl font-semibold text-foreground">
@@ -722,10 +708,10 @@ export const ShowBilling = () => {
 														hobbyServerQuantity,
 														isAnnual,
 													).toFixed(2)}
-													/{isAnnual ? "yr" : "mo"}
+													/{isAnnual ? "yıl" : "ay"}
 												</p>
 												<p className="text-xs text-muted-foreground mt-0.5">
-													Add more servers as you&apos;d like for{" "}
+													İstediğiniz kadar sunucu ekleyin, her biri{" "}
 													{isAnnual ? "$43.20/yr" : "$4.50/mo"}
 												</p>
 												{isAnnual && (
@@ -741,17 +727,17 @@ export const ShowBilling = () => {
 											</div>
 											<ul className="mt-5 flex flex-col gap-2 text-sm text-muted-foreground">
 												{[
-													"Unlimited Deployments",
-													"Unlimited Databases",
-													"Unlimited Applications",
-													"1 Server Included",
-													"1 Organization",
-													"1 User",
-													"2 Environments",
-													"1 Volume Backup per Application",
-													"1 Backup per Database",
-													"1 Scheduled Job per Application",
-													"Community Support (Discord)",
+													"Sınırsız Dağıtım",
+													"Sınırsız Veritabanı",
+													"Sınırsız Uygulama",
+													"1 Sunucu Dahil",
+													"1 Organizasyon",
+													"1 Kullanıcı",
+													"2 Ortam",
+													"Uygulama Başına 1 Hacim Yedeği",
+													"Veritabanı Başına 1 Yedek",
+													"Uygulama Başına 1 Zamanlanmış Görev",
+													"Topluluk Desteği (Discord)",
 												].map((f) => (
 													<li key={f} className="flex items-start gap-2">
 														<CheckIcon className="h-4 w-4 shrink-0 text-green-600 dark:text-green-500 mt-0.5" />
@@ -762,7 +748,7 @@ export const ShowBilling = () => {
 											<div className="mt-6 flex flex-col gap-3">
 												<div className="flex items-center gap-2">
 													<span className="text-sm text-muted-foreground">
-														Servers:
+														Sunucular:
 													</span>
 													<Button
 														disabled={hobbyServerQuantity <= 1}
@@ -807,7 +793,7 @@ export const ShowBilling = () => {
 																window.open(session.url);
 															}}
 														>
-															Manage Subscription
+															Aboneliği Yönet
 														</Button>
 													)}
 													{!isEnterpriseCloud &&
@@ -819,7 +805,7 @@ export const ShowBilling = () => {
 																}
 																disabled={hobbyServerQuantity < 1}
 															>
-																Get Started
+																Başlayın
 															</Button>
 														)}
 												</div>
@@ -830,11 +816,11 @@ export const ShowBilling = () => {
 										<section className="flex flex-col rounded-2xl border-2 border-primary px-5 py-6 shadow-sm">
 											<div className="mb-3 flex flex-wrap gap-2">
 												<Badge className="w-fit" variant="default">
-													Recommended
+													Önerilen
 												</Badge>
 												{isAnnual && (
 													<Badge className="w-fit" variant="secondary">
-														20% off
+														%20 indirim
 													</Badge>
 												)}
 											</div>
@@ -842,7 +828,7 @@ export const ShowBilling = () => {
 												Startup
 											</h3>
 											<p className="mt-1 text-sm text-muted-foreground">
-												Perfect for small to mid-size teams
+												Küçük ve orta ölçekli ekipler için ideal
 											</p>
 											<div className="mt-4">
 												<p className="text-2xl font-semibold text-foreground">
@@ -851,10 +837,10 @@ export const ShowBilling = () => {
 														startupServerQuantity,
 														isAnnual,
 													).toFixed(2)}
-													/{isAnnual ? "yr" : "mo"}
+													/{isAnnual ? "yıl" : "ay"}
 												</p>
 												<p className="text-xs text-muted-foreground mt-0.5">
-													Add more servers as you&apos;d like for{" "}
+													İstediğiniz kadar sunucu ekleyin, her biri{" "}
 													{isAnnual ? "$43.20/yr" : "$4.50/mo"}
 												</p>
 												{isAnnual && (
@@ -873,19 +859,19 @@ export const ShowBilling = () => {
 											<ul className="mt-5 flex flex-col gap-2 text-sm text-muted-foreground">
 												<li className="flex items-start gap-2 font-medium text-foreground">
 													<CheckIcon className="h-4 w-4 shrink-0 text-green-600 dark:text-green-500 mt-0.5" />
-													All the features of Hobby, plus…
+													Hobby'nin tüm özellikleri, artı…
 												</li>
 												{[
-													"3 Servers Included",
-													"3 Organizations",
-													"Unlimited Users",
-													"Unlimited Environments",
-													"Unlimited Volume Backups",
-													"Unlimited Database Backups",
-													"Unlimited Scheduled Jobs",
-													"Basic RBAC (Admin, Developer)",
+													"3 Sunucu Dahil",
+													"3 Organizasyon",
+													"Sınırsız Kullanıcı",
+													"Sınırsız Ortam",
+													"Sınırsız Hacim Yedeği",
+													"Sınırsız Veritabanı Yedeği",
+													"Sınırsız Zamanlanmış Görev",
+													"Temel RBAC (Yönetici, Geliştirici)",
 													"2FA",
-													"Email and Chat Support",
+													"E-posta ve Sohbet Desteği",
 												].map((f) => (
 													<li key={f} className="flex items-start gap-2">
 														<CheckIcon className="h-4 w-4 shrink-0 text-green-600 dark:text-green-500 mt-0.5" />
@@ -896,7 +882,7 @@ export const ShowBilling = () => {
 											<div className="mt-6 flex flex-col gap-3">
 												<div className="flex flex-col gap-2">
 													<span className="text-sm font-medium text-foreground">
-														Servers (min. {STARTUP_SERVERS_INCLUDED} included)
+														Sunucular (min. {STARTUP_SERVERS_INCLUDED} dahil)
 													</span>
 													<div className="flex items-center gap-2">
 														<Button
@@ -952,7 +938,7 @@ export const ShowBilling = () => {
 																window.open(session.url);
 															}}
 														>
-															Manage Subscription
+															Aboneliği Yönet
 														</Button>
 													)}
 													{!isEnterpriseCloud &&
@@ -970,7 +956,7 @@ export const ShowBilling = () => {
 																	STARTUP_SERVERS_INCLUDED
 																}
 															>
-																Get Started
+																Başlayın
 															</Button>
 														)}
 												</div>
@@ -980,31 +966,31 @@ export const ShowBilling = () => {
 										{/* Enterprise */}
 										<section className="flex flex-col rounded-2xl border border-border px-5 py-6 shadow-sm">
 											<h3 className="text-xl font-bold tracking-tight text-foreground">
-												Enterprise
+												Kurumsal
 											</h3>
 											<p className="mt-1 text-sm text-muted-foreground">
-												For large organizations who want more control
+												Daha fazla kontrol isteyen büyük organizasyonlar için
 											</p>
 											<div className="mt-4">
 												<p className="text-2xl font-semibold text-foreground">
-													Contact Sales
+													Satışla İletişime Geçin
 												</p>
 											</div>
 											<ul className="mt-5 flex flex-col gap-2 text-sm text-muted-foreground">
 												<li className="flex items-start gap-2 font-medium text-foreground">
 													<CheckIcon className="h-4 w-4 shrink-0 text-green-600 dark:text-green-500 mt-0.5" />
-													All the features of Startup, plus…
+													Startup'ın tüm özellikleri, artı…
 												</li>
 												{[
-													"Up to Unlimited Servers",
-													"Up to Unlimited Organizations",
-													"Fine-grained RBAC",
-													"Complete Hosting Flexibility",
-													"SSO / SAML (Azure, OKTA, etc)",
-													"Audit Logs",
+													"Sınırsız Sunucuya Kadar",
+													"Sınırsız Organizasyona Kadar",
+													"Ayrıntılı RBAC",
+													"Tam Barındırma Esnekliği",
+													"SSO / SAML (Azure, OKTA, vb.)",
+													"Denetim Günlükleri",
 													"MSA/SLA",
-													"White Labeling",
-													"Priority Support and Services",
+													"Beyaz Etiketleme",
+													"Öncelikli Destek ve Hizmetler",
 												].map((f) => (
 													<li key={f} className="flex items-start gap-2">
 														<CheckIcon className="h-4 w-4 shrink-0 text-green-600 dark:text-green-500 mt-0.5" />
@@ -1018,7 +1004,7 @@ export const ShowBilling = () => {
 													target="_blank"
 													rel="noopener noreferrer"
 												>
-													Contact Sales
+													Satışla İletişime Geçin
 												</Link>
 											</Button>
 										</section>
@@ -1033,8 +1019,8 @@ export const ShowBilling = () => {
 										onValueChange={(e) => setIsAnnual(e === "annual")}
 									>
 										<TabsList className="grid w-full max-w-[14rem] grid-cols-2">
-											<TabsTrigger value="monthly">Monthly</TabsTrigger>
-											<TabsTrigger value="annual">Annual (20% off)</TabsTrigger>
+											<TabsTrigger value="monthly">Aylık</TabsTrigger>
+											<TabsTrigger value="annual">Yıllık (%20 indirim)</TabsTrigger>
 										</TabsList>
 									</Tabs>
 									{products?.map((product) => {
@@ -1051,7 +1037,7 @@ export const ShowBilling = () => {
 												>
 													{isAnnual && (
 														<div className="mb-4 flex flex-row items-center gap-2">
-															<Badge>Recommended 🚀</Badge>
+															<Badge>Önerilen 🚀</Badge>
 														</div>
 													)}
 													{isAnnual ? (
@@ -1073,7 +1059,7 @@ export const ShowBilling = () => {
 																		isAnnual,
 																	) / 12
 																).toFixed(2)}{" "}
-																/ Month USD
+																/ Ay USD
 															</p>
 														</div>
 													) : (
@@ -1105,13 +1091,13 @@ export const ShowBilling = () => {
 														)}
 													>
 														{[
-															"All the features of Dokploy",
-															"Unlimited deployments",
-															"Self-hosted on your own infrastructure",
-															"Full access to all deployment features",
-															"Dokploy integration",
-															"Backups",
-															"All Incoming features",
+															"Yurt'un tüm özellikleri",
+															"Sınırsız dağıtım",
+															"Kendi altyapınızda barındırma",
+															"Tüm dağıtım özelliklerine tam erişim",
+															"Yurt entegrasyonu",
+															"Yedeklemeler",
+															"Tüm gelecek özellikler",
 														].map((feature) => (
 															<li
 																key={feature}
@@ -1125,7 +1111,7 @@ export const ShowBilling = () => {
 													<div className="flex flex-col gap-2 mt-4">
 														<div className="flex items-center gap-2 justify-center">
 															<span className="text-sm text-muted-foreground">
-																{hobbyServerQuantity} Servers
+																{hobbyServerQuantity} Sunucu
 															</span>
 														</div>
 
@@ -1174,7 +1160,7 @@ export const ShowBilling = () => {
 																		window.open(session.url);
 																	}}
 																>
-																	Manage Subscription
+																	Aboneliği Yönet
 																</Button>
 															)}
 															{!isEnterpriseCloud &&
@@ -1186,7 +1172,7 @@ export const ShowBilling = () => {
 																		}}
 																		disabled={hobbyServerQuantity < 1}
 																	>
-																		Subscribe
+																		Abone Ol
 																	</Button>
 																)}
 														</div>

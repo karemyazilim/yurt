@@ -95,33 +95,33 @@ export const SetupServer = ({ serverId, asButton = false }: Props) => {
 						setIsOpen(true);
 					}}
 				>
-					Setup Server <Settings className="size-4" />
+					Sunucu Kurulumu <Settings className="size-4" />
 				</Button>
 			)}
 			<DialogContent className="sm:max-w-4xl  ">
 				<DialogHeader>
 					<div className="flex flex-col gap-1.5">
 						<DialogTitle className="flex items-center gap-2">
-							<ServerIcon className="size-5" /> Setup Server
+							<ServerIcon className="size-5" /> Sunucu Kurulumu
 						</DialogTitle>
 						<p className="text-muted-foreground text-sm">
-							To setup a server, please click on the button below.
+							Bir sunucu kurmak için lütfen aşağıdaki düğmeye tıklayın.
 						</p>
 					</div>
 				</DialogHeader>
 				{!server?.sshKeyId ? (
 					<div className="flex flex-col gap-2 text-sm text-muted-foreground pt-3">
 						<AlertBlock type="warning">
-							Please add a SSH Key to your server before setting up the server.
-							you can assign a SSH Key to your server in Edit Server.
+							Sunucuyu kurmadan önce lütfen sunucunuza bir SSH Anahtarı ekleyin.
+							Sunucu Düzenle bölümünden sunucunuza bir SSH Anahtarı atayabilirsiniz.
 						</AlertBlock>
 					</div>
 				) : (
 					<div id="hook-form-add-gitlab" className="grid w-full gap-4">
 						<AlertBlock type="info">
-							You can connect as root or as a non-root user with passwordless
-							sudo access. If using a non-root user, ensure passwordless sudo is
-							configured.
+							Root olarak veya parolasız sudo erişimine sahip root olmayan bir
+							kullanıcı olarak bağlanabilirsiniz. Root olmayan bir kullanıcı kullanıyorsanız,
+							parolasız sudo yapılandırıldığından emin olun.
 						</AlertBlock>
 
 						<Tabs defaultValue="ssh-keys">
@@ -135,17 +135,17 @@ export const SetupServer = ({ serverId, asButton = false }: Props) => {
 											: "grid-cols-5",
 								)}
 							>
-								<TabsTrigger value="ssh-keys">SSH Keys</TabsTrigger>
-								<TabsTrigger value="deployments">Deployments</TabsTrigger>
-								<TabsTrigger value="validate">Validate</TabsTrigger>
+								<TabsTrigger value="ssh-keys">SSH Anahtarları</TabsTrigger>
+								<TabsTrigger value="deployments">Dağıtımlar</TabsTrigger>
+								<TabsTrigger value="validate">Doğrulama</TabsTrigger>
 
 								{!isBuildServer && (
 									<>
-										<TabsTrigger value="audit">Security</TabsTrigger>
+										<TabsTrigger value="audit">Güvenlik</TabsTrigger>
 										{isCloud && (
-											<TabsTrigger value="monitoring">Monitoring</TabsTrigger>
+											<TabsTrigger value="monitoring">İzleme</TabsTrigger>
 										)}
-										<TabsTrigger value="gpu-setup">GPU Setup</TabsTrigger>
+										<TabsTrigger value="gpu-setup">GPU Kurulumu</TabsTrigger>
 									</>
 								)}
 							</TabsList>
@@ -155,29 +155,28 @@ export const SetupServer = ({ serverId, asButton = false }: Props) => {
 							>
 								<div className="flex flex-col gap-2 text-sm text-muted-foreground pt-3">
 									<p className="text-primary text-base font-semibold">
-										You have two options to add SSH Keys to your server:
+										Sunucunuza SSH Anahtarları eklemek için iki seçeneğiniz var:
 									</p>
 
 									<ul>
 										<li>
-											1. Add the public SSH Key when you create a server in your
-											preferred provider (Hostinger, Digital Ocean, Hetzner,
-											etc){" "}
+											1. Tercih ettiğiniz sağlayıcıda (Hostinger, Digital Ocean, Hetzner,
+											vb.) sunucu oluştururken genel SSH Anahtarını ekleyin{" "}
 										</li>
-										<li>2. Add The SSH Key to Server Manually</li>
+										<li>2. SSH Anahtarını Sunucuya Manuel Olarak Ekleyin</li>
 									</ul>
 									<div className="flex flex-col gap-4 w-full overflow-auto">
 										<div className="flex relative flex-col gap-2 overflow-y-auto">
 											<div className="text-sm text-primary flex flex-row gap-2 items-center">
-												Copy Public Key ({server?.sshKey?.name})
+												Genel Anahtarı Kopyala ({server?.sshKey?.name})
 												<button
 													type="button"
 													className="right-2 top-8"
 													onClick={() => {
 														copy(
-															server?.sshKey?.publicKey || "Generate a SSH Key",
+															server?.sshKey?.publicKey || "Bir SSH Anahtarı Oluşturun",
 														);
-														toast.success("SSH Copied to clipboard");
+														toast.success("SSH panoya kopyalandı");
 													}}
 												>
 													<CopyIcon className="size-4 text-muted-foreground" />
@@ -188,23 +187,23 @@ export const SetupServer = ({ serverId, asButton = false }: Props) => {
 
 									<div className="flex flex-col gap-2 w-full mt-2 border rounded-lg p-4">
 										<span className="text-base font-semibold text-primary">
-											Automatic process
+											Otomatik süreç
 										</span>
 										<Link
 											href="https://docs.dokploy.com/docs/core/remote-servers/instructions#requirements"
 											target="_blank"
 											className="text-primary flex flex-row gap-2"
 										>
-											View Tutorial <ExternalLinkIcon className="size-4" />
+											Öğreticiyi Görüntüle <ExternalLinkIcon className="size-4" />
 										</Link>
 									</div>
 									<div className="flex flex-col gap-2 w-full border rounded-lg p-4">
 										<span className="text-base font-semibold text-primary">
-											Manual process
+											Manuel süreç
 										</span>
 										<ul>
 											<li className="items-center flex gap-1">
-												1. Login to your server{" "}
+												1. Sunucunuza giriş yapın{" "}
 												<span className="text-primary bg-secondary p-1 rounded-lg">
 													ssh {server?.username}@{server?.ipAddress}
 												</span>
@@ -214,14 +213,14 @@ export const SetupServer = ({ serverId, asButton = false }: Props) => {
 														copy(
 															`ssh ${server?.username}@${server?.ipAddress}`,
 														);
-														toast.success("Copied to clipboard");
+														toast.success("Panoya kopyalandı");
 													}}
 												>
 													<CopyIcon className="size-4" />
 												</button>
 											</li>
 											<li>
-												2. When you are logged in run the following command
+												2. Giriş yaptıktan sonra aşağıdaki komutu çalıştırın
 												<div className="flex  relative flex-col gap-4 w-full mt-2">
 													<CodeEditor
 														lineWrapping
@@ -237,7 +236,7 @@ export const SetupServer = ({ serverId, asButton = false }: Props) => {
 															copy(
 																`echo "${server?.sshKey?.publicKey}" >> ~/.ssh/authorized_keys`,
 															);
-															toast.success("Copied to clipboard");
+															toast.success("Panoya kopyalandı");
 														}}
 													>
 														<CopyIcon className="size-4" />
@@ -245,18 +244,18 @@ export const SetupServer = ({ serverId, asButton = false }: Props) => {
 												</div>
 											</li>
 											<li className="mt-1">
-												3. You're done, you can test the connection by entering
-												to the terminal or by setting up the server tab.
+												3. İşlem tamamlandı, terminal sekmesine girerek veya sunucu
+												kurulum sekmesini kullanarak bağlantıyı test edebilirsiniz.
 											</li>
 										</ul>
 									</div>
 									<div className="flex flex-col gap-2 w-full border rounded-lg p-4">
 										<span className="text-base font-semibold text-primary">
-											Supported Distros:
+											Desteklenen Dağıtımlar:
 										</span>
 										<p>
-											We strongly recommend to use the following distros to
-											ensure the best experience:
+											En iyi deneyimi sağlamak için aşağıdaki dağıtımları
+											kullanmanızı şiddetle öneriyoruz:
 										</p>
 										<ul>
 											<li>1. Ubuntu 24.04 LTS</li>
@@ -282,11 +281,11 @@ export const SetupServer = ({ serverId, asButton = false }: Props) => {
 												<div className="flex flex-row gap-2 justify-between w-full max-sm:flex-col">
 													<div className="flex flex-col gap-1">
 														<CardTitle className="text-xl">
-															Setup Server
+															Sunucu Kurulumu
 														</CardTitle>
 														<CardDescription>
-															To setup a server, please click on the button
-															below.
+															Bir sunucu kurmak için lütfen aşağıdaki düğmeye
+															tıklayın.
 														</CardDescription>
 													</div>
 												</div>
@@ -294,21 +293,21 @@ export const SetupServer = ({ serverId, asButton = false }: Props) => {
 											<CardContent className="flex flex-col gap-4 min-h-[25vh] items-center">
 												<div className="flex flex-col gap-4 items-center h-full max-w-xl mx-auto min-h-[25vh] justify-center">
 													<span className="text-sm text-muted-foreground text-center">
-														When your server is ready, you can click on the
-														button below, to directly run the script we use for
-														setup the server or directly modify the script
+														Sunucunuz hazır olduğunda, sunucu kurulumu için
+														kullandığımız betiği doğrudan çalıştırmak veya betiği
+														doğrudan düzenlemek için aşağıdaki düğmeye tıklayabilirsiniz
 													</span>
 													<div className="flex flex-row gap-2">
 														<EditScript serverId={server?.serverId || ""} />
 														<DialogAction
-															title={"Setup Server?"}
+															title={"Sunucu Kurulsun mu?"}
 															type="default"
-															description="This will setup the server and all associated data"
+															description="Bu işlem sunucuyu ve ilişkili tüm verileri kuracaktır"
 															onClick={async () => {
 																setIsDeploying(true);
 															}}
 														>
-															<Button>Setup Server</Button>
+															<Button>Sunucuyu Kur</Button>
 														</DialogAction>
 													</div>
 												</div>

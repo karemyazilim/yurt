@@ -36,11 +36,11 @@ export const SecurityAudit = ({ serverId }: Props) => {
 								<div className="flex items-center gap-2">
 									<LockKeyhole className="size-5" />
 									<CardTitle className="text-xl">
-										Setup Security Suggestions
+										Güvenlik Önerileri Kurulumu
 									</CardTitle>
 								</div>
 								<CardDescription>
-									Check the security suggestions
+									Güvenlik önerilerini kontrol edin
 								</CardDescription>
 							</div>
 							<Button
@@ -52,7 +52,7 @@ export const SecurityAudit = ({ serverId }: Props) => {
 								}}
 							>
 								<RefreshCw className="size-4" />
-								Refresh
+								Yenile
 							</Button>
 						</div>
 						<div className="flex items-center gap-2 w-full">
@@ -66,48 +66,48 @@ export const SecurityAudit = ({ serverId }: Props) => {
 
 					<CardContent className="flex flex-col gap-4">
 						<AlertBlock type="info" className="w-full">
-							Ubuntu/Debian OS support is currently supported (Experimental)
+							Ubuntu/Debian işletim sistemi desteği şu anda desteklenmektedir (Deneysel)
 						</AlertBlock>
 						{isPending ? (
 							<div className="flex items-center justify-center text-muted-foreground py-4">
 								<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-								<span>Checking Server configuration</span>
+								<span>Sunucu yapılandırması kontrol ediliyor</span>
 							</div>
 						) : (
 							<div className="grid w-full gap-4">
 								<div className="border rounded-lg p-4">
 									<h3 className="text-lg font-semibold mb-1">UFW</h3>
 									<p className="text-sm text-muted-foreground mb-4">
-										UFW (Uncomplicated Firewall) is a simple firewall that can
-										be used to block incoming and outgoing traffic from your
-										server.
+										UFW (Karmaşık Olmayan Güvenlik Duvarı) sunucunuzdan gelen ve
+										giden trafiği engellemek için kullanılabilecek basit bir
+										güvenlik duvarıdır.
 									</p>
 									<div className="grid gap-2.5">
 										<StatusRow
-											label="UFW Installed"
+											label="UFW Kurulu"
 											isEnabled={data?.ufw?.installed}
 											description={
 												data?.ufw?.installed
-													? "Installed (Recommended)"
-													: "Not Installed (UFW should be installed for security)"
+													? "Kurulu (Önerilen)"
+													: "Kurulu Değil (Güvenlik için UFW kurulmalıdır)"
 											}
 										/>
 										<StatusRow
-											label="Status"
+											label="Durum"
 											isEnabled={data?.ufw?.active}
 											description={
 												data?.ufw?.active
-													? "Active (Recommended)"
-													: "Not Active (UFW should be enabled for security)"
+													? "Aktif (Önerilen)"
+													: "Aktif Değil (Güvenlik için UFW etkinleştirilmelidir)"
 											}
 										/>
 										<StatusRow
-											label="Default Incoming"
+											label="Varsayılan Gelen"
 											isEnabled={data?.ufw?.defaultIncoming === "deny"}
 											description={
 												data?.ufw?.defaultIncoming === "deny"
-													? "Default: Deny (Recommended)"
-													: `Default: ${data?.ufw?.defaultIncoming} (Should be set to 'deny' for security)`
+													? "Varsayılan: Reddet (Önerilen)"
+													: `Varsayılan: ${data?.ufw?.defaultIncoming} (Güvenlik için 'deny' olarak ayarlanmalıdır)`
 											}
 										/>
 									</div>
@@ -116,44 +116,44 @@ export const SecurityAudit = ({ serverId }: Props) => {
 								<div className="border rounded-lg p-4">
 									<h3 className="text-lg font-semibold mb-1">SSH</h3>
 									<p className="text-sm text-muted-foreground mb-4">
-										SSH (Secure Shell) is a protocol that allows you to securely
-										connect to a server and execute commands on it.
+										SSH (Güvenli Kabuk) bir sunucuya güvenli bir şekilde bağlanmanızı
+										ve üzerinde komut çalıştırmanızı sağlayan bir protokoldür.
 									</p>
 									<div className="grid gap-2.5">
 										<StatusRow
-											label="Enabled"
+											label="Etkin"
 											isEnabled={data?.ssh?.enabled}
 											description={
 												data?.ssh?.enabled
-													? "Enabled"
-													: "Not Enabled (SSH should be enabled)"
+													? "Etkin"
+													: "Etkin Değil (SSH etkinleştirilmelidir)"
 											}
 										/>
 										<StatusRow
-											label="Key Auth"
+											label="Anahtar Doğrulama"
 											isEnabled={data?.ssh?.keyAuth}
 											description={
 												data?.ssh?.keyAuth
-													? "Enabled (Recommended)"
-													: "Not Enabled (Key Authentication should be enabled)"
+													? "Etkin (Önerilen)"
+													: "Etkin Değil (Anahtar Doğrulama etkinleştirilmelidir)"
 											}
 										/>
 										<StatusRow
-											label="Password Auth"
+											label="Parola Doğrulama"
 											isEnabled={data?.ssh?.passwordAuth === "no"}
 											description={
 												data?.ssh?.passwordAuth === "no"
-													? "Disabled (Recommended)"
-													: "Enabled (Password Authentication should be disabled)"
+													? "Devre Dışı (Önerilen)"
+													: "Etkin (Parola Doğrulama devre dışı bırakılmalıdır)"
 											}
 										/>
 										<StatusRow
-											label="Use PAM"
+											label="PAM Kullan"
 											isEnabled={data?.ssh?.usePam === "no"}
 											description={
 												data?.ssh?.usePam === "no"
-													? "Disabled (Recommended for key-based auth)"
-													: "Enabled (Should be disabled when using key-based auth)"
+													? "Devre Dışı (Anahtar tabanlı doğrulama için önerilir)"
+													: "Etkin (Anahtar tabanlı doğrulama kullanılırken devre dışı bırakılmalıdır)"
 											}
 										/>
 									</div>
@@ -162,56 +162,56 @@ export const SecurityAudit = ({ serverId }: Props) => {
 								<div className="border rounded-lg p-4">
 									<h3 className="text-lg font-semibold mb-1">Fail2Ban</h3>
 									<p className="text-sm text-muted-foreground mb-4">
-										Fail2Ban (Fail2Ban) is a service that can be used to prevent
-										brute force attacks on your server.
+										Fail2Ban sunucunuza yapılan kaba kuvvet saldırılarını
+										önlemek için kullanılabilecek bir hizmettir.
 									</p>
 									<div className="grid gap-2.5">
 										<StatusRow
-											label="Installed"
+											label="Kurulu"
 											isEnabled={data?.fail2ban?.installed}
 											description={
 												data?.fail2ban?.installed
-													? "Installed (Recommended)"
-													: "Not Installed (Fail2Ban should be installed for protection against brute force attacks)"
+													? "Kurulu (Önerilen)"
+													: "Kurulu Değil (Kaba kuvvet saldırılarına karşı koruma için Fail2Ban kurulmalıdır)"
 											}
 										/>
 
 										<StatusRow
-											label="Enabled"
+											label="Etkin"
 											isEnabled={data?.fail2ban?.enabled}
 											description={
 												data?.fail2ban?.enabled
-													? "Enabled (Recommended)"
-													: "Not Enabled (Fail2Ban service should be enabled)"
+													? "Etkin (Önerilen)"
+													: "Etkin Değil (Fail2Ban hizmeti etkinleştirilmelidir)"
 											}
 										/>
 										<StatusRow
-											label="Active"
+											label="Aktif"
 											isEnabled={data?.fail2ban?.active}
 											description={
 												data?.fail2ban?.active
-													? "Active (Recommended)"
-													: "Not Active (Fail2Ban service should be running)"
+													? "Aktif (Önerilen)"
+													: "Aktif Değil (Fail2Ban hizmeti çalışıyor olmalıdır)"
 											}
 										/>
 
 										<StatusRow
-											label="SSH Protection"
+											label="SSH Koruması"
 											isEnabled={data?.fail2ban?.sshEnabled === "true"}
 											description={
 												data?.fail2ban?.sshEnabled === "true"
-													? "Enabled (Recommended)"
-													: "Not Enabled (SSH protection should be enabled to prevent brute force attacks)"
+													? "Etkin (Önerilen)"
+													: "Etkin Değil (Kaba kuvvet saldırılarını önlemek için SSH koruması etkinleştirilmelidir)"
 											}
 										/>
 
 										<StatusRow
-											label="SSH Mode"
+											label="SSH Modu"
 											isEnabled={data?.fail2ban?.sshMode === "aggressive"}
 											description={
 												data?.fail2ban?.sshMode === "aggressive"
-													? "Aggressive Mode (Recommended)"
-													: `Mode: ${data?.fail2ban?.sshMode || "Not Set"} (Aggressive mode recommended for better protection)`
+													? "Agresif Mod (Önerilen)"
+													: `Mod: ${data?.fail2ban?.sshMode || "Ayarlanmamış"} (Daha iyi koruma için agresif mod önerilir)`
 											}
 										/>
 									</div>

@@ -72,10 +72,10 @@ export const Setup = () => {
 			<Card className="bg-background">
 				<CardHeader className="flex flex-row items-center justify-between flex-wrap gap-2">
 					<div className="flex flex-col gap-2 w-full">
-						<Label>Select the server and click on setup server</Label>
+						<Label>Sunucuyu seçin ve sunucu kurulumuna tıklayın</Label>
 						<Select onValueChange={setServerId} defaultValue={serverId}>
 							<SelectTrigger>
-								<SelectValue placeholder="Select a server" />
+								<SelectValue placeholder="Bir sunucu seçin" />
 							</SelectTrigger>
 							<SelectContent>
 								<SelectGroup>
@@ -84,16 +84,16 @@ export const Setup = () => {
 											{server.name}
 										</SelectItem>
 									))}
-									<SelectLabel>Servers ({servers?.length})</SelectLabel>
+									<SelectLabel>Sunucular ({servers?.length})</SelectLabel>
 								</SelectGroup>
 							</SelectContent>
 						</Select>
 					</div>
 					<div className="flex flex-row gap-2 justify-between w-full max-sm:flex-col">
 						<div className="flex flex-col gap-1">
-							<CardTitle className="text-xl">Setup Server</CardTitle>
+							<CardTitle className="text-xl">Sunucu Kurulumu</CardTitle>
 							<CardDescription>
-								To setup a server, please click on the button below.
+								Sunucu kurmak için lütfen aşağıdaki düğmeye tıklayın.
 							</CardDescription>
 						</div>
 					</div>
@@ -101,21 +101,19 @@ export const Setup = () => {
 				<CardContent className="flex flex-col gap-4 min-h-[25vh] items-center">
 					<div className="flex flex-col gap-4 items-center h-full max-w-xl mx-auto min-h-[25vh] justify-center">
 						<span className="text-sm text-muted-foreground text-center">
-							When your server is ready, you can click on the button below, to
-							directly run the script we use for setup the server or directly
-							modify the script
+							Sunucunuz hazır olduğunda, sunucu kurulumu için kullandığımız betiği doğrudan çalıştırmak veya betiği düzenlemek için aşağıdaki düğmeye tıklayabilirsiniz
 						</span>
 						<div className="flex flex-row gap-2">
 							<EditScript serverId={server?.serverId || ""} />
 							<DialogAction
-								title={"Setup Server?"}
+								title={"Sunucu Kurulumu?"}
 								type="default"
-								description="This will setup the server and all associated data"
+								description="Bu işlem sunucuyu ve tüm ilişkili verileri kuracaktır"
 								onClick={async () => {
 									setIsDeploying(true);
 								}}
 							>
-								<Button>Setup Server</Button>
+								<Button>Sunucuyu Kur</Button>
 							</DialogAction>
 						</div>
 					</div>

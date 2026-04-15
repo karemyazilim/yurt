@@ -32,7 +32,7 @@ interface Props {
 
 const schema = z.object({
 	command: z.string().min(1, {
-		message: "Command is required",
+		message: "Komut gereklidir",
 	}),
 });
 
@@ -83,10 +83,10 @@ export const EditScript = ({ serverId }: Props) => {
 				serverId,
 			})
 				.then((_data) => {
-					toast.success("Script modified successfully");
+					toast.success("Betik başarıyla değiştirildi");
 				})
 				.catch(() => {
-					toast.error("Error modifying the script");
+					toast.error("Betik değiştirilirken hata oluştu");
 				});
 		}
 	};
@@ -95,21 +95,21 @@ export const EditScript = ({ serverId }: Props) => {
 		<Dialog open={isOpen} onOpenChange={setIsOpen}>
 			<DialogTrigger asChild>
 				<Button variant="outline">
-					Modify Script
+					Betiği Düzenle
 					<FileTerminal className="size-4 text-muted-foreground" />
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-5xl overflow-x-hidden">
 				<DialogHeader>
-					<DialogTitle>Modify Script</DialogTitle>
+					<DialogTitle>Betiği Düzenle</DialogTitle>
 					<DialogDescription>
-						Modify the script which install everything necessary to deploy
-						applications on your server,
+						Sunucunuza uygulama dağıtmak için gerekli her şeyi kuran
+						betiği düzenleyin,
 					</DialogDescription>
 
 					<AlertBlock type="warning">
-						We recommend not modifying this script unless you know what you are
-						doing.
+						Ne yaptığınızı bilmiyorsanız bu betiği değiştirmemenizi
+						öneririz.
 					</AlertBlock>
 				</DialogHeader>
 				<div className="grid gap-4">
@@ -124,7 +124,7 @@ export const EditScript = ({ serverId }: Props) => {
 								name="command"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Command</FormLabel>
+										<FormLabel>Komut</FormLabel>
 										<FormControl className="max-h-[75vh] max-w-[60rem] overflow-y-scroll overflow-x-hidden">
 											<CodeEditor
 												language="shell"
@@ -152,14 +152,14 @@ echo "Hello world"
 							});
 						}}
 					>
-						Reset
+						Sıfırla
 					</Button>
 					<Button
 						isLoading={isPending}
 						form="hook-form-delete-application"
 						type="submit"
 					>
-						Save
+						Kaydet
 					</Button>
 				</DialogFooter>
 			</DialogContent>

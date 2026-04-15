@@ -36,7 +36,7 @@ export const CreateSSHKey = () => {
 				});
 				await mutateAsync({
 					name: "dokploy-cloud-ssh-key",
-					description: "Used on Dokploy Cloud",
+					description: "Yurt Cloud'da kullanılır",
 					privateKey: keys.privateKey,
 					publicKey: keys.publicKey,
 					organizationId: "",
@@ -66,7 +66,7 @@ export const CreateSSHKey = () => {
 						<>
 							<div className="flex flex-col gap-4 text-sm text-muted-foreground">
 								<p className="text-primary text-base font-semibold">
-									Choose how to add SSH Keys to your server:
+									SSH Anahtarlarını sunucunuza nasıl ekleyeceğinizi seçin:
 								</p>
 
 								{/* Radio button options */}
@@ -84,7 +84,7 @@ export const CreateSSHKey = () => {
 												htmlFor="manual"
 												className="text-primary font-medium cursor-pointer"
 											>
-												Add SSH Key to Server Manually
+												SSH Anahtarını Sunucuya Manuel Olarak Ekle
 											</Label>
 										</div>
 
@@ -94,7 +94,7 @@ export const CreateSSHKey = () => {
 												htmlFor="provider"
 												className="text-primary font-medium cursor-pointer"
 											>
-												Add SSH Key when creating server in your provider
+												Sağlayıcınızda sunucu oluştururken SSH Anahtarı ekleyin
 											</Label>
 										</div>
 									</RadioGroup>
@@ -104,14 +104,14 @@ export const CreateSSHKey = () => {
 								{selectedOption === "manual" && (
 									<div className="flex flex-col gap-2 w-full border rounded-lg p-4">
 										<span className="text-base font-semibold text-primary">
-											Manual Setup Instructions
+											Manuel Kurulum Talimatları
 										</span>
 										<ul className="space-y-2">
 											<li className="items-center flex gap-1">
-												1. Login to your server
+												1. Sunucunuza giriş yapın
 											</li>
 											<li>
-												2. When you are logged in run the following command
+												2. Giriş yaptıktan sonra aşağıdaki komutu çalıştırın
 												<div className="flex relative flex-col gap-4 w-full mt-2">
 													<CodeEditor
 														lineWrapping
@@ -127,7 +127,7 @@ export const CreateSSHKey = () => {
 															copy(
 																`echo "${cloudSSHKey?.publicKey}" >> ~/.ssh/authorized_keys`,
 															);
-															toast.success("Copied to clipboard");
+															toast.success("Panoya kopyalandı");
 														}}
 													>
 														<CopyIcon className="size-4" />
@@ -135,8 +135,7 @@ export const CreateSSHKey = () => {
 												</div>
 											</li>
 											<li className="mt-1">
-												3. You're done, follow the next step to insert the
-												details of your server.
+												3. Tamamlandı, sunucunuzun bilgilerini girmek için bir sonraki adımı takip edin.
 											</li>
 										</ul>
 									</div>
@@ -145,20 +144,20 @@ export const CreateSSHKey = () => {
 								{selectedOption === "provider" && (
 									<div className="flex flex-col gap-2 w-full border rounded-lg p-4">
 										<span className="text-base font-semibold text-primary">
-											Provider Setup Instructions
+											Sağlayıcı Kurulum Talimatları
 										</span>
 										<div className="flex flex-col gap-4 w-full overflow-auto">
 											<div className="flex relative flex-col gap-2 overflow-y-auto">
 												<div className="text-sm text-primary flex flex-row gap-2 items-center">
-													Copy Public Key
+													Genel Anahtarı Kopyala
 													<button
 														type="button"
 														className="right-2 top-8"
 														onClick={() => {
 															copy(
-																cloudSSHKey?.publicKey || "Generate a SSH Key",
+																cloudSSHKey?.publicKey || "SSH Anahtarı Oluştur",
 															);
-															toast.success("SSH Copied to clipboard");
+															toast.success("SSH panoya kopyalandı");
 														}}
 													>
 														<CopyIcon className="size-4 text-muted-foreground" />
@@ -167,16 +166,14 @@ export const CreateSSHKey = () => {
 											</div>
 										</div>
 										<p className="text-sm mt-2">
-											Use this public key when creating a server in your
-											preferred provider (Hostinger, Digital Ocean, Hetzner,
-											etc.)
+											Tercih ettiğiniz sağlayıcıda (Hostinger, Digital Ocean, Hetzner vb.) sunucu oluştururken bu genel anahtarı kullanın
 										</p>
 										<Link
 											href="https://docs.dokploy.com/docs/core/remote-servers/instructions#requirements"
 											target="_blank"
 											className="text-primary flex flex-row gap-2 mt-2"
 										>
-											View Tutorial <ExternalLinkIcon className="size-4" />
+											Öğreticiyi Görüntüle <ExternalLinkIcon className="size-4" />
 										</Link>
 									</div>
 								)}

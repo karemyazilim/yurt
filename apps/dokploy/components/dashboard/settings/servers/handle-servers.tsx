@@ -41,16 +41,16 @@ import { api } from "@/utils/api";
 
 const Schema = z.object({
 	name: z.string().min(1, {
-		message: "Name is required",
+		message: "Ad gereklidir",
 	}),
 	description: z.string().optional(),
 	ipAddress: z.string().min(1, {
-		message: "IP Address is required",
+		message: "IP Adresi gereklidir",
 	}),
 	port: z.number().optional(),
 	username: z.string().optional(),
 	sshKeyId: z.string().min(1, {
-		message: "SSH Key is required",
+		message: "SSH Anahtarı gereklidir",
 	}),
 	serverType: z.enum(["deploy", "build"]).default("deploy"),
 });
@@ -124,12 +124,12 @@ export const HandleServers = ({ serverId, asButton = false }: Props) => {
 			.then(async (_data) => {
 				await utils.server.all.invalidate();
 				refetchServer();
-				toast.success(serverId ? "Server Updated" : "Server Created");
+				toast.success(serverId ? "Sunucu Güncellendi" : "Sunucu Oluşturuldu");
 				setIsOpen(false);
 			})
 			.catch(() => {
 				toast.error(
-					serverId ? "Error updating a server" : "Error creating a server",
+					serverId ? "Sunucu güncellenirken hata oluştu" : "Sunucu oluşturulurken hata oluştu",
 				);
 			});
 	};
@@ -151,29 +151,27 @@ export const HandleServers = ({ serverId, asButton = false }: Props) => {
 							setIsOpen(true);
 						}}
 					>
-						Edit Server
+						Sunucuyu Düzenle
 					</DropdownMenuItem>
 				)
 			) : (
 				<DialogTrigger asChild>
 					<Button className="cursor-pointer space-x-3">
 						<PlusIcon className="h-4 w-4" />
-						Create Server
+						Sunucu Oluştur
 					</Button>
 				</DialogTrigger>
 			)}
 			<DialogContent className="sm:max-w-3xl ">
 				<DialogHeader>
-					<DialogTitle>{serverId ? "Edit" : "Create"} Server</DialogTitle>
+					<DialogTitle>{serverId ? "Düzenle" : "Oluştur"} Sunucu</DialogTitle>
 					<DialogDescription>
-						{serverId ? "Edit" : "Create"} a server to deploy your applications
-						remotely.
+						Uygulamalarınızı uzaktan dağıtmak için bir sunucu {serverId ? "düzenleyin" : "oluşturun"}.
 					</DialogDescription>
 				</DialogHeader>
 				<div>
 					<p className="text-primary text-sm font-medium">
-						You may need to purchase or rent a Virtual Private Server (VPS) to
-						proceed. We recommend using one of these heavily tested providers:
+						Devam etmek için bir Sanal Özel Sunucu (VPS) satın almanız veya kiralamanız gerekebilir. Yoğun şekilde test edilmiş bu sağlayıcılardan birini kullanmanızı öneririz:
 					</p>
 					<ul className="list-inside list-disc pl-4 text-sm text-muted-foreground mt-4">
 						<li>
@@ -181,7 +179,7 @@ export const HandleServers = ({ serverId, asButton = false }: Props) => {
 								href="https://www.hostinger.com/vps-hosting?REFERRALCODE=1SIUMAURICI97"
 								className="text-link underline"
 							>
-								Hostinger - Get 20% Discount
+								Hostinger - %20 İndirim Alın
 							</a>
 						</li>
 						<li>
@@ -189,7 +187,7 @@ export const HandleServers = ({ serverId, asButton = false }: Props) => {
 								href=" https://app.americancloud.com/register?ref=dokploy"
 								className="text-link underline"
 							>
-								American Cloud - Get $20 Credits
+								American Cloud - $20 Kredi Alın
 							</a>
 						</li>
 						<li>
@@ -197,7 +195,7 @@ export const HandleServers = ({ serverId, asButton = false }: Props) => {
 								href="https://m.do.co/c/db24efd43f35"
 								className="text-link underline"
 							>
-								DigitalOcean - Get $200 Credits
+								DigitalOcean - $200 Kredi Alın
 							</a>
 						</li>
 						<li>
@@ -205,7 +203,7 @@ export const HandleServers = ({ serverId, asButton = false }: Props) => {
 								href="https://hetzner.cloud/?ref=vou4fhxJ1W2D"
 								className="text-link underline"
 							>
-								Hetzner - Get €20 Credits
+								Hetzner - €20 Kredi Alın
 							</a>
 						</li>
 						<li>
@@ -226,15 +224,14 @@ export const HandleServers = ({ serverId, asButton = false }: Props) => {
 						</li>
 					</ul>
 					<AlertBlock className="mt-4 px-4">
-						You are free to use whatever provider, but we recommend to use one
-						of the above, to avoid issues.
+						Herhangi bir sağlayıcıyı kullanmakta özgürsünüz, ancak sorunlardan kaçınmak için yukarıdakilerden birini kullanmanızı öneririz.
 					</AlertBlock>
 				</div>
 				{!canCreateMoreServers && (
 					<AlertBlock type="warning" className="mt-4">
-						You cannot create more servers,{" "}
+						Daha fazla sunucu oluşturamazsınız,{" "}
 						<Link href="/dashboard/settings/billing" className="text-primary">
-							Please upgrade your plan
+							Lütfen planınızı yükseltin
 						</Link>
 					</AlertBlock>
 				)}
@@ -251,9 +248,9 @@ export const HandleServers = ({ serverId, asButton = false }: Props) => {
 								name="name"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Name</FormLabel>
+										<FormLabel>Ad</FormLabel>
 										<FormControl>
-											<Input placeholder="Hostinger Server" {...field} />
+											<Input placeholder="Hostinger Sunucusu" {...field} />
 										</FormControl>
 
 										<FormMessage />
@@ -266,10 +263,10 @@ export const HandleServers = ({ serverId, asButton = false }: Props) => {
 							name="description"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Description</FormLabel>
+									<FormLabel>Açıklama</FormLabel>
 									<FormControl>
 										<Textarea
-											placeholder="This server is for databases..."
+											placeholder="Bu sunucu veritabanları için..."
 											className="resize-none"
 											{...field}
 										/>
@@ -286,37 +283,31 @@ export const HandleServers = ({ serverId, asButton = false }: Props) => {
 								const serverTypeValue = form.watch("serverType");
 								return (
 									<FormItem>
-										<FormLabel>Server Type</FormLabel>
+										<FormLabel>Sunucu Türü</FormLabel>
 										<Select
 											onValueChange={field.onChange}
 											defaultValue={field.value}
 										>
 											<SelectTrigger>
-												<SelectValue placeholder="Select a server type" />
+												<SelectValue placeholder="Bir sunucu türü seçin" />
 											</SelectTrigger>
 											<SelectContent>
 												<SelectGroup>
-													<SelectItem value="deploy">Deploy Server</SelectItem>
-													<SelectItem value="build">Build Server</SelectItem>
-													<SelectLabel>Server Type</SelectLabel>
+													<SelectItem value="deploy">Dağıtım Sunucusu</SelectItem>
+													<SelectItem value="build">Derleme Sunucusu</SelectItem>
+													<SelectLabel>Sunucu Türü</SelectLabel>
 												</SelectGroup>
 											</SelectContent>
 										</Select>
 										<FormMessage />
 										{serverTypeValue === "deploy" && (
 											<AlertBlock type="info" className="mt-2">
-												Deploy servers are used to run your applications,
-												databases, and services. They handle the deployment and
-												execution of your projects.
+												Dağıtım sunucuları uygulamalarınızı, veritabanlarınızı ve hizmetlerinizi çalıştırmak için kullanılır. Projelerinizin dağıtımını ve çalıştırılmasını yönetirler.
 											</AlertBlock>
 										)}
 										{serverTypeValue === "build" && (
 											<AlertBlock type="info" className="mt-2">
-												Build servers are dedicated to building your
-												applications. They handle the compilation and build
-												process, offloading this work from your deployment
-												servers. Build servers won't appear in deployment
-												options.
+												Derleme sunucuları uygulamalarınızı derlemek için ayrılmıştır. Derleme ve yapılandırma sürecini yönetir, bu işi dağıtım sunucularınızdan alır. Derleme sunucuları dağıtım seçeneklerinde görünmez.
 											</AlertBlock>
 										)}
 									</FormItem>
@@ -328,13 +319,13 @@ export const HandleServers = ({ serverId, asButton = false }: Props) => {
 							name="sshKeyId"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Select a SSH Key</FormLabel>
+									<FormLabel>Bir SSH Anahtarı Seçin</FormLabel>
 									<Select
 										onValueChange={field.onChange}
 										defaultValue={field.value}
 									>
 										<SelectTrigger>
-											<SelectValue placeholder="Select a SSH Key" />
+											<SelectValue placeholder="Bir SSH Anahtarı Seçin" />
 										</SelectTrigger>
 										<SelectContent>
 											<SelectGroup>
@@ -347,7 +338,7 @@ export const HandleServers = ({ serverId, asButton = false }: Props) => {
 													</SelectItem>
 												))}
 												<SelectLabel>
-													Registries ({sshKeys?.length})
+													Kayıtlar ({sshKeys?.length})
 												</SelectLabel>
 											</SelectGroup>
 										</SelectContent>
@@ -362,7 +353,7 @@ export const HandleServers = ({ serverId, asButton = false }: Props) => {
 								name="ipAddress"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>IP Address</FormLabel>
+										<FormLabel>IP Adresi</FormLabel>
 										<FormControl>
 											<Input placeholder="192.168.1.100" {...field} />
 										</FormControl>
@@ -406,13 +397,12 @@ export const HandleServers = ({ serverId, asButton = false }: Props) => {
 							name="username"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Username</FormLabel>
+									<FormLabel>Kullanıcı Adı</FormLabel>
 									<FormControl>
 										<Input placeholder="root" {...field} />
 									</FormControl>
 									<FormDescription>
-										Use &quot;root&quot; or a non-root user with passwordless
-										sudo access.
+										&quot;root&quot; veya parolasız sudo erişimine sahip root olmayan bir kullanıcı kullanın.
 									</FormDescription>
 									<FormMessage />
 								</FormItem>
@@ -427,7 +417,7 @@ export const HandleServers = ({ serverId, asButton = false }: Props) => {
 							form="hook-form-add-server"
 							type="submit"
 						>
-							{serverId ? "Update" : "Create"}
+							{serverId ? "Güncelle" : "Oluştur"}
 						</Button>
 					</DialogFooter>
 				</Form>

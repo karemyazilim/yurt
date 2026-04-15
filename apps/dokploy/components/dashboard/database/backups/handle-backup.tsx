@@ -75,11 +75,11 @@ type DatabaseType =
 
 const Schema = z
 	.object({
-		destinationId: z.string().min(1, "Destination required"),
-		schedule: z.string().min(1, "Schedule (Cron) required"),
-		prefix: z.string().min(1, "Prefix required"),
+		destinationId: z.string().min(1, "Hedef gereklidir"),
+		schedule: z.string().min(1, "Zamanlama (Cron) gereklidir"),
+		prefix: z.string().min(1, "Ön ek gereklidir"),
 		enabled: z.boolean(),
-		database: z.string().min(1, "Database required"),
+		database: z.string().min(1, "Veritabanı gereklidir"),
 		keepLatestCount: z.coerce.number().optional(),
 		serviceName: z.string().nullable(),
 		databaseType: z
@@ -319,12 +319,12 @@ export const HandleBackup = ({
 			metadata: data.metadata,
 		})
 			.then(async () => {
-				toast.success(`Backup ${backupId ? "Updated" : "Created"}`);
+				toast.success(`Yedekleme ${backupId ? "Güncellendi" : "Oluşturuldu"}`);
 				refetch();
 				setIsOpen(false);
 			})
 			.catch(() => {
-				toast.error(`Error ${backupId ? "updating" : "creating"} a backup`);
+				toast.error(`Yedekleme ${backupId ? "güncellenirken" : "oluşturulurken"} hata oluştu`);
 			});
 	};
 
@@ -342,17 +342,17 @@ export const HandleBackup = ({
 				) : (
 					<Button>
 						<PlusIcon className="h-4 w-4" />
-						{backupId ? "Update Backup" : "Create Backup"}
+						{backupId ? "Yedeklemeyi Güncelle" : "Yedekleme Oluştur"}
 					</Button>
 				)}
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-2xl">
 				<DialogHeader>
 					<DialogTitle>
-						{backupId ? "Update Backup" : "Create Backup"}
+						{backupId ? "Yedeklemeyi Güncelle" : "Yedekleme Oluştur"}
 					</DialogTitle>
 					<DialogDescription>
-						{backupId ? "Update a backup" : "Add a new backup"}
+						{backupId ? "Bir yedeklemeyi güncelle" : "Yeni bir yedekleme ekle"}
 					</DialogDescription>
 				</DialogHeader>
 
@@ -374,7 +374,7 @@ export const HandleBackup = ({
 									name="databaseType"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Database Type</FormLabel>
+											<FormLabel>Veritabanı Türü</FormLabel>
 											<Select
 												value={field.value}
 												onValueChange={(value) => {
@@ -383,7 +383,7 @@ export const HandleBackup = ({
 												}}
 											>
 												<SelectTrigger className="w-full">
-													<SelectValue placeholder="Select a database type" />
+													<SelectValue placeholder="Veritabanı türü seçin" />
 												</SelectTrigger>
 												<SelectContent>
 													<SelectItem value="postgres">PostgreSQL</SelectItem>
@@ -402,7 +402,7 @@ export const HandleBackup = ({
 								name="destinationId"
 								render={({ field }) => (
 									<FormItem className="">
-										<FormLabel>Destination</FormLabel>
+										<FormLabel>Hedef</FormLabel>
 										<Popover>
 											<PopoverTrigger asChild>
 												<FormControl>
@@ -414,13 +414,13 @@ export const HandleBackup = ({
 														)}
 													>
 														{isPending
-															? "Loading...."
+															? "Yükleniyor...."
 															: field.value
 																? data?.find(
 																		(destination) =>
 																			destination.destinationId === field.value,
 																	)?.name
-																: "Select Destination"}
+																: "Hedef Seçin"}
 
 														<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 													</Button>
@@ -429,15 +429,15 @@ export const HandleBackup = ({
 											<PopoverContent className="p-0" align="start">
 												<Command>
 													<CommandInput
-														placeholder="Search Destination..."
+														placeholder="Hedef Ara..."
 														className="h-9"
 													/>
 													{isPending && (
 														<span className="py-6 text-center text-sm">
-															Loading Destinations....
+															Hedefler Yükleniyor....
 														</span>
 													)}
-													<CommandEmpty>No destinations found.</CommandEmpty>
+													<CommandEmpty>Hedef bulunamadı.</CommandEmpty>
 													<ScrollArea className="h-64">
 														<CommandGroup>
 															{data?.map((destination) => (
@@ -479,7 +479,7 @@ export const HandleBackup = ({
 										name="serviceName"
 										render={({ field }) => (
 											<FormItem className="w-full">
-												<FormLabel>Service Name</FormLabel>
+												<FormLabel>Servis Adı</FormLabel>
 												<div className="flex gap-2">
 													<Select
 														onValueChange={field.onChange}
@@ -487,7 +487,7 @@ export const HandleBackup = ({
 													>
 														<FormControl>
 															<SelectTrigger>
-																<SelectValue placeholder="Select a service name" />
+																<SelectValue placeholder="Servis adı seçin" />
 															</SelectTrigger>
 														</FormControl>
 
@@ -502,7 +502,7 @@ export const HandleBackup = ({
 															))}
 															{(!services || services.length === 0) && (
 																<SelectItem value="none" disabled>
-																	Empty
+																	Boş
 																</SelectItem>
 															)}
 														</SelectContent>
@@ -531,8 +531,8 @@ export const HandleBackup = ({
 																className="max-w-[10rem]"
 															>
 																<p>
-																	Fetch: Will clone the repository and load the
-																	services
+																	Getir: Depoyu klonlayacak ve servisleri
+																	yükleyecektir
 																</p>
 															</TooltipContent>
 														</Tooltip>
@@ -561,9 +561,9 @@ export const HandleBackup = ({
 																className="max-w-[10rem]"
 															>
 																<p>
-																	Cache: If you previously deployed this
-																	compose, it will read the services from the
-																	last deployment/fetch from the repository
+																	Önbellek: Daha önce bu compose'u dağıttıysanız,
+																	servisleri son dağıtım/depodan getirmeden
+																	okuyacaktır
 																</p>
 															</TooltipContent>
 														</Tooltip>
@@ -582,7 +582,7 @@ export const HandleBackup = ({
 								render={({ field }) => {
 									return (
 										<FormItem>
-											<FormLabel>Database</FormLabel>
+											<FormLabel>Veritabanı</FormLabel>
 											<FormControl>
 												<Input
 													disabled={
@@ -607,13 +607,13 @@ export const HandleBackup = ({
 								render={({ field }) => {
 									return (
 										<FormItem>
-											<FormLabel>Prefix Destination</FormLabel>
+											<FormLabel>Hedef Ön Eki</FormLabel>
 											<FormControl>
 												<Input placeholder={"dokploy/"} {...field} />
 											</FormControl>
 											<FormDescription>
-												Use if you want to back up in a specific path of your
-												destination/bucket
+												Hedefinizin/bucket'ınızın belirli bir yolunda yedekleme
+												yapmak istiyorsanız kullanın
 											</FormDescription>
 
 											<FormMessage />
@@ -627,18 +627,18 @@ export const HandleBackup = ({
 								render={({ field }) => {
 									return (
 										<FormItem>
-											<FormLabel>Keep the latest</FormLabel>
+											<FormLabel>En son kalanları tut</FormLabel>
 											<FormControl>
 												<Input
 													type="number"
-													placeholder={"keeps all the backups if left empty"}
+													placeholder={"boş bırakılırsa tüm yedeklemeler tutulur"}
 													{...field}
 													value={field.value as string}
 												/>
 											</FormControl>
 											<FormDescription>
-												Optional. If provided, only keeps the latest N backups
-												in the cloud.
+												İsteğe bağlı. Belirtilirse, bulutta yalnızca en son N
+												yedeklemeyi tutar.
 											</FormDescription>
 											<FormMessage />
 										</FormItem>
@@ -651,9 +651,9 @@ export const HandleBackup = ({
 								render={({ field }) => (
 									<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 ">
 										<div className="space-y-0.5">
-											<FormLabel>Enabled</FormLabel>
+											<FormLabel>Etkin</FormLabel>
 											<FormDescription>
-												Enable or disable the backup
+												Yedeklemeyi etkinleştir veya devre dışı bırak
 											</FormDescription>
 										</div>
 										<FormControl>
@@ -673,7 +673,7 @@ export const HandleBackup = ({
 											name="metadata.postgres.databaseUser"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>Database User</FormLabel>
+													<FormLabel>Veritabanı Kullanıcısı</FormLabel>
 													<FormControl>
 														<Input placeholder="postgres" {...field} />
 													</FormControl>
@@ -690,7 +690,7 @@ export const HandleBackup = ({
 												name="metadata.mariadb.databaseUser"
 												render={({ field }) => (
 													<FormItem>
-														<FormLabel>Database User</FormLabel>
+														<FormLabel>Veritabanı Kullanıcısı</FormLabel>
 														<FormControl>
 															<Input placeholder="mariadb" {...field} />
 														</FormControl>
@@ -703,7 +703,7 @@ export const HandleBackup = ({
 												name="metadata.mariadb.databasePassword"
 												render={({ field }) => (
 													<FormItem>
-														<FormLabel>Database Password</FormLabel>
+														<FormLabel>Veritabanı Şifresi</FormLabel>
 														<FormControl>
 															<Input
 																type="password"
@@ -725,7 +725,7 @@ export const HandleBackup = ({
 												name="metadata.mongo.databaseUser"
 												render={({ field }) => (
 													<FormItem>
-														<FormLabel>Database User</FormLabel>
+														<FormLabel>Veritabanı Kullanıcısı</FormLabel>
 														<FormControl>
 															<Input placeholder="mongo" {...field} />
 														</FormControl>
@@ -738,7 +738,7 @@ export const HandleBackup = ({
 												name="metadata.mongo.databasePassword"
 												render={({ field }) => (
 													<FormItem>
-														<FormLabel>Database Password</FormLabel>
+														<FormLabel>Veritabanı Şifresi</FormLabel>
 														<FormControl>
 															<Input
 																type="password"
@@ -759,7 +759,7 @@ export const HandleBackup = ({
 											name="metadata.mysql.databaseRootPassword"
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel>Root Password</FormLabel>
+													<FormLabel>Root Şifresi</FormLabel>
 													<FormControl>
 														<Input
 															type="password"
@@ -781,7 +781,7 @@ export const HandleBackup = ({
 								form="hook-form-add-backup"
 								type="submit"
 							>
-								{backupId ? "Update" : "Create"}
+								{backupId ? "Güncelle" : "Oluştur"}
 							</Button>
 						</DialogFooter>
 					</form>

@@ -28,7 +28,7 @@ import { api } from "@/utils/api";
 
 const organizationSchema = z.object({
 	name: z.string().min(1, {
-		message: "Organization name is required",
+		message: "Organizasyon adı gereklidir",
 	}),
 	logo: z.string().optional(),
 });
@@ -81,7 +81,7 @@ export function AddOrganization({ organizationId }: Props) {
 			.then(() => {
 				form.reset();
 				toast.success(
-					`Organization ${organizationId ? "updated" : "created"} successfully`,
+					`Organizasyon başarıyla ${organizationId ? "güncellendi" : "oluşturuldu"}`,
 				);
 				utils.organization.all.invalidate();
 				if (organizationId) {
@@ -93,7 +93,7 @@ export function AddOrganization({ organizationId }: Props) {
 			.catch((error) => {
 				console.error(error);
 				toast.error(
-					`Failed to ${organizationId ? "update" : "create"} organization`,
+					`Organizasyon ${organizationId ? "güncellenirken" : "oluşturulurken"} hata oluştu`,
 				);
 			});
 	};
@@ -117,7 +117,7 @@ export function AddOrganization({ organizationId }: Props) {
 							<Plus className="size-4" />
 						</div>
 						<div className="font-medium text-muted-foreground">
-							Add organization
+							Organizasyon ekle
 						</div>
 					</DropdownMenuItem>
 				)}
@@ -125,12 +125,12 @@ export function AddOrganization({ organizationId }: Props) {
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
 					<DialogTitle>
-						{organizationId ? "Update organization" : "Add organization"}
+						{organizationId ? "Organizasyonu güncelle" : "Organizasyon ekle"}
 					</DialogTitle>
 					<DialogDescription>
 						{organizationId
-							? "Update the organization name and logo"
-							: "Create a new organization to manage your projects."}
+							? "Organizasyon adını ve logosunu güncelle"
+							: "Projelerinizi yönetmek için yeni bir organizasyon oluşturun."}
 					</DialogDescription>
 				</DialogHeader>
 				<Form {...form}>
@@ -143,10 +143,10 @@ export function AddOrganization({ organizationId }: Props) {
 							name="name"
 							render={({ field }) => (
 								<FormItem className="tems-center gap-4">
-									<FormLabel className="text-right">Name</FormLabel>
+									<FormLabel className="text-right">Ad</FormLabel>
 									<FormControl>
 										<Input
-											placeholder="Organization name"
+											placeholder="Organizasyon adı"
 											{...field}
 											className="col-span-3"
 										/>
@@ -160,7 +160,7 @@ export function AddOrganization({ organizationId }: Props) {
 							name="logo"
 							render={({ field }) => (
 								<FormItem className="gap-4">
-									<FormLabel className="text-right">Logo URL</FormLabel>
+									<FormLabel className="text-right">Logo URL'si</FormLabel>
 									<FormControl>
 										<Input
 											placeholder="https://example.com/logo.png"
@@ -175,7 +175,7 @@ export function AddOrganization({ organizationId }: Props) {
 						/>
 						<DialogFooter>
 							<Button type="submit" isLoading={isPending}>
-								{organizationId ? "Update organization" : "Create organization"}
+								{organizationId ? "Organizasyonu güncelle" : "Organizasyon oluştur"}
 							</Button>
 						</DialogFooter>
 					</form>
