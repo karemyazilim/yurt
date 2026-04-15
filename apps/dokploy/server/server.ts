@@ -41,7 +41,7 @@ const app = next({ dev, turbopack: process.env.TURBOPACK === "1" });
 const handle = app.getRequestHandler();
 void app.prepare().then(async () => {
 	try {
-		console.log("Running DokployVersion: ", packageInfo.version);
+		console.log("Yurt Sürüm: ", packageInfo.version);
 		const server = http.createServer((req, res) => {
 			handle(req, res);
 		});

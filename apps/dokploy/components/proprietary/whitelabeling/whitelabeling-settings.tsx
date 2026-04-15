@@ -54,7 +54,7 @@ const formSchema = z.object({
 type FormSchema = z.infer<typeof formSchema>;
 
 const DEFAULT_CSS_TEMPLATE = `/* ============================================
-   Dokploy Default Theme - CSS Variables
+   Yurt Varsayılan Tema - CSS Variables
    Modify these values to customize your instance.
    ============================================ */
 
