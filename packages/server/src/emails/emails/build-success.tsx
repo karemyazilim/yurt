@@ -30,7 +30,7 @@ export const BuildSuccessEmail = ({
 	date = "2023-05-01T00:00:00.000Z",
 	environmentName = "production",
 }: TemplateProps) => {
-	const previewText = `Build success for ${applicationName}`;
+	const previewText = `${applicationName} uygulamasının derlemesi başarıyla tamamlandı`;
 	return (
 		<Html>
 			<Head />
@@ -60,30 +60,30 @@ export const BuildSuccessEmail = ({
 							/>
 						</Section>
 						<Heading className="text-black text-[24px] font-normal text-center p-0 my-[30px] mx-0">
-							Build success for <strong>{applicationName}</strong>
+							<strong>{applicationName}</strong> uygulamasının derlemesi başarıyla tamamlandı
 						</Heading>
 						<Text className="text-black text-[14px] leading-[24px]">
-							Hello,
+							Merhaba,
 						</Text>
 						<Text className="text-black text-[14px] leading-[24px]">
-							Your build for <strong>{applicationName}</strong> was successful
+							<strong>{applicationName}</strong> uygulamasının derlemesi başarıyla tamamlandı
 						</Text>
 						<Section className="flex text-black text-[14px]  leading-[24px] bg-[#F4F4F5] rounded-lg p-2">
-							<Text className="!leading-3 font-bold">Details: </Text>
+							<Text className="!leading-3 font-bold">Detaylar: </Text>
 							<Text className="!leading-3">
-								Project Name: <strong>{projectName}</strong>
+								Proje Adı: <strong>{projectName}</strong>
 							</Text>
 							<Text className="!leading-3">
-								Application Name: <strong>{applicationName}</strong>
+								Uygulama Adı: <strong>{applicationName}</strong>
 							</Text>
 							<Text className="!leading-3">
-								Environment: <strong>{environmentName}</strong>
+								Ortam: <strong>{environmentName}</strong>
 							</Text>
 							<Text className="!leading-3">
-								Application Type: <strong>{applicationType}</strong>
+								Uygulama Türü: <strong>{applicationType}</strong>
 							</Text>
 							<Text className="!leading-3">
-								Date: <strong>{date}</strong>
+								Tarih: <strong>{date}</strong>
 							</Text>
 						</Section>
 						<Section className="text-center mt-[32px] mb-[32px]">
@@ -91,11 +91,11 @@ export const BuildSuccessEmail = ({
 								href={buildLink}
 								className="bg-[#000000] rounded text-white text-[12px] font-semibold no-underline text-center px-5 py-3"
 							>
-								View build
+								Derlemeyi Görüntüle
 							</Button>
 						</Section>
 						<Text className="text-black text-[14px] leading-[24px]">
-							or copy and paste this URL into your browser:{" "}
+							veya bu bağlantıyı tarayıcınıza kopyalayıp yapıştırın:{" "}
 							<Link href={buildLink} className="text-blue-600 no-underline">
 								{buildLink}
 							</Link>
