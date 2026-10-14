@@ -443,7 +443,7 @@ const EnvironmentPage = (
 		);
 	};
 
-	const composeİşlemler = {
+	const composeActions = {
 		start: api.compose.start.useMutation(),
 		stop: api.compose.stop.useMutation(),
 		move: api.compose.move.useMutation(),
@@ -451,7 +451,7 @@ const EnvironmentPage = (
 		deploy: api.compose.deploy.useMutation(),
 	};
 
-	const applicationİşlemler = {
+	const applicationActions = {
 		start: api.application.start.useMutation(),
 		stop: api.application.stop.useMutation(),
 		move: api.application.move.useMutation(),
@@ -459,7 +459,7 @@ const EnvironmentPage = (
 		deploy: api.application.deploy.useMutation(),
 	};
 
-	const postgresİşlemler = {
+	const postgresActions = {
 		start: api.postgres.start.useMutation(),
 		stop: api.postgres.stop.useMutation(),
 		move: api.postgres.move.useMutation(),
@@ -467,7 +467,7 @@ const EnvironmentPage = (
 		deploy: api.postgres.deploy.useMutation(),
 	};
 
-	const mysqlİşlemler = {
+	const mysqlActions = {
 		start: api.mysql.start.useMutation(),
 		stop: api.mysql.stop.useMutation(),
 		move: api.mysql.move.useMutation(),
@@ -475,7 +475,7 @@ const EnvironmentPage = (
 		deploy: api.mysql.deploy.useMutation(),
 	};
 
-	const mariadbİşlemler = {
+	const mariadbActions = {
 		start: api.mariadb.start.useMutation(),
 		stop: api.mariadb.stop.useMutation(),
 		move: api.mariadb.move.useMutation(),
@@ -483,7 +483,7 @@ const EnvironmentPage = (
 		deploy: api.mariadb.deploy.useMutation(),
 	};
 
-	const redisİşlemler = {
+	const redisActions = {
 		start: api.redis.start.useMutation(),
 		stop: api.redis.stop.useMutation(),
 		move: api.redis.move.useMutation(),
@@ -491,7 +491,7 @@ const EnvironmentPage = (
 		deploy: api.redis.deploy.useMutation(),
 	};
 
-	const mongoİşlemler = {
+	const mongoActions = {
 		start: api.mongo.start.useMutation(),
 		stop: api.mongo.stop.useMutation(),
 		move: api.mongo.move.useMutation(),
@@ -509,27 +509,27 @@ const EnvironmentPage = (
 
 				switch (service.type) {
 					case "application":
-						await applicationİşlemler.start.mutateAsync({
+						await applicationActions.start.mutateAsync({
 							applicationId: serviceId,
 						});
 						break;
 					case "compose":
-						await composeİşlemler.start.mutateAsync({ composeId: serviceId });
+						await composeActions.start.mutateAsync({ composeId: serviceId });
 						break;
 					case "postgres":
-						await postgresİşlemler.start.mutateAsync({ postgresId: serviceId });
+						await postgresActions.start.mutateAsync({ postgresId: serviceId });
 						break;
 					case "mysql":
-						await mysqlİşlemler.start.mutateAsync({ mysqlId: serviceId });
+						await mysqlActions.start.mutateAsync({ mysqlId: serviceId });
 						break;
 					case "mariadb":
-						await mariadbİşlemler.start.mutateAsync({ mariadbId: serviceId });
+						await mariadbActions.start.mutateAsync({ mariadbId: serviceId });
 						break;
 					case "redis":
-						await redisİşlemler.start.mutateAsync({ redisId: serviceId });
+						await redisActions.start.mutateAsync({ redisId: serviceId });
 						break;
 					case "mongo":
-						await mongoİşlemler.start.mutateAsync({ mongoId: serviceId });
+						await mongoActions.start.mutateAsync({ mongoId: serviceId });
 						break;
 				}
 				success++;
@@ -556,27 +556,27 @@ const EnvironmentPage = (
 
 				switch (service.type) {
 					case "application":
-						await applicationİşlemler.stop.mutateAsync({
+						await applicationActions.stop.mutateAsync({
 							applicationId: serviceId,
 						});
 						break;
 					case "compose":
-						await composeİşlemler.stop.mutateAsync({ composeId: serviceId });
+						await composeActions.stop.mutateAsync({ composeId: serviceId });
 						break;
 					case "postgres":
-						await postgresİşlemler.stop.mutateAsync({ postgresId: serviceId });
+						await postgresActions.stop.mutateAsync({ postgresId: serviceId });
 						break;
 					case "mysql":
-						await mysqlİşlemler.stop.mutateAsync({ mysqlId: serviceId });
+						await mysqlActions.stop.mutateAsync({ mysqlId: serviceId });
 						break;
 					case "mariadb":
-						await mariadbİşlemler.stop.mutateAsync({ mariadbId: serviceId });
+						await mariadbActions.stop.mutateAsync({ mariadbId: serviceId });
 						break;
 					case "redis":
-						await redisİşlemler.stop.mutateAsync({ redisId: serviceId });
+						await redisActions.stop.mutateAsync({ redisId: serviceId });
 						break;
 					case "mongo":
-						await mongoİşlemler.stop.mutateAsync({ mongoId: serviceId });
+						await mongoActions.stop.mutateAsync({ mongoId: serviceId });
 						break;
 				}
 				success++;
@@ -613,43 +613,43 @@ const EnvironmentPage = (
 				// TODO: Update move APIs to use targetEnvironmentId instead of targetProjectId
 				switch (service.type) {
 					case "application":
-						await applicationİşlemler.move.mutateAsync({
+						await applicationActions.move.mutateAsync({
 							applicationId: serviceId,
 							targetEnvironmentId: selectedTargetEnvironment,
 						});
 						break;
 					case "compose":
-						await composeİşlemler.move.mutateAsync({
+						await composeActions.move.mutateAsync({
 							composeId: serviceId,
 							targetEnvironmentId: selectedTargetEnvironment,
 						});
 						break;
 					case "postgres":
-						await postgresİşlemler.move.mutateAsync({
+						await postgresActions.move.mutateAsync({
 							postgresId: serviceId,
 							targetEnvironmentId: selectedTargetEnvironment,
 						});
 						break;
 					case "mysql":
-						await mysqlİşlemler.move.mutateAsync({
+						await mysqlActions.move.mutateAsync({
 							mysqlId: serviceId,
 							targetEnvironmentId: selectedTargetEnvironment,
 						});
 						break;
 					case "mariadb":
-						await mariadbİşlemler.move.mutateAsync({
+						await mariadbActions.move.mutateAsync({
 							mariadbId: serviceId,
 							targetEnvironmentId: selectedTargetEnvironment,
 						});
 						break;
 					case "redis":
-						await redisİşlemler.move.mutateAsync({
+						await redisActions.move.mutateAsync({
 							redisId: serviceId,
 							targetEnvironmentId: selectedTargetEnvironment,
 						});
 						break;
 					case "mongo":
-						await mongoİşlemler.move.mutateAsync({
+						await mongoActions.move.mutateAsync({
 							mongoId: serviceId,
 							targetEnvironmentId: selectedTargetEnvironment,
 						});
@@ -688,38 +688,38 @@ const EnvironmentPage = (
 
 				switch (service.type) {
 					case "application":
-						await applicationİşlemler.delete.mutateAsync({
+						await applicationActions.delete.mutateAsync({
 							applicationId: serviceId,
 						});
 						break;
 					case "compose":
-						await composeİşlemler.delete.mutateAsync({
+						await composeActions.delete.mutateAsync({
 							composeId: serviceId,
 							deleteVolumes,
 						});
 						break;
 					case "postgres":
-						await postgresİşlemler.delete.mutateAsync({
+						await postgresActions.delete.mutateAsync({
 							postgresId: serviceId,
 						});
 						break;
 					case "mysql":
-						await mysqlİşlemler.delete.mutateAsync({
+						await mysqlActions.delete.mutateAsync({
 							mysqlId: serviceId,
 						});
 						break;
 					case "mariadb":
-						await mariadbİşlemler.delete.mutateAsync({
+						await mariadbActions.delete.mutateAsync({
 							mariadbId: serviceId,
 						});
 						break;
 					case "redis":
-						await redisİşlemler.delete.mutateAsync({
+						await redisActions.delete.mutateAsync({
 							redisId: serviceId,
 						});
 						break;
 					case "mongo":
-						await mongoİşlemler.delete.mutateAsync({
+						await mongoActions.delete.mutateAsync({
 							mongoId: serviceId,
 						});
 						break;
@@ -755,37 +755,37 @@ const EnvironmentPage = (
 
 				switch (service.type) {
 					case "application":
-						await applicationİşlemler.deploy.mutateAsync({
+						await applicationActions.deploy.mutateAsync({
 							applicationId: serviceId,
 						});
 						break;
 					case "compose":
-						await composeİşlemler.deploy.mutateAsync({
+						await composeActions.deploy.mutateAsync({
 							composeId: serviceId,
 						});
 						break;
 					case "postgres":
-						await postgresİşlemler.deploy.mutateAsync({
+						await postgresActions.deploy.mutateAsync({
 							postgresId: serviceId,
 						});
 						break;
 					case "mysql":
-						await mysqlİşlemler.deploy.mutateAsync({
+						await mysqlActions.deploy.mutateAsync({
 							mysqlId: serviceId,
 						});
 						break;
 					case "mariadb":
-						await mariadbİşlemler.deploy.mutateAsync({
+						await mariadbActions.deploy.mutateAsync({
 							mariadbId: serviceId,
 						});
 						break;
 					case "redis":
-						await redisİşlemler.deploy.mutateAsync({
+						await redisActions.deploy.mutateAsync({
 							redisId: serviceId,
 						});
 						break;
 					case "mongo":
-						await mongoİşlemler.deploy.mutateAsync({
+						await mongoActions.deploy.mutateAsync({
 							mongoId: serviceId,
 						});
 						break;

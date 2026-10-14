@@ -200,7 +200,7 @@ export const AddTemplate = ({ environmentId, baseUrl }: Props) => {
 			<DialogTrigger className="w-full">
 				<DropdownMenuItem
 					className="w-full cursor-pointer space-x-3"
-					onSelect={(e) => e.preventVarsayılan()}
+					onSelect={(e) => e.preventDefault()}
 				>
 					<PuzzleIcon className="size-4 text-muted-foreground" />
 					<span>Şablon</span>

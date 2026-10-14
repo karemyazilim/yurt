@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import {
 	AlertDialog,
 	AlertDialogAction,
-	AlertDialogİptal,
+	AlertDialogCancel,
 	AlertDialogContent,
 	AlertDialogDescription,
 	AlertDialogFooter,
@@ -107,7 +107,7 @@ export const UpdateWebServer = () => {
 		}
 	};
 
-	const handleOnayla = async () => {
+	const handleConfirm = async () => {
 		try {
 			setModalState("updating");
 			await updateServer();
@@ -234,24 +234,24 @@ export const UpdateWebServer = () => {
 				</AlertDialogHeader>
 				{modalState === "idle" && (
 					<AlertDialogFooter>
-						<AlertDialogİptal onClick={handleClose}>İptal</AlertDialogİptal>
+						<AlertDialogCancel onClick={handleClose}>İptal</AlertDialogCancel>
 						<Button variant="secondary" onClick={handleVerify}>
 							<RefreshCw className="h-4 w-4" />
 							Durumu Doğrula
 						</Button>
-						<AlertDialogAction onClick={handleOnayla}>
+						<AlertDialogAction onClick={handleConfirm}>
 							Onayla
 						</AlertDialogAction>
 					</AlertDialogFooter>
 				)}
 				{modalState === "results" && (
 					<AlertDialogFooter>
-						<AlertDialogİptal onClick={handleClose}>İptal</AlertDialogİptal>
+						<AlertDialogCancel onClick={handleClose}>İptal</AlertDialogCancel>
 						<Button variant="secondary" onClick={handleVerify}>
 							<RefreshCw className="h-4 w-4" />
 							Tekrar Kontrol Et
 						</Button>
-						<AlertDialogAction onClick={handleOnayla}>
+						<AlertDialogAction onClick={handleConfirm}>
 							{allHealthy ? "Onayla" : "Yine de Onayla"}
 						</AlertDialogAction>
 					</AlertDialogFooter>

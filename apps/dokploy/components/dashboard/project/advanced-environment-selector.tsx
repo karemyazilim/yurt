@@ -1,4 +1,4 @@
-import type { findOrtamlarByProjectId } from "@dokploy/server";
+import type { findEnvironmentsByProjectId } from "@dokploy/server";
 import { ChevronDownIcon, PencilIcon, PlusIcon, TrashIcon } from "lucide-react";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -27,7 +27,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/utils/api";
 
 type Environment = Awaited<
-	ReturnType<typeof findOrtamlarByProjectId>
+	ReturnType<typeof findEnvironmentsByProjectId>
 >[number];
 interface AdvancedEnvironmentSelectorProps {
 	projectId: string;
@@ -53,17 +53,17 @@ export const AdvancedEnvironmentSelector = ({
 	);
 
 	// Form states
-	const [name, setAd] = useState("");
+	const [name, setName] = useState("");
 	const [description, setDescription] = useState("");
 
 	// Get current user's permissions
 	const { data: permissions } = api.user.getPermissions.useQuery();
 
 	// Check if user can create environments
-	const canCreateOrtamlar = !!permissions?.environment.create;
+	const canCreateEnvironments = !!permissions?.environment.create;
 
 	// Check if user can delete environments
-	const canDeleteOrtamlar = !!permissions?.environment.delete;
+	const canDeleteEnvironments = !!permissions?.environment.delete;
 
 	const haveServices =
 		selectedEnvironment &&
@@ -95,7 +95,7 @@ export const AdvancedEnvironmentSelector = ({
 			// Invalidate the project query to refresh the project data for the advance-breadcrumb
 			utils.project.all.invalidate();
 			setIsCreateDialogOpen(false);
-			setAd("");
+			setName("");
 			setDescription("");
 		} catch (error) {
 			toast.error(
@@ -118,7 +118,7 @@ export const AdvancedEnvironmentSelector = ({
 			utils.environment.byProjectId.invalidate({ projectId });
 			setIsEditDialogOpen(false);
 			setSelectedEnvironment(null);
-			setAd("");
+			setName("");
 			setDescription("");
 		} catch (error) {
 			toast.error(
@@ -181,7 +181,7 @@ export const AdvancedEnvironmentSelector = ({
 
 	const openEditDialog = (environment: Environment) => {
 		setSelectedEnvironment(environment);
-		setAd(environment.name);
+		setName(environment.name);
 		setDescription(environment.description || "");
 		setIsEditDialogOpen(true);
 	};
@@ -199,15 +199,15 @@ export const AdvancedEnvironmentSelector = ({
 		<>
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
-					<Button variant="ghost" classAd="h-auto p-2 font-normal">
-						<div classAd="flex items-center gap-1">
-							<span classAd="text-muted-foreground">/</span>
+					<Button variant="ghost" className="h-auto p-2 font-normal">
+						<div className="flex items-center gap-1">
+							<span className="text-muted-foreground">/</span>
 							<span>{currentEnv?.name || "Ortam Seçin"}</span>
-							<ChevronDownIcon classAd="h-4 w-4 text-muted-foreground" />
+							<ChevronDownIcon className="h-4 w-4 text-muted-foreground" />
 						</div>
 					</Button>
 				</DropdownMenuTrigger>
-				<DropdownMenuContent classAd="w-[300px]" align="start">
+				<DropdownMenuContent className="w-[300px]" align="start">
 					<DropdownMenuLabel>Ortamlar</DropdownMenuLabel>
 					<DropdownMenuSeparator />
 
@@ -223,50 +223,50 @@ export const AdvancedEnvironmentSelector = ({
 						return (
 							<div
 								key={environment.environmentId}
-								classAd="flex items-center"
+								className="flex items-center"
 							>
 								<DropdownMenuItem
-									classAd="flex-1 cursor-pointer"
+									className="flex-1 cursor-pointer"
 									onClick={() => {
 										router.push(
 											`/dashboard/project/${projectId}/environment/${environment.environmentId}`,
 										);
 									}}
 								>
-									<div classAd="flex items-center justify-between w-full">
+									<div className="flex items-center justify-between w-full">
 										<span>
 											{environment.name} ({servicesCount})
 										</span>
 										{environment.environmentId === currentEnvironmentId && (
-											<div classAd="w-2 h-2 bg-blue-500 rounded-full" />
+											<div className="w-2 h-2 bg-blue-500 rounded-full" />
 										)}
 									</div>
 								</DropdownMenuItem>
-								<div classAd="flex items-center gap-1 px-2">
+								<div className="flex items-center gap-1 px-2">
 									{!environment.isDefault && (
 										<Button
 											variant="ghost"
 											size="sm"
-											classAd="h-6 w-6 p-0"
+											className="h-6 w-6 p-0"
 											onClick={(e) => {
 												e.stopPropagation();
 												openEditDialog(environment);
 											}}
 										>
-											<PencilIcon classAd="h-3 w-3" />
+											<PencilIcon className="h-3 w-3" />
 										</Button>
 									)}
-									{canDeleteOrtamlar && !environment.isDefault && (
+									{canDeleteEnvironments && !environment.isDefault && (
 										<Button
 											variant="ghost"
 											size="sm"
-											classAd="h-6 w-6 p-0 text-red-600 hover:text-red-700"
+											className="h-6 w-6 p-0 text-red-600 hover:text-red-700"
 											onClick={(e) => {
 												e.stopPropagation();
 												openDeleteDialog(environment);
 											}}
 										>
-											<TrashIcon classAd="h-3 w-3" />
+											<TrashIcon className="h-3 w-3" />
 										</Button>
 									)}
 								</div>
@@ -275,12 +275,12 @@ export const AdvancedEnvironmentSelector = ({
 					})}
 
 					<DropdownMenuSeparator />
-					{canCreateOrtamlar && (
+					{canCreateEnvironments && (
 						<DropdownMenuItem
-							classAd="cursor-pointer"
+							className="cursor-pointer"
 							onClick={() => setIsCreateDialogOpen(true)}
 						>
-							<PlusIcon classAd="h-4 w-4 mr-2" />
+							<PlusIcon className="h-4 w-4 mr-2" />
 							Ortam Oluştur
 						</DropdownMenuItem>
 					)}
@@ -296,17 +296,17 @@ export const AdvancedEnvironmentSelector = ({
 						</DialogDescription>
 					</DialogHeader>
 
-					<div classAd="space-y-4">
-						<div classAd="space-y-1">
+					<div className="space-y-4">
+						<div className="space-y-1">
 							<Label htmlFor="name">Ad</Label>
 							<Input
 								id="name"
 								value={name}
-								onChange={(e) => setAd(e.target.value)}
+								onChange={(e) => setName(e.target.value)}
 								placeholder="Ortam adı"
 							/>
 						</div>
-						<div classAd="space-y-1">
+						<div className="space-y-1">
 							<Label htmlFor="description">Açıklama (isteğe bağlı)</Label>
 							<Textarea
 								id="description"
@@ -322,7 +322,7 @@ export const AdvancedEnvironmentSelector = ({
 							variant="outline"
 							onClick={() => {
 								setIsCreateDialogOpen(false);
-								setAd("");
+								setName("");
 								setDescription("");
 							}}
 						>
@@ -348,17 +348,17 @@ export const AdvancedEnvironmentSelector = ({
 						</DialogDescription>
 					</DialogHeader>
 
-					<div classAd="space-y-4">
-						<div classAd="space-y-1">
+					<div className="space-y-4">
+						<div className="space-y-1">
 							<Label htmlFor="edit-name">Ad</Label>
 							<Input
 								id="edit-name"
 								value={name}
-								onChange={(e) => setAd(e.target.value)}
+								onChange={(e) => setName(e.target.value)}
 								placeholder="Ortam adı"
 							/>
 						</div>
-						<div classAd="space-y-1">
+						<div className="space-y-1">
 							<Label htmlFor="edit-description">Açıklama (isteğe bağlı)</Label>
 							<Textarea
 								id="edit-description"
@@ -375,7 +375,7 @@ export const AdvancedEnvironmentSelector = ({
 							onClick={() => {
 								setIsEditDialogOpen(false);
 								setSelectedEnvironment(null);
-								setAd("");
+								setName("");
 								setDescription("");
 							}}
 						>

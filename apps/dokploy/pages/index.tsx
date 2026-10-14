@@ -59,11 +59,11 @@ export default function Home({ IS_CLOUD }: Props) {
 	const { data: showSignInWithSSO } = api.sso.showSignInWithSSO.useQuery();
 	const [isLoginLoading, setIsLoginLoading] = useState(false);
 	const [isTwoFactorLoading, setIsTwoFactorLoading] = useState(false);
-	const [isBackupCodeLoading, setIsGeriupCodeLoading] = useState(false);
+	const [isBackupCodeLoading, setIsBackupCodeLoading] = useState(false);
 	const [isTwoFactor, setIsTwoFactor] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [twoFactorCode, setTwoFactorCode] = useState("");
-	const [isBackupCodeModalOpen, setIsGeriupCodeModalOpen] = useState(false);
+	const [isBackupCodeModalOpen, setIsBackupCodeModalOpen] = useState(false);
 	const [backupCode, setBackupCode] = useState("");
 	const loginForm = useForm<LoginForm>({
 		resolver: zodResolver(LoginSchema),
@@ -138,7 +138,7 @@ export default function Home({ IS_CLOUD }: Props) {
 			return;
 		}
 
-		setIsGeriupCodeLoading(true);
+		setIsBackupCodeLoading(true);
 		try {
 			const { error } = await authClient.twoFactor.verifyBackupCode({
 				code: backupCode.trim(),
@@ -157,7 +157,7 @@ export default function Home({ IS_CLOUD }: Props) {
 		} catch {
 			toast.error("Yedek kod doğrulanırken bir hata oluştu");
 		} finally {
-			setIsGeriupCodeLoading(false);
+			setIsBackupCodeLoading(false);
 		}
 	};
 
@@ -268,7 +268,7 @@ export default function Home({ IS_CLOUD }: Props) {
 								</CardDescription>
 								<button
 									type="button"
-									onClick={() => setIsGeriupCodeModalOpen(true)}
+									onClick={() => setIsBackupCodeModalOpen(true)}
 									className="text-sm text-muted-foreground hover:underline self-start mt-2"
 								>
 									Doğrulama uygulamanıza erişiminizi mi kaybettiniz?
@@ -299,7 +299,7 @@ export default function Home({ IS_CLOUD }: Props) {
 
 						<Dialog
 							open={isBackupCodeModalOpen}
-							onOpenChange={setIsGeriupCodeModalOpen}
+							onOpenChange={setIsBackupCodeModalOpen}
 						>
 							<DialogContent>
 								<DialogHeader>
@@ -330,7 +330,7 @@ export default function Home({ IS_CLOUD }: Props) {
 											className="w-full"
 											type="button"
 											onClick={() => {
-												setIsGeriupCodeModalOpen(false);
+												setIsBackupCodeModalOpen(false);
 												setBackupCode("");
 											}}
 										>

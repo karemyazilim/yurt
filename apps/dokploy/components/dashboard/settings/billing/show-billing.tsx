@@ -46,23 +46,23 @@ export const calculatePrice = (count: number, isAnnual = false) => {
 
 /** Hobby: $4.50/mo per server; annual %20 indirim = $43.20/yr per server (4.5 * 12 * 0.8). */
 export const calculatePriceHobby = (count: number, isAnnual = false) => {
-	const perServerAylık = 4.5;
+	const perServerMonthly = 4.5;
 	const perServerAnnual = 43.2; // 4.5 * 12 * 0.8
-	return isAnnual ? count * perServerAnnual : count * perServerAylık;
+	return isAnnual ? count * perServerAnnual : count * perServerMonthly;
 };
 
 /** Startup: 3 servers included ($15/mo); extra servers $4.50/mo each. Annual %20 indirim. */
 export const STARTUP_SERVERS_INCLUDED = 3;
 export const calculatePriceStartup = (count: number, isAnnual = false) => {
-	const baseAylık = 15;
-	const extraAylık = 4.5;
+	const baseMonthly = 15;
+	const extraMonthly = 4.5;
 	const baseAnnual = 144; // 15 * 12 * 0.8
 	const extraAnnual = 43.2; // 4.5 * 12 * 0.8, consistent with Hobby annual
 	if (count <= STARTUP_SERVERS_INCLUDED)
-		return isAnnual ? baseAnnual : baseAylık;
+		return isAnnual ? baseAnnual : baseMonthly;
 	return isAnnual
 		? baseAnnual + (count - STARTUP_SERVERS_INCLUDED) * extraAnnual
-		: baseAylık + (count - STARTUP_SERVERS_INCLUDED) * extraAylık;
+		: baseMonthly + (count - STARTUP_SERVERS_INCLUDED) * extraMonthly;
 };
 
 const navigationItems = [

@@ -1,6 +1,6 @@
 "use client";
 
-import { Link2, Loader2, Bağlantıyı Kaldır } from "lucide-react";
+import { Link2, Loader2, Unlink } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -33,7 +33,7 @@ export function LinkingAccount() {
 	const [linkingProvider, setLinkingProvider] = useState<SocialProvider | null>(
 		null,
 	);
-	const [unlinkingProviderId, setBağlantıyı KaldıringProviderId] = useState<string | null>(
+	const [unlinkingProviderId, setUnlinkingProviderId] = useState<string | null>(
 		null,
 	);
 
@@ -84,8 +84,8 @@ export function LinkingAccount() {
 		}
 	};
 
-	const handleBağlantıyı Kaldır = async (providerId: string, accountId?: string) => {
-		setBağlantıyı KaldıringProviderId(providerId);
+	const handleUnlink = async (providerId: string, accountId?: string) => {
+		setUnlinkingProviderId(providerId);
 		try {
 			const { error } = await authClient.unlinkAccount({
 				providerId,
@@ -103,11 +103,11 @@ export function LinkingAccount() {
 				err instanceof Error ? { description: err.message } : undefined,
 			);
 		} finally {
-			setBağlantıyı KaldıringProviderId(null);
+			setUnlinkingProviderId(null);
 		}
 	};
 
-	const canBağlantıyı Kaldır = accounts.length > 1;
+	const canUnlink = accounts.length > 1;
 
 	return (
 		<Card className="h-full bg-sidebar p-2.5 rounded-xl max-w-6xl mx-auto w-full">
@@ -148,13 +148,13 @@ export function LinkingAccount() {
 										<span className="font-medium">
 											{providerLabel(acc.providerId)}
 										</span>
-										{canBağlantıyı Kaldır && (
+										{canUnlink && (
 											<Button
 												variant="ghost"
 												size="sm"
 												className="text-destructive hover:text-destructive hover:bg-destructive/10"
 												onClick={() =>
-													handleBağlantıyı Kaldır(acc.providerId, acc.accountId)
+													handleUnlink(acc.providerId, acc.accountId)
 												}
 												disabled={unlinkingProviderId === acc.providerId}
 												isLoading={unlinkingProviderId === acc.providerId}
@@ -163,7 +163,7 @@ export function LinkingAccount() {
 													<Loader2 className="size-4 animate-spin" />
 												) : (
 													<>
-														<Bağlantıyı Kaldır className="mr-1.5 size-4" />
+														<Unlink className="mr-1.5 size-4" />
 														Bağlantıyı Kaldır
 													</>
 												)}

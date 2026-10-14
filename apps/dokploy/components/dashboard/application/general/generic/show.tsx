@@ -2,10 +2,10 @@ import { GitBranch, Loader2, UploadCloud } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
-import { SaveDockerSağlayıcı } from "@/components/dashboard/application/general/generic/save-docker-provider";
-import { SaveGitSağlayıcı } from "@/components/dashboard/application/general/generic/save-git-provider";
-import { SaveGiteaSağlayıcı } from "@/components/dashboard/application/general/generic/save-gitea-provider";
-import { SaveGithubSağlayıcı } from "@/components/dashboard/application/general/generic/save-github-provider";
+import { SaveDockerProvider } from "@/components/dashboard/application/general/generic/save-docker-provider";
+import { SaveGitProvider } from "@/components/dashboard/application/general/generic/save-git-provider";
+import { SaveGiteaProvider } from "@/components/dashboard/application/general/generic/save-gitea-provider";
+import { SaveGithubProvider } from "@/components/dashboard/application/general/generic/save-github-provider";
 import {
 	BitbucketIcon,
 	DockerIcon,
@@ -17,10 +17,10 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { api } from "@/utils/api";
-import { SaveBitbucketSağlayıcı } from "./save-bitbucket-provider";
+import { SaveBitbucketProvider } from "./save-bitbucket-provider";
 import { SaveDragNDrop } from "./save-drag-n-drop";
-import { SaveGitlabSağlayıcı } from "./save-gitlab-provider";
-import { UnauthorizedGitSağlayıcı } from "./unauthorized-git-provider";
+import { SaveGitlabProvider } from "./save-gitlab-provider";
+import { UnauthorizedGitProvider } from "./unauthorized-git-provider";
 
 type TabState =
 	| "github"
@@ -35,21 +35,21 @@ interface Props {
 	applicationId: string;
 }
 
-export const ShowSağlayıcıForm = ({ applicationId }: Props) => {
-	const { data: githubSağlayıcıs, isPending: isLoadingGithub } =
-		api.github.githubSağlayıcıs.useQuery();
-	const { data: gitlabSağlayıcıs, isPending: isLoadingGitlab } =
-		api.gitlab.gitlabSağlayıcıs.useQuery();
-	const { data: bitbucketSağlayıcıs, isPending: isLoadingBitbucket } =
-		api.bitbucket.bitbucketSağlayıcıs.useQuery();
-	const { data: giteaSağlayıcıs, isPending: isLoadingGitea } =
-		api.gitea.giteaSağlayıcıs.useQuery();
+export const ShowProviderForm = ({ applicationId }: Props) => {
+	const { data: githubProviders, isPending: isLoadingGithub } =
+		api.github.githubProviders.useQuery();
+	const { data: gitlabProviders, isPending: isLoadingGitlab } =
+		api.gitlab.gitlabProviders.useQuery();
+	const { data: bitbucketProviders, isPending: isLoadingBitbucket } =
+		api.bitbucket.bitbucketProviders.useQuery();
+	const { data: giteaProviders, isPending: isLoadingGitea } =
+		api.gitea.giteaProviders.useQuery();
 
 	const { data: application, refetch } = api.application.one.useQuery({
 		applicationId,
 	});
-	const { mutateAsync: disconnectGitSağlayıcı } =
-		api.application.disconnectGitSağlayıcı.useMutation();
+	const { mutateAsync: disconnectGitProvider } =
+		api.application.disconnectGitProvider.useMutation();
 
 	const [tab, setSab] = useState<TabState>(application?.sourceType || "github");
 
@@ -58,7 +58,7 @@ export const ShowSağlayıcıForm = ({ applicationId }: Props) => {
 
 	const handleDisconnect = async () => {
 		try {
-			await disconnectGitSağlayıcı({ applicationId });
+			await disconnectGitProvider({ applicationId });
 			toast.success("Depo bağlantısı başarıyla kesildi");
 			await refetch();
 		} catch (error) {
@@ -101,7 +101,7 @@ export const ShowSağlayıcıForm = ({ applicationId }: Props) => {
 	// Check if user doesn't have access to the current git provider
 	if (
 		application &&
-		!application.hasGitSağlayıcıAccess &&
+		!application.hasGitProviderAccess &&
 		application.sourceType !== "docker" &&
 		application.sourceType !== "drop"
 	) {
@@ -121,7 +121,7 @@ export const ShowSağlayıcıForm = ({ applicationId }: Props) => {
 					</CardTitle>
 				</CardHeader>
 				<CardContent>
-					<UnauthorizedGitSağlayıcı
+					<UnauthorizedGitProvider
 						service={application}
 						onDisconnect={handleDisconnect}
 					/>
@@ -208,8 +208,8 @@ export const ShowSağlayıcıForm = ({ applicationId }: Props) => {
 					</div>
 
 					<TabsContent value="github" className="w-full p-2">
-						{githubSağlayıcıs && githubSağlayıcıs?.length > 0 ? (
-							<SaveGithubSağlayıcı applicationId={applicationId} />
+						{githubProviders && githubProviders?.length > 0 ? (
+							<SaveGithubProvider applicationId={applicationId} />
 						) : (
 							<div className="flex flex-col items-center gap-3 min-h-[25vh] justify-center">
 								<GithubIcon className="size-8 text-muted-foreground" />
@@ -228,8 +228,8 @@ export const ShowSağlayıcıForm = ({ applicationId }: Props) => {
 						)}
 					</TabsContent>
 					<TabsContent value="gitlab" className="w-full p-2">
-						{gitlabSağlayıcıs && gitlabSağlayıcıs?.length > 0 ? (
-							<SaveGitlabSağlayıcı applicationId={applicationId} />
+						{gitlabProviders && gitlabProviders?.length > 0 ? (
+							<SaveGitlabProvider applicationId={applicationId} />
 						) : (
 							<div className="flex flex-col items-center gap-3 min-h-[25vh] justify-center">
 								<GitlabIcon className="size-8 text-muted-foreground" />
@@ -248,8 +248,8 @@ export const ShowSağlayıcıForm = ({ applicationId }: Props) => {
 						)}
 					</TabsContent>
 					<TabsContent value="bitbucket" className="w-full p-2">
-						{bitbucketSağlayıcıs && bitbucketSağlayıcıs?.length > 0 ? (
-							<SaveBitbucketSağlayıcı applicationId={applicationId} />
+						{bitbucketProviders && bitbucketProviders?.length > 0 ? (
+							<SaveBitbucketProvider applicationId={applicationId} />
 						) : (
 							<div className="flex flex-col items-center gap-3 min-h-[25vh] justify-center">
 								<BitbucketIcon className="size-8 text-muted-foreground" />
@@ -268,8 +268,8 @@ export const ShowSağlayıcıForm = ({ applicationId }: Props) => {
 						)}
 					</TabsContent>
 					<TabsContent value="gitea" className="w-full p-2">
-						{giteaSağlayıcıs && giteaSağlayıcıs?.length > 0 ? (
-							<SaveGiteaSağlayıcı applicationId={applicationId} />
+						{giteaProviders && giteaProviders?.length > 0 ? (
+							<SaveGiteaProvider applicationId={applicationId} />
 						) : (
 							<div className="flex flex-col items-center gap-3 min-h-[25vh] justify-center">
 								<GiteaIcon className="size-8 text-muted-foreground" />
@@ -288,11 +288,11 @@ export const ShowSağlayıcıForm = ({ applicationId }: Props) => {
 						)}
 					</TabsContent>
 					<TabsContent value="docker" className="w-full p-2">
-						<SaveDockerSağlayıcı applicationId={applicationId} />
+						<SaveDockerProvider applicationId={applicationId} />
 					</TabsContent>
 
 					<TabsContent value="git" className="w-full p-2">
-						<SaveGitSağlayıcı applicationId={applicationId} />
+						<SaveGitProvider applicationId={applicationId} />
 					</TabsContent>
 					<TabsContent value="drop" className="w-full p-2">
 						<SaveDragNDrop applicationId={applicationId} />
