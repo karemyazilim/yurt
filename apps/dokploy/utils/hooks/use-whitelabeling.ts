@@ -1,25 +1,17 @@
-import { api } from "@/utils/api";
+import type { whitelabelingConfigSchema } from "@dokploy/server/db/schema";
+import type { z } from "zod";
 
-/**
- * Hook to access whitelabeling config for authenticated pages (dashboard, services, etc.).
- * Requires the user to be logged in.
- */
+type WhitelabelingConfig = z.infer<typeof whitelabelingConfigSchema>;
+
+// Beyaz etiket Dokploy kurumsal (DSAL) özelliğidir ve Yurt'ta yoktur.
+// Sayfalar her zaman varsayılan Yurt görünümünü kullanır.
+
+/** Oturum açılmış sayfalar için beyaz etiket ayarı (Yurt'ta her zaman yok). */
 export function useWhitelabeling() {
-	const { data, ...rest } = api.whitelabeling.get.useQuery(undefined, {
-		staleTime: 5 * 60 * 1000,
-		refetchOnWindowFocus: false,
-	});
-	return { config: data ?? null, ...rest };
+	return { config: null as WhitelabelingConfig | null };
 }
 
-/**
- * Hook to access the public whitelabeling config.
- * Only for unauthenticated pages (login, register, error, invitation, password reset).
- */
+/** Oturum açılmamış sayfalar için beyaz etiket ayarı (Yurt'ta her zaman yok). */
 export function useWhitelabelingPublic() {
-	const { data, ...rest } = api.whitelabeling.getPublic.useQuery(undefined, {
-		staleTime: 5 * 60 * 1000,
-		refetchOnWindowFocus: false,
-	});
-	return { config: data ?? null, ...rest };
+	return { config: null as WhitelabelingConfig | null };
 }

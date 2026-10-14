@@ -26,7 +26,6 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Switch } from "@/components/ui/switch";
-import { EnterpriseFeatureLocked } from "@/components/proprietary/enterprise-feature-gate";
 import { api, type RouterOutputs } from "@/utils/api";
 
 /** Shape returned by project.allForPermissions (admin only). Used for the permissions UI. */
@@ -199,8 +198,8 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 	const { data: projects } = api.project.allForPermissions.useQuery(undefined, {
 		enabled: isOpen,
 	});
-	const { data: haveValidLicense } =
-		api.licenseKey.haveValidLicenseKey.useQuery();
+	// Git sağlayıcı ve sunucu ataması Dokploy kurumsal lisansı gerektirir; Yurt'ta kapalı.
+	const haveValidLicense = false;
 
 	const { data: gitProviders } = api.gitProvider.allForPermissions.useQuery(
 		undefined,
@@ -955,15 +954,7 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 									</FormItem>
 								)}
 							/>
-						) : (
-							<div className="md:col-span-2">
-								<EnterpriseFeatureLocked
-									compact
-									title="Git Provider Assignment"
-									description="Assign specific Git Providers to users with an Enterprise license."
-								/>
-							</div>
-						)}
+						) : null}
 						{haveValidLicense ? (
 							<FormField
 								control={form.control}
@@ -1028,15 +1019,7 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 									</FormItem>
 								)}
 							/>
-						) : (
-							<div className="md:col-span-2">
-								<EnterpriseFeatureLocked
-									compact
-									title="Server Assignment"
-									description="Assign specific Servers to users with an Enterprise license."
-								/>
-							</div>
-						)}
+						) : null}
 						<DialogFooter className="flex w-full flex-row justify-end md:col-span-2">
 							<Button
 								isLoading={isPending}

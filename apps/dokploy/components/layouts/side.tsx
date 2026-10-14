@@ -11,7 +11,6 @@ import {
 	ChevronRight,
 	ChevronsUpDown,
 	CircleHelp,
-	ClipboardList,
 	Clock,
 	CreditCard,
 	Database,
@@ -22,10 +21,8 @@ import {
 	Key,
 	KeyRound,
 	Loader2,
-	LogIn,
 	type LucideIcon,
 	Package,
-	Palette,
 	PieChart,
 	Rocket,
 	Server,
@@ -91,6 +88,7 @@ import { Button } from "../ui/button";
 import { TimeBadge } from "../ui/time-badge";
 import { UpdateServerButton } from "./update-server";
 import { UserNav } from "./user-nav";
+import { useWhitelabeling } from "@/utils/hooks/use-whitelabeling";
 
 // The types of the queries we are going to use
 type AuthQueryOutput = inferRouterOutputs<AppRouter>["user"]["get"];
@@ -306,13 +304,6 @@ const MENU: Menu = {
 		},
 		{
 			isSingle: true,
-			title: "Denetim Kayıtları",
-			icon: ClipboardList,
-			url: "/dashboard/settings/audit-logs",
-			isEnabled: ({ permissions }) => !!permissions?.auditLog.read,
-		},
-		{
-			isSingle: true,
 			title: "SSH Anahtarları",
 			icon: KeyRound,
 			url: "/dashboard/settings/ssh-keys",
@@ -387,30 +378,6 @@ const MENU: Menu = {
 			icon: CreditCard,
 			// Only enabled for owners in cloud environments
 			isEnabled: ({ auth, isCloud }) => !!(auth?.role === "owner" && isCloud),
-		},
-		{
-			isSingle: true,
-			title: "Lisans",
-			url: "/dashboard/settings/license",
-			icon: Key,
-			// Only enabled for owners
-			isEnabled: ({ auth }) => !!(auth?.role === "owner"),
-		},
-		{
-			isSingle: true,
-			title: "SSO",
-			url: "/dashboard/settings/sso",
-			icon: LogIn,
-			// Enabled for admins in both cloud and self-hosted (enterprise)
-			isEnabled: ({ permissions }) => !!permissions?.organization.update,
-		},
-		{
-			isSingle: true,
-			title: "Marka Özelleştirme",
-			url: "/dashboard/settings/whitelabeling",
-			icon: Palette,
-			// Only enabled for owners in non-cloud environments (enterprise)
-			isEnabled: ({ auth, isCloud }) => !!(auth?.role === "owner" && !isCloud),
 		},
 	],
 
@@ -881,10 +848,7 @@ export default function Page({ children }: Props) {
 	const { data: auth } = api.user.get.useQuery();
 	const { data: permissions } = api.user.getPermissions.useQuery();
 	const { data: dokployVersion } = api.settings.getDokployVersion.useQuery();
-	const { data: whitelabeling } = api.whitelabeling.get.useQuery(undefined, {
-		staleTime: 5 * 60 * 1000,
-		refetchOnWindowFocus: false,
-	});
+	const { config: whitelabeling } = useWhitelabeling();
 
 	const includesProjects = pathname?.includes("/dashboard/project");
 	const { data: isCloud } = api.settings.isCloud.useQuery();

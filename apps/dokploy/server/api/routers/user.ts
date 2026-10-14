@@ -14,7 +14,7 @@ import {
 	updateUser,
 } from "@dokploy/server";
 import { db } from "@dokploy/server/db";
-import { hasValidLicense } from "@dokploy/server/services/proprietary/license-key";
+import { hasValidLicense } from "@dokploy/server/services/enterprise";
 import {
 	account,
 	apiAssignPermissions,
