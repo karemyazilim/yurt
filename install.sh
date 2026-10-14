@@ -1,9 +1,12 @@
 #!/bin/bash
 # Yurt — Güvenli self-hosted PaaS kurulum scripti
-# Dokploy fork'u: https://github.com/karemyazilim/dokploy
+# Kaynak: https://github.com/karemyazilim/yurt (Dokploy tabanlı)
 # Lisans: Apache 2.0
 
 set -euo pipefail
+
+# Yurt Docker imajı (Docker Hub)
+YURT_IMAGE="${YURT_IMAGE:-karemyazilim/yurt}"
 
 # ── Renk kodları ─────────────────────────────────────────────
 GREEN="\033[0;32m"
@@ -19,11 +22,11 @@ log_error() { printf "${RED}[ERROR]${NC} %s\n" "$1" >&2; }
 
 # ── Versiyon tespiti ─────────────────────────────────────────
 detect_version() {
-    local version="${DOKPLOY_VERSION:-}"
+    local version="${YURT_VERSION:-${DOKPLOY_VERSION:-}}"
     if [ -z "$version" ]; then
         log_info "GitHub'dan son kararlı sürüm tespit ediliyor..."
         version=$(curl -fsSL -o /dev/null -w '%{url_effective}\n' \
-            https://github.com/dokploy/dokploy/releases/latest 2>/dev/null | \
+            https://github.com/karemyazilim/yurt/releases/latest 2>/dev/null | \
             sed 's#.*/tag/##')
         if [ -z "$version" ]; then
             log_warn "Sürüm tespit edilemedi, 'latest' kullanılıyor"
@@ -123,7 +126,7 @@ preflight_checks() {
 # ── Ana kurulum ──────────────────────────────────────────────
 install_yurt() {
     VERSION_TAG=$(detect_version)
-    DOCKER_IMAGE="dokploy/dokploy:${VERSION_TAG}"
+    DOCKER_IMAGE="${YURT_IMAGE}:${VERSION_TAG}"
     log_info "Yurt kurulumu başlıyor (sürüm: ${VERSION_TAG})"
 
     preflight_checks
@@ -272,7 +275,7 @@ install_yurt() {
 # ── Güncelleme ───────────────────────────────────────────────
 update_yurt() {
     VERSION_TAG=$(detect_version)
-    DOCKER_IMAGE="dokploy/dokploy:${VERSION_TAG}"
+    DOCKER_IMAGE="${YURT_IMAGE}:${VERSION_TAG}"
     log_info "Yurt güncelleniyor: ${VERSION_TAG}"
     docker pull "$DOCKER_IMAGE"
     docker service update --image "$DOCKER_IMAGE" dokploy

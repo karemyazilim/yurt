@@ -531,7 +531,7 @@ export const settingsRouter = createTRPCRouter({
 				"update",
 				"--force",
 				"--image",
-				`dokploy/dokploy:${data.latestVersion}`,
+				`karemyazilim/yurt:${data.latestVersion}`,
 				"dokploy",
 			]);
 			await audit(ctx, {
